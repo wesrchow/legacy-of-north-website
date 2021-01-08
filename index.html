@@ -18,11 +18,52 @@
 </head>
 
 <body>
+    <!-- NAV BAR -->
+<nav class="navbar justify-content-center">
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">Virtual Tour</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">Gallery</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="index.html">About</a>
+        </li>
+    </ul>
+</nav>
 
+    <!-- FULL PAGE COVER SCREEN -->
+<div class="fullscreen-video-container">
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="test-media/endgame_trailer.mp4" type="video/mp4">
+    </video>
+</div>
 
+    <!-- INTRO HOMEPAGE CONTENT -->
+<section class="py-5">
+    <div class="container">
+        <h1>fancy looking stuff nicely styled here</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at eaque facilis numquam quo recusandae sit temporibus voluptatum! Ab aliquam nesciunt quisquam
+            reiciendis voluptatum. Est fuga maxime minima sed tenetur.</p>
+
+        <h2>we should be able to have all sorts fo introduction stuff here</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet, at deserunt dolore doloremque eaque eius eligendi eos, fugiat in minima non odio qui quibusdam
+            repudiandae sint. Distinctio eaque eum suscipit!</p>
+        <p>yay content</p>
+    </div>
+</section>
+
+    <!-- FOOTER -->
+<footer>
+<!--links to stuff?-->
+<!--credits-->
+</footer>
 
     <!-- SCRIPTS INCLUSIONS -->
-
 <!-- instant.page -->
 <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
 <!--<script>if (typeof (ugh) === 'undefined') {document.write('<script src="local/instantpage-5.1.0.js"></\script>')}</script> &lt;!&ndash;todo: find a way to verify this
@@ -33,7 +74,7 @@ one&ndash;&gt;-->
 <script>if (typeof (jQuery) === 'undefined') {document.write('<script src="local/jquery.min.js"></\script>')}</script>
 
 <!-- Stylesheet CDN Fallbacks -->
-<script>document.write($('body').css('color'))</script>
+<!--<script>document.write($('body').css('color'))</script>-->
 <!--<script>$('<link rel="stylesheet" href="local/bootstrap.min.css">').insertBefore($("#bootstrap-custom"))</script>-->
 <!--<script>$('<link rel="stylesheet" href="local/fullpage.min.css">').insertBefore($("#bootstrap-custom"))</script>-->
 <!-- todo: figure out stylesheet attributes that will always stay the same to check if the CDN is loading properly (no custom changes by us)-->
