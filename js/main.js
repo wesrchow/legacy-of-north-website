@@ -1,20 +1,21 @@
 $(document).ready(function () {
 
-    $("button").click(function(){
-        $("test").animate({left: '250px'});
+    /* Navbar */
+    $("#mobile-navbar-button").click(function () {
+        const navbarLinks = $('#navbar-links');
+
+        navbarLinks.toggleClass('open');
+        navbarLinks.children().toggleClass('open');
     });
 
-    /* When the user scrolls down, hide the navbar. When the user scrolls up, show the navbar */
-    // var prevScrollpos = window.pageYOffset;
-    // window.onscroll = function() {
-    //     var currentScrollPos = window.pageYOffset;
-    //     if (prevScrollpos > currentScrollPos) {
-    //         $("navbar").style.top = "0";
-    //     } else {
-    //         document.getElementById("navbar").style.top = "-50px";
-    //     }
-    //     prevScrollpos = currentScrollPos;
-    // }
-
-
 });
+
+// If the window size is larger than the mobile nav criteria, remove the mobile nav classes
+$(window).on('resize',function() {
+    if (!window.matchMedia("(max-width: 900px)").matches) {
+        const navbarLinks = $('#navbar-links');
+
+        navbarLinks.removeClass('open');
+        navbarLinks.children().removeClass('open');
+    }
+}).trigger('resize');
