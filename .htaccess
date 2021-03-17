@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "Legacy of North WIP"
+AuthUserFile /.htpasswd
+require valid-user
