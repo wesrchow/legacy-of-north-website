@@ -32,10 +32,56 @@
     <div class="mobile-navbar-button" id="mobile-navbar-button"><i class="fa fa-bars"></i></div>
 </nav>
 
-    <!-- MAIN CANVAS AREA -->
-<div class="container">
-    <img src="test-media/Hexagons%20Background%203.jpg" class="img-fluid">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <input type="text" id="searchBar" onkeyup="searchBar()" placeholder="Search..">
+        <ul id="location-list" class="location-list">
+            <!-- North Building -->
+            <li class="sidebar-list-1">
+                <a href="#" class="dropdown-btn">North Building</a>
+                <ul class="">
+                    <li class="sidebar-list-2"><a href="#">North Cafeteria</a></li>
+                    <li class="sidebar-list-2"><a href="#">Auxiliary Gymnasium</a></li>
+                    <li class="sidebar-list-2">
+                        <a href="#" class="dropdown-btn">Room 112</a>
+                        <ul class="dropdown-container">
+                            <li class="sidebar-list-3"><a href="#">Room 112 IMG 1</a></li>
+                            <li class="sidebar-list-3"><a href="#">Room 112 IMG 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list-2">
+                        <a href="#" class="dropdown-btn">Room 215</a>
+                        <ul class="dropdown-container">
+                            <li class="sidebar-list-3"><a href="#">Room 215 IMG 1</a></li>
+                            <li class="sidebar-list-3"><a href="#">Room 215 IMG 2</a></li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-list-2"><a href="#">"The Dungeon"</a></li>
+                </ul>
+            </li>
+
+            <!-- South Building-->
+            <li class="sidebar-list-1">
+                <a href="#" class="dropdown-btn">South Building</a>
+                <ul class="dropdown-container">
+                    <li class="sidebar-list-2"><a href="#">Library</a></li>
+                    <li class="sidebar-list-2"><a href="#">Room 20</a></li>
+                    <li class="sidebar-list-2"><a href="#">First Aid Room</a></li>
+                </ul>
+            </li>
+
+            <!-- Outside -->
+            <li class="sidebar-list-1"><a href="#">Outside</a></li>
+        </ul>
+    </div>
+
+
+    <!-- MAIN MEDIA AREA -->
+<div class="media-container">
+    <img src="included-media/example_north_map.svg" alt="" width="90%" height="10%">
 </div>
+
 
     <!-- FOOTER -->
 <footer>
@@ -73,5 +119,6 @@
 
 <!-- Other Scripts -->
 <script src="js/main.js"></script>
+<script src="js/media.js"></script>
 </body>
 </html>

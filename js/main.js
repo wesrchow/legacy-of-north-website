@@ -7,7 +7,7 @@ $(document).ready(function () {
         navbarLinks.toggleClass('open');
         navbarLinks.children().toggleClass('open');
     });
-
+    
 });
 
 // If the window size is larger than the mobile nav criteria, remove the mobile nav classes
