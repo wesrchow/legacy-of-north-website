@@ -1,6 +1,5 @@
 /*
-    Use this stylesheet for custom styles within the "media" pages (virtual tour, gallery) that conflict with other
-    general page styles
+    Use this stylesheet for custom styles within the "media" pages (virtual tour, gallery) that are unused or conflict with other general page styles
 */
 
 /* Navbar Styling */
@@ -197,5 +196,4 @@
     overflow: hidden;
     float: right;
     padding: 0;
-
 }
