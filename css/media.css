@@ -196,4 +196,17 @@
     overflow: hidden;
     float: right;
     padding: 0;
+    cursor: grab;
+}
+
+.media-container img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.media-container:hover {
+
 }

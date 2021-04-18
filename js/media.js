@@ -83,4 +83,74 @@ $(document).ready(function () {
     }
 
 
+    /* Draggable Map */
+    var dragging = false;
+    var startMouseX;
+    var startMouseY;
+    var currentMouseX;
+    var currentMouseY;
+    var previousMapLeft;
+    var previousMapTop;
+
+    const mediaContainer = $("#media-container");
+    const schoolMap = $("#school-map");
+
+    mediaContainer.mousedown(function (event) {
+        dragging = true;
+
+        mediaContainer.css("cursor","grabbing");
+
+        startMouseX = event.clientX;
+        startMouseY = event.clientY;
+    });
+
+    mediaContainer.mouseup(function () {
+        dragging = false;
+
+        mediaContainer.css("cursor", "grab");
+
+        previousMapLeft = parseFloat(schoolMap.css("left").split("px"));
+        previousMapTop = parseFloat(schoolMap.css("top").split("px"));
+    });
+
+    mediaContainer.mouseleave(function () {
+        dragging = false;
+
+        mediaContainer.css("cursor", "grab");
+
+        previousMapLeft = parseFloat(schoolMap.css("left").split("px"));
+        previousMapTop = parseFloat(schoolMap.css("top").split("px"));
+    })
+
+    mediaContainer.mousemove(function (event) {
+        if (dragging) {
+            currentMouseX = event.clientX;
+            currentMouseY = event.clientY;
+            console.log(currentMouseX, startMouseX)
+
+            var moveX = currentMouseX - startMouseX;
+            var moveY = currentMouseY - startMouseY;
+
+
+            var newX = moveX + previousMapLeft;
+            var newY = moveY + previousMapTop;
+
+            if (!(newX > 0)) {
+                schoolMap.css("left", newX);
+            } else {
+                schoolMap.css("left", "0");
+            }
+
+            if (!(newY > 0)) {
+                schoolMap.css("top", newY);
+            } else {
+                schoolMap.css("top", "0");
+            }
+
+        }
+        // var test = event.clientX;
+        // console.log(test);
+    });
+
+
 });
