@@ -84,6 +84,7 @@ $(document).ready(function () {
 
 
     /* Draggable Map */
+    // TODO: fix when the map is smaller than the media container (maybe use another container around the map image?), allow the map to be centered
     var dragging = false;
     var startMouseX;
     var startMouseY;
@@ -95,6 +96,7 @@ $(document).ready(function () {
     const mediaContainer = $("#media-container");
     const schoolMap = $("#school-map");
 
+    // click and drag implementation
     mediaContainer.mousedown(function (event) {
         dragging = true;
 
@@ -134,16 +136,16 @@ $(document).ready(function () {
             var newX = moveX + previousMapLeft;
             var newY = moveY + previousMapTop;
 
-            var maxNegLeft = schoolMap.width();
+            var maxNegLeft = mediaContainer.width() - schoolMap.width();
             var maxNegTop = mediaContainer.height() - schoolMap.height();
-            console.log(mediaContainer.outerHeight(true));
-            console.log(schoolMap.height());
-            console.log(maxNegTop);
 
-            if (!(newX > 0)) {
-                schoolMap.css("left", newX);
-            } else {
+            if (newX > 0) {
                 schoolMap.css("left", "0");
+            } else if (newX < maxNegLeft) {
+                schoolMap.css("left", maxNegLeft);
+            }
+            else {
+                schoolMap.css("left", newX);
             }
 
             if (newY > 0) {
@@ -154,6 +156,34 @@ $(document).ready(function () {
             else {
                 schoolMap.css("top", newY);
             }
+        }
+    });
+
+    // zoom implementation
+    // TODO: finish zoom function (rn its taking over the sidebar width) and maybe smooth out the animation
+    var maxZoomFactor = 5;
+    var currentZoomFactor = 1;
+    var zoomPercent = 0;
+
+    mediaContainer.on("wheel", function (event) {
+        console.log(currentZoomFactor);
+        if(event.originalEvent.deltaY < 0) {
+            if (currentZoomFactor < 5) {
+                currentZoomFactor++;
+                zoomPercent = 75 + (25 * currentZoomFactor);
+                schoolMap.animate({height: zoomPercent + "%"}, 120);
+            }
+
+
+        }
+        else {
+            if (currentZoomFactor > 0) {
+                currentZoomFactor--;
+                zoomPercent = 75 + (25 * currentZoomFactor);
+                schoolMap.animate({height: zoomPercent + "%"}, 120);
+            }
+
+
         }
     });
 

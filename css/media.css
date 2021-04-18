@@ -2,6 +2,22 @@
     Use this stylesheet for custom styles within the "media" pages (virtual tour, gallery) that are unused or conflict with other general page styles
 */
 
+/* Page Setup */
+body, html {
+    display: -webkit-flex;
+    -webkit-flex-flow: column;
+    height: 100%;
+}
+
+.media-page-container {
+    display: -webkit-flex;
+    -webkit-flex-grow: 1;
+    width: 100%;
+    -webkit-flex-flow: row;
+    overflow: hidden;
+}
+
+
 /* Navbar Styling */
 .navbar-custom {
     /*background-color: transparent;*/
@@ -74,11 +90,11 @@
 }
 
 .sidebar {
-    float: left;
+    /*float: left;*/
     height: 100%;
     width: 15%;
     padding: 0;
-    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    /*!*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*!*/
     z-index: 1; /* Stay on top */
     background-color: #ffffff;
     overflow-y: -moz-scrollbars-vertical;
@@ -189,12 +205,11 @@
 
 /* Media Area Styling */
 .media-container {
-    position: fixed;
-    width: 85%;
+    /*position: fixed;*/
+    /*width: 85%;*/
     height: 100%;
-    left: 15%;
-    overflow: hidden;
-    float: right;
+    -webkit-flex: 1;
+    /*float: right;*/
     padding: 0;
     cursor: grab;
 }
