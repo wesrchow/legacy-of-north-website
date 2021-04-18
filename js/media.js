@@ -126,14 +126,19 @@ $(document).ready(function () {
         if (dragging) {
             currentMouseX = event.clientX;
             currentMouseY = event.clientY;
-            console.log(currentMouseX, startMouseX)
+            // console.log(currentMouseX, startMouseX);
 
             var moveX = currentMouseX - startMouseX;
             var moveY = currentMouseY - startMouseY;
 
-
             var newX = moveX + previousMapLeft;
             var newY = moveY + previousMapTop;
+
+            var maxNegLeft = schoolMap.width();
+            var maxNegTop = mediaContainer.height() - schoolMap.height();
+            console.log(mediaContainer.outerHeight(true));
+            console.log(schoolMap.height());
+            console.log(maxNegTop);
 
             if (!(newX > 0)) {
                 schoolMap.css("left", newX);
@@ -141,15 +146,15 @@ $(document).ready(function () {
                 schoolMap.css("left", "0");
             }
 
-            if (!(newY > 0)) {
-                schoolMap.css("top", newY);
-            } else {
+            if (newY > 0) {
                 schoolMap.css("top", "0");
+            } else if (newY < maxNegTop) {
+                schoolMap.css("top", maxNegTop);
             }
-
+            else {
+                schoolMap.css("top", newY);
+            }
         }
-        // var test = event.clientX;
-        // console.log(test);
     });
 
 
