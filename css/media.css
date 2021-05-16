@@ -92,7 +92,7 @@ body, html {
 .sidebar {
     /*float: left;*/
     height: 100%;
-    width: 15%;
+    width: 20%;
     padding: 0;
     /*!*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*!*/
     z-index: 1; /* Stay on top */
@@ -205,21 +205,91 @@ body, html {
 
 /* Media Area Styling */
 .media-container {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
     /*position: fixed;*/
     /*width: 85%;*/
     height: 100%;
     -webkit-flex: 1;
+    max-width: initial;
     /*float: right;*/
     padding: 0;
     cursor: grab;
+    overflow: hidden;
 }
 
-.media-container img {
+.map-container {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: auto;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+
+    /*align-items: flex-start;*/
+
+
+    /*background: url("../included-media/example_north_map.svg") no-repeat;*/
+    /*background-size: contain;*/
+    /*background-origin: padding-box;*/
+
+    /*display: block;*/
+    /*top: 0;*/
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+/*.map-container #school-map {*/
+/*    -webkit-user-drag: none;*/
+/*    -webkit-user-select: none;*/
+/*    position: relative;*/
+/*    top: 0;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, 0);*/
+/*    padding: 15px;*/
+/*}*/
+
+.map-container img + .locations-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.map-container img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    height: 100%;
+    padding: 15px 15px;
+}
+
+.locations-container {
+    width: 100%;
+    height: 100%;
+}
+
+.locations-container img {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     position: relative;
-    top: 0;
-    left: 0;
+}
+
+#test-img {
+    height: 10%;
+    left: 30px;
+    top: 390px;
+    padding: 0 0;
+}
+
+.map-click-test {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    left: 800px;
+    top: 50px;
+    background: #0f6674;
+    padding: 0 0;
+    margin: 0 0;
 }
 
 .media-container:hover {

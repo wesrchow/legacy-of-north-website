@@ -85,13 +85,13 @@ $(document).ready(function () {
 
     /* Draggable Map */
     // TODO: fix when the map is smaller than the media container (maybe use another container around the map image?), allow the map to be centered
-    var dragging = false;
-    var startMouseX;
-    var startMouseY;
-    var currentMouseX;
-    var currentMouseY;
-    var previousMapLeft;
-    var previousMapTop;
+    let dragging = false;
+    let startMouseX;
+    let startMouseY;
+    let currentMouseX;
+    let currentMouseY;
+    let previousMapLeft;
+    let previousMapTop;
 
     const mediaContainer = $("#media-container");
     const schoolMap = $("#school-map");
@@ -106,7 +106,7 @@ $(document).ready(function () {
         startMouseY = event.clientY;
     });
 
-    mediaContainer.mouseup(function () {
+    $(document).mouseup(function () { /*mediaContainer*/
         dragging = false;
 
         mediaContainer.css("cursor", "grab");
@@ -115,74 +115,120 @@ $(document).ready(function () {
         previousMapTop = parseFloat(schoolMap.css("top").split("px"));
     });
 
-    mediaContainer.mouseleave(function () {
-        dragging = false;
+    /* no longer need to deal with the mouse leaving the container because drag is now detected everywhere (even outside web window)*/
+    // mediaContainer.mouseleave(function () {
+    //     dragging = false;
+    //
+    //     mediaContainer.css("cursor", "grab");
+    //
+    //     previousMapLeft = parseFloat(schoolMap.css("left").split("px"));
+    //     previousMapTop = parseFloat(schoolMap.css("top").split("px"));
+    // })
 
-        mediaContainer.css("cursor", "grab");
-
-        previousMapLeft = parseFloat(schoolMap.css("left").split("px"));
-        previousMapTop = parseFloat(schoolMap.css("top").split("px"));
-    })
-
-    mediaContainer.mousemove(function (event) {
+    $(document).mousemove(function (event) {
         if (dragging) {
             currentMouseX = event.clientX;
             currentMouseY = event.clientY;
             // console.log(currentMouseX, startMouseX);
 
-            var moveX = currentMouseX - startMouseX;
-            var moveY = currentMouseY - startMouseY;
+            let moveX = currentMouseX - startMouseX;
+            let moveY = currentMouseY - startMouseY;
 
-            var newX = moveX + previousMapLeft;
-            var newY = moveY + previousMapTop;
+            let newX = moveX + previousMapLeft;
+            let newY = moveY + previousMapTop;
 
-            var maxNegLeft = mediaContainer.width() - schoolMap.width();
-            var maxNegTop = mediaContainer.height() - schoolMap.height();
+            let maxNegLeft = mediaContainer.width() - schoolMap.outerWidth();
+            let maxNegTop = mediaContainer.height() - schoolMap.outerHeight();
 
-            if (newX > 0) {
-                schoolMap.css("left", "0");
-            } else if (newX < maxNegLeft) {
-                schoolMap.css("left", maxNegLeft);
-            }
-            else {
-                schoolMap.css("left", newX);
+            if (schoolMap.outerWidth() > mediaContainer.width()) {
+                if (newX > 0) {
+                    schoolMap.css("left", "0");
+                } else if (newX < maxNegLeft) {
+                    schoolMap.css("left", maxNegLeft);
+                }
+                else {
+                    schoolMap.css("left", newX);
+                }
+            } else {
+
             }
 
-            if (newY > 0) {
-                schoolMap.css("top", "0");
-            } else if (newY < maxNegTop) {
-                schoolMap.css("top", maxNegTop);
+            if (schoolMap.outerHeight() > mediaContainer.height()) {
+                if (newY > 0) {
+                    schoolMap.css("top", "0");
+                } else if (newY < maxNegTop) {
+                    schoolMap.css("top", maxNegTop);
+                }
+                else {
+                    schoolMap.css("top", newY);
+                }
+            } else {
+
             }
-            else {
-                schoolMap.css("top", newY);
-            }
+
         }
     });
 
     // zoom implementation
     // TODO: finish zoom function (rn its taking over the sidebar width) and maybe smooth out the animation
-    var maxZoomFactor = 5;
-    var currentZoomFactor = 1;
-    var zoomPercent = 0;
+    let maxZoomFactor = 5;
+    let currentZoomFactor = 1;
+    let zoomPercent = 0;
+    let newTop = 0;
+    let newLeft = 0;
+
+    const testImage = $("#test-img");
+    const testImageOriginalTop = parseFloat(testImage.css("top").split("px"));
+    const testImageOriginalLeft = parseFloat(testImage.css("left").split("px"));
+
+    const testDiv = $("#map-click-test");
+    const testDivOriginalTop = parseFloat(testDiv.css("top").split("px"));
+    const testDivOriginalLeft = parseFloat(testDiv.css("left").split("px"));
 
     mediaContainer.on("wheel", function (event) {
         console.log(currentZoomFactor);
         if(event.originalEvent.deltaY < 0) {
-            if (currentZoomFactor < 5) {
+            if (currentZoomFactor < 6) {
                 currentZoomFactor++;
                 zoomPercent = 75 + (25 * currentZoomFactor);
-                schoolMap.animate({height: zoomPercent + "%"}, 120);
-            }
+                schoolMap.css("height", zoomPercent + "%");
+                // schoolMap.animate({height: zoomPercent + "%"}, 120);
 
+                newTop = testImageOriginalTop * (0.75 + ((25 * currentZoomFactor) * 0.01));
+                testImage.css("top", newTop + "px");
+                // testImage.animate({top: newTop + "px"}, 120);
+                newLeft = testImageOriginalLeft * (0.75 + ((25 * currentZoomFactor) * 0.01));
+                testImage.css("left", newLeft + "px");
+                // testImage.animate({left: newLeft + "px"}, 120);
+
+                newTop = testDivOriginalTop * (0.75 + ((25 * currentZoomFactor) * 0.01));
+                testDiv.css("top", newTop + "px");
+                // testImage.animate({top: newTop + "px"}, 120);
+                newLeft = testDivOriginalLeft * (0.75 + ((25 * currentZoomFactor) * 0.01));
+                testDiv.css("left", newLeft + "px");
+                // testImage.animate({left: newLeft + "px"}, 120);
+
+                // if (parseFloat(schoolMap.css("width").split("%")) > parseFloat(mediaContainer.css("width").split("px"))) {
+                //     schoolMap.css("left", 0);
+                //     schoolMap.css("transform", 0);
+                // }
+            }
 
         }
         else {
-            if (currentZoomFactor > 0) {
+            if (currentZoomFactor > 1) {
                 currentZoomFactor--;
                 zoomPercent = 75 + (25 * currentZoomFactor);
-                schoolMap.animate({height: zoomPercent + "%"}, 120);
-            }
+                schoolMap.css("height", zoomPercent + "%");
+                // schoolMap.animate({height: zoomPercent + "%"}, 120);
 
+                newTop = testImageOriginalTop * (0.75 + ((25 * currentZoomFactor) * 0.01));
+                testImage.css("top", newTop + "px");
+                // testImage.animate({top: newTop + "px"}, 120);
+                newLeft = testImageOriginalLeft * (0.75 + ((25 * currentZoomFactor) * 0.01));
+                testImage.css("left", newLeft + "px");
+                // testImage.animate({left: newLeft + "px"}, 120);
+            }
 
         }
     });
