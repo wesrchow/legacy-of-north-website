@@ -13,11 +13,19 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css"
           integrity="sha512-8M8By+q+SldLyFJbybaHoAPD6g07xyOcscIOQEypDzBS+sTde5d6mlK2ANIZPnSyxZUqJfCNuaIvjBUi8/RS0w==" crossorigin="anonymous">
 
     <!-- Bootstrap Custom -->
     <link rel="stylesheet" href="css/bootstrap-custom.css" id="bootstrap-custom">
+
+    <!-- Scripts Inclusions -->
+    <!-- Pannellum -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+    <script>if (typeof (pannellum) === 'undefined') {document.write('<script src="local/pannellum.js"></\script>')}</script>
 </head>
 
 <body id="virtual-tour"> <!--unnecessary id?-->
@@ -43,7 +51,7 @@
                 <a href="#" class="dropdown-btn">North Building</a>
                 <ul class="">
                     <li class="sidebar-list-2"><a href="#">North Cafeteria</a></li>
-                    <li class="sidebar-list-2"><a href="#">North Gym Equipment Room 1</a></li>
+                    <li class="sidebar-list-2" id="north-gym"><a href="#">North Gym</a></li>
                     <li class="sidebar-list-2">
                         <a href="#" class="dropdown-btn">Room 112</a>
                         <ul class="dropdown-container">
@@ -52,10 +60,9 @@
                         </ul>
                     </li>
                     <li class="sidebar-list-2">
-                        <a href="#" class="dropdown-btn">Room 215</a>
+                        <a href="#" class="dropdown-btn">Room 212</a>
                         <ul class="dropdown-container">
-                            <li class="sidebar-list-3"><a href="#">Room 215 IMG 1</a></li>
-                            <li class="sidebar-list-3"><a href="#">Room 215 IMG 2</a></li>
+                            <li class="sidebar-list-3" id="room-212"><a href="#">Room 212</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list-2"><a href="#">"The Dungeon"</a></li>
@@ -80,7 +87,7 @@
                 <a href="#" class="dropdown-btn">North Building</a>
                 <ul class="">
                     <li class="sidebar-list-2"><a href="#">North Cafeteria</a></li>
-                    <li class="sidebar-list-2"><a href="#">North Gym Equipment Room 1</a></li>
+                    <li class="sidebar-list-2"><a href="#">North Gym 1</a></li>
                     <li class="sidebar-list-2">
                         <a href="#" class="dropdown-btn">Room 112</a>
                         <ul class="dropdown-container">
@@ -89,10 +96,10 @@
                         </ul>
                     </li>
                     <li class="sidebar-list-2">
-                        <a href="#" class="dropdown-btn">Room 215</a>
+                        <a href="#" class="dropdown-btn">Room 212</a>
                         <ul class="dropdown-container">
-                            <li class="sidebar-list-3"><a href="#">Room 215 IMG 1</a></li>
-                            <li class="sidebar-list-3"><a href="#">Room 215 IMG 2</a></li>
+                            <li class="sidebar-list-3"><a href="#">Room 212 IMG 1</a></li>
+                            <li class="sidebar-list-3"><a href="#">Room 212 IMG 2</a></li>
                         </ul>
                     </li>
                     <li class="sidebar-list-2"><a href="#">"The Dungeon"</a></li>
@@ -102,16 +109,18 @@
     </div>
 
 
-        <!-- MAIN MEDIA AREA -->
+    <!-- MAIN MEDIA AREA -->
     <div class="media-container" id="media-container">
-        <div class="map-container" id="school-map">
-            <img src="included-media/example_north_map.svg" alt="">
-            <div class="locations-container">
-                <img src="test-media/Hexagons%20Background%203.jpg" alt="" id="test-img">
-                <div class="map-click-test" id="map-click-test"></div>
-            </div>
-            <!-- etc -->
-        </div>
+<!--        <div class="map-container" id="school-map">-->
+<!--            <img src="included-media/example_north_map.svg" alt="">-->
+<!--            <div class="locations-container">-->
+<!--                <img src="test-media/Hexagons%20Background%203.jpg" alt="" id="test-img">-->
+<!--                <div class="map-click-test" id="map-click-test"></div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; etc &ndash;&gt;-->
+<!--        </div>-->
+
+<!--        <div id="360-viewer"></div>-->
 
     </div>
 
@@ -138,6 +147,8 @@
 {$('<link rel="stylesheet" href="local/bootstrap.min.css">').insertBefore($("#bootstrap-custom"))}</script>
 <script>try {$('link[href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"]')[0].sheet} catch
 {$('<link rel="stylesheet" href="local/bootstrap.min.css">').insertBefore($("#bootstrap-custom"))}</script>
+<script>try {$('link[href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"]')[0].sheet} catch
+{$('<link rel="stylesheet" href="local/pannellum.css">').insertBefore($("#bootstrap-custom"))}</script>
 <script>try {$('link[href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css"]')[0].sheet} catch
 {$('<link rel="stylesheet" href="local/font-awesome.min.css">').insertBefore($("#bootstrap-custom"))}</script>
 

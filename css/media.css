@@ -281,6 +281,11 @@ body, html {
     padding: 0 0;
 }
 
+#test-img:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
 .map-click-test {
     position: relative;
     height: 50px;
@@ -292,6 +297,18 @@ body, html {
     margin: 0 0;
 }
 
+#map-click-test:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
 .media-container:hover {
 
+}
+
+/* 360 Viewer Styling */
+
+#360-viewer {
+    width: 100%;
+    height: 100%;
 }
