@@ -103,7 +103,7 @@ body, html {
     box-shadow: 1px 0 5px -2px;
 }
 
-.location-list {
+.location-menu {
     width: 100%;
 }
 
@@ -161,7 +161,7 @@ body, html {
     .sidebar button {font-size: 18px;}
 }
 
-#location-list {
+#location-menu {
     padding-inline-start: 0;
 }
 

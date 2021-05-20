@@ -1,8 +1,84 @@
 /*
-    Use this js script for custom js within the "media" pages (virtual tour, gallery) that are unused or conflict with other general page functions
+    Use this js script for custom js within the virtual tour page that are unused or conflict with other general page functions
 */
 
 $(document).ready(function () {
+
+    /* Generate Sidebar Locations List */
+    const northLocationMenu = $("#north-location-menu");
+    const northLocationsList = ["Room101_360Photo",
+        "Room103_360Photo",
+        "Room105_360Photo",
+        "Room107_360Photo",
+        "Room108_360Photo",
+        "Room109_360Photo",
+        "Room110_360Photo",
+        "Room111_360Photo",
+        "Room112_360Photo",
+        "Room113_360Photo_1",
+        "Room113_360Photo_2",
+        "Room114_360Photo_1",
+        "Room114_360Photo_2",
+        "Room115_360Photo_1",
+        "Room115_360Photo_2",
+        "Room115_360Photo_3",
+        "Room115_360Photo_4",
+        "Room116a_360Photo",
+        "Room116_360Photo",
+        "Room201_360Photo",
+        "Room202_360Photo",
+        "Room203_360Photo",
+        "Room204_360Photo",
+        "Room205_360Photo",
+        "Room206_360Photo",
+        "Room207_360Photo",
+        "Room208_360Photo_1",
+        "Room208_360Photo_2",
+        "Room209_360Photo",
+        "Room210_360Photo",
+        "Room211_360Photo",
+        "Room212_360Photo",
+        "Room213_360Photo",
+        "Room214_360Photo_1",
+        "Room214_360Photo_2",
+        "Room215_360Photo",
+        "Room218_360Photo_1",
+        "Room218_360Photo_2",
+        "Room219_360Photo",
+        "Room221_360Photo_1",
+        "Room221_360Photo_2",
+        "Room402_360Photo_1",
+        "Room402_360Photo_2",
+        "Room402_360Photo_3",
+        "Room402_360Photo_4",
+        "Room402_360Photo_5",
+        "Room402_360Photo_6",
+        "Room402_360Photo_7",
+        "Room402_360Photo_8",
+        "Room402_360Photo_9",
+        "Room406_360Photo_1",
+        "Room406_360Photo_2",
+        "Room406_360Photo_3",
+        "Room406_360Photo_4",
+        "Room406_360Photo_5",
+        "Room406_360Photo_6",
+        "Room408_360Photo",
+        "Room410_360Photo_1",
+        "Room410_360Photo_2",
+        "Room410_360Photo_3"];
+    let locationDisplayName = "";
+
+    if (typeof (pannellum) === 'undefined') {document.write('<script src="local/pannellum.js"></\script>')}
+
+    if (northLocationMenu.length) {
+        northLocationsList.forEach(injectMenuElements);
+
+        function injectMenuElements(value) {
+            locationDisplayName = value.substr(0, value.indexOf("_360"))
+            northLocationMenu.append('<li class="sidebar-list-2"><a href="#">' + locationDisplayName + '</\a></\li>');
+        }
+
+    }
 
     /* Sidebar */
     // $("#mobile-navbar-button").click(function () {
@@ -19,8 +95,8 @@ $(document).ready(function () {
         filter = input.value.toUpperCase();
         // ul = document.getElementById("location-list");
         // li = ul.getElementsByTagName('li');
-        loc = document.getElementById("location-list").getElementsByClassName("loc");
-        locContainer = document.getElementById("location-list").getElementsByClassName("sidebar-list-1");
+        loc = document.getElementById("location-menu").getElementsByClassName("loc");
+        locContainer = document.getElementById("location-menu").getElementsByClassName("sidebar-list-1");
 
         // Loop through all list items, and hide those who don't match the search query
         for (i = 0; i < loc.length; i++) {
@@ -96,7 +172,7 @@ $(document).ready(function () {
     const mediaContainer = $("#media-container");
     const schoolMap = $("#school-map");
 
-    if  ($(schoolMap).length) {
+    if  (schoolMap.length) {
         // click and drag implementation
         mediaContainer.mousedown(function (event) {
             dragging = true;
@@ -258,7 +334,7 @@ $(document).ready(function () {
     $("#room-212").click(function () {
         pannellum.viewer('media-container', {
             "type": "equirectangular",
-            "panorama": "test-media/Room212_360Photo.JPG",
+            "panorama": "test-media/Room211_360Photo copy.JPG",
             "autoLoad": true
         });
     });
