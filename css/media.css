@@ -126,6 +126,7 @@ body, html {
     color: #000000;
     display: block;
     padding: 6px 8px 6px 32px;
+    -webkit-user-drag: none;
 }
 
 
@@ -256,10 +257,11 @@ body, html {
     left: 0;
 }
 
-.map-container img {
+.map-container svg {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     height: 100%;
+    width: auto;
     padding: 15px 15px;
 }
 
@@ -306,8 +308,19 @@ body, html {
 
 }
 
-/* 360 Viewer Styling */
 
+/* Map Styling */
+.location {
+    fill: #c8c8c8 !important;
+}
+
+.location:hover {
+    fill: #818181 !important;
+    cursor: pointer;
+}
+
+
+/* 360 Viewer Styling */
 #360-viewer {
     width: 100%;
     height: 100%;
