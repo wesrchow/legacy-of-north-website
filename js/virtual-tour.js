@@ -69,9 +69,10 @@ $(document).ready(function () {
 
     let injectionString = "";
 
-    function sidebarInjection(inputArray, section) {
+    function sidebarInjection(locationArray, section) {
         let sectionID;
 
+        // Define section ID to be appended to
         if (section === 1) {
             sectionID = northLocationMenu;
         } else if (section === 2) {
@@ -82,36 +83,36 @@ $(document).ready(function () {
 
         if (sectionID.length) {
             let selectionIDArray = [];
-            for (let i = 1; i < inputArray.length; i ++) {
-                let locationName = inputArray[i][0];
+            for (let i = 1; i < locationArray.length; i ++) {
+                let locationName = locationArray[i][0];
                 let cutLocationName = locationName.substring(0, locationName.length-2);
-                let specialProperty = inputArray[i][1];
+                let specialProperty = locationArray[i][1];
 
-                if (specialProperty === "") {
-                    let locationNameID = locationName.replaceAll(" ", "-").toLowerCase();
-                    selectionIDArray.push(locationNameID);
-                    sectionID.append(`<li class="sidebar-list-2"><a href="#" id="${locationNameID}">${locationName}</\a></\li>`);
-                } else if (specialProperty === "multi-room") {
-                    let locationNameID = locationName.replaceAll(" ", "-").toLowerCase();
-                    selectionIDArray.push(locationNameID);
-                    sectionID.append(`<li class="sidebar-list-2"><a href="#" id="${locationNameID}">${locationName}</\a></\li>`);
-                } else {
+                /* Check the special property
+                * "" - normal
+                * */
+                if (/\d/.test(specialProperty)) {
                     let locationNameID = locationName.substring(0, locationName.length-2).replaceAll(" ", "-").toLowerCase();
                     selectionIDArray.push(locationNameID);
                     injectionString = `<li class="sidebar-list-2"><a href="#" class="dropdown-btn" id="${locationNameID}">${cutLocationName}</\a><ul class="dropdown-container">`;
 
                     for (let k = 0; k < parseInt(specialProperty); k ++) {
                         locationNameID = locationName.substring(0, locationName.length-2).replaceAll(" ", "-").toLowerCase() + (k+1);
-                        injectionString += `<li class="sidebar-list-3"><a href="#" id="${locationNameID}">Image`  + (k+1) + '</\a>';
+                        selectionIDArray.push(locationNameID);
+                        injectionString += `<li class="sidebar-list-3"><a href="#" id="${locationNameID}">Image `  + (k+1) + '</\a>';
                     }
 
                     sectionID.append(injectionString);
                     i += parseInt(specialProperty) - 1;
+                } else {
+                    let locationNameID = locationName.replaceAll(" ", "-").toLowerCase();
+                    selectionIDArray.push(locationNameID);
+                    sectionID.append(`<li class="sidebar-list-2"><a href="#" id="${locationNameID}">${locationName}</\a></\li>`);
                 }
             }
             addDropdownClick();
             jQuery.get("./csv/north-locations-filenames.csv", function(data) {
-                addPannellumClick($.csv.toArrays(data), selectionIDArray, section);
+                addPannellumClick($.csv.toArrays(data), selectionIDArray, locationArray, section);
             }, 'text');
         }
     }
@@ -209,15 +210,15 @@ $(document).ready(function () {
                     dropdownContent.style.display = "none";
                 }
                 // kind of terrible code but it works
-                var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
-                if (cls.contains("fa-angle-down")) {
-                    cls.add("fa-angle-up");
-                    cls.remove("fa-angle-down");
-                }
-                else if (cls.contains("fa-angle-up")) {
-                    cls.add("fa-angle-down");
-                    cls.remove("fa-angle-up");
-                }
+                // var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
+                // if (cls.contains("fa-angle-down")) {
+                //     cls.add("fa-angle-up");
+                //     cls.remove("fa-angle-down");
+                // }
+                // else if (cls.contains("fa-angle-up")) {
+                //     cls.add("fa-angle-down");
+                //     cls.remove("fa-angle-up");
+                // }
             });
         }
     }
@@ -355,47 +356,64 @@ $(document).ready(function () {
         });
     }
 
+
     /*
     *
     * 360 Viewer
     *
     * */
 
-    function addPannellumClick(filenameArray, selectionIDArray, section) {
-            if (section === 1) {
-                for (let i = 0; i < selectionIDArray.length; i ++) {
-                    $(`#${selectionIDArray[i]}`).click(function () {
-                        console.log(selectionIDArray[i]);
-                        console.log(filenameArray[i + 1]);
+    // Add Pannellum viewer to each sidebar option
+    function addPannellumClick(filenameArray, selectionIDArray, locationArray, section) {
+        let filenameOffset = 0;
+        let locationArrayOffset = 0;
+        let specialProperty = null;
+        let counter = 0;
+        let counting = false;
 
-                        // pannellum.viewer('media-container', {
-                        //     "type": "equirectangular",
-                        //     "panorama": `test-media/${selectionIDArray[i]}`,
-                        //     "autoLoad": true
-                        // });
-                    });
+        if (section === 1) {
+            for (let i = 0; i < selectionIDArray.length; i ++) {
+
+                specialProperty = locationArray[i + 1 - locationArrayOffset][1];
+
+                if (counting) {
+                    counter++;
                 }
 
-            } else if (section === 2) {
+                if (counter === 1) {
+                    locationArrayOffset ++;
+                    counter = 0;
+                    counting = false;
+                }
 
+                // Grab the variable filenameOffset each iteration for each click function
+                (function(index){
+                    $(`#${selectionIDArray[i]}`).click(function () {
+                    let test1 = (selectionIDArray[i]);
+                    let test2 = (i + 1 - index);
+                    let test3 = (filenameArray[(i + 1 - index)]);
+                    console.log(test1, test2, test3);
+
+                    let content360 = filenameArray[(i + 1 - index)];
+
+                    pannellum.viewer('media-container', {
+                        "type": "equirectangular",
+                        "panorama": `test-media/${content360}`,
+                        "autoLoad": true,
+                        "compass": false,
+                        "keyboardZoom": false,
+                        "disableKeyboardCtrl": true
+                    });
+                });
+                })(filenameOffset)
+
+                if (/\d/.test(specialProperty)) {
+                    filenameOffset ++;
+                    counting = true;
+                }
             }
+        }
     }
-
-    $("#north-gym").click(function () {
-        pannellum.viewer('media-container', {
-            "type": "equirectangular",
-            "panorama": "test-media/North_Gym_360Photo_1.JPG",
-            "autoLoad": true
-        });
-    });
-
-    $("#room-212").click(function () {
-        pannellum.viewer('media-container', {
-            "type": "equirectangular",
-            "panorama": "test-media/Room211_360Photo copy.JPG",
-            "autoLoad": true
-        });
-    });
 
 
 });
