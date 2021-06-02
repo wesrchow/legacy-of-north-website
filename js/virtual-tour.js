@@ -224,7 +224,11 @@ $(document).ready(function () {
     }
 
 
-    /* Draggable Map */
+    /*
+    *
+    * Draggable Map
+    *
+    *  */
     // TODO: fix when the map is smaller than the media container (maybe use another container around the map image?), allow the map to be centered
     let dragging = false;
     let startMouseX;
@@ -235,9 +239,9 @@ $(document).ready(function () {
     let previousMapTop;
 
     const mediaContainer = $("#media-container");
-    const schoolMap = $("#school-map");
+    const mapContainer = $("#map-container");
 
-    if  (schoolMap.length) {
+    if  (mapContainer.length) {
         // click and drag implementation
         mediaContainer.mousedown(function (event) {
             dragging = true;
@@ -253,8 +257,8 @@ $(document).ready(function () {
 
             mediaContainer.css("cursor", "grab");
 
-            previousMapLeft = parseFloat(schoolMap.css("left").split("px"));
-            previousMapTop = parseFloat(schoolMap.css("top").split("px"));
+            previousMapLeft = parseFloat(mapContainer.css("left").split("px"));
+            previousMapTop = parseFloat(mapContainer.css("top").split("px"));
 
             setTimeout(function allowLocationClick(){
                 noDrag = true;
@@ -286,28 +290,28 @@ $(document).ready(function () {
                 let newX = moveX + previousMapLeft;
                 let newY = moveY + previousMapTop;
 
-                let maxNegLeft = mediaContainer.width() - schoolMap.outerWidth();
-                let maxNegTop = mediaContainer.height() - schoolMap.outerHeight();
+                let maxNegLeft = mediaContainer.width() - mapContainer.outerWidth();
+                let maxNegTop = mediaContainer.height() - mapContainer.outerHeight();
 
-                if (schoolMap.outerWidth() > mediaContainer.width()) {
+                if (mapContainer.outerWidth() > mediaContainer.width()) {
                     if (newX > 0) {
-                        schoolMap.css("left", "0");
+                        mapContainer.css("left", "0");
                     } else if (newX < maxNegLeft) {
-                        schoolMap.css("left", maxNegLeft);
+                        mapContainer.css("left", maxNegLeft);
                     } else {
-                        schoolMap.css("left", newX);
+                        mapContainer.css("left", newX);
                     }
                 } else {
 
                 }
 
-                if (schoolMap.outerHeight() > mediaContainer.height()) {
+                if (mapContainer.outerHeight() > mediaContainer.height()) {
                     if (newY > 0) {
-                        schoolMap.css("top", "0");
+                        mapContainer.css("top", "0");
                     } else if (newY < maxNegTop) {
-                        schoolMap.css("top", maxNegTop);
+                        mapContainer.css("top", maxNegTop);
                     } else {
-                        schoolMap.css("top", newY);
+                        mapContainer.css("top", newY);
                     }
                 } else {
 
@@ -327,15 +331,15 @@ $(document).ready(function () {
         mediaContainer.on("wheel", function (event) {
             // console.log(currentZoomFactor);
             if (event.originalEvent.deltaY < 0) {
-                if (currentZoomFactor < 7) {
+                if (currentZoomFactor < 11) {
                     currentZoomFactor++;
                     zoomPercent = 75 + (25 * currentZoomFactor);
-                    schoolMap.css("height", zoomPercent + "%");
+                    mapContainer.css("height", zoomPercent + "%");
                     // schoolMap.animate({height: zoomPercent + "%"}, 120);
 
-                    if (parseFloat(schoolMap.css("width").split("%")) > parseFloat(mediaContainer.css("width").split("px"))) {
-                        schoolMap.css("left", 0);
-                        schoolMap.css("transform", "none");
+                    if (parseFloat(mapContainer.css("width").split("%")) > parseFloat(mediaContainer.css("width").split("px"))) {
+                        mapContainer.css("left", 0);
+                        mapContainer.css("transform", "none");
                     }
                 }
 
@@ -343,12 +347,12 @@ $(document).ready(function () {
                 if (currentZoomFactor > 1) {
                     currentZoomFactor--;
                     zoomPercent = 75 + (25 * currentZoomFactor);
-                    schoolMap.css("height", zoomPercent + "%");
+                    mapContainer.css("height", zoomPercent + "%");
                     // schoolMap.animate({height: zoomPercent + "%"}, 120);
 
-                    if (parseFloat(schoolMap.css("width").split("%")) <= parseFloat(mediaContainer.css("width").split("px"))) {
-                        schoolMap.css("left", "50%");
-                        schoolMap.css("transform", "translate(-50%, 0)");
+                    if (parseFloat(mapContainer.css("width").split("%")) <= parseFloat(mediaContainer.css("width").split("px"))) {
+                        mapContainer.css("left", "50%");
+                        mapContainer.css("transform", "translate(-50%, 0)");
                     }
                 }
 
@@ -363,6 +367,9 @@ $(document).ready(function () {
     *
     * */
 
+    let viewer360Container = $("#viewer-360-container");
+    let exit360Viewer = $("#exit-360-viewer");
+
     // Add Pannellum viewer to each sidebar option
     function addPannellumClick(filenameArray, selectionIDArray, locationArray, section) {
         let filenameOffset = 0;
@@ -370,10 +377,12 @@ $(document).ready(function () {
         let specialProperty = null;
         let counter = 0;
         let counting = false;
+        let viewer360 = undefined;
 
         if (section === 1) {
             for (let i = 0; i < selectionIDArray.length; i ++) {
 
+                // use variables to offset the array's indexing
                 specialProperty = locationArray[i + 1 - locationArrayOffset][1];
 
                 if (counting) {
@@ -386,25 +395,36 @@ $(document).ready(function () {
                     counting = false;
                 }
 
-                // Grab the variable filenameOffset each iteration for each click function
+                // grab the variable filenameOffset each iteration for each click function
                 (function(index){
                     $(`#${selectionIDArray[i]}`).click(function () {
-                    let test1 = (selectionIDArray[i]);
-                    let test2 = (i + 1 - index);
-                    let test3 = (filenameArray[(i + 1 - index)]);
-                    console.log(test1, test2, test3);
+                        // let test1 = (selectionIDArray[i]);
+                        // let test2 = (i + 1 - index);
+                        // let test3 = (filenameArray[(i + 1 - index)]);
+                        // console.log(test1, test2, test3);
 
-                    let content360 = filenameArray[(i + 1 - index)];
+                        let content360 = filenameArray[(i + 1 - index)];
 
-                    pannellum.viewer('media-container', {
-                        "type": "equirectangular",
-                        "panorama": `test-media/${content360}`,
-                        "autoLoad": true,
-                        "compass": false,
-                        "keyboardZoom": false,
-                        "disableKeyboardCtrl": true
+                        // hide the map and reveal the 360 viewer container
+                        mapContainer.addClass("hidden");
+                        viewer360Container.removeClass("hidden");
+                        exit360Viewer.removeClass("hidden");
+
+                        // check if there's an existing viewer already, if so destroy it
+                        if (typeof viewer360 !== "undefined") {
+                            viewer360.destroy();
+                        }
+
+                        viewer360 = pannellum.viewer('viewer-360-container', {
+                            "type": "equirectangular",
+                            "panorama": `test-media/${content360}`,
+                            "friction": 0.1,
+                            "autoLoad": true,
+                            "compass": false,
+                            "keyboardZoom": false,
+                            "disableKeyboardCtrl": true
+                        });
                     });
-                });
                 })(filenameOffset)
 
                 if (/\d/.test(specialProperty)) {
@@ -413,6 +433,19 @@ $(document).ready(function () {
                 }
             }
         }
+
+        exit360Viewer.click(function () {
+            // hide the 360 viewer container, back to map button, and reveal the map
+            mapContainer.removeClass("hidden");
+            viewer360Container.addClass("hidden");
+            exit360Viewer.addClass("hidden");
+
+            // close the viewer renderer
+            if (typeof viewer360 !== "undefined") {
+                viewer360.destroy();
+            }
+        });
+
     }
 
 
