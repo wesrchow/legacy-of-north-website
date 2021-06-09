@@ -336,9 +336,13 @@ body, html {
 
 
 
-/* Map Styling */
+/*
+
+    Map Styling
+
+*/
 .location {
-    fill: #c8c8c8 !important;
+    /*fill: #c8c8c8 !important;*/
 }
 
 .location:hover {
@@ -347,12 +351,19 @@ body, html {
 }
 
 
-/* 360 Viewer Styling */
+
+/*
+
+    360 Viewer Styling
+
+*/
 .viewer-360-container {
     height: 100%;
     width: 100%;
 }
 
+
+/* General Overrides */
 
 .hidden {
     display: none;
