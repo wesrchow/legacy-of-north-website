@@ -368,3 +368,15 @@ body, html {
 .hidden {
     display: none;
 }
+
+.test-crosshair {
+    position: relative;
+    align-self: center;
+    height: 8px;
+    width: 8px;
+    background-color: #1b1e21;
+    z-index: 20;
+    top: 50%;
+    left: 50%;
+    margin: -4px 0 0 -4px;
+}
