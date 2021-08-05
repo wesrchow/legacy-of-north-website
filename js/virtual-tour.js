@@ -278,7 +278,7 @@ $(document).ready(function () {
 
     const mediaContainer = $("#media-container");
 
-    if  (mapContainer.length) {
+    if (mapContainer.length) {
         // click and drag implementation
         mediaContainer.mousedown(function (event) {
             dragging = true;
@@ -406,9 +406,6 @@ $(document).ready(function () {
     * 360 Viewer
     *
     * */
-
-
-
     // Add Pannellum viewer to each sidebar option
     function addPannellumClick(filenameArray, selectionIDArray, locationArray, section) {
         let filenameOffset = 0;
