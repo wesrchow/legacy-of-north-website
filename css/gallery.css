@@ -1,0 +1,18 @@
+/*
+
+    Media Area Styling
+
+ */
+.media-container {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    /*position: fixed;*/
+    /*width: 85%;*/
+    height: 100%;
+    -webkit-flex: 1;
+    max-width: initial;
+    /*float: right;*/
+    padding: 0;
+    cursor: default;
+    overflow: hidden;
+}

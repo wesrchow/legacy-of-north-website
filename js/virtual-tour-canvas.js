@@ -11,7 +11,6 @@ $(document).ready(function () {
     const viewer360Container = $("#viewer-360-container");
     const exit360Viewer = $("#exit-360-viewer");
     const mapContainer = $("#map-container");
-    const mapCanvas = $("#map-canvas");
 
 
     /*
@@ -60,13 +59,14 @@ $(document).ready(function () {
     * Canvas stuff
     *
     * */
-    const canvas = mapCanvas[0];
+    const mapCanvas = $("#map-canvas"); // jquery selector
+    const canvas = document.getElementById("map-canvas"); // HTML canvas access
     const ctx = canvas.getContext("2d");
 
     $(window).on('resize',function() {
         // set canvas dimensions while properly keeping resolution and scale
-        mapCanvas[0].width = mapContainer[0].clientWidth;
-        mapCanvas[0].height = mapContainer[0].clientHeight;
+        canvas.width = mapContainer[0].clientWidth;
+        canvas.height = mapContainer[0].clientHeight;
 
         // redraw the canvas when the window is resized
         ctx.save();
@@ -84,6 +84,9 @@ $(document).ready(function () {
     let previousMapX = 0;
     let previousMapY = 0;
 
+    window.moveX;
+    window.moveY;
+
     const mediaContainer = $("#media-container");
 
     //
@@ -95,8 +98,8 @@ $(document).ready(function () {
 
         mediaContainer.css("cursor", "grabbing");
 
-        startMouseX = event.clientX;
-        startMouseY = event.clientY;
+        startMouseX = event.clientX - canvas.offsetLeft;
+        startMouseY = event.clientY - canvas.offsetTop;
     });
 
     // mouse up drag
@@ -105,82 +108,124 @@ $(document).ready(function () {
 
         mediaContainer.css("cursor", "grab");
 
-        previousMapX = canvas.offsetLeft;
-        previousMapY = canvas.offsetTop;
+        // previousMapX = mapCanvas.offsetLeft;
+        // previousMapY = mapCanvas.offsetTop;
+        // console.log(previousMapX);
+        // console.log(previousMapY);
 
         // setTimeout(function allowLocationClick(){
         //     lockDrag = false;
         // }, 20);
     });
 
-    // mouse move feature
+    window.originX = 0;
+    window.originY = 0;
+
+    // mouse move canvas
     $(document).mousemove(function (event) {
         if (!window.lockDrag) {
             if (dragging) {
                 // setTimeout(function allowLocationClick() {
                 //     lockDrag = true;
                 // }, 50);
-                currentMouseX = event.clientX;
-                currentMouseY = event.clientY;
+                currentMouseX = event.clientX - canvas.offsetLeft;
+                currentMouseY = event.clientY - canvas.offsetTop;
                 // console.log(currentMouseX, startMouseX);
 
-                let moveX = currentMouseX - startMouseX;
-                let moveY = currentMouseY - startMouseY;
+                window.moveX = currentMouseX - startMouseX;
+                window.moveY = currentMouseY - startMouseY;
 
-                let newX = moveX - previousMapX;
-                let newY = moveY - previousMapY;
+                // let newX = moveX - previousMapX;
+                // let newY = moveY - previousMapY;
 
-                console.log(previousMapX);
-                ctx.translate(newX, newY);
+                // console.log(previousMapX);
+                ctx.translate(moveX/scale, moveY/scale);
                 startMouseX = currentMouseX;
                 startMouseY = currentMouseY;
-                clearCanvas();
-                drawMap();
 
-                //
-                // let maxNegLeft = mediaContainer.width() - mapContainer.outerWidth();
-                // let maxNegTop = mediaContainer.height() - mapContainer.outerHeight();
-                //
-                // if (mapContainer.outerWidth() > mediaContainer.width()) {
-                //     if (newX > 0) {
-                //         mapContainer.css("left", "0");
-                //     } else if (newX < maxNegLeft) {
-                //         mapContainer.css("left", maxNegLeft);
-                //     } else {
-                //         mapContainer.css("left", newX);
-                //     }
-                // } else {
-                //
-                // }
-                //
-                // if (mapContainer.outerHeight() > mediaContainer.height()) {
-                //     if (newY > 0) {
-                //         mapContainer.css("top", "0");
-                //     } else if (newY < maxNegTop) {
-                //         mapContainer.css("top", maxNegTop);
-                //     } else {
-                //         mapContainer.css("top", newY);
-                //     }
-                // } else {
-                //
-                // }
+                // Get transform offset
+                let storedTransform = ctx.getTransform();
+                let iMatrix = storedTransform.invertSelf();
 
+                // window.originX = -iMatrix.e - window.originX;
+                // window.originY = -iMatrix.f - window.originY;
+                // console.log(iMatrix.e);
+                // console.log(window.originX);
             }
         }
     });
 
     // map zoom
+    let zoomFactor = 0.15;
+    let scale = 1;
+
+    let width = canvas.width;
+    let height = canvas.height;
+    // let visibleWidth = width;
+    // let visibleHeight = height;
+    // let canvasOffset = mapCanvas.offset();
+
+
+    mapCanvas.on("wheel", function (event) {
+    // mediaContainer.onwheel = function (event){
+        event.preventDefault();
+
+        // Get transform offset
+        let storedTransform = ctx.getTransform();
+        let iMatrix = storedTransform.invertSelf();
+        // console.log(iMatrix.e);
+        // console.log(iMatrix.f);
+
+        // Get mouse offset.
+        const mouseX = event.clientX - canvas.getBoundingClientRect().left /*- imatrix.e*/;
+        const mouseY = event.clientY - canvas.getBoundingClientRect().top /*- imatrix.f*/;
+        // console.log("mouse x:" + event.clientX);
+        // console.log("mouse y:" + event.clientY);
+        //
+        // console.log("left:" + canvas.getBoundingClientRect().left);
+        // console.log("top:" + canvas.getBoundingClientRect().top);
+
+        // Normalize mouse wheel movement to +1 or -1 to avoid unusual jumps.
+        const wheel = event.originalEvent.deltaY > 0 ? -1 : 1;
+
+        // Compute zoom factor.
+        const zoom = Math.exp(wheel * zoomFactor);
+
+        // Translate so the visible origin is at the context's origin.
+        ctx.translate(window.originX, window.originY);
+
+        // Compute the new visible origin. Originally the mouse is at a
+        // distance mouse/scale from the corner, we want the point under
+        // the mouse to remain in the same place after the zoom, but this
+        // is at mouse/new_scale away from the corner. Therefore we need to
+        // shift the origin (coordinates of the corner) to account for this.
+        window.originX -= mouseX/(scale*zoom) - mouseX/scale /*- window.moveX*/;
+        window.originY -= mouseY/(scale*zoom) - mouseY/scale /*- window.moveY*/;
+
+        // Scale it (centered around the origin due to the translate above).
+        ctx.scale(zoom, zoom);
+        // Offset the visible origin to it's proper position.
+        ctx.translate(-window.originX, -window.originY);
+        console.log(window.moveX);
+
+        // Update scale and others.
+        scale *= zoom;
+        // visibleWidth = width / scale;
+        // visibleHeight = height / scale;  
+
+    });
 
     // clear canvas
     function clearCanvas() {
         ctx.save();
         ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, mapCanvas.width(), mapCanvas.height());
         ctx.restore();
     }
 
     // draw the map
     function drawMap() {
+        clearCanvas();
 
         // TODO: get all DOM children of the layer that consists of all the room hover sections and path and draw them all individually. then, get all the children of the other
         //  layer (perimeter lines) and draw them all somehow (maybe in inkscape merge it all into one path or use path2D polyline function)
@@ -188,13 +233,18 @@ $(document).ready(function () {
 
 
         ctx.lineWidth = 15;
-        let p = new Path2D('M 300 300 L 1400 200 L 300 900 z');
+        ctx.strokeStyle = "#8c8c8c";
+        let p = new Path2D('M 0 0 L 1400 200 L 300 900 z');
         // ctx.fill(p);
 
         // ctx.moveTo(0, 0);
         // ctx.lineTo(parseFloat(mapContainer.css("width").split("px")), parseFloat(mapContainer.css("height").split("px")));
         ctx.stroke(p);
+
+        // Schedule the redraw for the next display refresh.
+        window.requestAnimationFrame(drawMap);
     }
+    drawMap();
 
 
     /*
@@ -319,6 +369,41 @@ $(document).ready(function () {
 
     /*
     *
+    * Sidebar Dropdown Individual Click Events
+    *
+    * */
+    function addDropdownClick() {
+        let dropdown = $(".dropdown-btn");
+
+        for (let i = 0; i < dropdown.length; i++) {
+            // open all dropdowns
+            dropdown[i].classList.add("active");
+            dropdown[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "none") {
+                    dropdownContent.style.display = "block";
+                } else {
+                    dropdownContent.style.display = "none";
+                }
+                // kind of terrible code but it works
+                // var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
+                // if (cls.contains("fa-angle-down")) {
+                //     cls.add("fa-angle-up");
+                //     cls.remove("fa-angle-down");
+                // }
+                // else if (cls.contains("fa-angle-up")) {
+                //     cls.add("fa-angle-down");
+                //     cls.remove("fa-angle-up");
+                // }
+            });
+        }
+    }
+
+
+
+    /*
+    *
     * Sidebar Search
     *
     * */
@@ -371,39 +456,6 @@ $(document).ready(function () {
 
     }
 
-
-    /*
-    *
-    * Sidebar Dropdown Individual Click Events
-    *
-    * */
-    function addDropdownClick() {
-        let dropdown = $(".dropdown-btn");
-
-        for (let i = 0; i < dropdown.length; i++) {
-            // open all dropdowns
-            dropdown[i].classList.add("active");
-            dropdown[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "none") {
-                    dropdownContent.style.display = "block";
-                } else {
-                    dropdownContent.style.display = "none";
-                }
-                // kind of terrible code but it works
-                // var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
-                // if (cls.contains("fa-angle-down")) {
-                //     cls.add("fa-angle-up");
-                //     cls.remove("fa-angle-down");
-                // }
-                // else if (cls.contains("fa-angle-up")) {
-                //     cls.add("fa-angle-down");
-                //     cls.remove("fa-angle-up");
-                // }
-            });
-        }
-    }
 
 
     /*
