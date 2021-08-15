@@ -162,7 +162,7 @@ body, html {
     .sidebar button {font-size: 18px;}
 }
 
-#location-menu {
+.location-menu {
     padding-inline-start: 0;
 }
 
@@ -205,7 +205,6 @@ body, html {
 
 
 /*
-
     Media Area Styling
 
  */
@@ -227,7 +226,7 @@ body, html {
     display: inline-block;
     position: relative;
     height: 100%;
-    width: auto;
+    width: 100%;
 
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -241,10 +240,10 @@ body, html {
 
     /*display: block;*/
     /*top: 0;*/
-    left: 50%;
-    transform: translate(-50%, 0);
-    -webkit-transform: translate(-50%, 0);
-    -moz-transform: translate(-50%, 0);
+    /*left: 50%;*/
+    /*transform: translate(-50%, 0);*/
+    /*-webkit-transform: translate(-50%, 0);*/
+    /*-moz-transform: translate(-50%, 0);*/
 }
 
 
@@ -265,6 +264,7 @@ body, html {
 }
 
 .map-container svg {
+    display: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
     height: 100%;
@@ -348,6 +348,11 @@ body, html {
 .location:hover {
     fill: #818181 !important;
     cursor: pointer;
+}
+
+canvas {
+    /*height: auto;*/
+    /*width: auto;*/
 }
 
 

@@ -1,0 +1,31 @@
+/*
+
+    Media Area Styling
+
+ */
+.media-container {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    /*position: fixed;*/
+    /*width: 85%;*/
+    height: 100%;
+    -webkit-flex: 1;
+    max-width: initial;
+    /*float: right;*/
+    padding: 0;
+    cursor: default;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+
+.gallery-container {
+    display: inline-block;
+    position: relative;
+    height: auto;
+    width: 100%;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+}
