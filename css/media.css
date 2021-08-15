@@ -162,7 +162,7 @@ body, html {
     .sidebar button {font-size: 18px;}
 }
 
-#location-menu {
+.location-menu {
     padding-inline-start: 0;
 }
 
@@ -240,10 +240,10 @@ body, html {
 
     /*display: block;*/
     /*top: 0;*/
-    left: 50%;
-    transform: translate(-50%, 0);
-    -webkit-transform: translate(-50%, 0);
-    -moz-transform: translate(-50%, 0);
+    /*left: 50%;*/
+    /*transform: translate(-50%, 0);*/
+    /*-webkit-transform: translate(-50%, 0);*/
+    /*-moz-transform: translate(-50%, 0);*/
 }
 
 

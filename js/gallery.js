@@ -4,40 +4,108 @@
 
 $(document).ready(function () {
 
+    /*
+    *
+    * Image/Video Gallery
+    *
+    * */
+    const mediaContainer = $("#media-container");
+    const galleryIDList = ["drone-footage-gallery", "grad-classes-gallery", "new-building-timelapse-gallery"];
+    // array of gallery content formatted for nanogallery2
+    const galleryContent = [
+        [{ src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1' },
+        { src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2' },
+        { src: 'search-rescue-drone.jpg', srct: 'search-rescue-drone.jpg', title: 'test 3' }],
+
+        [{ src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1' },
+        { src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2' }]
+    ];
+
+    // create the gallery with the given inputs
+    function loadNanogallery2(galleryID, galleryListPos) {
+        $(`#${galleryID}`).nanogallery2({
+            // gallery settings
+            itemsBaseURL:     'https://www.bnsdroneclub.ca/images/about/',
+            thumbnailHeight:  200,
+            thumbnailWidth:   200,
+            thumbnailBorderVertical: 1,
+            thumbnailBorderHorizontal: 1,
+            thumbnailDisplayTransition: 'slideUp',
+            thumbnailDisplayTransitionDuration: 800,
+            thumbnailDisplayInterval: 20,
+            thumbnailLabel: {
+                position: 'overImageOnBottom'
+            },
+            thumbnailHoverEffect2: 'scale120',
+            thumbnailAlignment: 'center',
+            thumbnailOpenImage: true,
+
+            // lightbox settings
+            imageTransition: 'swipe2',
+
+            // gallery content
+            items: galleryContent[galleryListPos]
+        });
+    }
+
+    /*galleryContainer.nanogallery2({
+        // gallery settings
+        itemsBaseURL:     'https://www.bnsdroneclub.ca/images/about/',
+        thumbnailHeight:  200,
+        thumbnailWidth:   200,
+        thumbnailBorderVertical: 1,
+        thumbnailBorderHorizontal: 1,
+        thumbnailDisplayTransition: 'slideUp',
+        thumbnailDisplayTransitionDuration: 800,
+        thumbnailDisplayInterval: 20,
+        thumbnailLabel: {
+            position: 'overImageOnBottom'
+        },
+        thumbnailHoverEffect2: 'scale120',
+        thumbnailAlignment: 'center',
+        thumbnailOpenImage: true,
+
+        // lightbox settings
+        imageTransition: 'swipe2',
+
+        // gallery content
+        items: [
+            { src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1' },
+            { src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2' },
+            { src: 'search-rescue-drone.jpg', srct: 'search-rescue-drone.jpg', title: 'test 3' }
+        ]
+
+    });*/
+
 
     /*
     *
-    * Sidebar Dropdown Individual Click Events
+    * Sidebar Load Galleries
     *
     * */
-    function addDropdownClick() {
-        let dropdown = $(".dropdown-btn");
+    function addGalleryLoading() {
+        const galleryMenu = $("#gallery-menu");
 
-        for (let i = 0; i < dropdown.length; i++) {
-            // open all dropdowns
-            dropdown[i].classList.add("active");
-            dropdown[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "none") {
-                    dropdownContent.style.display = "block";
-                } else {
-                    dropdownContent.style.display = "none";
+        // go through all the gallery menu items and add click functions
+        for (let i = 0; i < galleryMenu.children().length; i ++) {
+            galleryMenu.children().eq(i).click(function () {
+                // delete any previous gallery content
+                try {
+                    mediaContainer.children().eq(0).nanogallery2("destroy");
+                    mediaContainer.empty();
+                } catch (error) {
+                    console.error(error);
                 }
-                // kind of terrible code but it works
-                // var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
-                // if (cls.contains("fa-angle-down")) {
-                //     cls.add("fa-angle-up");
-                //     cls.remove("fa-angle-down");
-                // }
-                // else if (cls.contains("fa-angle-up")) {
-                //     cls.add("fa-angle-down");
-                //     cls.remove("fa-angle-up");
-                // }
+
+
+                // create the element and open the given gallery
+                mediaContainer.append(`<div class="gallery-container" id="${galleryIDList[i]}"></div>`);
+                loadNanogallery2(galleryIDList[i], i);
             });
         }
     }
-    addDropdownClick();
+    addGalleryLoading();
+
 
     /*
     *

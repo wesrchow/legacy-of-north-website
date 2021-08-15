@@ -19,6 +19,8 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
 
+    <link href="https://cdn.jsdelivr.net/npm/nanogallery2@3/dist/css/nanogallery2.min.css" rel="stylesheet" type="text/css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css"
           integrity="sha512-8M8By+q+SldLyFJbybaHoAPD6g07xyOcscIOQEypDzBS+sTde5d6mlK2ANIZPnSyxZUqJfCNuaIvjBUi8/RS0w==" crossorigin="anonymous">
 
@@ -26,13 +28,13 @@
     <link rel="stylesheet" href="css/bootstrap-custom.css" id="bootstrap-custom">
 
     <!-- Scripts Inclusions -->
-    <script src="js/test.js"></script>
+
     <!-- Pannellum -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
     <script>if (typeof (pannellum) === 'undefined') {document.write('<script src="local/pannellum.js"></\script>')}</script>
 </head>
 
-<body id="virtual-tour"> <!--unnecessary id?-->
+<body> <!--unnecessary id?-->
     <!-- NAV BAR -->
 <nav class="navbar-custom" id="navbar">
     <ul class="navbar-links" id="navbar-links">
@@ -49,38 +51,30 @@
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <input type="text" id="searchBar" onkeyup="searchBar()" placeholder="Search..">
-        <ul id="location-menu" class="location-menu">
+        <ul id="gallery-menu" class="location-menu">
             <!-- North Building -->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn">Drone Footage</a>
-                <ul class="" id="north-location-menu">
-                    <li class="sidebar-list-2"><a href="#" id="nothing-yet">viking head</a></li>
-                    <li class="sidebar-list-2"><a href="#">north building</a></li>
-                    <li class="sidebar-list-2"><a href="#">horseshoe</a></li>
-                    <li class="sidebar-list-2"><a href="#">The Dungeon</a></li>
-
-                </ul>
+                <a href="#" class="dropdown-btn" id="drone-footage-menu">Drone Footage</a>
             </li>
 
             <!-- South Building-->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn">Grad Classes</a>
-                <ul class="dropdown-container">
-                    <li class="sidebar-list-2"><a href="#">2019</a></li>
-                    <li class="sidebar-list-2"><a href="#">2020</a></li>
-                    <li class="sidebar-list-2"><a href="#">2021</a></li>
-                </ul>
+                <a href="#" class="dropdown-btn" id="grad-classes-menu">Grad Classes</a>
             </li>
 
             <!-- Outside -->
-            <li class="sidebar-list-1"><a href="#">New Building Timelapse</a></li>
+            <li class="sidebar-list-1">
+                <a href="#" id="new-building-timelapse-menu">New Building Timelapse</a>
+            </li>
         </ul>
     </div>
 
 
     <!-- MAIN MEDIA AREA -->
     <div class="media-container" id="media-container">
-
+<!--        <div class="gallery-container" id="drone-footage-gallery"></div>-->
+<!--        <div class="gallery-container hidden" id="grad-classes-gallery"></div>-->
+<!--        <div class="gallery-container hidden" id="new-building-timelapse-gallery"></div>-->
     </div>
 
 </div>
@@ -120,6 +114,10 @@
 
 <!-- jquery-csv -->
 <script src="js/jquery.csv.min.js"></script>
+
+<!-- nanogallery2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nanogallery2/3.0.5/jquery.nanogallery2.min.js"
+        integrity="sha512-tvpLVnZrWnnNzV2921XEMx4xkFTUF8xg3s+Mi6cvC/R7A6X1FkpBUXPJFa3Xh5uD9BvOZ2tHeYq/5ZqrweW86Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- Other Scripts -->
 <script src="js/main.js"></script>

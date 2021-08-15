@@ -1,5 +1,5 @@
 /*
-    Use this js script for custom js within the virtual tour page that are unused or conflict with other general page functions
+    DEPRECATED
 */
 
 $(document).ready(function () {
