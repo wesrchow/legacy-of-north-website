@@ -1,5 +1,5 @@
 /*
-    DEPRECATED
+    Use this js script for custom js within the virtual tour page that are unused or conflict with other general page functions
 */
 
 $(document).ready(function () {
@@ -278,7 +278,7 @@ $(document).ready(function () {
 
     const mediaContainer = $("#media-container");
 
-    if (mapContainer.length) {
+    if  (mapContainer.length) {
         // click and drag implementation
         mediaContainer.mousedown(function (event) {
             dragging = true;
@@ -406,6 +406,9 @@ $(document).ready(function () {
     * 360 Viewer
     *
     * */
+
+
+
     // Add Pannellum viewer to each sidebar option
     function addPannellumClick(filenameArray, selectionIDArray, locationArray, section) {
         let filenameOffset = 0;
