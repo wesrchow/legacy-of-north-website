@@ -5,12 +5,14 @@
 $(document).ready(function () {
 
     /* Variables Used Throughout */
-    window.lockDrag = false;
+    window.lockMapSelection = false;
     let viewer360 = undefined;
 
     const viewer360Container = $("#viewer-360-container");
     const exit360Viewer = $("#exit-360-viewer");
     const mapContainer = $("#map-container");
+    const mediaContainer = $("#media-container");
+    const schoolMap = $("#school-map");
 
 
     /*
@@ -18,7 +20,7 @@ $(document).ready(function () {
     * Replace SVG with inline SVG
     *
     * */
-    let injectedSVG = false;
+    // let injectedSVG = false; unnecessary
     jQuery('img.svg').each(function(){
         const $img = jQuery(this);
         const imgID = $img.attr('id');
@@ -43,9 +45,9 @@ $(document).ready(function () {
 
             // Replace image with new SVG
             $img.replaceWith($svg);
-            // jQuery.get("./csv/north-locations-filenames.csv", function(data) {
-            //     addMapLinks($.csv.toArrays(data));
-            // }, 'text');
+            jQuery.get("./csv/north-locations-filenames.csv", function(data) {
+                addMapLinks($.csv.toArrays(data));
+            }, 'text');
 
             // TODO: PUT SOUTH AND OUTSIDE FILENAMES LIST HERE TOO
 
@@ -56,7 +58,7 @@ $(document).ready(function () {
 
     /*
     *
-    * interact.js stuff
+    * Interactive Map Stuff
     *
     * */
     const position = { x: 0, y: 0 }
@@ -64,18 +66,19 @@ $(document).ready(function () {
     const schoolMapInteract = document.getElementById("school-map");
     const mediaContainerInteract = document.getElementById("media-container");
 
+    // interact js functions
     interact(mapContainerInteract)
         .draggable({
             /*allowFrom: schoolMapInteract,*/
             inertia: {
                 resistance: 20
             },
-            modifiers: [
+            /*modifiers: [
                 interact.modifiers.restrictRect({
-                    restriction: 'parent',
-                    endOnly: true
+                    restriction: 'parent'/!*,
+                    endOnly: true*!/
                 })
-            ],
+            ],*/
             listeners: {
                 start (event) {
 
@@ -84,12 +87,91 @@ $(document).ready(function () {
                     position.x += event.dx
                     position.y += event.dy
 
-                    event.target.style.transform = `translate(${position.x}px, ${position.y}px)`
+                    let previousTransform = "";
+                    let newTransform = "";
+                    const regexTranslate = /translate\(.*x\)/; // regex for finding the transform translate()
+
+                    // get the previous transform values
+                    previousTransform = mapContainerInteract.style.transform;
+
+                    // if there's already an existing translate() value, replace it
+                    if (regexTranslate.test(previousTransform)) {
+                        newTransform = previousTransform.replace(regexTranslate,`translate(${position.x}px, ${position.y}px)`);
+                    } else {
+                        newTransform = previousTransform + `translate(${position.x}px, ${position.y}px)`;
+                    }
+
+                    // set the new transform value to the element
+                    mapContainerInteract.style.transform = newTransform;
+
+                    // event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
                 }
             }
         }).resizable({
 
         });
+
+    // lock map selection
+    mapContainer.mousedown(function () {
+        // lock map selection clicks
+        setTimeout(function allowLocationClick(){
+            window.lockMapSelection = true;
+            console.log("hi")
+        }, 80);
+    });
+
+    // release map selection
+    $(document).mouseup(function () { /*mediaContainer*/
+        setTimeout(function allowLocationClick(){
+            window.lockMapSelection = false;
+            console.log("hi")
+        }, 50);
+
+    });
+
+
+    // zoom on mouse point
+    let currentZoomFactor = 1;
+    let scale = 1;
+    let previousTransform = "";
+    let newTransform = "";
+    const regexScale = /scale\(.*\)/; // regex for finding the transform scale()
+
+    mediaContainer.on("wheel", function (event) {
+        // event.preventDefault();
+
+        // Get mouse offset.
+        // const mouseX = event.clientX - mediaContainer.left;
+        // const mouseY = event.clientY - mediaContainer.top;
+
+        // Normalize mouse wheel movement to +1 or -1 to avoid unusual jumps.
+        if (event.originalEvent.deltaY < 0) {
+            if (currentZoomFactor < 11) {
+                currentZoomFactor ++;
+                scale = 0.8 + (0.2 * currentZoomFactor);
+            }
+        } else {
+            if (currentZoomFactor > 1) {
+                currentZoomFactor --;
+                scale = 0.8 + (0.2 * currentZoomFactor);
+            }
+
+        }
+
+        // get the previous transform values
+        previousTransform = mapContainerInteract.style.transform;
+
+        // if there's already an existing scale() value, replace it
+        if (regexScale.test(previousTransform)) {
+            newTransform = previousTransform.replace(regexScale,`scale(${scale})`);
+        } else {
+            newTransform = previousTransform + `scale(${scale})`;
+        }
+
+        // set the new transform value to the element
+        mapContainerInteract.style.transform = newTransform;
+
+    })
 
 
 
@@ -180,29 +262,30 @@ $(document).ready(function () {
             if (mapIDName.length) {
                 mapIDName.addClass("location");
                 mapIDName.click(function () {
+                    if (!window.lockMapSelection) {
+                        let content360 = filenameArray[i];
 
-                    let content360 = filenameArray[i];
+                        // hide + lock map and reveal the 360 viewer container
+                        mapContainer.addClass("hidden");
+                        viewer360Container.removeClass("hidden");
+                        exit360Viewer.removeClass("hidden");
+                        // window.lockDrag = true; unnecessary now
 
-                    // hide + lock map and reveal the 360 viewer container
-                    mapContainer.addClass("hidden");
-                    viewer360Container.removeClass("hidden");
-                    exit360Viewer.removeClass("hidden");
-                    window.lockDrag = true;
+                        // check if there's an existing viewer already, if so destroy it
+                        if (typeof viewer360 !== "undefined") {
+                            viewer360.destroy();
+                        }
 
-                    // check if there's an existing viewer already, if so destroy it
-                    if (typeof viewer360 !== "undefined") {
-                        viewer360.destroy();
+                        viewer360 = pannellum.viewer('viewer-360-container', {
+                            "type": "equirectangular",
+                            "panorama": `test-media/${content360}`,
+                            "friction": 0.1,
+                            "autoLoad": true,
+                            "compass": false,
+                            "keyboardZoom": false,
+                            "disableKeyboardCtrl": true
+                        });
                     }
-
-                    viewer360 = pannellum.viewer('viewer-360-container', {
-                        "type": "equirectangular",
-                        "panorama": `test-media/${content360}`,
-                        "friction": 0.1,
-                        "autoLoad": true,
-                        "compass": false,
-                        "keyboardZoom": false,
-                        "disableKeyboardCtrl": true
-                    });
                 });
             } else {
                 // continue looping through filenames without doing anything
@@ -348,7 +431,7 @@ $(document).ready(function () {
                         mapContainer.addClass("hidden");
                         viewer360Container.removeClass("hidden");
                         exit360Viewer.removeClass("hidden");
-                        lockDrag = true;
+                        //lockDrag = true; unnecessary now
 
                         // check if there's an existing viewer already, if so destroy it
                         if (typeof viewer360 !== "undefined") {
@@ -379,7 +462,7 @@ $(document).ready(function () {
             mapContainer.removeClass("hidden");
             viewer360Container.addClass("hidden");
             exit360Viewer.addClass("hidden");
-            lockDrag = false;
+            // lockDrag = false; unnecessary now
 
             // close the viewer renderer
             if (typeof viewer360 !== "undefined") {
