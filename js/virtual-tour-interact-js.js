@@ -71,7 +71,9 @@ $(document).ready(function () {
         .draggable({
             /*allowFrom: schoolMapInteract,*/
             inertia: {
-                resistance: 20
+                resistance: 16,
+                smoothEndDuration: 0,
+                endSpeed: 100
             },
             modifiers: [
                 interact.modifiers.restrictRect({
