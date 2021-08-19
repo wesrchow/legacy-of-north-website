@@ -73,12 +73,13 @@ $(document).ready(function () {
             inertia: {
                 resistance: 20
             },
-            /*modifiers: [
+            modifiers: [
                 interact.modifiers.restrictRect({
-                    restriction: 'parent'/!*,
-                    endOnly: true*!/
+                    restriction: 'parent'/*,
+                    endOnly: true*/
                 })
-            ],*/
+            ],
+            autoScroll: false,
             listeners: {
                 start (event) {
 
@@ -102,13 +103,12 @@ $(document).ready(function () {
                     }
 
                     // set the new transform value to the element
+                    // mapContainerInteract.style.transition = "none";
                     mapContainerInteract.style.transform = newTransform;
 
                     // event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
                 }
             }
-        }).resizable({
-
         });
 
     // lock map selection
@@ -116,7 +116,6 @@ $(document).ready(function () {
         // lock map selection clicks
         setTimeout(function allowLocationClick(){
             window.lockMapSelection = true;
-            console.log("hi")
         }, 80);
     });
 
@@ -124,7 +123,6 @@ $(document).ready(function () {
     $(document).mouseup(function () { /*mediaContainer*/
         setTimeout(function allowLocationClick(){
             window.lockMapSelection = false;
-            console.log("hi")
         }, 50);
 
     });
@@ -138,22 +136,27 @@ $(document).ready(function () {
     const regexScale = /scale\(.*\)/; // regex for finding the transform scale()
 
     mediaContainer.on("wheel", function (event) {
+        interact(mapContainerInteract).reflow({ name: 'drag', axis: 'xy' });
         // event.preventDefault();
 
         // Get mouse offset.
-        // const mouseX = event.clientX - mediaContainer.left;
-        // const mouseY = event.clientY - mediaContainer.top;
+        const mouseX = event.clientX - getTranslateX(mapContainerInteract) - mediaContainer.offset().left;
+        const mouseY = event.clientY - getTranslateY(mapContainerInteract) - mediaContainer.offset().top;
 
         // Normalize mouse wheel movement to +1 or -1 to avoid unusual jumps.
         if (event.originalEvent.deltaY < 0) {
             if (currentZoomFactor < 11) {
                 currentZoomFactor ++;
                 scale = 0.8 + (0.2 * currentZoomFactor);
+
+                // mapContainerInteract.style.transformOrigin = mouseX + "px " + mouseY + "px";
             }
         } else {
             if (currentZoomFactor > 1) {
                 currentZoomFactor --;
                 scale = 0.8 + (0.2 * currentZoomFactor);
+
+                // mapContainerInteract.style.transformOrigin = mouseX + "px " + mouseY + "px";
             }
 
         }
@@ -168,11 +171,30 @@ $(document).ready(function () {
             newTransform = previousTransform + `scale(${scale})`;
         }
 
-        // set the new transform value to the element
+        console.log(mouseX);
+        console.log(mouseY);
+
+        // set the new transform value to the element and enable css transition
+        // mapContainerInteract.style.transition = "transform 200ms";
         mapContainerInteract.style.transform = newTransform;
+        // mapContainerInteract.style.transition = "none";
+        // mapContainerInteract.style.transition = "scale 200ms";
+        // mapContainerInteract.style.scale = scale;
+    });
 
-    })
+    // get translateX
+    function getTranslateX(element) {
+        let style = window.getComputedStyle(element);
+        let matrix = new WebKitCSSMatrix(style.transform);
+        return matrix.m41;
+    }
 
+    // get translateY
+    function getTranslateY(element) {
+        let style = window.getComputedStyle(element);
+        let matrix = new WebKitCSSMatrix(style.transform);
+        return matrix.m42;
+    }
 
 
     /*
