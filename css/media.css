@@ -162,7 +162,7 @@ body, html {
     .sidebar button {font-size: 18px;}
 }
 
-#location-menu {
+.location-menu {
     padding-inline-start: 0;
 }
 
