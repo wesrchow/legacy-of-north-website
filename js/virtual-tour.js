@@ -282,7 +282,7 @@ $(document).ready(function () {
     let currentMouseY;
     let previousMapX = 0;
     let previousMapY = 0;
-    const position = { x: 0, y: 0, centeredX: 0 }
+    const position = { x: 0, y: 0, offsetX: 0, offsetY: 0, centeredX: 0 }
 
     const mediaContainer = $("#media-container");
     const mapContainerReg = document.getElementById("map-container");
@@ -349,31 +349,33 @@ $(document).ready(function () {
                     position.y = moveY + previousMapY;
 
                     if (mapContainerReg.getBoundingClientRect().width > mediaContainerReg.getBoundingClientRect().width) {
-                        if (position.x > 0) {
-                            position.x = 0;
+                    position.offsetX = (mapContainerReg.getBoundingClientRect().width - mediaContainerReg.getBoundingClientRect().width) / 2;
+                        if (position.x > position.offsetX + position.centeredX) {
+                            position.x = position.offsetX + position.centeredX;
                             // mapContainer.css("left", "0");
-                        } else if (position.x < maxNegLeft) {
-                            position.x = maxNegLeft;
+                        } else if (position.x < position.centeredX - position.offsetX) {
+                            position.x = position.centeredX - position.offsetX;
                             // mapContainer.css("left", maxNegLeft);
                         } else {
                             // mapContainer.css("left", positionx);
                         }
                     } else {
-                        // position.x = previousMapX;
+                        position.x = previousMapX;
                     }
 
                     if (mapContainerReg.getBoundingClientRect().height > mediaContainerReg.getBoundingClientRect().height) {
-                        if (position.y > 0) {
-                            position.y = 0;
+                    position.offsetY = (mapContainerReg.getBoundingClientRect().height - mediaContainerReg.getBoundingClientRect().height) / 2;
+                        if (position.y > position.offsetY) {
+                            position.y = position.offsetY;
                             // mapContainer.css("top", "0");
-                        } else if (position.y < maxNegTop) {
-                            position.y = maxNegTop
+                        } else if (position.y < -position.offsetY) {
+                            position.y = -position.offsetY;
                             // mapContainer.css("top", maxNegTop);
                         } else {
                             // mapContainer.css("top", position.y);
                         }
                     } else {
-                        // position.y = previousMapY;
+                        position.y = previousMapY;
                     }
 
                     let previousTransform = "";
