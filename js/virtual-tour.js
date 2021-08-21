@@ -6,6 +6,7 @@ $(document).ready(function () {
 
     /* Variables Used Throughout */
     window.lockDrag = false;
+    window.lockMapSelection = false;
     let viewer360 = undefined;
 
     const viewer360Container = $("#viewer-360-container");
@@ -42,11 +43,16 @@ $(document).ready(function () {
 
             // Replace image with new SVG
             $img.replaceWith($svg);
+
+            // add map selection links
             jQuery.get("./csv/north-locations-filenames.csv", function(data) {
                 addMapLinks($.csv.toArrays(data));
             }, 'text');
 
             // TODO: PUT SOUTH AND OUTSIDE FILENAMES LIST HERE TOO
+
+            // center map when svg is finished fully loading
+            centerMap();
 
         }, 'xml');
 
@@ -140,29 +146,30 @@ $(document).ready(function () {
             if (mapIDName.length) {
                 mapIDName.addClass("location");
                 mapIDName.click(function () {
+                    if (!window.lockMapSelection) {
+                        let content360 = filenameArray[i];
 
-                    let content360 = filenameArray[i];
+                        // hide + lock map and reveal the 360 viewer container
+                        mapContainer.addClass("hidden");
+                        viewer360Container.removeClass("hidden");
+                        exit360Viewer.removeClass("hidden");
+                        window.lockDrag = true;
 
-                    // hide + lock map and reveal the 360 viewer container
-                    mapContainer.addClass("hidden");
-                    viewer360Container.removeClass("hidden");
-                    exit360Viewer.removeClass("hidden");
-                    window.lockDrag = true;
+                        // check if there's an existing viewer already, if so destroy it
+                        if (typeof viewer360 !== "undefined") {
+                            viewer360.destroy();
+                        }
 
-                    // check if there's an existing viewer already, if so destroy it
-                    if (typeof viewer360 !== "undefined") {
-                        viewer360.destroy();
+                        viewer360 = pannellum.viewer('viewer-360-container', {
+                            "type": "equirectangular",
+                            "panorama": `test-media/${content360}`,
+                            "friction": 0.1,
+                            "autoLoad": true,
+                            "compass": false,
+                            "keyboardZoom": false,
+                            "disableKeyboardCtrl": true
+                        });
                     }
-
-                    viewer360 = pannellum.viewer('viewer-360-container', {
-                        "type": "equirectangular",
-                        "panorama": `test-media/${content360}`,
-                        "friction": 0.1,
-                        "autoLoad": true,
-                        "compass": false,
-                        "keyboardZoom": false,
-                        "disableKeyboardCtrl": true
-                    });
                 });
             } else {
                 // continue looping through filenames without doing anything
@@ -273,12 +280,24 @@ $(document).ready(function () {
     let startMouseY;
     let currentMouseX;
     let currentMouseY;
-    let previousMapLeft;
-    let previousMapTop;
+    let previousMapX = 0;
+    let previousMapY = 0;
+    const position = { x: 0, y: 0, centeredX: 0 }
 
     const mediaContainer = $("#media-container");
+    const mapContainerReg = document.getElementById("map-container");
+    const mediaContainerReg = document.getElementById("media-container");
 
-    if  (mapContainer.length) {
+    if (mapContainer.length) {
+        // center map on load
+        function centerMap () {
+            position.centeredX = (mediaContainer.outerWidth() - mapContainer.outerWidth()) / 2
+
+            mapContainerReg.style.transform = `translate(${position.centeredX}px, 0px)`;
+            previousMapX = position.centeredX;
+            // previousMapX = parseFloat(mapContainer.css("left").split("px"));
+        }
+
         // click and drag implementation
         mediaContainer.mousedown(function (event) {
             dragging = true;
@@ -287,6 +306,11 @@ $(document).ready(function () {
 
             startMouseX = event.clientX;
             startMouseY = event.clientY;
+
+            // lock map selection clicks
+            setTimeout(function allowLocationClick(){
+                window.lockMapSelection = true;
+            }, 80);
         });
 
         $(document).mouseup(function () { /*mediaContainer*/
@@ -294,109 +318,134 @@ $(document).ready(function () {
 
             mediaContainer.css("cursor", "grab");
 
-            previousMapLeft = parseFloat(mapContainer.css("left").split("px"));
-            previousMapTop = parseFloat(mapContainer.css("top").split("px"));
+            // previousMapX = parseFloat(mapContainer.css("left").split("px"));
+            // previousMapY = parseFloat(mapContainer.css("top").split("px"));
 
-            // setTimeout(function allowLocationClick(){
-            //     lockDrag = false;
-            // }, 20);
+            previousMapX = position.x;
+            previousMapY = position.y;
+
+            // release map selection
+            setTimeout(function allowLocationClick(){
+                window.lockMapSelection = false;
+            }, 50);
         });
 
-        /* no longer need to deal with the mouse leaving the container because drag is now detected everywhere (even outside web window)*/
-        // mediaContainer.mouseleave(function () {
-        //     dragging = false;
-        //
-        //     mediaContainer.css("cursor", "grab");
-        //
-        //     previousMapLeft = parseFloat(schoolMap.css("left").split("px"));
-        //     previousMapTop = parseFloat(schoolMap.css("top").split("px"));
-        // })
+        $(document).mousemove(function (event) {
+            if (!window.lockDrag) {
+                if (dragging) {
+                    // setTimeout(function allowLocationClick() {
+                    //     lockDrag = true;
+                    // }, 50);
+                    let maxNegLeft = mediaContainer.width() - mapContainer.outerWidth();
+                    let maxNegTop = mediaContainer.height() - mapContainer.outerHeight();
 
+                    currentMouseX = event.clientX;
+                    currentMouseY = event.clientY;
 
-            $(document).mousemove(function (event) {
-                if (!window.lockDrag) {
-                    if (dragging) {
-                        // setTimeout(function allowLocationClick() {
-                        //     lockDrag = true;
-                        // }, 50);
-                        currentMouseX = event.clientX;
-                        currentMouseY = event.clientY;
-                        // console.log(currentMouseX, startMouseX);
+                    let moveX = currentMouseX - startMouseX;
+                    let moveY = currentMouseY - startMouseY;
 
-                        let moveX = currentMouseX - startMouseX;
-                        let moveY = currentMouseY - startMouseY;
+                    position.x = moveX + previousMapX;
+                    position.y = moveY + previousMapY;
 
-                        let newX = moveX + previousMapLeft;
-                        let newY = moveY + previousMapTop;
-
-                        let maxNegLeft = mediaContainer.width() - mapContainer.outerWidth();
-                        let maxNegTop = mediaContainer.height() - mapContainer.outerHeight();
-
-                        if (mapContainer.outerWidth() > mediaContainer.width()) {
-                            if (newX > 0) {
-                                mapContainer.css("left", "0");
-                            } else if (newX < maxNegLeft) {
-                                mapContainer.css("left", maxNegLeft);
-                            } else {
-                                mapContainer.css("left", newX);
-                            }
+                    if (mapContainerReg.getBoundingClientRect().width > mediaContainerReg.getBoundingClientRect().width) {
+                        if (position.x > 0) {
+                            position.x = 0;
+                            // mapContainer.css("left", "0");
+                        } else if (position.x < maxNegLeft) {
+                            position.x = maxNegLeft;
+                            // mapContainer.css("left", maxNegLeft);
                         } else {
-
+                            // mapContainer.css("left", positionx);
                         }
-
-                        if (mapContainer.outerHeight() > mediaContainer.height()) {
-                            if (newY > 0) {
-                                mapContainer.css("top", "0");
-                            } else if (newY < maxNegTop) {
-                                mapContainer.css("top", maxNegTop);
-                            } else {
-                                mapContainer.css("top", newY);
-                            }
-                        } else {
-
-                        }
-
+                    } else {
+                        // position.x = previousMapX;
                     }
+
+                    if (mapContainerReg.getBoundingClientRect().height > mediaContainerReg.getBoundingClientRect().height) {
+                        if (position.y > 0) {
+                            position.y = 0;
+                            // mapContainer.css("top", "0");
+                        } else if (position.y < maxNegTop) {
+                            position.y = maxNegTop
+                            // mapContainer.css("top", maxNegTop);
+                        } else {
+                            // mapContainer.css("top", position.y);
+                        }
+                    } else {
+                        // position.y = previousMapY;
+                    }
+
+                    let previousTransform = "";
+                    let newTransform = "";
+                    const regexTranslate = /translate\(.*x\)/; // regex for finding the transform translate()
+
+                    // get the previous transform values
+                    previousTransform = mapContainerReg.style.transform;
+
+                    // if there's already an existing translate() value, replace it
+                    if (regexTranslate.test(previousTransform)) {
+                        newTransform = previousTransform.replace(regexTranslate,`translate(${position.x}px, ${position.y}px)`);
+                    } else {
+                        newTransform = previousTransform + `translate(${position.x}px, ${position.y}px)`;
+                    }
+
+                    // set the new transform value to the element
+                    mapContainerReg.style.transform = newTransform;
+
                 }
-            });
+            }
+        });
 
         // zoom implementation
         // TODO: finish zoom function (rn its taking over the sidebar width) and maybe smooth out the animation
-        let maxZoomFactor = 5;
+        let scale = 1;
         let currentZoomFactor = 1;
-        let zoomPercent = 0;
-        let newTop = 0;
-        let newLeft = 0;
+        let previousTransform = "";
+        let newTransform = "";
+        const regexScale = /scale\(.*\)/; // regex for finding the transform scale()
 
         mediaContainer.on("wheel", function (event) {
-            // console.log(currentZoomFactor);
+
             if (event.originalEvent.deltaY < 0) {
                 if (currentZoomFactor < 11) {
                     currentZoomFactor++;
-                    zoomPercent = 75 + (25 * currentZoomFactor);
-                    mapContainer.css("height", zoomPercent + "%");
-                    // schoolMap.animate({height: zoomPercent + "%"}, 120);
+                    scale = 0.75 + (0.25 * currentZoomFactor);
+                    // mapContainer.css("transform",`scale(${scale})`);
 
-                    if (parseFloat(mapContainer.css("width").split("%")) > parseFloat(mediaContainer.css("width").split("px"))) {
-                        mapContainer.css("left", 0);
-                        mapContainer.css("transform", "none");
-                    }
+                    // if (parseFloat(mapContainer.css("width").split("%")) > parseFloat(mediaContainer.css("width").split("px"))) {
+                    //     // mapContainer.css("left", 0);
+                    //     // mapContainer.css("transform", "none");
+                    // }
                 }
 
             } else {
                 if (currentZoomFactor > 1) {
                     currentZoomFactor--;
-                    zoomPercent = 75 + (25 * currentZoomFactor);
-                    mapContainer.css("height", zoomPercent + "%");
-                    // schoolMap.animate({height: zoomPercent + "%"}, 120);
+                    scale = 0.75 + (0.25 * currentZoomFactor);
+                    // mapContainer.css("transform",`scale(${scale})`);
 
                     if (parseFloat(mapContainer.css("width").split("%")) <= parseFloat(mediaContainer.css("width").split("px"))) {
-                        mapContainer.css("left", "50%");
-                        mapContainer.css("transform", "translate(-50%, 0)");
+                        // mapContainer.css("left", "50%");
+                        // mapContainer.css("transform", "translate(-50%, 0)");
                     }
                 }
 
             }
+
+            // get the previous transform values
+            previousTransform = mapContainerReg.style.transform;
+
+            // if there's already an existing scale() value, replace it
+            if (regexScale.test(previousTransform)) {
+                newTransform = previousTransform.replace(regexScale,`scale(${scale})`);
+            } else {
+                newTransform = previousTransform + `scale(${scale})`;
+            }
+
+            // set the new transform value to the element
+            mapContainerReg.style.transform = newTransform;
+
         });
     }
 
@@ -448,7 +497,7 @@ $(document).ready(function () {
                         mapContainer.addClass("hidden");
                         viewer360Container.removeClass("hidden");
                         exit360Viewer.removeClass("hidden");
-                        lockDrag = true;
+                        window.lockDrag = true;
 
                         // check if there's an existing viewer already, if so destroy it
                         if (typeof viewer360 !== "undefined") {
@@ -479,7 +528,7 @@ $(document).ready(function () {
             mapContainer.removeClass("hidden");
             viewer360Container.addClass("hidden");
             exit360Viewer.addClass("hidden");
-            lockDrag = false;
+            window.lockDrag = false;
 
             // close the viewer renderer
             if (typeof viewer360 !== "undefined") {
@@ -491,3 +540,4 @@ $(document).ready(function () {
 
 
 });
+
