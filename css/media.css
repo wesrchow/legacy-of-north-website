@@ -269,7 +269,7 @@ body, html {
     -webkit-user-select: none;
     height: 100%;
     width: auto;
-    padding: 15px 15px;
+    /*padding: 15px 15px;*/
 }
 
 .locations-container {
@@ -346,7 +346,7 @@ body, html {
 }
 
 .location:hover {
-    fill: #818181 !important;
+    fill: #5a5a5a !important;
     cursor: pointer;
 }
 

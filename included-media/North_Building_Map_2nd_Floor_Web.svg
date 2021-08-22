@@ -99,11 +99,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6568543"
-     inkscape:cx="438.20699"
-     inkscape:cy="33.222378"
+     inkscape:zoom="2"
+     inkscape:cx="310.48347"
+     inkscape:cy="302.07639"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      inkscape:document-rotation="0"
      showgrid="false"
      fit-margin-top="0"
@@ -111,11 +111,11 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      showborder="false"
-     inkscape:window-width="2560"
-     inkscape:window-height="1377"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
+     inkscape:window-width="1975"
+     inkscape:window-height="1368"
+     inkscape:window-x="-7"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
      inkscape:snap-center="true"
      inkscape:snap-object-midpoints="true"
      inkscape:snap-text-baseline="true"
@@ -140,217 +140,741 @@
      style="opacity:1"
      sodipodi:insensitive="true">
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.250831px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 0.06614512,111.49435 v 10.31082 H 2.3680201 v -10.31082 z"
+       id="Left_Stage_Stairs_360Photo_1_Web" />
+    <path
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 140.1445,0.062434 -7.2443,2.5347083 1.57957,4.5164374 -10.6971,3.7438543 4.99003,14.263687 17.94405,-6.278563 z"
        id="Room415_360Photo_1_Web" />
     <path
-       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
        d="m 123.78267,10.857434 -14.44096,5.056187 4.99004,14.263687 14.44095,-5.056187 z"
-       id="path969" />
+       id="Room413_360Photo_1_Web" />
     <path
-       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-       d="m 146.71675,18.842558 -7.94544,2.780771 5.31019,15.168563 7.94543,-2.780771 z"
+       style="font-variation-settings:normal;opacity:1;vector-effect:none;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+       d="m 146.74434,18.823893 -7.94544,2.780771 5.31019,15.168563 7.94543,-2.780771 z"
        id="Room416_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 136.18633,34.198975 3.85498,-1.349375 1.66952,4.770437 -3.85498,1.349375 z"
-       id="path975" />
+       id="400Wing_Staffroom_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 125.16644,26.385829 -10.83469,3.791479 5.31019,15.168563 10.83203,-3.791479 z"
-       id="path979" />
+       id="Room412_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 69.765332,38.842412 1.960563,6.246813 42.605855,-14.911917 -2.16165,-6.17802 z"
-       id="path3005" />
+       id="400Wing_Back_Storage_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 99.991332,35.196454 2.889248,8.260292 14.34306,-5.019146 -2.89189,-8.260292 z"
-       id="path3007" />
+       id="Room411_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 114.06452,39.540912 2.41829,6.910917 3.15913,-1.105958 -2.4183,-6.908271 z"
-       id="path3009" />
+       id="Media_Room_Hallway_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 102.88058,43.456746 11.18394,-3.915834 2.41829,6.910917 -16.20308,5.670021 -1.78594,-5.101167 5.01915,-1.756833 z"
-       id="path3011" />
+       id="Room410_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 96.117832,47.851475 7.395108,-2.587625 -3.521608,-10.067396 -7.39775,2.587625 z"
-       id="path3013" />
+       id="Room408_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 78.163207,42.834975 14.430375,-5.050896 4.503208,12.866687 -12.054416,4.220105 -0.978958,-2.799292 -2.375959,0.830792 z"
-       id="path3015" />
+       id="Room406_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 81.687455,52.902371 1.78594,5.101166 16.806335,-5.881687 -1.785942,-5.101167 -2.375959,0.830792 0.978959,2.799291 -12.054414,4.220105 -0.978958,-2.799292 z"
-       id="path3017" />
+       id="Band_Room_Hallway_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 78.163207,42.834975 60.068353,49.1691 65.378541,64.337662 83.473395,58.003537 Z"
-       id="path3019" />
+       id="Room402_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 56.475312,50.425871 3.593041,-1.256771 5.310188,15.168562 -3.595688,1.256771 z"
-       id="path3021" />
+       style="fill:#cccccc;stroke:none;stroke-width:0.267407px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 31.271104,59.247079 36.695253,74.415641 65.378541,64.337662 60.068354,49.1691 Z"
+       id="North_Cafeteria_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 31.271104,59.247079 36.581291,74.415641 61.782853,65.594433 56.475312,50.425871 Z"
-       id="path3023" />
-    <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 27.648958,60.514433 1.971146,11.58875 c 0,0 5.479521,-1.915583 5.479521,-1.915583 L 31.271104,59.247079 Z"
-       id="path3025" />
+       id="North_School_Store_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 32.361187,71.145391 2.738438,-0.957791 1.481666,4.228041 v 31.749999 l 1.934104,0.9525 -3.156479,10.52513 -2.526771,-0.7329 H 30.442958 V 80.522224 h 1.918229 z"
-       id="path3027" />
+       id="North Foyer" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 28.281312,84.445995 h 2.161646 V 76.450287 H 9.2471876 v 6.516687 H 28.281312 Z"
-       id="path3029" />
+       id="North_Girls_Changeroom_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 16.771937,84.445995 v -1.479021 h -5.879041 v 1.479021 z"
-       id="path3031" />
+       id="North_Gym_Equipment_Room3_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 10.892896,84.445995 V 82.966974 H 2.3151044 v 1.479021 z"
-       id="path3033" />
+       id="North_Gym_Equipment_Room2_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 2.3151044,84.445995 H 0.06614612 V 76.450287 H 5.7467502 v 6.516687 H 2.3151044 Z"
-       id="path3035" />
+       id="North_Gym_Equipment_Room1_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 0.06614612,84.445995 H 30.442958 V 111.49435 H 0.06614612 Z"
-       id="path3037" />
+       id="North_Gym_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 0.06614612,111.49435 v 10.31081 H 30.442958 v -10.31081 z"
-       id="path3039" />
+       style="fill:#cccccc;stroke:none;stroke-width:0.250831px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 2.3680201,111.49435 v 10.31082 H 28.143728 v -10.31082 z"
+       id="North_Gym_Stage_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 33.861375,122.79735 c 0,0 -3.418417,-0.99219 -3.418417,-0.99219 v -1.50019 h 2.180167 l 1.804458,0.54505 z"
-       id="path3041" />
+       id="North_Stairway4_360Photo_2_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 39.645166,103.37693 5.283729,1.59279 -2.786062,9.23396 -5.320771,-1.60337 z"
-       id="path3416" />
-    <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 44.928895,104.96972 8.231188,2.4818 -2.783417,9.2366 -8.233833,-2.48444 z"
-       id="path3418" />
+       id="Room202_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 53.160083,107.45152 8.022166,2.41829 -2.786062,9.23396 -8.019521,-2.41565 z"
-       id="path3420" />
+       id="Room204_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 61.182249,109.86981 8.090958,2.43946 -2.783416,9.2366 -8.093604,-2.4421 z"
-       id="path3422" />
+       id="Room206_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 69.273207,112.30927 -2.783416,9.2366 8.757708,2.6379 2.783417,-9.23396 z"
-       id="path3424" />
+       id="Room208_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 78.030916,114.94981 -0.669396,2.20927 5.167312,1.55839 0.66675,-2.21191 z"
-       id="path3426" />
+       id="North_Stairway3_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 83.19558,116.50556 -2.783414,9.2366 8.765645,2.64319 2.783417,-9.23661 z"
-       id="path3428" />
+       id="Room210_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 89.177811,128.38535 8.583084,2.58762 2.743725,-9.24983 -8.543392,-2.5744 z"
-       id="path3430" />
+       id="Room212_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 97.760895,130.97297 2.743725,-9.24983 15.15005,4.56935 -2.78342,9.23396 z"
-       id="path3432" />
+       id="Room214_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 133.96912,131.81435 -2.78606,9.23395 12.02002,3.6248 2.78606,-9.23661 z"
-       id="path3434" />
+       id="Room218_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 145.98914,135.43649 -0.66675,2.21192 5.16467,1.55839 0.66675,-2.21191 z"
-       id="path3436" />
+       id="North_Stairway1_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 132.41602,145.46685 -2.67494,8.87412 14.83519,4.47146 2.67493,-8.87148 z"
-       id="path3438" />
+       id="Room221_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 124.73252,143.15174 -2.67494,8.87148 7.6835,2.31775 2.67494,-8.87412 z"
-       id="path3440" />
+       id="Room219_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 110.29685,146.0648 -0.6641,2.21192 5.16467,1.5584 0.6641,-2.21192 z"
-       id="path3442" />
+       id="North_Stairway2_360Photo_1_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 99.620915,145.25783 2.674935,-8.87148 10.01184,3.01889 -2.67494,8.87148 z"
-       id="path3444" />
+       id="Room215_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 90.066811,142.37916 2.674938,-8.87148 9.554101,2.87867 -2.674935,8.87148 z"
-       id="path3446" />
+       id="Room213_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 80.560332,139.51372 2.674938,-8.87412 9.506479,2.86808 -2.674938,8.87148 z"
-       id="path3448" />
+       id="Room211_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 71.088249,136.65622 2.674938,-8.87148 9.472083,2.85486 -2.67494,8.87412 z"
-       id="path3450" />
+       id="Room209_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 61.626749,133.80401 2.674938,-8.87147 9.4615,2.8522 -2.674938,8.87148 z"
-       id="path3452" />
+       id="Room207_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 52.175833,130.95445 2.674937,-8.87148 9.450917,2.84957 -2.674938,8.87147 z"
-       id="path3454" />
+       id="Room205_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 42.841333,128.14193 2.674937,-8.87412 9.3345,2.81516 -2.674937,8.87148 z"
-       id="path3456" />
+       id="Room203_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 33.13377,125.21299 2.608792,-8.89264 9.773708,2.94746 -2.674937,8.87412 z"
-       id="path3458" />
+       id="Room201_360Photo_Web" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 36.822062,112.60031 -1.0795,3.72004 111.508638,33.6206 1.11919,-3.70946 z"
-       id="path3460" />
+       id="2nd Floor Hallway" />
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 133.37645,26.171517 4.4794,12.797895 -7.38188,2.58498 -4.479,-12.800677 z"
-       id="path1639" />
+       id="Room414_360Photo_1_Web" />
     <path
-       style="fill:#ececec;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#cccccc;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m 125.99497,28.753715 c 0,0 -0.82854,-2.367885 -0.82853,-2.367886 0,0 13.60487,-4.7625 13.60487,-4.7625 l 5.31019,15.168563 -2.37067,0.828145 -4.4794,-12.797895 z"
-       id="path1641" />
+       id="400Wing_Tech_Ed_Hallway_360Photo_1_Web" />
+    <path
+       style="fill:#cccccc;stroke:none;stroke-width:0.250831px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 28.143728,111.49435 v 10.31082 h 2.301875 v -10.31082 z"
+       id="Right_Stage_Stairs_360Photo_1_Web" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="North 2nd Floor 1"
+     sodipodi:insensitive="true"
+     style="display:inline">
+    <g
+       id="g4073"
+       transform="matrix(0.26458333,0,0,0.26458333,-29.786792,0.06243808)"
+       style="stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none">
+      <polyline
+         points="112.83,460.13 112.83,228.48"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3681" />
+      <polyline
+         points="659.01,600 659.01,600 683.87,517.54"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3683" />
+      <polyline
+         points="659.01,600 237.81,473.01"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3685" />
+      <polyline
+         points="112.83,460.13 227.64,460.13"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3687" />
+      <polyline
+         points="112.83,228.48 217.08,228.48"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3689" />
+      <polyline
+         points="687.17,128.31 642.26,0 642.26,0"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3691" />
+      <polyline
+         points="642.26,0 642.26,0 614.88,9.58"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3693" />
+      <polyline
+         points="614.88,9.58 620.85,26.65"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3695" />
+      <polyline
+         points="620.85,26.65 525.84,59.91"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3697" />
+      <polyline
+         points="687.17,128.31 250.84,281.02"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3699" />
+      <polyline
+         points="544.7,113.82 525.84,59.91"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3701" />
+      <polyline
+         points="683.87,517.54 262.42,390.48"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3703" />
+      <polyline
+         points="250.84,281.02 250.84,401.02"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3705" />
+      <polyline
+         points="227.64,460.13 227.64,288.71"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3707" />
+      <polyline
+         points="227.64,318.93 112.83,318.93"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3709" />
+      <polyline
+         points="227.64,421.16 112.83,421.16"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3711" />
+      <polyline
+         points="121.33,318.93 121.33,313.34"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3713" />
+      <polyline
+         points="153.75,318.93 153.75,313.34"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3715" />
+      <polyline
+         points="134.3,313.34 134.3,288.71"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3717" />
+      <polyline
+         points="147.53,313.34 147.53,288.71"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3719" />
+      <polyline
+         points="175.97,318.93 175.97,313.34"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3721" />
+      <polyline
+         points="219.47,318.93 219.47,313.34"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3723" />
+      <polyline
+         points="219.47,313.34 121.33,313.34"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3725" />
+      <polyline
+         points="224.53,272.28 217.08,228.48"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3727" />
+      <polyline
+         points="250.84,281.02 230.77,223.69"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3729" />
+      <polyline
+         points="224.53,272.28 245.24,265.04"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3731" />
+      <polyline
+         points="346.09,247.68 326.03,190.35"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3733" />
+      <polyline
+         points="359.68,242.93 339.61,185.6"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3735" />
+      <polyline
+         points="408,161.66 428.07,218.99"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3737" />
+      <polyline
+         points="544.7,113.82 564.77,171.15"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3739" />
+      <polyline
+         points="503.81,170.84 475.86,180.62"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3741" />
+      <polyline
+         points="484.84,177.48 491.59,196.76"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3743" />
+      <polyline
+         points="421.32,199.71 430.3,196.57"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3745" />
+      <polyline
+         points="501.42,164.01 555.63,145.04"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3747" />
+      <polyline
+         points="543.69,149.21 552.83,175.33"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3749" />
+      <polyline
+         points="605.71,156.82 585.65,99.49"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3751" />
+      <polyline
+         points="585.65,99.49 544.7,113.82"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3753" />
+      <polyline
+         points="627.3,129.02 641.87,123.92"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3755" />
+      <polyline
+         points="657.14,138.82 637.07,81.49"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3757" />
+      <polyline
+         points="637.07,81.49 667.1,70.98"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3759" />
+      <polyline
+         points="637.07,81.49 585.65,99.49"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3761" />
+      <polyline
+         points="580.42,40.8 599.28,94.71"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3763" />
+      <polyline
+         points="237.81,473.01 240.56,463.88"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3765" />
+      <polyline
+         points="262.42,390.48 258.15,404.62"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3767" />
+      <polyline
+         points="250.84,401.02 258.15,404.62"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3769" />
+      <polyline
+         points="240.56,463.88 227.64,460.13"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3771" />
+      <polyline
+         points="240.56,463.88 247.67,439.4"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3773" />
+      <polyline
+         points="247.67,439.4 669.12,566.47"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3775" />
+      <polyline
+         points="258.15,404.62 251.75,425.34"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3777" />
+      <polyline
+         points="251.75,425.34 673.35,552.45"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3779" />
+      <polyline
+         points="271.86,431.4 282.39,396.5"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3781" />
+      <polyline
+         points="302.98,440.79 313.5,405.88"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3783" />
+      <polyline
+         points="274.5,484.08 284.61,450.54"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3785" />
+      <polyline
+         points="333.29,449.92 343.82,415.02"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3787" />
+      <polyline
+         points="309.78,494.71 319.89,461.18"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3789" />
+      <polyline
+         points="345.5,505.48 355.61,471.95"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3791" />
+      <polyline
+         points="363.88,459.15 374.4,424.24"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3793" />
+      <polyline
+         points="381.26,516.26 391.37,482.73"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3795" />
+      <polyline
+         points="417.06,527.06 427.17,493.52"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3797" />
+      <polyline
+         points="396.98,469.12 407.5,434.22"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3799" />
+      <polyline
+         points="416.5,475.01 427.02,440.1"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3801" />
+      <polyline
+         points="449.63,485 460.15,450.09"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3803" />
+      <polyline
+         points="482.07,494.78 492.44,459.82"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3805" />
+      <polyline
+         points="539.18,511.99 549.7,477.09"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3807" />
+      <polyline
+         points="452.99,537.89 463.1,504.36"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3809" />
+      <polyline
+         points="489.1,548.77 499.21,515.24"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3811" />
+      <polyline
+         points="526.94,560.18 537.05,526.65"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3813" />
+      <polyline
+         points="546.46,566.07 556.57,532.53"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3815" />
+      <polyline
+         points="573.9,574.34 584.01,540.81"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3817" />
+      <polyline
+         points="602.94,583.1 613.05,549.56"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3819" />
+      <polyline
+         points="664.35,511.65 653.82,546.56"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3821" />
+      <polyline
+         points="677.65,538.18 658.12,532.29"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3823" />
+      <polyline
+         points="667.89,535.24 674.11,514.59"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3825" />
+      <polyline
+         points="678.39,535.72 658.86,529.84"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3827" />
+      <polyline
+         points="659.61,527.38 679.13,533.27"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3829" />
+      <polyline
+         points="679.87,530.81 660.35,524.92"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3831" />
+      <polyline
+         points="661.09,522.47 680.61,528.35"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3833" />
+      <polyline
+         points="681.35,525.9 661.83,520.01"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3835" />
+      <polyline
+         points="424.5,448.46 404.97,442.57"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3837" />
+      <polyline
+         points="411.03,457.8 417.25,437.16"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3839" />
+      <polyline
+         points="404.23,445.03 423.75,450.92"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3841" />
+      <polyline
+         points="423.01,453.37 403.49,447.49"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3843" />
+      <polyline
+         points="402.75,449.94 422.27,455.83"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3845" />
+      <polyline
+         points="421.53,458.29 402.01,452.4"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3847" />
+      <polyline
+         points="420.79,460.74 401.27,454.86"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3849" />
+      <polyline
+         points="529.45,551.82 548.97,557.71"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3851" />
+      <polyline
+         points="549.71,555.25 530.19,549.36"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3853" />
+      <polyline
+         points="530.93,546.91 550.45,552.79"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3855" />
+      <polyline
+         points="542.91,542.48 536.69,563.12"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3857" />
+      <polyline
+         points="551.19,550.34 531.67,544.45"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3859" />
+      <polyline
+         points="532.41,541.99 551.94,547.88"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3861" />
+      <polyline
+         points="533.15,539.54 552.68,545.42"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3863" />
+      <polyline
+         points="227.64,441.63 236.67,441.63"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3865" />
+      <polyline
+         points="236.67,441.63 246.22,444.4"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3867" />
+      <polyline
+         points="227.64,454.46 235.88,454.46"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3869" />
+      <polyline
+         points="235.88,454.46 242.7,456.52"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3871" />
+      <polyline
+         points="236.67,441.63 235.88,454.46"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3873" />
+      <polyline
+         points="227.64,444.2 236.51,444.2"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3875" />
+      <polyline
+         points="227.64,446.76 236.35,446.76"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3877" />
+      <polyline
+         points="227.64,449.33 236.2,449.33"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3879" />
+      <polyline
+         points="227.64,451.89 236.04,451.89"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3881" />
+      <polyline
+         points="236.04,451.89 243.42,454.04"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3883" />
+      <polyline
+         points="236.2,449.33 244.11,451.64"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3885" />
+      <polyline
+         points="236.35,446.76 244.82,449.22"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3887" />
+      <polyline
+         points="236.51,444.2 245.52,446.81"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3889" />
+      <polyline
+         points="408,161.66 217.08,228.48"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3891" />
+      <polyline
+         points="408,161.66 544.7,113.82"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3893" />
+      <polyline
+         points="503.81,170.84 490.5,132.79"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3895" />
+      <polyline
+         points="383.67,170.18 376.26,146.57"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3897" />
+      <polyline
+         points="376.26,146.57 536.53,90.47"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3899" />
+      <polyline
+         points="234.89,288.71 234.89,268.66"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3901" />
+      <polyline
+         points="234.89,288.71 112.83,288.71"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3903" />
+      <polyline
+         points="234.89,301.54 227.64,301.54"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3905" />
+      <polyline
+         points="234.89,298.97 227.64,298.97"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3907" />
+      <polyline
+         points="234.89,296.4 227.64,296.4"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3909" />
+      <polyline
+         points="234.89,293.84 227.64,293.84"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3911" />
+      <polyline
+         points="234.89,291.27 227.64,291.27"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3913" />
+      <polyline
+         points="234.89,288.71 234.89,304.1"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3915" />
+      <polyline
+         points="234.89,304.1 227.64,304.1"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3917" />
+      <polyline
+         points="608.39,532.86 618.92,497.96"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3919" />
+      <polyline
+         points="631.25,93.58 648.18,141.95"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3921" />
+      <polyline
+         points="631.25,93.58 588.78,108.44"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3923" />
+      <polyline
+         points="633.61,147.05 616.68,98.68"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3925" />
+      <polyline
+         points="430.3,196.57 433.9,206.87"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3927" />
+      <polyline
+         points="433.9,206.87 479.46,190.93"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3929" />
+      <polyline
+         points="479.46,190.93 462.54,142.57"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3931" />
+      <polyline
+         points="121.53,460.13 121.53,421.16"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3933" />
+      <polyline
+         points="218.95,460.13 218.95,421.16"
+         style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
+         id="polyline3935" />
+    </g>
   </g>
   <g
      inkscape:label="North 2nd Floor"
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-21.473173,-14.300215)"
-     style="opacity:1"
+     style="display:none;opacity:1"
      sodipodi:insensitive="true">
     <g
        id="g806"
        transform="matrix(0.26458333,0,0,0.26458333,-8.313618,14.362649)"
        style="stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none">
-      <polyline
-         points="112.83,460.13 112.83,228.48"
+      <path
+         id="polyline420"
          style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
-         id="polyline420" />
+         d="M 112.83,460.13 V 228.48" />
       <polyline
          points="659.01,600 659.01,600 683.87,517.54"
          style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
@@ -363,10 +887,10 @@
          points="112.83,460.13 227.64,460.13"
          style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
          id="polyline426" />
-      <polyline
-         points="112.83,228.48 217.08,228.48"
+      <path
+         id="polyline428"
          style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
-         id="polyline428" />
+         d="M 112.83,228.48 H 217.08" />
       <polyline
          points="687.17,128.31 642.26,0 642.26,0"
          style="fill:none;stroke:#000000;stroke-width:1.24724;stroke-miterlimit:4;stroke-dasharray:none"
@@ -856,45 +1380,491 @@
   <g
      inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="Location Names"
-     sodipodi:insensitive="true">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
-       x="44.458954"
-       y="112.03727"
-       id="text404-6"><tspan
-         sodipodi:role="line"
+     inkscape:label="Location Names">
+    <g
+       id="g516"
+       style="pointer-events: none;">
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
          x="44.458954"
          y="112.03727"
-         style="stroke-width:0.0830993"
-         id="tspan482">202</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
-       x="52.559361"
-       y="114.48599"
-       id="text404-6-6"><tspan
-         sodipodi:role="line"
+         id="text404-6"><tspan
+           sodipodi:role="line"
+           x="44.458954"
+           y="112.03727"
+           style="stroke-width:0.0830993"
+           id="tspan482">202</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
          x="52.559361"
          y="114.48599"
-         style="stroke-width:0.0830993"
-         id="tspan510">204</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
-       x="60.62434"
-       y="116.91619"
-       id="text404-6-6-4"><tspan
-         sodipodi:role="line"
+         id="text404-6-6"><tspan
+           sodipodi:role="line"
+           x="52.559361"
+           y="114.48599"
+           style="stroke-width:0.0830993"
+           id="tspan510">204</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
          x="60.62434"
          y="116.91619"
-         style="stroke-width:0.0830993"
-         id="tspan510-0">206</tspan><tspan
-         sodipodi:role="line"
-         x="60.62434"
-         y="121.40355"
-         style="stroke-width:0.0830993"
-         id="tspan538" /></text>
+         id="text404-6-6-4"><tspan
+           sodipodi:role="line"
+           x="60.62434"
+           y="116.91619"
+           style="stroke-width:0.0830993"
+           id="tspan510-0">206</tspan><tspan
+           sodipodi:role="line"
+           x="60.62434"
+           y="121.40355"
+           style="stroke-width:0.0830993"
+           id="tspan538" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="131.99171"
+         y="16.421892"
+         id="text404-6-6-4-7"><tspan
+           sodipodi:role="line"
+           x="131.99171"
+           y="16.421892"
+           style="stroke-width:0.0830993"
+           id="tspan3201">415</tspan><tspan
+           sodipodi:role="line"
+           x="131.99171"
+           y="20.909252"
+           style="stroke-width:0.0830993"
+           id="tspan538-8" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="142.28452"
+         y="29.004473"
+         id="text404-6-6-4-7-6"><tspan
+           sodipodi:role="line"
+           x="142.28452"
+           y="29.004473"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5">416</tspan><tspan
+           sodipodi:role="line"
+           x="142.28452"
+           y="33.491833"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="128.81081"
+         y="35.050201"
+         id="text404-6-6-4-7-6-9"><tspan
+           sodipodi:role="line"
+           x="128.81081"
+           y="35.050201"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-7">414</tspan><tspan
+           sodipodi:role="line"
+           x="128.81081"
+           y="39.53756"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-2" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="119.28826"
+         y="37.053097"
+         id="text404-6-6-4-7-6-0"><tspan
+           sodipodi:role="line"
+           x="119.28826"
+           y="37.053097"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-5">412</tspan><tspan
+           sodipodi:role="line"
+           x="119.28826"
+           y="41.540455"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-6" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="115.9426"
+         y="21.704618"
+         id="text404-6-6-4-7-6-2"><tspan
+           sodipodi:role="line"
+           x="115.9426"
+           y="21.704618"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-71">413</tspan><tspan
+           sodipodi:role="line"
+           x="115.9426"
+           y="26.191978"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-7" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="105.49289"
+         y="38.004276"
+         id="text404-6-6-4-7-6-7"><tspan
+           sodipodi:role="line"
+           x="105.49289"
+           y="38.004276"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-54">411</tspan><tspan
+           sodipodi:role="line"
+           x="105.49289"
+           y="42.491634"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-72" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="104.3737"
+         y="47.018631"
+         id="text404-6-6-4-7-6-8"><tspan
+           sodipodi:role="line"
+           x="104.3737"
+           y="47.018631"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-2">410</tspan><tspan
+           sodipodi:role="line"
+           x="104.3737"
+           y="51.505989"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-5" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="84.515396"
+         y="47.514725"
+         id="text404-6-6-4-7-6-4"><tspan
+           sodipodi:role="line"
+           x="84.515396"
+           y="47.514725"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-9">406</tspan><tspan
+           sodipodi:role="line"
+           x="84.515396"
+           y="52.002083"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-1" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="68.656273"
+         y="54.773567"
+         id="text404-6-6-4-7-6-38"><tspan
+           sodipodi:role="line"
+           x="68.656273"
+           y="54.773567"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-26">402</tspan><tspan
+           sodipodi:role="line"
+           x="68.656273"
+           y="59.260925"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-3" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="94.93866"
+         y="42.711212"
+         id="text404-6-6-4-7-6-21"><tspan
+           sodipodi:role="line"
+           x="94.93866"
+           y="42.711212"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-6">408</tspan><tspan
+           sodipodi:role="line"
+           x="94.93866"
+           y="47.19857"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-57" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;text-align:center;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="46.577293"
+         y="61.414639"
+         id="text404-6-6-4-7-6-5"><tspan
+           sodipodi:role="line"
+           x="46.577293"
+           y="61.414639"
+           style="text-align:center;text-anchor:middle;stroke-width:0.0830993"
+           id="tspan3201-5-67">North </tspan><tspan
+           sodipodi:role="line"
+           x="46.577293"
+           y="65.902"
+           style="text-align:center;text-anchor:middle;stroke-width:0.0830993"
+           id="tspan3670">Cafeteria</tspan><tspan
+           sodipodi:role="line"
+           x="46.577293"
+           y="70.389359"
+           style="text-align:center;text-anchor:middle;stroke-width:0.0830993"
+           id="tspan538-8-8-35" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="6.0949693"
+         y="98.898544"
+         id="text404-6-6-4-7-6-70"><tspan
+           sodipodi:role="line"
+           x="6.0949693"
+           y="98.898544"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-0">North Gym</tspan><tspan
+           sodipodi:role="line"
+           x="6.0949693"
+           y="103.3859"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-47" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="10.412235"
+         y="117.53674"
+         id="text404-6-6-4-7-6-6"><tspan
+           sodipodi:role="line"
+           x="10.412235"
+           y="117.53674"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-19">Stage</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="36.210423"
+         y="123.41839"
+         id="text404-6-6-4-7-6-1"><tspan
+           sodipodi:role="line"
+           x="36.210423"
+           y="123.41839"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-65">201</tspan><tspan
+           sodipodi:role="line"
+           x="36.210423"
+           y="127.90575"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-9" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="45.731453"
+         y="126.29838"
+         id="text404-6-6-4-7-6-22"><tspan
+           sodipodi:role="line"
+           x="45.731453"
+           y="126.29838"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-8">203</tspan><tspan
+           sodipodi:role="line"
+           x="45.731453"
+           y="130.78574"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-16" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="55.124161"
+         y="129.13074"
+         id="text404-6-6-4-7-6-60"><tspan
+           sodipodi:role="line"
+           x="55.124161"
+           y="129.13074"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-3">205</tspan><tspan
+           sodipodi:role="line"
+           x="55.124161"
+           y="133.6181"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-73" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="64.580368"
+         y="131.98163"
+         id="text404-6-6-4-7-6-84"><tspan
+           sodipodi:role="line"
+           x="64.580368"
+           y="131.98163"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-20">207</tspan><tspan
+           sodipodi:role="line"
+           x="64.580368"
+           y="136.46899"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-53" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="74.047157"
+         y="134.83647"
+         id="text404-6-6-4-7-6-73"><tspan
+           sodipodi:role="line"
+           x="74.047157"
+           y="134.83647"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-06">209</tspan><tspan
+           sodipodi:role="line"
+           x="74.047157"
+           y="139.32384"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-40" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="69.145752"
+         y="119.43377"
+         id="text404-6-6-4-7-6-23"><tspan
+           sodipodi:role="line"
+           x="69.145752"
+           y="119.43377"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-02">208</tspan><tspan
+           sodipodi:role="line"
+           x="69.145752"
+           y="123.92113"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-43" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="83.536438"
+         y="137.69662"
+         id="text404-6-6-4-7-6-01"><tspan
+           sodipodi:role="line"
+           x="83.536438"
+           y="137.69662"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-92">211</tspan><tspan
+           sodipodi:role="line"
+           x="83.536438"
+           y="142.18399"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-572" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="83.072098"
+         y="123.63271"
+         id="text404-6-6-4-7-6-54"><tspan
+           sodipodi:role="line"
+           x="83.072098"
+           y="123.63271"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-4">210</tspan><tspan
+           sodipodi:role="line"
+           x="83.072098"
+           y="128.12007"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-94" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="91.726616"
+         y="126.2481"
+         id="text404-6-6-4-7-6-74"><tspan
+           sodipodi:role="line"
+           x="91.726616"
+           y="126.2481"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-27">212</tspan><tspan
+           sodipodi:role="line"
+           x="91.726616"
+           y="130.73546"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-21" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="93.066734"
+         y="140.57001"
+         id="text404-6-6-4-7-6-15"><tspan
+           sodipodi:role="line"
+           x="93.066734"
+           y="140.57001"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-24">213</tspan><tspan
+           sodipodi:role="line"
+           x="93.066734"
+           y="145.05737"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-46" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="103.59319"
+         y="129.81204"
+         id="text404-6-6-4-7-6-157"><tspan
+           sodipodi:role="line"
+           x="103.59319"
+           y="129.81204"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-94">214</tspan><tspan
+           sodipodi:role="line"
+           x="103.59319"
+           y="134.29941"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-25" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="102.8497"
+         y="143.51878"
+         id="text404-6-6-4-7-6-87"><tspan
+           sodipodi:role="line"
+           x="102.8497"
+           y="143.51878"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-1">215</tspan><tspan
+           sodipodi:role="line"
+           x="102.8497"
+           y="148.00615"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-99" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="135.4715"
+         y="139.43097"
+         id="text404-6-6-4-7-6-75"><tspan
+           sodipodi:role="line"
+           x="135.4715"
+           y="139.43097"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-8">218</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="135.38155"
+         y="153.32689"
+         id="text404-6-6-4-7-6-708"><tspan
+           sodipodi:role="line"
+           x="135.38155"
+           y="153.32689"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-99">221</tspan><tspan
+           sodipodi:role="line"
+           x="135.38155"
+           y="157.81425"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-92" /></text>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-weight:normal;font-size:3.32397px;line-height:1.35;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.0830995"
+         x="124.1222"
+         y="149.93361"
+         id="text404-6-6-4-7-6-95"><tspan
+           sodipodi:role="line"
+           x="124.1222"
+           y="149.93361"
+           style="stroke-width:0.0830993"
+           id="tspan3201-5-204">219</tspan><tspan
+           sodipodi:role="line"
+           x="124.1222"
+           y="154.42097"
+           style="stroke-width:0.0830993"
+           id="tspan538-8-8-74" /></text>
+    </g>
   </g>
 </svg>

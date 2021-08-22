@@ -144,7 +144,7 @@ $(document).ready(function () {
             let mapIDName = $(`#${filenameArray[i].toString().split(".")[0] + "_Web"}`); // TODO: REMOVE THE WEB SUFFIX BECAUSE THE FINAL CSV LIST WILL INCLUDE IT
 
             if (mapIDName.length) {
-                mapIDName.addClass("location");
+                mapIDName.addClass("location"); // add css class that gives the hover effect
                 mapIDName.click(function () {
                     if (!window.lockMapSelection) {
                         let content360 = filenameArray[i];
@@ -307,10 +307,7 @@ $(document).ready(function () {
             startMouseX = event.clientX;
             startMouseY = event.clientY;
 
-            // lock map selection clicks
-            setTimeout(function allowLocationClick(){
-                window.lockMapSelection = true;
-            }, 80);
+            console.log(window.lockMapSelection)
         });
 
         $(document).mouseup(function () { /*mediaContainer*/
@@ -327,12 +324,17 @@ $(document).ready(function () {
             // release map selection
             setTimeout(function allowLocationClick(){
                 window.lockMapSelection = false;
-            }, 50);
+            }, 80);
         });
 
         $(document).mousemove(function (event) {
             if (!window.lockDrag) {
                 if (dragging) {
+                    // lock map selection clicks
+                    setTimeout(function allowLocationClick(){
+                        window.lockMapSelection = true;
+                    }, 70);
+
                     // setTimeout(function allowLocationClick() {
                     //     lockDrag = true;
                     // }, 50);
@@ -420,17 +422,18 @@ $(document).ready(function () {
                     //     // mapContainer.css("transform", "none");
                     // }
                 }
-
             } else {
                 if (currentZoomFactor > 1) {
                     currentZoomFactor--;
                     scale = 0.75 + (0.25 * currentZoomFactor);
+
+                    // if ()
                     // mapContainer.css("transform",`scale(${scale})`);
 
-                    if (parseFloat(mapContainer.css("width").split("%")) <= parseFloat(mediaContainer.css("width").split("px"))) {
+                    // if (parseFloat(mapContainer.css("width").split("%")) <= parseFloat(mediaContainer.css("width").split("px"))) {
                         // mapContainer.css("left", "50%");
                         // mapContainer.css("transform", "translate(-50%, 0)");
-                    }
+                    // }
                 }
 
             }
