@@ -116,53 +116,38 @@ $(document).ready(function () {
     * Sidebar Search
     *
     * */
-    // $("#mobile-navbar-button").click(function () {
-    //     const navbarLinks = $('#navbar-links');
-    //
-    //     navbarLinks.toggleClass('open');
-    //     navbarLinks.children().toggleClass('open');
-    // });
+    /*
+    *
+    * Sidebar Search
+    *
+    * */
+    const searchBarReg = document.getElementById("search-bar");
 
-    function searchBar() {
-        // Declare variables
-        var input, filter, ul, li, loc, locContainer, a, i, j, k, txtValue;
-        input = document.getElementById('searchBar');
-        filter = input.value.toUpperCase();
-        // ul = document.getElementById("location-list");
-        // li = ul.getElementsByTagName('li');
-        loc = document.getElementById("location-menu").getElementsByClassName("loc");
-        locContainer = document.getElementById("location-menu").getElementsByClassName("sidebar-list-1");
+    // filter the search results on key up events
+    searchBarReg.addEventListener("keyup", function (e) {
+        filterSearchElements(document.getElementById("gallery-menu"));
+    });
 
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < loc.length; i++) {
-            a = loc[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                loc[i].style.display = "block";
-                // Loop to keep opening folders
-                var x = loc[i];
-                while (x.parentElement !== null && x.parentElement.nodeName !== "DIV") {
-                    x.parentElement.style.display = "block";
-                    x = x.parentElement;
-                }
+    // repetitive search filtering for the different location areas
+    function filterSearchElements (ul) {
+        // setup variables
+        let filter = searchBarReg.value.toUpperCase();
+        let li = ul.getElementsByClassName("sidebar-list-1");
+
+        // loop through all list items, and hide those who don't match the search query
+        for (let i = 0; i < li.length; i ++) {
+            let a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].classList.remove("hidden");
+                li[i].classList.remove("hidden-opacity");
             } else {
-                loc[i].style.display = "none";
+                li[i].classList.add("hidden-opacity");
+                li[i].ontransitionend = () => {
+                    li[i].classList.add("hidden")
+                    console.log('Transition ended');
+                };
             }
         }
-
-        // Loop through all location containers, hide those whose list items are no longer displaying
-        for (j = 0; j < locContainer.length; j++) {
-            li = locContainer[j].getElementsByClassName("loc");
-            for (k = 0; k < li.length; k++) {
-                if (li[k].style.display === "block") {
-                    break;
-                }
-                if (k === li.length - 1) {
-                    locContainer[j].style.display = "none";
-                }
-            }
-        }
-
     }
 
 });

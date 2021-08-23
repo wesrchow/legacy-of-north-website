@@ -13,8 +13,6 @@
 400 Wing Tech Ed Hallway 1,3
 400 Wing Tech Ed Hallway 2,
 400 Wing Tech Ed Hallway 3,
-Auto Shop Center Room 1,multi-room
-Auto Shop Center Room 2,multi-room
 Aux Gym 1,3
 Aux Gym 2,
 Aux Gym 3,
@@ -177,11 +175,13 @@ Room 413 1,2
 Room 413 2,
 Room 414 1,2
 Room 414 2,
-Room 415 1,5
+Room 415 1,7
 Room 415 2,
 Room 415 3,
 Room 415 4,
 Room 415 5,
+Room 415 6,
+Room 415 7,
 Room 416 1,2
 Room 416 2,
 School Clothing Store 1,2
@@ -189,11 +189,11 @@ School Clothing Store 2,
 Science Book Room,
 Social Studies Resource Room 1,2
 Social Studies Resource Room 2,
-Stage Stairs Left 1,3
+Stage Stairs Left 1,2
 Stage Stairs Left 2,
-Stage Stairs Left 3,
-Stage Stairs Right 1,2
+Stage Stairs Right 1,3
 Stage Stairs Right 2,
+Stage Stairs Right 3,
 Student Services 1,5
 Student Services 2,
 Student Services 3,

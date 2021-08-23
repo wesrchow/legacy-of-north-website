@@ -82,6 +82,7 @@ $(document).ready(function () {
     }, 'text');
 
     let injectionString = "";
+    let selectionIDArray = [];
 
     function sidebarInjection(locationArray, section) {
         let sectionID;
@@ -96,7 +97,7 @@ $(document).ready(function () {
         }
 
         if (sectionID.length) {
-            let selectionIDArray = [];
+
             for (let i = 1; i < locationArray.length; i ++) {
                 let locationName = locationArray[i][0];
                 let cutLocationName = locationName.substring(0, locationName.length-2);
@@ -138,43 +139,60 @@ $(document).ready(function () {
     *
     * */
     function addMapLinks(filenameArray) {
-        for (let i = 4; i < filenameArray.length; i ++) {
+        // get the top level ID of each location selection in sidebar to scroll to
+        const selectionIDArrayTop = northLocationMenu.children();
+        // console.log(selectionIDArrayTop)
+        // console.log(filenameArray)
+
+        let elementOffset = 1;
+
+        for (let i = 4 ; i < filenameArray.length; i ++) {
             // console.log(typeof filenameArray[i]);
 
+            // set the way the map ID is formatted
             let mapIDName = $(`#${filenameArray[i].toString().split(".")[0] + "_Web"}`); // TODO: REMOVE THE WEB SUFFIX BECAUSE THE FINAL CSV LIST WILL INCLUDE IT
 
+            // check if the map selection exists
             if (mapIDName.length) {
+                // elementOffset --;
                 mapIDName.addClass("location"); // add css class that gives the hover effect
-                mapIDName.click(function () {
-                    if (!window.lockMapSelection) {
-                        let content360 = filenameArray[i];
+                (function(index) {
+                    mapIDName.click(function () {
+                        if (!window.lockMapSelection) {
+                            // document.getElementById(selectionIDArrayTop[i].attr("id")).scrollIntoView();
+                            // console.log(selectionIDArrayTop[i - index]);
 
-                        // hide + lock map and reveal the 360 viewer container
-                        mapContainer.addClass("hidden");
-                        viewer360Container.removeClass("hidden");
-                        exit360Viewer.removeClass("hidden");
-                        window.lockDrag = true;
+                            let content360 = filenameArray[i];
 
-                        // check if there's an existing viewer already, if so destroy it
-                        if (typeof viewer360 !== "undefined") {
-                            viewer360.destroy();
+                            // hide + lock map and reveal the 360 viewer container
+                            mapContainer.addClass("hidden");
+                            viewer360Container.removeClass("hidden");
+                            exit360Viewer.removeClass("hidden");
+                            window.lockDrag = true;
+
+                            // check if there's an existing viewer already, if so destroy it
+                            if (typeof viewer360 !== "undefined") {
+                                viewer360.destroy();
+                            }
+
+                            viewer360 = pannellum.viewer('viewer-360-container', {
+                                "type": "equirectangular",
+                                "panorama": `test-media/${content360}`,
+                                "friction": 0.1,
+                                "autoLoad": true,
+                                "compass": false,
+                                "keyboardZoom": false,
+                                "disableKeyboardCtrl": true
+                            });
                         }
-
-                        viewer360 = pannellum.viewer('viewer-360-container', {
-                            "type": "equirectangular",
-                            "panorama": `test-media/${content360}`,
-                            "friction": 0.1,
-                            "autoLoad": true,
-                            "compass": false,
-                            "keyboardZoom": false,
-                            "disableKeyboardCtrl": true
-                        });
-                    }
-                });
+                    });
+                })(elementOffset)
             } else {
                 // continue looping through filenames without doing anything
+                elementOffset ++;
             }
         }
+        // console.log(elementOffset)
 
     }
 
@@ -185,54 +203,37 @@ $(document).ready(function () {
     * Sidebar Search
     *
     * */
-    // $("#mobile-navbar-button").click(function () {
-    //     const navbarLinks = $('#navbar-links');
-    //
-    //     navbarLinks.toggleClass('open');
-    //     navbarLinks.children().toggleClass('open');
-    // });
+    const searchBarReg = document.getElementById("search-bar");
 
-    function searchBar() {
-        // Declare variables
-        var input, filter, ul, li, loc, locContainer, a, i, j, k, txtValue;
-        input = document.getElementById('searchBar');
-        filter = input.value.toUpperCase();
-        // ul = document.getElementById("location-list");
-        // li = ul.getElementsByTagName('li');
-        loc = document.getElementById("location-menu").getElementsByClassName("loc");
-        locContainer = document.getElementById("location-menu").getElementsByClassName("sidebar-list-1");
+    // filter the search results on key up events
+    searchBarReg.addEventListener("keyup", function (e) {
+        filterSearchElements(document.getElementById("north-location-menu"));
+        filterSearchElements(document.getElementById("south-location-menu"));
+        filterSearchElements(document.getElementById("outside-location-menu"));
+    });
 
-        // Loop through all list items, and hide those who don't match the search query
-        for (i = 0; i < loc.length; i++) {
-            a = loc[i].getElementsByTagName("a")[0];
-            txtValue = a.textContent || a.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                loc[i].style.display = "block";
-                // Loop to keep opening folders
-                var x = loc[i];
-                while (x.parentElement !== null && x.parentElement.nodeName !== "DIV") {
-                    x.parentElement.style.display = "block";
-                    x = x.parentElement;
-                }
+    // repetitive search filtering for the different location areas
+    function filterSearchElements (ul) {
+        // setup variables
+        let filter = searchBarReg.value.toUpperCase();
+        let li = ul.getElementsByClassName("sidebar-list-2");
+
+        // loop through all list items, and hide those who don't match the search query
+        for (let i = 0; i < li.length; i ++) {
+            let a = li[i].getElementsByTagName("a")[0];
+            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                li[i].classList.remove("hidden");
+                li[i].classList.remove("hidden-opacity");
             } else {
-                loc[i].style.display = "none";
+                li[i].classList.add("hidden-opacity");
+                li[i].ontransitionend = () => {
+                    li[i].classList.add("hidden")
+                    console.log('Transition ended');
+                };
             }
         }
-
-        // Loop through all location containers, hide those whose list items are no longer displaying
-        for (j = 0; j < locContainer.length; j++) {
-            li = locContainer[j].getElementsByClassName("loc");
-            for (k = 0; k < li.length; k++) {
-                if (li[k].style.display === "block") {
-                    break;
-                }
-                if (k === li.length - 1) {
-                    locContainer[j].style.display = "none";
-                }
-            }
-        }
-
     }
+
 
 
     /*
@@ -307,7 +308,7 @@ $(document).ready(function () {
             startMouseX = event.clientX;
             startMouseY = event.clientY;
 
-            console.log(window.lockMapSelection)
+            // console.log(window.lockMapSelection)
         });
 
         $(document).mouseup(function () { /*mediaContainer*/
@@ -460,9 +461,6 @@ $(document).ready(function () {
     * 360 Viewer
     *
     * */
-
-
-
     // Add Pannellum viewer to each sidebar option
     function addPannellumClick(filenameArray, selectionIDArray, locationArray, section) {
         let filenameOffset = 0;

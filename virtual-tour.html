@@ -45,11 +45,11 @@
 
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
-        <input type="text" id="searchBar" onkeyup="searchBar()" placeholder="Search..">
+        <input type="text" id="search-bar" placeholder="Search Location...">
         <ul id="location-menu" class="location-menu">
             <!-- North Building -->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn">Building 1</a>
+                <a href="#" class="dropdown-btn">North Building</a>
                 <ul class="" id="north-location-menu">
 <!--                    <li class="sidebar-list-2">-->
 <!--                        <a href="#" class="dropdown-btn">North Cafeteria</a>-->
@@ -97,16 +97,23 @@
 
             <!-- South Building-->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn">Building 2</a>
-<!--                <ul class="dropdown-container">-->
+                <a href="#" class="dropdown-btn">South Building</a>
+                <ul class="" id="south-location-menu">
 <!--                    <li class="sidebar-list-2"><a href="#">Library</a></li>-->
 <!--                    <li class="sidebar-list-2"><a href="#">Room 20</a></li>-->
 <!--                    <li class="sidebar-list-2"><a href="#">First Aid Room</a></li>-->
-<!--                </ul>-->
+                </ul>
             </li>
 
             <!-- Outside -->
-            <li class="sidebar-list-1"><a href="#">Outside</a></li>
+            <li class="sidebar-list-1">
+                <a href="#" class="dropdown-btn">Outside</a>
+                <ul class="" id="outside-location-menu">
+                    <!--                    <li class="sidebar-list-2"><a href="#">Library</a></li>-->
+                    <!--                    <li class="sidebar-list-2"><a href="#">Room 20</a></li>-->
+                    <!--                    <li class="sidebar-list-2"><a href="#">First Aid Room</a></li>-->
+                </ul>
+            </li>
         </ul>
     </div>
 
@@ -165,7 +172,6 @@
 
 <!-- Other Scripts -->
 <script src="js/main.js"></script>
-<script src="js/virtual-tour.js" defer></script>
-<script src="js/test.js"></script>
+<script src="js/virtual-tour.js"></script>
 </body>
 </html>

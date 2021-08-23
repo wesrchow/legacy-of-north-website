@@ -69,22 +69,22 @@ body, html {
 /*}*/
 
 /* Style the search box inside the navigation bar */
-.sidebar input[type=text] {
+#search-bar {
     float: none;
-    padding: 6px 8px 6px 32px;
+    padding: 6px 8px;
     border: none;
     font-size: 20px;
     display: block;
     text-align: left;
-    /*width: 100%;*/
+    width: 100%;
     margin: 0;
     font-family: 'Blinker', sans-serif;
-    color: #ffffff;
+    color: #000000;
     outline: none;
     background-color: #ffffff;
 }
 
-.sidebar input[type=text]::placeholder {
+#search-bar::placeholder {
     color: #bebebe;
     opacity: 1;
 }
@@ -108,11 +108,15 @@ body, html {
 }
 
 .sidebar-list-1 {
+    opacity: 1;
     list-style: none;
+    transition: opacity 0.4s;
 }
 
 .sidebar-list-2 {
+    opacity: 1;
     list-style: none;
+    transition: opacity 0.4s;
 }
 
 .sidebar-list-3 {
@@ -365,18 +369,22 @@ body, html {
 
 /* General Overrides */
 
+.hidden-opacity {
+    opacity: 0;
+}
+
 .hidden {
     display: none;
 }
 
-.test-crosshair {
-    position: relative;
-    align-self: center;
-    height: 8px;
-    width: 8px;
-    background-color: #1b1e21;
-    z-index: 20;
-    top: 50%;
-    left: 50%;
-    margin: -4px 0 0 -4px;
-}
+/*.test-crosshair {*/
+/*    position: relative;*/
+/*    align-self: center;*/
+/*    height: 8px;*/
+/*    width: 8px;*/
+/*    background-color: #1b1e21;*/
+/*    z-index: 20;*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    margin: -4px 0 0 -4px;*/
+/*}*/
