@@ -13,6 +13,9 @@ $(document).ready(function () {
     const exit360Viewer = $("#exit-360-viewer");
     const mapContainer = $("#map-container");
 
+    // TODO: DECIDE ABOUT HOW TO HIDE OTHER FLOORS AND BUILDINGS MAPS. SETUP ITS VIEWING NAVIGATION HERE BEFORE DOING INLINE SVG?
+    // need to take performance into account? new css classes for hiding them
+
     /*
     *
     * Replace SVG with inline SVG
@@ -96,21 +99,25 @@ $(document).ready(function () {
             sectionID = outsideLocationMenu;
         }
 
+        // make sure it doesnt break in case sectionID has nothing
         if (sectionID.length) {
 
             for (let i = 1; i < locationArray.length; i ++) {
                 let locationName = locationArray[i][0];
+                // only use the following variables if multiple location images
                 let cutLocationName = locationName.substring(0, locationName.length-2);
                 let specialProperty = locationArray[i][1];
 
-                /* Check the special property
+                /* Check if the special property is decimal using regex
                 * "" - normal
                 * */
                 if (/\d/.test(specialProperty)) {
+                    // inject a sidebar button with a specific format title and id
                     let locationNameID = locationName.substring(0, locationName.length-2).replaceAll(" ", "-").toLowerCase();
                     selectionIDArray.push(locationNameID);
                     injectionString = `<li class="sidebar-list-2"><a href="#" class="dropdown-btn" id="${locationNameID}">${cutLocationName}</\a><ul class="dropdown-container">`;
 
+                    // keep adding sidebar entries given by the number of location images (defined by specialProperty)
                     for (let k = 0; k < parseInt(specialProperty); k ++) {
                         locationNameID = locationName.substring(0, locationName.length-2).replaceAll(" ", "-").toLowerCase() + (k+1);
                         selectionIDArray.push(locationNameID);
@@ -120,11 +127,14 @@ $(document).ready(function () {
                     sectionID.append(injectionString);
                     i += parseInt(specialProperty) - 1;
                 } else {
+                    // normal sidebar button injection
                     let locationNameID = locationName.replaceAll(" ", "-").toLowerCase();
                     selectionIDArray.push(locationNameID);
                     sectionID.append(`<li class="sidebar-list-2"><a href="#" id="${locationNameID}">${locationName}</\a></\li>`);
                 }
             }
+
+            // complete the functional sidebar by adding dropdowns and pannellum connections
             addDropdownClick();
             jQuery.get("./csv/north-locations-filenames.csv", function(data) {
                 addPannellumClick($.csv.toArrays(data), selectionIDArray, locationArray, section);
@@ -146,17 +156,25 @@ $(document).ready(function () {
 
         let elementOffset = 1;
 
-        for (let i = 4 ; i < filenameArray.length; i ++) {
+        // TODO: PROBABLY DEAL WITH THE HALLWAY ENTRIES HERE
+        // need to look at/come up with naming scheme for the hallway ID sections on the map
+        // probably write another function to manage all the hallway initialization
+        // function: init the first pannellum view, somehow have the rest of the pannellum views ready to go, probably show more
+            // navigation buttons compared to the regular 360photo viewer
+        //addHallwayMapsLinks();
+
+        // this for loop starts at 4 because it ignores the header and hallway entries (which are handled manually above?)
+        for (let i = 4; i < filenameArray.length; i++) {
             // console.log(typeof filenameArray[i]);
 
             // set the way the map ID is formatted
-            let mapIDName = $(`#${filenameArray[i].toString().split(".")[0] + "_Web"}`); // TODO: REMOVE THE WEB SUFFIX BECAUSE THE FINAL CSV LIST WILL INCLUDE IT
+            let mapIDName = $(`#${filenameArray[i].toString().split(".")[0] + "_Web"}`); // TODO: REMOVE THE WEB SUFFIX HERE BECAUSE THE FINAL CSV LIST WILL INCLUDE IT
 
             // check if the map selection exists
             if (mapIDName.length) {
                 // elementOffset --;
                 mapIDName.addClass("location"); // add css class that gives the hover effect
-                (function(index) {
+                (function (index) {
                     mapIDName.click(function () {
                         if (!window.lockMapSelection) {
                             // document.getElementById(selectionIDArrayTop[i].attr("id")).scrollIntoView();
@@ -189,11 +207,22 @@ $(document).ready(function () {
                 })(elementOffset)
             } else {
                 // continue looping through filenames without doing anything
-                elementOffset ++;
+                elementOffset++;
             }
         }
         // console.log(elementOffset)
 
+    }
+
+
+
+    /*
+    *
+    * Add Hallway Links to Map Locations
+    *
+    * */
+    function addHallwayMapsLinks() {
+        
     }
 
 
@@ -256,6 +285,8 @@ $(document).ready(function () {
                     dropdownContent.style.display = "none";
                 }
                 // kind of terrible code but it works
+                // adds visual toggle arrows
+                // TODO: add back basically
                 // var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
                 // if (cls.contains("fa-angle-down")) {
                 //     cls.add("fa-angle-up");
@@ -487,7 +518,7 @@ $(document).ready(function () {
                 }
 
                 // grab the variable filenameOffset each iteration for each click function
-                (function(index){
+                (function (index) {
                     $(`#${selectionIDArray[i]}`).click(function () {
                         // let test1 = (selectionIDArray[i]);
                         // let test2 = (i + 1 - index);
