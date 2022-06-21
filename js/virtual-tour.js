@@ -174,7 +174,7 @@ $(document).ready(function () {
             if (mapIDName.length) {
                 // elementOffset --;
                 mapIDName.addClass("location"); // add css class that gives the hover effect
-                (function (index) {
+                (function (index) { // assumption: index is not used here because location multiple photos are ignored for the map clicks
                     mapIDName.click(function () {
                         if (!window.lockMapSelection) {
                             // document.getElementById(selectionIDArrayTop[i].attr("id")).scrollIntoView();
@@ -275,10 +275,16 @@ $(document).ready(function () {
 
         for (let i = 0; i < dropdown.length; i++) {
             // open all dropdowns
-            dropdown[i].classList.add("active");
+            // dropdown[i].classList.add("active");
+
+            // close all dropdowns initially
+            let dropdownContent = dropdown[i].nextElementSibling;
+            dropdownContent.style.display = "none"
+
+            // setup dropdown toggle
             dropdown[i].addEventListener("click", function() {
                 this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
+                let dropdownContent = this.nextElementSibling;
                 if (dropdownContent.style.display === "none") {
                     dropdownContent.style.display = "block";
                 } else {
