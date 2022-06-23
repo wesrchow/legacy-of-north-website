@@ -174,6 +174,8 @@ $(document).ready(function () {
             if (mapIDName.length) {
                 // elementOffset --;
                 mapIDName.addClass("location"); // add css class that gives the hover effect
+
+                // grab the variable filenameOffset each iteration for each click function and pass it into the function as index variable
                 (function (index) { // assumption: index is not used here because location multiple photos are ignored for the map clicks
                     mapIDName.click(function () {
                         if (!window.lockMapSelection) {
@@ -523,7 +525,7 @@ $(document).ready(function () {
                     counting = false;
                 }
 
-                // grab the variable filenameOffset each iteration for each click function
+                // grab the variable filenameOffset each iteration for each click function and pass it into the function as index variable
                 (function (index) {
                     $(`#${selectionIDArray[i]}`).click(function () {
                         // let test1 = (selectionIDArray[i]);
