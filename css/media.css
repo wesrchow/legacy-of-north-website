@@ -236,6 +236,9 @@ body, html {
     -webkit-user-drag: none;
     -webkit-user-select: none;
 
+    transition: transform 0.2s; /* temp */
+    transform-origin: 0 0;
+
     /*align-items: flex-start;*/
 
 
