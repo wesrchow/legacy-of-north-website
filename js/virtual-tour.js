@@ -55,6 +55,7 @@ $(document).ready(function () {
             // TODO: PUT SOUTH AND OUTSIDE FILENAMES LIST HERE TOO
 
             // center map when svg is finished fully loading
+            resetMapVars();
             constrainMap();
 
         }, 'xml');
@@ -365,9 +366,8 @@ $(document).ready(function () {
             // reset the map to the center
             position = {x: 0, y: 0};
             scale = 1;
-            constrainMap();
-
             resetMapVars();
+            constrainMap();
 
             // TODO: when below a certain screen size (mobile), hide the map completely and have only the sidebar span the whole screen
 
