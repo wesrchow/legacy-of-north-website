@@ -97,7 +97,7 @@ body, html {
     /*!*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*!*/
     z-index: 1; /* Stay on top */
     background-color: #ffffff;
-    overflow-y: -moz-scrollbars-vertical;
+    overflow-y: -moz-scrollbars-vertical; /* must stay like this for elements to expand the width, then scroll bar fills in when content expands (this may need a "fix")*/
     overflow-x: hidden; /* Disable horizontal scroll */
     border: 1px solid black;
     box-shadow: 1px 0 5px -2px;
@@ -208,9 +208,10 @@ body, html {
 }
 
 
+
 /*
 
-    Media Area Styling
+    Media Container & Map
 
  */
 .media-container {
@@ -238,32 +239,7 @@ body, html {
 
     transition: transform 0.2s; /* temp */
     transform-origin: 0 0;
-
-    /*align-items: flex-start;*/
-
-
-    /*background: url("../included-media/example_north_map.svg") no-repeat;*/
-    /*background-size: contain;*/
-    /*background-origin: padding-box;*/
-
-    /*display: block;*/
-    /*top: 0;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, 0);*/
-    /*-webkit-transform: translate(-50%, 0);*/
-    /*-moz-transform: translate(-50%, 0);*/
 }
-
-
-/*.map-container #school-map {*/
-/*    -webkit-user-drag: none;*/
-/*    -webkit-user-select: none;*/
-/*    position: relative;*/
-/*    top: 0;*/
-/*    left: 50%;*/
-/*    transform: translate(-50%, 0);*/
-/*    padding: 15px;*/
-/*}*/
 
 .map-container img + .locations-container {
     position: absolute;
@@ -290,39 +266,27 @@ body, html {
     position: relative;
 }
 
-/*#test-img {*/
-/*    height: 10%;*/
-/*    left: 30px;*/
-/*    top: 390px;*/
-/*    padding: 0 0;*/
-/*}*/
-
-/*#test-img:hover {*/
-/*    opacity: 80%;*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.map-click-test {*/
-/*    position: relative;*/
-/*    height: 50px;*/
-/*    width: 50px;*/
-/*    left: 800px;*/
-/*    top: 50px;*/
-/*    background: #0f6674;*/
-/*    padding: 0 0;*/
-/*    margin: 0 0;*/
-/*}*/
-
-/*#map-click-test:hover {*/
-/*    opacity: 80%;*/
-/*    cursor: pointer;*/
-/*}*/
-
 .media-container:hover {
 
 }
 
-.controls-container {
+.location {
+    /*fill: #c8c8c8 !important;*/
+}
+
+.location:hover {
+    fill: #5a5a5a !important;
+    cursor: pointer;
+}
+
+
+
+/*
+
+    Interface Controls
+
+*/
+.exit-360-container {
     position: absolute;
     z-index: 5;
     display: flex;
@@ -341,27 +305,68 @@ body, html {
     opacity: 80%;
 }
 
+.map-layer-menu-container {
+    width: 14rem;
+    position: absolute;
+    z-index: 5;
+    right: 0;
+}
+
+.map-layer-menu-container button {
+    display: block;
+    width: 90%;
+    padding: 4px 20px 4px 8px;
+    /*margin: 20px 20px 0 20px;*/
+    margin: 20px auto auto auto;
+    text-align: left;
+    font-size: 20px;
+    -webkit-user-drag: none;
+    text-decoration: none;
+    color: #000000;
+    background-color: #00bdff;
+    border: none;
+}
+
+.map-layer-menu-container button:hover {
+    text-decoration: none;
+    color: black;
+    background-color: #8ccdff;
+}
+
+.map-layer-menu {
+    display: block;
+    width: 90%;
+    margin: auto;
+    list-style: none;
+    padding-inline-start: 0;
+    cursor: default;
+    background-color: #999999;
+}
+
+.map-layer-menu-sub {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.map-layer-menu-sub li button {
+    display: block;
+    width: 100%;
+    padding: 4px 0;
+    margin: 0;
+    background-color: #5a5a5a;
+    text-align: center;
+}
+
+.map-layer-titles {
+    display: block;
+    text-align: center;
+}
+
 
 
 /*
 
-    Map Styling
-
-*/
-.location {
-    /*fill: #c8c8c8 !important;*/
-}
-
-.location:hover {
-    fill: #5a5a5a !important;
-    cursor: pointer;
-}
-
-
-
-/*
-
-    360 Viewer Styling
+    360 Viewer
 
 */
 .viewer-360-container {

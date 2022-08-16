@@ -102,7 +102,6 @@ $(document).ready(function () {
 
         // make sure it doesnt break in case sectionID has nothing
         if (sectionID.length) {
-
             for (let i = 1; i < locationArray.length; i++) {
                 let locationName = locationArray[i][0];
                 // only use the following variables if multiple location images
@@ -309,7 +308,7 @@ $(document).ready(function () {
 
     /*
     *
-    * Draggable Map
+    * Interactive Map
     *
     *  */
 
@@ -337,8 +336,7 @@ $(document).ready(function () {
         function constrainMap() {
             if (mapContainerInitialW * scale > mediaContainerInitialW) {
                 if (position.x > -centeredOffset) position.x = -centeredOffset;
-                if (position.x - centeredOffset + mapContainerSize.w * scale < mapContainerSize.w)
-                    position.x = -mapContainerSize.w * (scale - 1) + centeredOffset;
+                if (position.x - centeredOffset + mapContainerSize.w * scale < mapContainerSize.w) position.x = -mapContainerSize.w * (scale - 1) + centeredOffset;
             } else {
                 // to reimplement if allowing horizontal pan when map width is smaller than container
                 // if (position.x > 0) position.x = 0;
@@ -456,6 +454,49 @@ $(document).ready(function () {
                 previousMap.y = position.y;
             }
         });
+    }
+
+
+    /*
+    *
+    * Map Controls
+    *
+    * */
+
+    const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
+    const mapLayerMenu = $("#map-layer-menu");
+
+    const mapLayerNorth1st = $("#map-layer-north-1st");
+    const mapLayerNorth2nd = $("#map-layer-north-2nd");
+    const mapLayerNorth3rd = $("#map-layer-north-3rd");
+    const mapLayerSouth1st = $("#map-layer-south-1st");
+    const mapLayerSouth2nd = $("#map-layer-south-2nd");
+    const mapLayerOutside = $("#map-layer-outside");
+
+    let buildingActive = 1; // 1 = north, 2 = south, 3 = outside
+
+    mapLayerMenuDropdown.hover(
+        function () { // enter element
+            window.lockDrag = true;
+        }, function () { // leave element
+            window.lockDrag = false;
+        }
+    );
+
+    mapLayerMenuDropdown.click(function () {
+        mapLayerMenu.toggleClass("hidden");
+    });
+
+    mapLayerMenu.hover(
+        function () { // enter element
+            window.lockDrag = true;
+        }, function () { // leave element
+            window.lockDrag = false;
+        }
+    );
+
+    function switchMapLayers(targetMapLayer) {
+
     }
 
 

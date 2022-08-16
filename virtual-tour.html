@@ -121,11 +121,45 @@
 
     <!-- MAIN MEDIA AREA -->
     <div class="media-container" id="media-container">
-        <div class="controls-container">
+
+        <!-- Map Layer Selection -->
+        <div class="map-layer-menu-container">
+            <button id="map-layer-menu-dropdown">North 2nd Floor</button>
+            <ul class="map-layer-menu hidden" id="map-layer-menu">
+                <li id="north-building-layers">
+                    <span class="map-layer-titles">North Building</span>
+                    <ul class="map-layer-menu-sub">
+                        <li><button id="map-layer-north-1st">North 1st Floor</button></li>
+                        <li><button id="map-layer-north-2nd">North 2nd Floor</button></li>
+                        <li><button id="map-layer-north-3rd">North 3rd Floor</button></li>
+                    </ul>
+                </li>
+                <li id="south-building-layers">
+                    <span class="map-layer-titles">South Building</span>
+                    <ul class="map-layer-menu-sub">
+                        <li><button id="map-layer-south-1st">South 1st Floor</button></li>
+                        <li><button id="map-layer-south-2nd">South 2nd Floor</button></li>
+                    </ul>
+                </li>
+                <li id="outside-layers">
+                    <span class="map-layer-titles">Outside</span>
+                    <ul class="map-layer-menu-sub">
+                        <li><button id="map-layer-outside">Outside Perimeter</button></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 360 Viewer Interface -->
+        <div class="exit-360-container">
             <button class="exit-360-viewer hidden" id="exit-360-viewer">Back to Map</button>
         </div>
+
+        <!-- Maps & 360 Viewer -->
         <div class="map-container" id="map-container">
-            <img class="svg" style="width:auto;height:100%;" src="included-media/North_Building_Map_2nd_Floor_Web.svg" alt="">
+            <img class="svg hidden" style="width:auto;height:100%;" src="maps/North_Building_Map_1st_Floor_Web.svg" alt="">
+            <img class="svg" style="width:auto;height:100%;" src="maps/North_Building_Map_2nd_Floor_Web.svg" alt="">
+            <img class="svg hidden" style="width:auto;height:100%;" src="maps/North_Building_Map_3rd_Floor_Web.svg" alt="">
         </div>
         <div class="viewer-360-container hidden" id="viewer-360-container"></div>
     </div>
