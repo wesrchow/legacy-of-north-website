@@ -215,6 +215,7 @@ body, html {
 
  */
 .media-container {
+    position: relative; /* added in much later during dev to make 360video controls x% width stuff work */
     -webkit-user-drag: none;
     -webkit-user-select: none;
     /*position: fixed;*/
@@ -305,6 +306,28 @@ body, html {
     opacity: 80%;
 }
 
+.video-360-container {
+    display: block;
+    width: 100%;
+    position: absolute;
+    z-index: 5;
+    bottom: 0;
+    text-align: center;
+}
+
+.video-360-button {
+    width: 100px;
+    height: 40px;
+    display: inline-block;
+}
+
+.video-360-range {
+    display: block;
+    width: 90%;
+    padding: 10px 0;
+    margin: auto;
+}
+
 .map-layer-menu-container {
     width: 14rem;
     position: absolute;
@@ -374,6 +397,14 @@ body, html {
     width: 100%;
 }
 
+.video-360-initial {
+    /*z-index: 1;*/
+}
+
+.video-360-secondary {
+
+}
+
 
 /* General Overrides */
 
@@ -382,7 +413,7 @@ body, html {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 /*.test-crosshair {*/
