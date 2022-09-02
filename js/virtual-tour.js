@@ -260,12 +260,16 @@ $(document).ready(function () {
     function add360VideoLinks(filename360VideoArray, initialYaw, fileCount) {
         // console.log(filename360VideoArray[0][0].replace(/ /g, " "));
 
+        const viewer360ContainerSecondary = $("#viewer-360-container-secondary");
         const video360Range = $("#video-360-range");
         const video360ButtonPrev = $("#video-360-button-prev");
         const video360ButtonNext = $("#video-360-button-next");
         const mapIDName = $(`#${filename360VideoArray[0][0]}`);
 
+        let video360Toggle = true;
         let videoPos = 1;
+
+        let tempPrevViewer;
 
         mapIDName.addClass("location"); // add css class that gives the hover effect
 
@@ -285,7 +289,7 @@ $(document).ready(function () {
                     } else {
                         content360 = filename360VideoArray[videoPos];
 
-                        viewer360Secondary = pannellum.viewer('viewer-360-container', {
+                        viewer360Secondary = pannellum.viewer(video360Output[video360Toggle], {
                             "type": "equirectangular",
                             "panorama": `test-media/${filename360VideoArray[0][0].replaceAll("_", " ")}/${content360}`,
                             "friction": 0.1,
@@ -304,18 +308,13 @@ $(document).ready(function () {
                     if (videoPos >= fileCount) {
                         videoPos--;
                     } else {
-                        content360 = filename360VideoArray[videoPos];
+                        if (video360Toggle) {
+                            tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, viewer360ContainerSecondary, tempPrevViewer, viewer360Secondary);
+                        } else {
+                            tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, viewer360Container, tempPrevViewer, viewer360);
+                        }
 
-                        viewer360Secondary = pannellum.viewer('viewer-360-container', {
-                            "type": "equirectangular",
-                            "panorama": `test-media/${filename360VideoArray[0][0].replaceAll("_", " ")}/${content360}`,
-                            "friction": 0.1,
-                            "autoLoad": true,
-                            "compass": false,
-                            "keyboardZoom": false,
-                            "disableKeyboardCtrl": true,
-                            "yaw": initialYaw
-                        });
+                        video360Toggle = !video360Toggle;
                     }
                 });
 
@@ -323,7 +322,7 @@ $(document).ready(function () {
                 mapLayerMenuDropdown.addClass("hidden");
                 mapLayerMenu.addClass("hidden");
                 mapContainer.addClass("hidden");
-                viewer360Container.removeClass("hidden");
+                viewer360Container.removeClass("hidden-opacity-360video");
                 exit360Viewer.removeClass("hidden");
                 window.lockDrag = true;
 
@@ -334,7 +333,7 @@ $(document).ready(function () {
                     viewer360.destroy();
                 }
 
-                viewer360 = pannellum.viewer('viewer-360-container', {
+                viewer360 = pannellum.viewer("viewer-360-container", {
                     "type": "equirectangular",
                     "panorama": `test-media/${filename360VideoArray[0][0].replaceAll("_", " ")}/${content360}`,
                     "friction": 0.1,
@@ -346,7 +345,36 @@ $(document).ready(function () {
                 });
 
                 // set up view switching
-                viewer360Container.children().addClass("video-360-initial");
+                tempPrevViewer = viewer360;
+
+                function video360Transition(targetContainerString, prevContainer, nextContainer, prevPannellumViewer, nextPannellumViewer) {
+                    content360 = filename360VideoArray[videoPos];
+
+                    nextContainer.removeClass("hidden");
+                    nextContainer.removeClass("hidden-opacity-360video");
+
+                    nextPannellumViewer = pannellum.viewer(targetContainerString, {
+                        "type": "equirectangular",
+                        "panorama": `test-media/${filename360VideoArray[0][0].replaceAll("_", " ")}/${content360}`,
+                        "friction": 0.1,
+                        "autoLoad": true,
+                        "compass": false,
+                        "keyboardZoom": false,
+                        "disableKeyboardCtrl": true,
+                        "yaw": initialYaw
+                    });
+
+                    prevContainer.addClass("hidden-opacity-360video");
+                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+                        prevPannellumViewer.destroy();
+                        prevContainer.addClass("hidden");
+                    });
+
+                    nextContainer.css("z-index", 1);
+                    prevContainer.css("z-index", 0);
+
+                    return nextPannellumViewer;
+                }
             }
         });
 
