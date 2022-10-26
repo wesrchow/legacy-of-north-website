@@ -11,6 +11,7 @@ $(document).ready(function () {
     let viewer360Secondary = undefined;
 
     const viewer360Container = $("#viewer-360-container");
+    const viewer360ContainerSecondary = $("#viewer-360-container-secondary");
     const exit360Viewer = $("#exit-360-viewer");
     const mapContainer = $("#map-container");
 
@@ -260,7 +261,6 @@ $(document).ready(function () {
     function add360VideoLinks(filename360VideoArray, initialYaw, fileCount) {
         // console.log(filename360VideoArray[0][0].replace(/ /g, " "));
 
-        const viewer360ContainerSecondary = $("#viewer-360-container-secondary");
         const video360Range = $("#video-360-range");
         const video360ButtonPrev = $("#video-360-button-prev");
         const video360ButtonNext = $("#video-360-button-next");
@@ -268,8 +268,7 @@ $(document).ready(function () {
 
         let video360Toggle = true;
         let videoPos = 1;
-
-        let tempPrevViewer;
+        let tempPrevViewer = null;
 
         mapIDName.addClass("location"); // add css class that gives the hover effect
 
@@ -287,18 +286,13 @@ $(document).ready(function () {
                     if (videoPos < 1) {
                         videoPos++;
                     } else {
-                        content360 = filename360VideoArray[videoPos];
+                        if (video360Toggle) {
+                            tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, viewer360ContainerSecondary, tempPrevViewer, viewer360Secondary);
+                        } else {
+                            tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, viewer360Container, tempPrevViewer, viewer360);
+                        }
 
-                        viewer360Secondary = pannellum.viewer(video360Output[video360Toggle], {
-                            "type": "equirectangular",
-                            "panorama": `test-media/${filename360VideoArray[0][0].replaceAll("_", " ")}/${content360}`,
-                            "friction": 0.1,
-                            "autoLoad": true,
-                            "compass": false,
-                            "keyboardZoom": false,
-                            "disableKeyboardCtrl": true,
-                            "yaw": initialYaw
-                        });
+                        video360Toggle = !video360Toggle;
                     }
                 });
 
@@ -325,6 +319,7 @@ $(document).ready(function () {
                 viewer360Container.removeClass("hidden-opacity-360video");
                 exit360Viewer.removeClass("hidden");
                 window.lockDrag = true;
+                // FIXME: discrepancy using hidden and hidden-opacity-360video for my 360 containers
 
                 let content360 = filename360VideoArray[1]; // somehow this works by giving it as an object
 
@@ -368,10 +363,12 @@ $(document).ready(function () {
                     prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
                         prevPannellumViewer.destroy();
                         prevContainer.addClass("hidden");
+
+                        nextContainer.css("z-index", 1);
+                        prevContainer.css("z-index", 0);
                     });
 
-                    nextContainer.css("z-index", 1);
-                    prevContainer.css("z-index", 0);
+
 
                     return nextPannellumViewer;
                 }
@@ -644,6 +641,7 @@ $(document).ready(function () {
         let currentMapLayer = mapLayerNorth2nd;
         let currentBuilding = 1; // 1 = north, 2 = south, 3 = outside
 
+        // TODO: fix map drag allowed if you drag and release within the layer menu
         mapLayerMenuDropdown.hover(
             function () { // enter element
                 if (!dragging) {
@@ -798,6 +796,11 @@ $(document).ready(function () {
             mapContainer.removeClass("hidden");
             viewer360Container.addClass("hidden");
             exit360Viewer.addClass("hidden");
+            // FIXME: discrepancy using hidden and hidden-opacity-360video for my 360 containers
+
+            viewer360Container.css("z-index", 1);
+            viewer360ContainerSecondary.css("z-index", 0);
+
             window.lockDrag = false;
 
             resetMapVars();
@@ -806,6 +809,9 @@ $(document).ready(function () {
             // close the viewer renderer
             if (typeof viewer360 !== "undefined") {
                 viewer360.destroy();
+            }
+            if (typeof viewer360Secondary !== "undefined") {
+                viewer360Secondary.destroy();
             }
         }
 

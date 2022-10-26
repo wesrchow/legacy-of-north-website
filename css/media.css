@@ -398,6 +398,7 @@ body, html {
     background-color: transparent;
     z-index: 1;
     opacity: 1;
+    position: absolute !important;
     transition: none;
 
 }
@@ -408,15 +409,20 @@ body, html {
     background-color: transparent;
     z-index: 0;
     opacity: 1;
+    position: absolute !important;
     transition: none;
 }
+
+/*.pnlm-container {*/
+/*    position: absolute;*/
+/*}*/
 
 
 /* General Overrides */
 
 .hidden-opacity-360video {
     opacity: 0 !important;
-    transition: opacity 1s;
+    transition: opacity 1.3s;
 }
 
 .hidden-opacity {
