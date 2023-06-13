@@ -1,7 +1,4 @@
 ﻿location,special
-1st Floor Hallway,
-2nd Floor Hallway,
-3rd Floor Hallway,
 3rd Floor North Staffroom 1,4
 3rd Floor North Staffroom 2,
 3rd Floor North Staffroom 3,
@@ -37,10 +34,15 @@ Drama Studio 10,
 Drama Studio Hallway,
 Gallery 1,2
 Gallery 2,
+Left Stage Stairs 1,3
+Left Stage Stairs 2,
+Left Stage Stairs 3,
 Math Resource 1,2
 Math Resource 2,
 Media Room Hallway,
-North Foyer,
+North 1st Floor Hallway,
+North 2nd Floor Hallway,
+North 3rd Floor Hallway,
 North Bleachers 1,2
 North Bleachers 2,
 North Boys Changeroom,
@@ -48,6 +50,7 @@ North Cafeteria 1,4
 North Cafeteria 2,
 North Cafeteria 3,
 North Cafeteria 4,
+North Foyer,
 North Girls Changeroom,
 North Gym 1,4
 North Gym 2,
@@ -84,6 +87,8 @@ North Stairway 4 1,3
 North Stairway 4 2,
 North Stairway 4 3,
 North Stairway 5,multi-room
+Right Stage Stairs 1,2
+Right Stage Stairs 2,
 Room 101,
 Room 103,
 Room 105,
@@ -189,11 +194,6 @@ School Clothing Store 2,
 Science Book Room,
 Social Studies Resource Room 1,2
 Social Studies Resource Room 2,
-Stage Stairs Left 1,2
-Stage Stairs Left 2,
-Stage Stairs Right 1,3
-Stage Stairs Right 2,
-Stage Stairs Right 3,
 Student Services 1,5
 Student Services 2,
 Student Services 3,

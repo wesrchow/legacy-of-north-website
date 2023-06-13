@@ -4,7 +4,7 @@
 
 $(document).ready(function () {
 
-    /* Variables Used Throughout */
+    /* Global Variables Used Throughout */
     window.lockDrag = false;
     window.lockMapSelection = false;
     let viewer360 = undefined;
@@ -21,45 +21,75 @@ $(document).ready(function () {
     * Replace SVG with inline SVG
     *
     * */
-    let injectedSVG = false;
-    jQuery('img.svg').each(function(){
-        const $img = jQuery(this);
-        const imgID = $img.attr('id');
-        const imgClass = $img.attr('class');
-        const imgURL = $img.attr('src');
 
-        jQuery.get(imgURL, function(data) {
-            // Get the SVG tag, ignore the rest
-            let $svg = jQuery(data).find('svg');
+    // let injectedSVG = false;
+    // function svgReplacementPromise() {
+    //     return new Promise(function (resolve, reject) {
+    //
+    //
+    //         console.log("first");
+    //         resolve("OK");
+    //     });
+    // }
+    function initSVG() {
+        let counter = 0;
 
-            // Add replaced image's ID to the new SVG
-            if(typeof imgID !== 'undefined') {
-                $svg = $svg.attr('id', imgID);
-            }
-            // Add replaced image's classes to the new SVG
-            if(typeof imgClass !== 'undefined') {
-                $svg = $svg.attr('class', imgClass+' replaced-svg');
-            }
+        jQuery('img.svg').each(function () {
+            const $img = jQuery(this);
+            const imgID = $img.attr('id');
+            const imgClass = $img.attr('class');
+            const imgURL = $img.attr('src');
 
-            // Remove any invalid XML tags as per http://validator.w3.org
-            $svg = $svg.removeAttr('xmlns:a');
+            jQuery.get(imgURL, function (data) {
+                // Get the SVG tag, ignore the rest
+                let $svg = jQuery(data).find('svg');
 
-            // Replace image with new SVG
-            $img.replaceWith($svg);
+                // Add replaced image's ID to the new SVG
+                if (typeof imgID !== 'undefined') {
+                    $svg = $svg.attr('id', imgID);
+                }
+                // Add replaced image's classes to the new SVG
+                if (typeof imgClass !== 'undefined') {
+                    $svg = $svg.attr('class', imgClass + ' replaced-svg');
+                }
 
-            // add map selection links
-            jQuery.get("./csv/north-locations-filenames.csv", function(data) {
-                addMapLinks($.csv.toArrays(data));
-            }, 'text');
+                // Remove any invalid XML tags as per http://validator.w3.org
+                $svg = $svg.removeAttr('xmlns:a');
 
-            // TODO: PUT SOUTH AND OUTSIDE FILENAMES LIST HERE TOO
+                // Replace image with new SVG
+                $img.replaceWith($svg);
 
-            // center map when svg is finished fully loading
-            centerMap();
+                counter++;
+                if (counter === 4) {
+                    // add map selection links
+                    jQuery.get("./csv/north-locations-filenames.csv", function (data) {
+                        addMapLinks($.csv.toArrays(data));
+                    }, 'text');
 
-        }, 'xml');
+                    // center map when svg is finished fully loading
+                    resetMapVars();
+                    constrainMap();
 
-    });
+                    // defer setting up map controls until SVG has finished loading
+                    setupMapControls();
+                }
+            }, 'xml');
+        });
+    }
+
+    initSVG();
+
+
+    // TODO: PUT SOUTH AND OUTSIDE FILENAMES LIST HERE TOO
+
+
+    // svgReplacementPromise.then(
+    //     function (value) {
+    //
+    //     }
+    // ).catch(function (value) {
+    //
+    // });
 
 
     /*
@@ -72,15 +102,15 @@ $(document).ready(function () {
     const outsideLocationMenu = "";
 
     // Create arrays for locations, inject them
-    jQuery.get("./csv/north-locations-list.csv", function(data) {
+    jQuery.get("./csv/north-locations-list.csv", function (data) {
         sidebarInjection($.csv.toArrays(data), 1);
     }, 'text');
 
-    jQuery.get("./csv/south-locations-list.csv", function(data) {
+    jQuery.get("./csv/south-locations-list.csv", function (data) {
         sidebarInjection($.csv.toArrays(data), 2);
     }, 'text');
 
-    jQuery.get("./csv/outside-locations-list.csv", function(data) {
+    jQuery.get("./csv/outside-locations-list.csv", function (data) {
         sidebarInjection($.csv.toArrays(data), 3);
     }, 'text');
 
@@ -101,11 +131,10 @@ $(document).ready(function () {
 
         // make sure it doesnt break in case sectionID has nothing
         if (sectionID.length) {
-
-            for (let i = 1; i < locationArray.length; i ++) {
+            for (let i = 1; i < locationArray.length; i++) {
                 let locationName = locationArray[i][0];
                 // only use the following variables if multiple location images
-                let cutLocationName = locationName.substring(0, locationName.length-2);
+                let cutLocationName = locationName.substring(0, locationName.length - 2);
                 let specialProperty = locationArray[i][1];
 
                 /* Check if the special property is decimal using regex
@@ -113,15 +142,15 @@ $(document).ready(function () {
                 * */
                 if (/\d/.test(specialProperty)) {
                     // inject a sidebar button with a specific format title and id
-                    let locationNameID = locationName.substring(0, locationName.length-2).replaceAll(" ", "-").toLowerCase();
+                    let locationNameID = locationName.substring(0, locationName.length - 2).replaceAll(" ", "-").toLowerCase();
                     selectionIDArray.push(locationNameID);
                     injectionString = `<li class="sidebar-list-2"><a href="#" class="dropdown-btn" id="${locationNameID}">${cutLocationName}</\a><ul class="dropdown-container">`;
 
                     // keep adding sidebar entries given by the number of location images (defined by specialProperty)
-                    for (let k = 0; k < parseInt(specialProperty); k ++) {
-                        locationNameID = locationName.substring(0, locationName.length-2).replaceAll(" ", "-").toLowerCase() + (k+1);
+                    for (let k = 0; k < parseInt(specialProperty); k++) {
+                        locationNameID = locationName.substring(0, locationName.length - 2).replaceAll(" ", "-").toLowerCase() + (k + 1);
                         selectionIDArray.push(locationNameID);
-                        injectionString += `<li class="sidebar-list-3"><a href="#" id="${locationNameID}">Image ` + (k+1) + '</\a>';
+                        injectionString += `<li class="sidebar-list-3"><a href="#" id="${locationNameID}">Image ` + (k + 1) + '</\a>';
                     }
 
                     sectionID.append(injectionString);
@@ -136,7 +165,7 @@ $(document).ready(function () {
 
             // complete the functional sidebar by adding dropdowns and pannellum connections
             addDropdownClick();
-            jQuery.get("./csv/north-locations-filenames.csv", function(data) {
+            jQuery.get("./csv/north-locations-filenames.csv", function (data) {
                 addPannellumClick($.csv.toArrays(data), selectionIDArray, locationArray, section);
             }, 'text');
         }
@@ -160,7 +189,7 @@ $(document).ready(function () {
         // need to look at/come up with naming scheme for the hallway ID sections on the map
         // probably write another function to manage all the hallway initialization
         // function: init the first pannellum view, somehow have the rest of the pannellum views ready to go, probably show more
-            // navigation buttons compared to the regular 360photo viewer
+        // navigation buttons compared to the regular 360photo viewer
         //addHallwayMapsLinks();
 
         // this for loop starts at 4 because it ignores the header and hallway entries (which are handled manually above?)
@@ -217,16 +246,14 @@ $(document).ready(function () {
     }
 
 
-
     /*
     *
     * Add Hallway Links to Map Locations
     *
     * */
     function addHallwayMapsLinks() {
-        
-    }
 
+    }
 
 
     /*
@@ -244,13 +271,13 @@ $(document).ready(function () {
     });
 
     // repetitive search filtering for the different location areas
-    function filterSearchElements (ul) {
+    function filterSearchElements(ul) {
         // setup variables
         let filter = searchBarReg.value.toUpperCase();
         let li = ul.getElementsByClassName("sidebar-list-2");
 
         // loop through all list items, and hide those who don't match the search query
-        for (let i = 0; i < li.length; i ++) {
+        for (let i = 0; i < li.length; i++) {
             let a = li[i].getElementsByTagName("a")[0];
             if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
                 li[i].classList.remove("hidden");
@@ -264,7 +291,6 @@ $(document).ready(function () {
             }
         }
     }
-
 
 
     /*
@@ -284,7 +310,7 @@ $(document).ready(function () {
             dropdownContent.style.display = "none"
 
             // setup dropdown toggle
-            dropdown[i].addEventListener("click", function() {
+            dropdown[i].addEventListener("click", function () {
                 this.classList.toggle("active");
                 let dropdownContent = this.nextElementSibling;
                 if (dropdownContent.style.display === "none") {
@@ -311,187 +337,250 @@ $(document).ready(function () {
 
     /*
     *
-    * Draggable Map
+    * Interactive Map
     *
     *  */
-    // TODO: fix when the map is smaller than the media container (maybe use another container around the map image?), allow the map to be centered
-    let dragging = false;
-    let startMouseX;
-    let startMouseY;
-    let currentMouseX;
-    let currentMouseY;
-    let previousMapX = 0;
-    let previousMapY = 0;
-    const position = { x: 0, y: 0, offsetX: 0, offsetY: 0, centeredX: 0 }
 
     const mediaContainer = $("#media-container");
     const mapContainerReg = document.getElementById("map-container");
     const mediaContainerReg = document.getElementById("media-container");
 
-    if (mapContainer.length) {
-        // center map on load
-        function centerMap () {
-            position.centeredX = (mediaContainer.outerWidth() - mapContainer.outerWidth()) / 2
+    let dragging = false;
 
-            mapContainerReg.style.transform = `translate(${position.centeredX}px, 0px)`;
-            previousMapX = position.centeredX;
-            // previousMapX = parseFloat(mapContainer.css("left").split("px"));
+    // check if mapContainer exists
+    // if (mapContainer.length) {
+    const speed = 0.2; // speed of scale, actual transition speed is handled in css
+    let mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
+    let mapContainerInitialW = mapContainerSize.w;
+    let mediaContainerInitialW = mediaContainerReg.clientWidth;
+    let position = {x: 0, y: 0};
+    let target = {x: 0, y: 0};
+    let pointer = {x: 0, y: 0};
+    let scale = 1;
+    let centeredOffset = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
+    let startMouse = {x: 0, y: 0};
+    let currentMouse = {x: 0, y: 0};
+    let previousMap = {x: 0, y: 0};
+
+    // constrain map within calculated bounds (can also act to center map)
+    function constrainMap() {
+        if (mapContainerInitialW * scale > mediaContainerInitialW) {
+            if (position.x > -centeredOffset) position.x = -centeredOffset;
+            if (position.x - centeredOffset + mapContainerSize.w * scale < mapContainerSize.w) position.x = -mapContainerSize.w * (scale - 1) + centeredOffset;
+        } else {
+            // to reimplement if allowing horizontal pan when map width is smaller than container
+            // if (position.x > 0) position.x = 0;
+            // if (position.x + mapContainerSize.w * scale < mapContainerSize.w) position.x = -mapContainerSize.w * (scale - 1);
+            position.x = -(mapContainerInitialW * scale - mapContainerInitialW) / 2;
         }
 
-        // click and drag implementation
-        mediaContainer.mousedown(function (event) {
-            dragging = true;
+        if (position.y > 0) position.y = 0;
+        if (position.y + mapContainerSize.h * scale < mapContainerSize.h) position.y = -mapContainerSize.h * (scale - 1);
 
+        // apply the transform
+        mapContainerReg.style.transform = `translate(${position.x + centeredOffset}px,${position.y}px) scale(${scale},${scale})`;
+    }
+
+    function resetMapVars() {
+        // reset certain standard variables
+        mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
+        mapContainerInitialW = mapContainerSize.w;
+        mediaContainerInitialW = mediaContainerReg.clientWidth;
+        centeredOffset = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
+    }
+
+    function centerMap() {
+        position = {x: 0, y: 0};
+        scale = 1;
+        resetMapVars();
+        constrainMap();
+    }
+
+    // adjust map on resize
+    $(window).resize(function () {
+        // reset the map to the center
+        centerMap();
+
+        // TODO: when below a certain screen size (mobile), hide the map completely and have only the sidebar span the whole screen
+
+    });
+
+    mediaContainer.mousedown(function (event) {
+        if (!window.lockDrag) {
+            dragging = true;
             mediaContainer.css("cursor", "grabbing");
 
-            startMouseX = event.clientX;
-            startMouseY = event.clientY;
+            startMouse.x = event.clientX;
+            startMouse.y = event.clientY;
 
-            // console.log(window.lockMapSelection)
-        });
+            // different transition during panning
+            mapContainerReg.style.transition = 'transform 0.03s';
+        }
+    });
 
-        $(document).mouseup(function () { /*mediaContainer*/
+    $(document).mouseup(function () {
+        if (!window.lockDrag) {
             dragging = false;
-
             mediaContainer.css("cursor", "grab");
 
-            // previousMapX = parseFloat(mapContainer.css("left").split("px"));
-            // previousMapY = parseFloat(mapContainer.css("top").split("px"));
+            previousMap.x = position.x;
+            previousMap.y = position.y;
 
-            previousMapX = position.x;
-            previousMapY = position.y;
+            // add the zoom transition back
+            mapContainerReg.style.transition = 'transform 0.2s';
 
             // release map selection
-            setTimeout(function allowLocationClick(){
+            setTimeout(function allowLocationClick() {
                 window.lockMapSelection = false;
             }, 80);
+        }
+    });
+
+    $(document).mousemove(function (event) {
+        if (!window.lockDrag) {
+            if (dragging) {
+                // lock map selection clicks
+                setTimeout(function allowLocationClick() {
+                    window.lockMapSelection = true;
+                }, 70);
+
+                currentMouse.x = event.clientX;
+                currentMouse.y = event.clientY;
+
+                let moveX = currentMouse.x - startMouse.x;
+                let moveY = currentMouse.y - startMouse.y;
+
+                position.x = moveX + previousMap.x;
+                position.y = moveY + previousMap.y;
+
+                constrainMap();
+            }
+        }
+    });
+
+    mediaContainerReg.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        if (!dragging && !window.lockDrag) {
+            // pointer position relative to
+            pointer.x = event.pageX - mediaContainerReg.offsetLeft - centeredOffset;
+            pointer.y = event.pageY - mediaContainerReg.offsetTop;
+
+            target.x = (pointer.x - position.x) / scale;
+            target.y = (pointer.y - position.y) / scale;
+
+            // determine the direction (which way the scroll delta is) and magnitude of the scale
+            scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * speed * scale;
+
+            // limit the scale within a range
+            const max_scale = 4;
+            const min_scale = 1;
+            scale = Math.max(min_scale, Math.min(max_scale, scale));
+
+            // calculate position for the image container using relative target with scale
+            position.x = -target.x * scale + pointer.x;
+            position.y = -target.y * scale + pointer.y;
+
+            // constrain the container edges when zooming
+            constrainMap();
+
+            // set variables for panning
+            previousMap.x = position.x;
+            previousMap.y = position.y;
+        }
+    });
+    //}
+
+
+    /*
+    *
+    * Map Controls
+    *
+    * */
+
+    function setupMapControls() {
+        const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
+        const mapLayerMenu = $("#map-layer-menu");
+
+        const mapLayerNorth1st = $("#map-layer-north-1st");
+        const mapLayerNorth2nd = $("#map-layer-north-2nd");
+        const mapLayerNorth3rd = $("#map-layer-north-3rd");
+        const mapLayerSouth1st = $("#map-layer-south-1st");
+        const mapLayerSouth2nd = $("#map-layer-south-2nd");
+        const mapLayerOutside = $("#map-layer-outside");
+
+        const mapLayerMenuNorth1st = $("#map-layer-menu-north-1st");
+        const mapLayerMenuNorth2nd = $("#map-layer-menu-north-2nd");
+        const mapLayerMenuNorth3rd = $("#map-layer-menu-north-3rd");
+        const mapLayerMenuSouth1st = $("#map-layer-menu-south-1st");
+        const mapLayerMenuSouth2nd = $("#map-layer-menu-south-2nd");
+        const mapLayerMenuOutside = $("#map-layer-menu-outside");
+
+        const mapLayerMenuTitles = ["North 1st Floor", "North 2nd Floor", "North 3rd Floor", "South 1st Floor", "South 2nd Floor", "Outside"];
+        let currentMapLayer = mapLayerNorth2nd;
+        let currentBuilding = 1; // 1 = north, 2 = south, 3 = outside
+
+        mapLayerMenuDropdown.hover(
+            function () { // enter element
+                if (!dragging) {
+                    window.lockDrag = true;
+                }
+            }, function () { // leave element
+                window.lockDrag = false;
+            }
+        );
+
+        mapLayerMenu.hover(
+            function () { // enter element
+                if (!dragging) {
+                    window.lockDrag = true;
+                }
+            }, function () { // leave element
+                window.lockDrag = false;
+            }
+        );
+
+        mapLayerMenuDropdown.click(function () {
+            mapLayerMenu.toggleClass("hidden");
         });
 
-        $(document).mousemove(function (event) {
-            if (!window.lockDrag) {
-                if (dragging) {
-                    // lock map selection clicks
-                    setTimeout(function allowLocationClick(){
-                        window.lockMapSelection = true;
-                    }, 70);
-
-                    // setTimeout(function allowLocationClick() {
-                    //     lockDrag = true;
-                    // }, 50);
-                    let maxNegLeft = mediaContainer.width() - mapContainer.outerWidth();
-                    let maxNegTop = mediaContainer.height() - mapContainer.outerHeight();
-
-                    currentMouseX = event.clientX;
-                    currentMouseY = event.clientY;
-
-                    let moveX = currentMouseX - startMouseX;
-                    let moveY = currentMouseY - startMouseY;
-
-                    position.x = moveX + previousMapX;
-                    position.y = moveY + previousMapY;
-
-                    if (mapContainerReg.getBoundingClientRect().width > mediaContainerReg.getBoundingClientRect().width) {
-                    position.offsetX = (mapContainerReg.getBoundingClientRect().width - mediaContainerReg.getBoundingClientRect().width) / 2;
-                        if (position.x > position.offsetX + position.centeredX) {
-                            position.x = position.offsetX + position.centeredX;
-                            // mapContainer.css("left", "0");
-                        } else if (position.x < position.centeredX - position.offsetX) {
-                            position.x = position.centeredX - position.offsetX;
-                            // mapContainer.css("left", maxNegLeft);
-                        } else {
-                            // mapContainer.css("left", positionx);
-                        }
-                    } else {
-                        position.x = previousMapX;
-                    }
-
-                    if (mapContainerReg.getBoundingClientRect().height > mediaContainerReg.getBoundingClientRect().height) {
-                    position.offsetY = (mapContainerReg.getBoundingClientRect().height - mediaContainerReg.getBoundingClientRect().height) / 2;
-                        if (position.y > position.offsetY) {
-                            position.y = position.offsetY;
-                            // mapContainer.css("top", "0");
-                        } else if (position.y < -position.offsetY) {
-                            position.y = -position.offsetY;
-                            // mapContainer.css("top", maxNegTop);
-                        } else {
-                            // mapContainer.css("top", position.y);
-                        }
-                    } else {
-                        position.y = previousMapY;
-                    }
-
-                    let previousTransform = "";
-                    let newTransform = "";
-                    const regexTranslate = /translate\(.*x\)/; // regex for finding the transform translate()
-
-                    // get the previous transform values
-                    previousTransform = mapContainerReg.style.transform;
-
-                    // if there's already an existing translate() value, replace it
-                    if (regexTranslate.test(previousTransform)) {
-                        newTransform = previousTransform.replace(regexTranslate,`translate(${position.x}px, ${position.y}px)`);
-                    } else {
-                        newTransform = previousTransform + `translate(${position.x}px, ${position.y}px)`;
-                    }
-
-                    // set the new transform value to the element
-                    mapContainerReg.style.transform = newTransform;
-
-                }
-            }
+        mapLayerMenuNorth1st.click(function () {
+            switchMapLayers(mapLayerNorth1st, 1, 0);
         });
 
-        // zoom implementation
-        // TODO: finish zoom function (rn its taking over the sidebar width) and maybe smooth out the animation
-        let scale = 1;
-        let currentZoomFactor = 1;
-        let previousTransform = "";
-        let newTransform = "";
-        const regexScale = /scale\(.*\)/; // regex for finding the transform scale()
-
-        mediaContainer.on("wheel", function (event) {
-
-            if (event.originalEvent.deltaY < 0) {
-                if (currentZoomFactor < 11) {
-                    currentZoomFactor++;
-                    scale = 0.75 + (0.25 * currentZoomFactor);
-                    // mapContainer.css("transform",`scale(${scale})`);
-
-                    // if (parseFloat(mapContainer.css("width").split("%")) > parseFloat(mediaContainer.css("width").split("px"))) {
-                    //     // mapContainer.css("left", 0);
-                    //     // mapContainer.css("transform", "none");
-                    // }
-                }
-            } else {
-                if (currentZoomFactor > 1) {
-                    currentZoomFactor--;
-                    scale = 0.75 + (0.25 * currentZoomFactor);
-
-                    // if ()
-                    // mapContainer.css("transform",`scale(${scale})`);
-
-                    // if (parseFloat(mapContainer.css("width").split("%")) <= parseFloat(mediaContainer.css("width").split("px"))) {
-                        // mapContainer.css("left", "50%");
-                        // mapContainer.css("transform", "translate(-50%, 0)");
-                    // }
-                }
-
-            }
-
-            // get the previous transform values
-            previousTransform = mapContainerReg.style.transform;
-
-            // if there's already an existing scale() value, replace it
-            if (regexScale.test(previousTransform)) {
-                newTransform = previousTransform.replace(regexScale,`scale(${scale})`);
-            } else {
-                newTransform = previousTransform + `scale(${scale})`;
-            }
-
-            // set the new transform value to the element
-            mapContainerReg.style.transform = newTransform;
-
+        mapLayerMenuNorth2nd.click(function () {
+            switchMapLayers(mapLayerNorth2nd, 1, 1);
         });
+
+        mapLayerMenuNorth3rd.click(function () {
+            switchMapLayers(mapLayerNorth3rd, 1, 2);
+        });
+
+        mapLayerMenuSouth1st.click(function () {
+            switchMapLayers(mapLayerSouth1st, 2, 3);
+        });
+
+        mapLayerMenuSouth2nd.click(function () {
+            switchMapLayers(mapLayerSouth2nd, 2, 4);
+        });
+
+        mapLayerMenuOutside.click(function () {
+            switchMapLayers(mapLayerOutside, 3, 5);
+        });
+
+        function switchMapLayers(targetMapLayer, targetBuilding, title) {
+            if (currentMapLayer !== targetMapLayer) {
+                mapLayerMenuDropdown.text(mapLayerMenuTitles[title]);
+                currentMapLayer.toggleClass("hidden");
+                targetMapLayer.toggleClass("hidden");
+
+                if (targetBuilding !== currentBuilding) {
+                    centerMap();
+                }
+
+                currentBuilding = targetBuilding;
+                currentMapLayer = targetMapLayer;
+            }
+        }
     }
 
 
@@ -500,6 +589,7 @@ $(document).ready(function () {
     * 360 Viewer
     *
     * */
+
     // Add Pannellum viewer to each sidebar option
     function addPannellumClick(filenameArray, selectionIDArray, locationArray, section) {
         let filenameOffset = 0;
@@ -510,7 +600,7 @@ $(document).ready(function () {
 
 
         if (section === 1) {
-            for (let i = 0; i < selectionIDArray.length; i ++) {
+            for (let i = 0; i < selectionIDArray.length; i++) {
 
                 // use variables to offset the array's indexing
                 specialProperty = locationArray[i + 1 - locationArrayOffset][1];
@@ -520,7 +610,7 @@ $(document).ready(function () {
                 }
 
                 if (counter === 1) {
-                    locationArrayOffset ++;
+                    locationArrayOffset++;
                     counter = 0;
                     counting = false;
                 }
@@ -559,7 +649,7 @@ $(document).ready(function () {
                 })(filenameOffset)
 
                 if (/\d/.test(specialProperty)) {
-                    filenameOffset ++;
+                    filenameOffset++;
                     counting = true;
                 }
             }
@@ -571,6 +661,9 @@ $(document).ready(function () {
             viewer360Container.addClass("hidden");
             exit360Viewer.addClass("hidden");
             window.lockDrag = false;
+
+            resetMapVars();
+            constrainMap();
 
             // close the viewer renderer
             if (typeof viewer360 !== "undefined") {
