@@ -64,7 +64,6 @@ body {
 
 .navbar-links {
     max-width: 1152px;
-
     display: -webkit-flex;
     list-style: none;
     width: 60%;
