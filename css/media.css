@@ -1,6 +1,10 @@
 /* Custom Styles Within Media Pages */
 
-/* Page Setup */
+/*
+    ===========
+    Page Layout
+    ===========
+*/
 body, html {
     display: -webkit-flex;
     -webkit-flex-flow: column;
@@ -16,31 +20,30 @@ body, html {
 }
 
 
-/* Navbar Styling */
-.navbar-custom {
-    /*background-color: transparent;*/
-    position: relative;
-    width: 100%;
-    z-index: 1;
-    min-height: 60px;
 
-    height: 4vh;
-    border-bottom: 1px solid black;
+/*
+    =================
+    Media Page Navbar
+    =================
+*/
+.navbar-custom {
+    background-color: transparent;
+    position: relative;
+
+    border-bottom: 1px solid #000000;
 }
 
 .navbar-links a {
     color: black;
-    text-decoration: none;
 }
 
-@media screen and (max-width: 900px) {
-    .navbar-links a {
-        color: white;
-        text-decoration: none;
-    }
-}
 
-/* Sidebar Styling */
+
+/*
+    =======
+    Sidebar
+    =======
+*/
 /*.sidebar {*/
 /*    position: fixed!important;*/
 /*    width: 25%;*/
@@ -66,10 +69,9 @@ body, html {
 
 /*}*/
 
-/* Style the search box inside the navigation bar */
 #search-bar {
     float: none;
-    padding: 6px 8px;
+    padding: 8px 8px;
     border: none;
     font-size: 20px;
     display: block;
@@ -102,7 +104,9 @@ body, html {
 }
 
 .location-menu {
+    margin: 0;
     width: 100%;
+    padding-inline-start: 0;
 }
 
 .sidebar-list-1 {
@@ -121,16 +125,15 @@ body, html {
     list-style: none;
 }
 
-/* The navigation menu links */
+/* Menu Options */
 .sidebar a {
     text-decoration: none;
     font-size: 20px;
     color: #000000;
     display: block;
-    padding: 6px 8px 6px 32px;
+    padding: 8px 8px 8px 32px;
     -webkit-user-drag: none;
 }
-
 
 .sidebar-list-1 a {
     background-color: #7a7a7a;
@@ -144,44 +147,23 @@ body, html {
     background-color: #e2e2e2;
 }
 
-/* When you mouse over the navigation links, change their color */
 .sidebar a:hover {
     text-decoration: none;
     color: black;
     background-color: #41b4ff;
 }
 
-/* Style page content */
-.main {
-    margin-left: 160px; /* Same as the width of the sidebar */
-    padding: 0px 10px;
+/* todo: also necessary later when styling the sidebar items */
+.active.dropdown-btn {
+    background-color: #ff0000;
+    color: #ffffff;
 }
 
-/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-width: 900px) {
-    .sidebar {width: 25%;} /*todo: media container left responsive, fix responsive sidebar*/
-    .sidebar a {font-size: 18px;}
-    .sidebar button {font-size: 18px;}
-}
-
-.location-menu {
-    padding-inline-start: 0;
-}
-
-/* Dropdown Button */
-
-/* Add an active class to the active dropdown button */
-/*.active {*/
-/*    background-color: #989898;*/
-/*    color: #f1f1f1;*/
-/*}*/
-
-/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
-.dropdown-container {
+/*.dropdown-container { todo: overriding list style
     display: block;
     background-color: #ffffff;
     padding-left: 32px;
-}
+}*/
 
 /*!* Optional: Style the caret down icon *!*/
 /*!* Use if icons should float right *!*/
@@ -190,27 +172,28 @@ body, html {
 /*  padding-right: 32px;*/
 /*}*/
 
-.sidebar button {
-    text-decoration: none;
-    font-size: 20px;
-    background-color: #111111;
-    color: #bebebe;
-    display: block;
-    outline: none;
-    border: none;
-    font-family: 'Blinker', sans-serif;
-}
+/* todo: likely redundant since im using <a> links now */
+/*.sidebar button {*/
+/*    text-decoration: none;*/
+/*    font-size: 20px;*/
+/*    background-color: #111111;*/
+/*    color: #bebebe;*/
+/*    display: block;*/
+/*    outline: none;*/
+/*    border: none;*/
+/*    font-family: 'Blinker', sans-serif;*/
+/*}*/
 
-.sidebar button:hover {
-    color: #f1f1f1;
-}
+/*.sidebar button:hover {*/
+/*    color: #f1f1f1;*/
+/*}*/
 
 
 
 /*
-
-    Media Container & Map
-
+    ===============
+    Media Container
+    ===============
  */
 .media-container {
     -webkit-user-drag: none;
@@ -226,6 +209,7 @@ body, html {
     overflow: hidden;
 }
 
+/* todo: move map stuff to virtual tour */
 .map-container {
     display: inline-block;
     position: relative;
@@ -239,11 +223,11 @@ body, html {
     transform-origin: 0 0;
 }
 
-.map-container img + .locations-container {
+/*.map-container img + .locations-container { todo: unused
     position: absolute;
     top: 0;
     left: 0;
-}
+}*/
 
 .map-container svg {
     -webkit-user-drag: none;
@@ -253,7 +237,7 @@ body, html {
     /*padding: 15px 15px;*/
 }
 
-.locations-container {
+/*.locations-container { todo: unused
     width: 100%;
     height: 100%;
 }
@@ -262,11 +246,7 @@ body, html {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     position: relative;
-}
-
-.media-container:hover {
-
-}
+}*/
 
 .location {
     /*fill: #c8c8c8 !important;*/
@@ -282,7 +262,7 @@ body, html {
 /*
 
     Interface Controls
-
+    todo: move all to virtual tour?
 */
 .exit-360-container {
     position: absolute;
@@ -365,7 +345,7 @@ body, html {
 /*
 
     360 Viewer
-
+    todo: move all to virtual tour
 */
 .viewer-360-container {
     height: 100%;
@@ -373,7 +353,12 @@ body, html {
 }
 
 
-/* General Overrides */
+
+/*
+    =======
+    General
+    =======
+*/
 
 .hidden-opacity {
     opacity: 0;
@@ -395,7 +380,13 @@ body, html {
 /*    margin: -4px 0 0 -4px;*/
 /*}*/
 
-/*Data Usage Disclaimer */
+
+
+/*
+    =====================
+    Data Usage Disclaimer
+    =====================
+*/
 .data-disclaimer {
     display: flex;
     height: 90px;
