@@ -50,7 +50,7 @@ body {
     position: absolute;
     width: 100%;
     z-index: 1;
-    min-height: 60px;
+    min-height: 62px;
 
     height: 5vh;
     /*overflow: hidden;*/
