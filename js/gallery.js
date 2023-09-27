@@ -1,33 +1,29 @@
-/*
-    Use this js script for custom js within the gallery page that are unused or conflict with other general page functions
-*/
-
+/* Custom Script For Gallery */
 $(document).ready(function () {
-
     /*
-    *
+    * ===================
     * Image/Video Gallery
-    *
+    * ===================
     * */
     const mediaContainer = $("#media-container");
     const galleryIDList = ["drone-footage-gallery", "grad-classes-gallery", "new-building-timelapse-gallery"];
     // array of gallery content formatted for nanogallery2
     const galleryContent = [
-        [{ src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1' },
-            { src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2' },
-            { src: 'search-rescue-drone.jpg', srct: 'search-rescue-drone.jpg', title: 'test 3' }],
+        [{src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1'},
+         {src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2'},
+         {src: 'search-rescue-drone.jpg', srct: 'search-rescue-drone.jpg', title: 'test 3'}],
 
-        [{ src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1' },
-            { src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2' }]
+        [{src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1'},
+         {src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2'}]
     ];
 
     // create the gallery with the given inputs
     function loadNanogallery2(galleryID, galleryListPos) {
         $(`#${galleryID}`).nanogallery2({
             // gallery settings
-            itemsBaseURL:     'https://www.bnsdroneclub.ca/images/about/',
-            thumbnailHeight:  200,
-            thumbnailWidth:   200,
+            itemsBaseURL: 'https://www.bnsdroneclub.ca/images/about/',
+            thumbnailHeight: 200,
+            thumbnailWidth: 200,
             thumbnailBorderVertical: 1,
             thumbnailBorderHorizontal: 1,
             thumbnailDisplayTransition: 'slideUp',
@@ -43,8 +39,8 @@ $(document).ready(function () {
             // lightbox settings
             imageTransition: 'swipe2',
             viewerTools: {
-                topLeft:    "pageCounter",
-                topRight:   "zoomButton, fullscreenButton, closeButton"
+                topLeft: "pageCounter",
+                topRight: "zoomButton, fullscreenButton, closeButton"
             },
 
             // gallery content
@@ -83,15 +79,15 @@ $(document).ready(function () {
 
 
     /*
-    *
+    * ======================
     * Sidebar Load Galleries
-    *
+    * ======================
     * */
     function addGalleryLoading() {
         const galleryMenu = $("#gallery-menu");
 
         // go through all the gallery menu items and add click functions
-        for (let i = 0; i < galleryMenu.children().length; i ++) {
+        for (let i = 0; i < galleryMenu.children().length; i++) {
             galleryMenu.children().eq(i).click(function () {
                 // delete any previous gallery content
                 try {
@@ -108,18 +104,14 @@ $(document).ready(function () {
             });
         }
     }
+
     addGalleryLoading();
 
 
     /*
-    *
+    * ==============
     * Sidebar Search
-    *
-    * */
-    /*
-    *
-    * Sidebar Search
-    *
+    * ==============
     * */
     const searchBarReg = document.getElementById("search-bar");
 
@@ -129,13 +121,13 @@ $(document).ready(function () {
     });
 
     // repetitive search filtering for the different location areas
-    function filterSearchElements (ul) {
+    function filterSearchElements(ul) {
         // setup variables
         let filter = searchBarReg.value.toUpperCase();
         let li = ul.getElementsByClassName("sidebar-list-1");
 
         // loop through all list items, and hide those who don't match the search query
-        for (let i = 0; i < li.length; i ++) {
+        for (let i = 0; i < li.length; i++) {
             let a = li[i].getElementsByTagName("a")[0];
             if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
                 li[i].classList.remove("hidden");
