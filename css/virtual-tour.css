@@ -1,0 +1,149 @@
+/* Custom Styles Within Virtual Tour */
+
+/*
+    ========
+    Map Area
+    ========
+*/
+.map-container {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: auto;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+
+    transition: transform 0.2s; /* temp */
+    transform-origin: 0 0;
+}
+
+/*.map-container img + .locations-container { todo: unused
+    position: absolute;
+    top: 0;
+    left: 0;
+}*/
+
+.map-container svg {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    height: 100%;
+    width: auto;
+    /*padding: 15px 15px;*/
+}
+
+/*.locations-container { todo: unused
+    width: 100%;
+    height: 100%;
+}
+
+.locations-container img {
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    position: relative;
+}*/
+
+.location {
+    /*fill: #c8c8c8 !important;*/
+}
+
+.location:hover {
+    fill: #5a5a5a !important;
+    cursor: pointer;
+}
+
+
+
+/*
+    ==================
+    Interface Controls
+    ==================
+*/
+.exit-360-container {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    right: 0;
+}
+
+.exit-360-viewer {
+    background-color: #414141;
+    color: white;
+    border: none;
+    height: 60px;
+    width: 90px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px;
+    opacity: 80%;
+}
+
+.map-layer-menu-container {
+    width: 14rem;
+    position: absolute;
+    z-index: 5;
+    right: 0;
+}
+
+.map-layer-menu-container button {
+    display: block;
+    width: 90%;
+    padding: 4px 20px 4px 8px;
+    /*margin: 20px 20px 0 20px;*/
+    margin: 20px auto auto auto;
+    text-align: left;
+    font-size: 20px;
+    -webkit-user-drag: none;
+    text-decoration: none;
+    color: #000000;
+    background-color: #00bdff;
+    border: none;
+    cursor: pointer;
+}
+
+.map-layer-menu-container button:hover {
+    text-decoration: none;
+    color: black;
+    background-color: #8ccdff;
+}
+
+.map-layer-menu {
+    display: block;
+    width: 90%;
+    margin: auto;
+    list-style: none;
+    padding-inline-start: 0;
+    cursor: default;
+    background-color: #999999;
+}
+
+.map-layer-menu-sub {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.map-layer-menu-sub li button {
+    display: block;
+    width: 100%;
+    padding: 4px 0;
+    margin: 0;
+    background-color: #5a5a5a;
+    text-align: center;
+}
+
+.map-layer-titles {
+    display: block;
+    text-align: center;
+}
+
+
+
+/*
+    ==========
+    360 Viewer
+    ==========
+*/
+.viewer-360-container {
+    height: 100%;
+    width: 100%;
+}
