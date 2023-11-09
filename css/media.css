@@ -97,7 +97,7 @@ body, html {
     /*!*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*!*/
     z-index: 1; /* Stay on top */
     background-color: #ffffff;
-    overflow-y: -moz-scrollbars-vertical; /* must stay like this for elements to expand the width, then scroll bar fills in when content expands (this may need a "fix")*/
+    /*overflow-y: -moz-scrollbars-vertical; !* must stay like this for elements to expand the width, then scroll bar fills in when content expands (this may need a "fix")*!*/
     overflow-x: hidden; /* Disable horizontal scroll */
     border: 1px solid black;
     box-shadow: 1px 0 5px -2px;
