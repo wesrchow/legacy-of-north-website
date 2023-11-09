@@ -196,7 +196,6 @@ body, html {
     ===============
  */
 .media-container {
-    position: relative; /* added in much later during dev to make 360video controls x% width stuff work */
     -webkit-user-drag: none;
     -webkit-user-select: none;
     /*position: fixed;*/
@@ -253,33 +252,6 @@ body, html {
     align-items: center;
 }
 
-.video-360-container {
-    display: block;
-    width: 100%;
-    position: absolute;
-    z-index: 5;
-    bottom: 0;
-    text-align: center;
-}
-
-.video-360-button {
-    width: 100px;
-    height: 40px;
-    display: inline-block;
-}
-
-.video-360-range {
-    display: block;
-    width: 90%;
-    padding: 10px 0;
-    margin: auto;
-}
-
-.map-layer-menu-container {
-    width: 14rem;
-    position: absolute;
-    z-index: 5;
-    right: 0;
 .data-disclaimer p {
     margin: 0;
 }
@@ -294,68 +266,3 @@ body, html {
     margin-right: 12px;
     cursor: pointer;
 }
-
-.map-layer-titles {
-    display: block;
-    text-align: center;
-}
-
-
-
-/*
-
-    360 Viewer
-
-*/
-.viewer-360-container {
-    height: 100%;
-    width: 100%;
-    background-color: transparent;
-    z-index: 1;
-    opacity: 1;
-    position: absolute !important;
-    transition: none;
-
-}
-
-.viewer-360-container-secondary {
-    height: 100%;
-    width: 100%;
-    background-color: transparent;
-    z-index: 0;
-    opacity: 1;
-    position: absolute !important;
-    transition: none;
-}
-
-/*.pnlm-container {*/
-/*    position: absolute;*/
-/*}*/
-
-
-/* General Overrides */
-
-.hidden-opacity-360video {
-    opacity: 0 !important;
-    transition: opacity 1.3s;
-}
-
-.hidden-opacity {
-    opacity: 0;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/*.test-crosshair {*/
-/*    position: relative;*/
-/*    align-self: center;*/
-/*    height: 8px;*/
-/*    width: 8px;*/
-/*    background-color: #1b1e21;*/
-/*    z-index: 20;*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    margin: -4px 0 0 -4px;*/
-/*}*/
