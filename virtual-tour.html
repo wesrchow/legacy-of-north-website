@@ -124,12 +124,12 @@
         </div>
 
         <!-- 360Video Interface -->
-        <div class="video-360-container">
-            <button id="video-360-button-prev" class="video-360-button">previous</button>
-            <button id="video-360-button-next" class="video-360-button">next</button>
+<!--        <div class="video-360-container">-->
+<!--            <button id="video-360-button-prev" class="video-360-button">previous</button>-->
+<!--            <button id="video-360-button-next" class="video-360-button">next</button>-->
 
-            <input id="video-360-range" class="video-360-range" type="range" min="1" max="30" step="1" value="1">
-        </div>
+<!--            <input id="video-360-range" class="video-360-range" type="range" min="1" max="30" step="1" value="1">-->
+<!--        </div>-->
 
         <!-- Maps & 360 Viewer -->
         <div class="map-container" id="map-container">
@@ -138,8 +138,9 @@
             <img class="svg hidden" id="map-layer-north-3rd" style="width:auto;height:100%;" src="maps/North_Building_Map_3rd_Floor_Web.svg" alt="">
             <img class="svg hidden" id="map-layer-south-1st" style="width:auto;height:100%;" src="test-media/test_building.svg" alt="">
         </div>
-        <div id="viewer-360-container" class="viewer-360-container hidden-opacity-360video"></div>
-        <div id="viewer-360-container-secondary" class="viewer-360-container-secondary hidden-opacity-360video"></div>
+
+        <div id="viewer-360-container" class="viewer-360-container"></div>
+<!--        <div id="viewer-360-container-secondary" class="viewer-360-container-secondary hidden-opacity-360video"></div>-->
     </div>
 
 </div>
@@ -160,6 +161,6 @@
         integrity="sha512-EmZuy6vd0ns9wP+3l1hETKq/vNGELFRuLfazPnKKBbDpgZL0sZ7qyao5KgVbGJKOWlAFPNn6G9naB/8WnKN43Q==" crossorigin="anonymous"></script> <!-- pannellum -->
 
 <!-- Custom Scripts -->
-<script src="js/virtual-tour.js"></script>
+<script defer src="js/virtual-tour-core.js" type="module"></script>
 </body>
 </html>
