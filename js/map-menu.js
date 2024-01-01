@@ -1,12 +1,11 @@
+/* Map menu events */
 
 import * as mapMovement from "./map-movement.js";
 
-const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
-const mapLayerMenu = $("#map-layer-menu");
 
+// add the events for the map layer menu
 export function initMapLayerMenu() {
-    // formerly dropdown and menu jquery selector here
-
+    // Map layer selectors
     const mapLayerNorth1st = $("#map-layer-north-1st");
     const mapLayerNorth2nd = $("#map-layer-north-2nd");
     const mapLayerNorth3rd = $("#map-layer-north-3rd");
@@ -14,6 +13,9 @@ export function initMapLayerMenu() {
     const mapLayerSouth2nd = $("#map-layer-south-2nd");
     const mapLayerOutside = $("#map-layer-outside");
 
+    // Map layer menu selectors
+    const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
+    const mapLayerMenu = $("#map-layer-menu");
     const mapLayerMenuNorth1st = $("#map-layer-menu-north-1st");
     const mapLayerMenuNorth2nd = $("#map-layer-menu-north-2nd");
     const mapLayerMenuNorth3rd = $("#map-layer-menu-north-3rd");
@@ -21,35 +23,23 @@ export function initMapLayerMenu() {
     const mapLayerMenuSouth2nd = $("#map-layer-menu-south-2nd");
     const mapLayerMenuOutside = $("#map-layer-menu-outside");
 
+    // Helper variables
     const mapLayerMenuTitles = ["North 1st Floor", "North 2nd Floor", "North 3rd Floor", "South 1st Floor", "South 2nd Floor", "Outside"];
-    let currentMapLayer = mapLayerNorth2nd;
+    let currentMapLayer = mapLayerNorth2nd; // default start state
     let currentBuilding = 1; // 1 = north, 2 = south, 3 = outside
 
-    // TODO: fix map drag allowed if you drag and release within the layer menu
-    mapLayerMenuDropdown.hover(
-        function () { // enter element
-            if (!mouseDragging) {
-                window.lockDrag = true;
-            }
-        }, function () { // leave element
-            window.lockDrag = false;
-        }
-    );
+    // events for locking map when mouse is hovering the menu
+    mapMenuLockPanning(mapLayerMenuDropdown);
+    mapMenuLockPanning(mapLayerMenu);
 
-    mapLayerMenu.hover(
-        function () { // enter element
-            if (!mouseDragging) {
-                window.lockDrag = true;
-            }
-        }, function () { // leave element
-            window.lockDrag = false;
-        }
-    );
-
+    // map menu dropdown toggle
     mapLayerMenuDropdown.click(function () {
         mapLayerMenu.toggleClass("hidden");
     });
 
+    //
+    // map menu layer switching
+    //
     mapLayerMenuNorth1st.click(function () {
         switchMapLayers(mapLayerNorth1st, 1, 0);
     });
@@ -74,18 +64,38 @@ export function initMapLayerMenu() {
         switchMapLayers(mapLayerOutside, 3, 5);
     });
 
+    // helper function to switch map layers by toggling "hidden" class
     function switchMapLayers(targetMapLayer, targetBuilding, title) {
         if (currentMapLayer !== targetMapLayer) {
-            mapLayerMenuDropdown.text(mapLayerMenuTitles[title]);
+            mapLayerMenuDropdown.text(mapLayerMenuTitles[title]); // change menu title (active layer)
+
+            // hide the current layer and show the target layer
             currentMapLayer.toggleClass("hidden");
             targetMapLayer.toggleClass("hidden");
 
-            if (targetBuilding !== currentBuilding) {
-                mapMovement.centerMap();
+            if (targetBuilding !== currentBuilding) { // if the buildings are different, reset the map
+                mapMovement.centerResetMap();
+                currentBuilding = targetBuilding;
             }
 
-            currentBuilding = targetBuilding;
             currentMapLayer = targetMapLayer;
         }
     }
+}
+
+// properly lock map panning when hovering over the layer menu
+function mapMenuLockPanning(menuElement) {
+    menuElement.hover(
+        function () { // enter element
+            if (!mouseDragging) { // lock map panning if not dragging
+                window.lockDrag = true;
+            }
+        }, function () { // leave element
+            window.lockDrag = false;
+        }
+    );
+
+    menuElement.mouseup(function () { // lock if we mouseup within the menu (usually while having been dragging)
+        window.lockDrag = true;
+    });
 }

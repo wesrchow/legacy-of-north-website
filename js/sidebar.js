@@ -1,23 +1,35 @@
+/* Sidebar element injection, 360Photo click events, searchbar */
+
 import * as viewer360Module from "./360-viewer.js";
 
+// sidebar location menus
 const northLocationMenu = $("#north-location-menu");
-const southLocationMenu = "";
-const outsideLocationMenu = "";
+const southLocationMenu = $("#south-location-menu");
+const outsideLocationMenu = $("#outside-location-menu");
+const sectionMenuSelectors = ["", northLocationMenu, southLocationMenu, outsideLocationMenu];
 
+// search bar vanilla js selector
 const searchBarReg = document.getElementById("search-bar");
 
+// Inject sidebar elements, attach clickable events, init searchbar
 export function initSidebar() {
-    // Create arrays for locations, inject them
+    // use title formatted lists to inject sidebar elements
     jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
-        sidebarElement360PhotoInjection($.csv.toArrays(data), 1);
+        jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data2) {
+            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
+        }, 'text');
     }, 'text');
 
     jQuery.get("./csv/web-lists/south-locations-list.csv", function (data) {
-        sidebarElement360PhotoInjection($.csv.toArrays(data), 2);
+        jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data2) {
+            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
+        }, 'text');
     }, 'text');
 
     jQuery.get("./csv/web-lists/outside-locations-list.csv", function (data) {
-        sidebarElement360PhotoInjection($.csv.toArrays(data), 3);
+        jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data2) {
+            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
+        }, 'text');
     }, 'text');
 
     // filter the search results on key up events
@@ -29,21 +41,13 @@ export function initSidebar() {
 }
 
 
-function sidebarElement360PhotoInjection(locationArray, section) {
-    let selectionIDArray = []; // TODO: keep it global or no? its needed for the map scrolling and pannellum click events (the latter where its already being passed as a
-    let sectionID;
+// Inject sidebar elements and add 360Photo events
+function sidebarElement360PhotoInjection(locationArray, filenameArray, section) {
+    let selectionIDArray = []; // TODO: keep it global or no? its needed for the map scrolling
+    let sectionID = sectionMenuSelectors[section];
     let injectionString;
 
-    // Define section ID to be appended to
-    if (section === 1) {
-        sectionID = northLocationMenu;
-    } else if (section === 2) {
-        sectionID = southLocationMenu;
-    } else {
-        sectionID = outsideLocationMenu;
-    }
-
-    if (sectionID.length) { // make sure it doesnt break in case sectionID doesnt exist
+    if (sectionID.length) { // TODO bonus: remove, section is always valid
         for (let i = 1; i < locationArray.length; i++) { // iterate through the nicely formatted titles of locations
             let locationName = locationArray[i][0];
             let specialProperty = locationArray[i][1]; // multi image or 360Video flag
@@ -69,19 +73,96 @@ function sidebarElement360PhotoInjection(locationArray, section) {
             } else {
                 // normal sidebar button injection
                 let locationNameID = locationName.replaceAll(" ", "-").toLowerCase();
-                if (specialProperty !== "360Video") { // dont push 360video entries to the click injection list
+                if (specialProperty !== "360Video") { // don't push 360video entries to the click event list
                     selectionIDArray.push(locationNameID);
                 }
                 sectionID.append(`<li class="sidebar-list-2"><a href="#" id="${locationNameID}">${locationName}</\a></\li>`);
             }
         }
 
-        // complete the functional sidebar by adding dropdowns and pannellum connections
+        // add dropdowns for multi image locations
         addDropdownClick();
-        jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data) {
-            viewer360Module.addPannellumClick($.csv.toArrays(data), selectionIDArray, locationArray, section);
-        }, 'text');
+
+        // add 360Photo click events for sidebar
+        add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray, section);
     }
+}
+
+// Add 360Photo click events for sidebar
+function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray, section) {
+    // TODO: fix iterating past hallways, add comments
+    let filenameOffset = 0;
+    let locationArrayOffset = 0;
+    let specialProperty = null;
+    let counter = 0;
+    let counting = false;
+
+    let video360Counter = 0;
+
+    // if (section === 1) {
+    for (let i = 0; i < selectionIDArray.length; i++) {
+
+        // if (locationArray[i + 1 - locationArrayOffset][1] === "360Video") {
+        //     video360Counter++;
+        // }
+
+        // use variables to offset the array's indexing
+        specialProperty = locationArray[i + 1 - locationArrayOffset /*+ video360Counter*/][1];
+
+        // if (counting) {
+        //     counter++;
+        // }
+
+        if (counting) {
+            locationArrayOffset++;
+            // counter = 0;
+            counting = false;
+        }
+
+        // grab the variable filenameOffset each iteration for each click function and pass it into the function as index variable
+        // (function (index) {
+        //     $(`#${selectionIDArray[i]}`).click(function () {
+        //         // let test1 = (selectionIDArray[i]);
+        //         // let test2 = (i + 1 - index);
+        //         // let test3 = (filenameArray[(i + 1 - index)]);
+        //         // console.log(test1, test2, test3);
+        //
+        //         let content360 = filenameArray[(i + 1 - index)];
+        //
+        //         // hide necessary elements, lock map and reveal the 360 viewer container
+        //         mapLayerMenuDropdown.addClass("hidden");
+        //         mapLayerMenu.addClass("hidden");
+        //         mapContainer.addClass("hidden");
+        //         viewer360Container.removeClass("hidden");
+        //         exit360Viewer.removeClass("hidden");
+        //         window.lockDrag = true;
+        //
+        //         // check if there's an existing viewer already, if so destroy it
+        //         if (typeof window.viewer360 !== "undefined") {
+        //             window.viewer360.destroy();
+        //         }
+        //
+        //         window.viewer360 = pannellum.viewer('viewer-360-container', {
+        //             "type": "equirectangular",
+        //             "panorama": `test-media/${content360}`,
+        //             "friction": 0.1,
+        //             "autoLoad": true,
+        //             "compass": false,
+        //             "keyboardZoom": false,
+        //             "disableKeyboardCtrl": true
+        //         });
+        //     });
+        // })(filenameOffset)
+
+        // Add the actual 360Photo viewer click event
+        viewer360Module.create360PhotoViewerEvent(selectionIDArray[i].toString(), filenameArray[(i + 1 - filenameOffset)].toString(), section);
+
+        if (/^[1-9]\d*$/.test(specialProperty)) {
+            filenameOffset++;
+            counting = true;
+        }
+    }
+    // }
 }
 
 function addDropdownClick() {
@@ -121,6 +202,7 @@ function addDropdownClick() {
 }
 
 // repetitive search filtering for the different location areas
+// TODO bonus: merge with gallery searching
 function filterSearchElements(ul) {
     // setup variables
     let filter = searchBarReg.value.toUpperCase();
