@@ -81,7 +81,7 @@ function sidebarElement360PhotoInjection(locationArray, filenameArray, section) 
         }
 
         // add dropdowns for multi image locations
-        addDropdownClick();
+        addDropdownClick(); // TODO: move so it doesnt trigger multiple times / is more consistent
 
         // add 360Photo click events for sidebar
         add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray, section);
@@ -94,75 +94,40 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
     let filenameOffset = 0;
     let locationArrayOffset = 0;
     let specialProperty = null;
-    let counter = 0;
     let counting = false;
 
     let video360Counter = 0;
 
-    // if (section === 1) {
-    for (let i = 0; i < selectionIDArray.length; i++) {
+    // TODO: last location of each section are not adding events or something properly
+    for (let i = 0; i < selectionIDArray.length; i++) { // go through indicated sidebar elements
 
-        // if (locationArray[i + 1 - locationArrayOffset][1] === "360Video") {
-        //     video360Counter++;
-        // }
+        // Check for 360Video special property to offset
+        while (locationArray[i + 1 - locationArrayOffset + video360Counter][1] === "360Video") {
+            video360Counter++;
+        }
 
-        // use variables to offset the array's indexing
-        specialProperty = locationArray[i + 1 - locationArrayOffset /*+ video360Counter*/][1];
+        // + 1 since CSV files have a header
+        // - locationArrayOffset to resync multi image locations list and filename list target after adding dropdown
+            // and image 1 with the same filename
+        // + video360Counter to skip past 360Video entries in locations list
+        specialProperty = locationArray[i + 1 - locationArrayOffset + video360Counter][1];
 
-        // if (counting) {
-        //     counter++;
-        // }
-
+        // when we're counting multi image locations, offset for the next specialProperty check iteration
         if (counting) {
             locationArrayOffset++;
-            // counter = 0;
             counting = false;
         }
 
-        // grab the variable filenameOffset each iteration for each click function and pass it into the function as index variable
-        // (function (index) {
-        //     $(`#${selectionIDArray[i]}`).click(function () {
-        //         // let test1 = (selectionIDArray[i]);
-        //         // let test2 = (i + 1 - index);
-        //         // let test3 = (filenameArray[(i + 1 - index)]);
-        //         // console.log(test1, test2, test3);
-        //
-        //         let content360 = filenameArray[(i + 1 - index)];
-        //
-        //         // hide necessary elements, lock map and reveal the 360 viewer container
-        //         mapLayerMenuDropdown.addClass("hidden");
-        //         mapLayerMenu.addClass("hidden");
-        //         mapContainer.addClass("hidden");
-        //         viewer360Container.removeClass("hidden");
-        //         exit360Viewer.removeClass("hidden");
-        //         window.lockDrag = true;
-        //
-        //         // check if there's an existing viewer already, if so destroy it
-        //         if (typeof window.viewer360 !== "undefined") {
-        //             window.viewer360.destroy();
-        //         }
-        //
-        //         window.viewer360 = pannellum.viewer('viewer-360-container', {
-        //             "type": "equirectangular",
-        //             "panorama": `test-media/${content360}`,
-        //             "friction": 0.1,
-        //             "autoLoad": true,
-        //             "compass": false,
-        //             "keyboardZoom": false,
-        //             "disableKeyboardCtrl": true
-        //         });
-        //     });
-        // })(filenameOffset)
-
-        // Add the actual 360Photo viewer click event
+        // add the actual 360Photo viewer click event
         viewer360Module.create360PhotoViewerEvent(selectionIDArray[i].toString(), filenameArray[(i + 1 - filenameOffset)].toString(), section);
 
+        // Check if the special property is decimal (multi image) using regex while ignoring 360Video cases
+        // offset the filename for multi images so it matches up with the sidebar elements
         if (/^[1-9]\d*$/.test(specialProperty)) {
             filenameOffset++;
             counting = true;
         }
     }
-    // }
 }
 
 function addDropdownClick() {
