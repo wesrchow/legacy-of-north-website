@@ -36,7 +36,7 @@ export function initMap() {
             $img.replaceWith($svg);
 
             mapLoadCounter++;
-            if (mapLoadCounter === 6) { // Wait till all 6 maps are replaced then execute once
+            if (mapLoadCounter === 6) { // Wait till all 6 maps are replaced then execute the following once
 
                 // add 360Photo links for map
                 jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data) {
