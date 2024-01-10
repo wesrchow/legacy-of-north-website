@@ -15,40 +15,41 @@ const searchBarReg = document.getElementById("search-bar");
 // Inject sidebar elements, attach clickable events, init searchbar
 export function initSidebar() {
     let sidebarLoadCounter = 0; // wait till all 3 sections are loaded before adding dropdown click events
+    // TODO bonus: properly synchronize this
 
     // use title formatted lists to inject sidebar elements
     jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
         jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data2) {
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
-            if (sidebarLoadCounter === 2) {
+            sidebarLoadCounter++;
+            if (sidebarLoadCounter === 3) {
                 addDropdownClick();
             }
-            sidebarLoadCounter++;
         }, 'text');
     }, 'text');
 
     jQuery.get("./csv/web-lists/south-locations-list.csv", function (data) {
         jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data2) {
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
-            if (sidebarLoadCounter === 2) {
+            sidebarLoadCounter++;
+            if (sidebarLoadCounter === 3) {
                 addDropdownClick();
             }
-            sidebarLoadCounter++;
         }, 'text');
     }, 'text');
 
     jQuery.get("./csv/web-lists/outside-locations-list.csv", function (data) {
         jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data2) {
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
-            if (sidebarLoadCounter === 2) {
+            sidebarLoadCounter++;
+            if (sidebarLoadCounter === 3) {
                 addDropdownClick();
             }
-            sidebarLoadCounter++;
         }, 'text');
     }, 'text');
 
     // filter the search results on key up events
-    searchBarReg.addEventListener("keyup", function (e) {
+    searchBarReg.addEventListener("keyup", function () {
         filterSearchElements(document.getElementById("north-location-menu"));
         filterSearchElements(document.getElementById("south-location-menu"));
         filterSearchElements(document.getElementById("outside-location-menu"));
