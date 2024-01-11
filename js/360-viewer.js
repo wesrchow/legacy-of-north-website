@@ -86,11 +86,19 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 
 // TODO: revise and finish up
 function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, section) {
-    const mapIDName = $(`#${filename360VideoArray[0][0]}`);
-    // define sidebar selection ID
-    // remove 360Video from the end of the string
-    // if csv title has "floor" then we also append "hallway" to match the sidebar ID
-    // otherwise leave it, the other 360Videos are already matched correctly
+    const mapSelector = $(`#${filename360VideoArray[0][0].toString()}`);
+
+    // find the relevant sidebar ID through some manipulation
+    let sidebarSelectorString = filename360VideoArray[0][0].toString();
+    sidebarSelectorString = sidebarSelectorString.substring(0, sidebarSelectorString.length - 9); // gets rid of _360Video
+    sidebarSelectorString = sidebarSelectorString.replaceAll("_", "-").toLowerCase(); // format to match sidebar ID
+    if (sidebarSelectorString.includes("floor")) {
+        sidebarSelectorString += "-hallway";
+    }
+    const sidebarSelector = $(`#${sidebarSelectorString}`);
+
+    // combine the two selectors so we add the same click event to both
+    const video360Selectors = mapSelector.add(sidebarSelector);
 
     let video360TargetToggle = true; // controls alternating between the two 360 viewers
     let videoPos = 1;
@@ -98,10 +106,10 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
     let content360Filename;
     let clickTimeout = false; // used to timeout 360 video clicks
 
-    mapIDName.addClass("location"); // add css class that gives the hover effect
+    mapSelector.addClass("location"); // add css class that gives the hover effect to just map
 
-    // add click event to map
-    mapIDName.click(function () {
+    // add click event to both map and sidebar
+    video360Selectors.click(function () {
         if (!window.lockMapSelection) {
             // hide necessary elements
             mapLayerMenuDropdown.addClass("hidden");

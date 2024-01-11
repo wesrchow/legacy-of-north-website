@@ -24,6 +24,7 @@ export function initSidebar() {
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
                 addDropdownClick();
+                viewer360Module.initAll360Videos();
             }
         }, 'text');
     }, 'text');
@@ -34,6 +35,7 @@ export function initSidebar() {
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
                 addDropdownClick();
+                viewer360Module.initAll360Videos();
             }
         }, 'text');
     }, 'text');
@@ -44,6 +46,7 @@ export function initSidebar() {
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
                 addDropdownClick();
+                viewer360Module.initAll360Videos();
             }
         }, 'text');
     }, 'text');

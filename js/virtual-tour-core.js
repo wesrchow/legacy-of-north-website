@@ -31,8 +31,4 @@ mapMovement.initMapMovementEvents(); // Add map events to facilitate map movemen
 
 viewer360Module.initAll360ViewerControls(); // Add all 360 viewer controls (photo and video)
 
-viewer360Module.initAll360Videos(); // Add all 360Video links to map and sidebar
-// 360 video events
-    // init fn in 360 viewer module that reads the csv files and calls function 2 times
-        // click event map (already written)
-        // click event sidebar (manipulate id so it points to the sidebar one)
+// init 360 videos moved to sidebar since it must be deferred until sidebar is loaded
