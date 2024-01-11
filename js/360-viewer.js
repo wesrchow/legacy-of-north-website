@@ -104,7 +104,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
     let videoPos = 1;
     let tempPrevViewer; // holds current viewer until we transition where it's treated as the previous viewer and altered accordingly
     let content360Filename;
-    let clickTimeout = false; // used to timeout 360 video clicks
+    let moveTimeout = false; // used to timeout 360 video clicks
 
     mapSelector.addClass("location"); // add css class that gives the hover effect to just map
 
@@ -135,6 +135,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
             // always start at the one end of the hallway
             content360Filename = filename360VideoArray[1].toString();
             videoPos = 1;
+            video360Range.val(1);
 
             // check if there's an existing viewer already, if so destroy it
             if (typeof window.viewer360 !== "undefined") {
@@ -152,8 +153,6 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
                 "yaw": initialYaw
             });
 
-            // console.log(window.viewer360.getpi)
-
             // set up view switching
             video360TargetToggle = true;
             tempPrevViewer = window.viewer360;
@@ -161,57 +160,73 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 
         // 360 video previous button event
         video360ButtonPrev.click(function () {
-            if (!clickTimeout) {
-                // allow the timeout to expire when we allow a transition
-                setTimeout(function () {
-                    clickTimeout = false;
-                }, 1000);
+            if (!moveTimeout) {
+                timeoutCountdown();
+
                 videoPos--
 
                 if (videoPos < 1) { // if we're past the range, hold position
                     videoPos++;
                 } else {
-                    if (video360TargetToggle) { // toggle back and forth between the two viewers to simulate 360 video
-                        tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, tempPrevViewer, window.viewer360Secondary);
-                    } else {
-                        tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, tempPrevViewer, window.viewer360);
-                    }
-
-                    video360TargetToggle = !video360TargetToggle;
+                    video360Range.val(videoPos);
+                    triggerVideo360Transition();
                 }
             }
 
-            clickTimeout = true; // always reset click timeout when clicked
+            moveTimeout = true; // always reset click timeout when move
         });
 
         // 360 video next button event
         video360ButtonNext.click(function () {
-            if (!clickTimeout) {
-                // allow the timeout to expire when we allow a transition
-                setTimeout(function () {
-                    clickTimeout = false;
-                }, 1000);
+            if (!moveTimeout) {
+                timeoutCountdown();
+
                 videoPos++
 
                 if (videoPos >= fileCount) { // if we're past the range, hold position
                     videoPos--;
                 } else {
-                    if (video360TargetToggle) { // toggle back and forth between the two viewers to simulate 360 video
-                        tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, tempPrevViewer, window.viewer360Secondary);
-                    } else {
-                        tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, tempPrevViewer, window.viewer360);
-                    }
-
-                    video360TargetToggle = !video360TargetToggle;
+                    video360Range.val(videoPos);
+                    triggerVideo360Transition();
                 }
             }
 
-            clickTimeout = true; // always reset click timeout when clicked
+            moveTimeout = true; // always reset click timeout when move
         });
 
         // set up range slider
         video360Range.attr("max", fileCount);
-        // todo bonus: range slider functionality
+        video360Range.change(function () {
+            if (!moveTimeout) {
+                timeoutCountdown();
+
+                videoPos = video360Range.val();
+                triggerVideo360Transition();
+            }
+
+            video360Range.prop("disabled", true);
+            moveTimeout = true; // always reset click timeout when move
+        })
+
+        // timeout unlock helper
+        function timeoutCountdown() {
+            // allow the timeout to expire when we allow a transition
+            setTimeout(function () {
+                video360Range.prop("disabled", false);
+                moveTimeout = false;
+            }, 1200);
+        }
+
+        // trigger for 360 video transition
+        function triggerVideo360Transition() {
+            if (video360TargetToggle) { // toggle back and forth between the two viewers to simulate 360 video
+                tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, tempPrevViewer, window.viewer360Secondary);
+            } else {
+                tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, tempPrevViewer, window.viewer360);
+            }
+
+            video360TargetToggle = !video360TargetToggle;
+        }
 
         // facilitates 360 video transition
         function video360Transition(nextContainerString, prevContainer, prevPannellumViewer, nextPannellumViewer) {
