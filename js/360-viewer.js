@@ -158,24 +158,6 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
             tempPrevViewer = window.viewer360;
         }
 
-        // 360 video previous button event
-        video360ButtonPrev.click(function () {
-            if (!moveTimeout) {
-                timeoutCountdown();
-
-                videoPos--
-
-                if (videoPos < 1) { // if we're past the range, hold position
-                    videoPos++;
-                } else {
-                    video360Range.val(videoPos);
-                    triggerVideo360Transition();
-                }
-            }
-
-            moveTimeout = true; // always reset click timeout when move
-        });
-
         // 360 video next button event
         video360ButtonNext.click(function () {
             if (!moveTimeout) {
@@ -191,7 +173,25 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
                 }
             }
 
-            moveTimeout = true; // always reset click timeout when move
+            timeoutLock(); // always lock after a move
+        });
+
+        // 360 video previous button event
+        video360ButtonPrev.click(function () {
+            if (!moveTimeout) {
+                timeoutCountdown();
+
+                videoPos--
+
+                if (videoPos < 1) { // if we're past the range, hold position
+                    videoPos++;
+                } else {
+                    video360Range.val(videoPos);
+                    triggerVideo360Transition();
+                }
+            }
+
+            timeoutLock(); // always lock after a move
         });
 
         // set up range slider
@@ -204,14 +204,23 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
                 triggerVideo360Transition();
             }
 
-            video360Range.prop("disabled", true);
-            moveTimeout = true; // always reset click timeout when move
+            timeoutLock(); // always lock after a move
         })
 
-        // timeout unlock helper
+        // trigger timeout lock
+        function timeoutLock() {
+            video360ButtonNext.prop("disabled", true);
+            video360ButtonPrev.prop("disabled", true);
+            video360Range.prop("disabled", true);
+            moveTimeout = true;
+        }
+
+        // timeout countdown helper
         function timeoutCountdown() {
             // allow the timeout to expire when we allow a transition
             setTimeout(function () {
+                video360ButtonNext.prop("disabled", false);
+                video360ButtonPrev.prop("disabled", false);
                 video360Range.prop("disabled", false);
                 moveTimeout = false;
             }, 1200);
