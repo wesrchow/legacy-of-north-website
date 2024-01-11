@@ -110,7 +110,6 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
 
     let video360Counter = 0;
 
-    // TODO: last location of each section are not adding events or something properly
     for (let i = 0; i < selectionIDArray.length; i++) { // go through indicated sidebar elements
 
         // Check for 360Video special property to offset
