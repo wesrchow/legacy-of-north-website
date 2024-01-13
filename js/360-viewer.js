@@ -22,18 +22,17 @@ const sectionFilepath = ["", "north", "south", "outside"];
 // Sets up all 360Videos
 export function initAll360Videos() {
     jQuery.get("./csv/360Video/north-2nd-floor-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 235, 46, 1);
+        addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
 
     jQuery.get("./csv/360Video/north-foyer-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 235, 18, 1);
+        addAll360VideoLinks($.csv.toArrays(data), 230, 18, 1);
     }, 'text');
 
     // TODO: to add
 }
 
 // Sets up all 360 viewer controls (photo and video)
-// TODO: unfinished
 export function initAll360ViewerControls() {
     // main viewer exit button
     exit360Viewer.click(function () {
@@ -58,16 +57,17 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
             mapLayerMenuDropdown.addClass("hidden");
             mapContainer.addClass("hidden");
 
+            // cleans up any prior 360 video
+            clean360Video();
+
             // reveal 360 viewer things
             viewer360Container.removeClass("hidden");
             exit360Viewer.removeClass("hidden");
 
             window.lockDrag = true; // lock map movement
 
-            // check if there's an existing viewer already, if so destroy it
-            if (typeof window.viewer360 !== "undefined") {
-                window.viewer360.destroy();
-            }
+            // check if there's existing viewer(s) already, if so destroy it
+            destroyAll360Viewers();
 
             // create a new pannellum viewer
             window.viewer360 = pannellum.viewer('viewer-360-container', {
@@ -116,9 +116,10 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
             mapLayerMenu.addClass("hidden");
             mapContainer.addClass("hidden");
 
+            // cleans up any prior 360 video
+            clean360Video();
+
             // reveal and bring to foreground main 360 viewer
-            // we do this here because sometimes the user exits during transition when the hidden opacity hasn't been added yet
-            viewer360Container.removeClass("hidden-opacity-360video");
             viewer360Container.removeClass("hidden");
             exit360Viewer.removeClass("hidden");
             // reset secondary viewer to initial state
@@ -281,8 +282,32 @@ function close360Viewer() { // todo: flesh out for 360 video
 
     // hide 360 viewer elements
     viewer360Container.addClass("hidden");
-    viewer360ContainerSecondary.addClass("hidden");
     exit360Viewer.addClass("hidden");
+    clean360Video(); // cleans up any prior 360 video
+
+    // reset the map in case we resize while the 360 viewer is open
+    // necessary because window resize check doesn't work when map is hidden
+    mapMovement.resetMapVars();
+    mapMovement.constrainMap();
+
+    destroyAll360Viewers();
+}
+
+// clean up all 360 viewers
+function destroyAll360Viewers() {
+    if (typeof viewer360 !== "undefined") {
+        viewer360.destroy();
+    }
+    if (typeof viewer360Secondary !== "undefined") {
+        viewer360Secondary.destroy();
+    }
+}
+
+// 360 video clean up
+// necessary to trigger between active 360 video map to any sidebar selection
+function clean360Video() {
+    // hide 360 viewer elements
+    viewer360ContainerSecondary.addClass("hidden");
     video360ButtonNext.addClass("hidden");
     video360ButtonPrev.addClass("hidden");
     video360Range.addClass("hidden");
@@ -294,18 +319,8 @@ function close360Viewer() { // todo: flesh out for 360 video
     // remove 360 video control events
     video360ButtonNext.off("click");
     video360ButtonPrev.off("click");
+    video360Range.off("change");
 
-    // reset the map in case we resize while the 360 viewer is open
-    // necessary because window resize check doesn't work when map is hidden
-    mapMovement.resetMapVars();
-    mapMovement.constrainMap();
-
-    // close the 360 viewer renderer
-    if (typeof viewer360 !== "undefined") {
-        viewer360.destroy();
-    }
-    if (typeof viewer360Secondary !== "undefined") {
-        console.log("destroyed secondary viewer");
-        viewer360Secondary.destroy();
-    }
+    // cut the transition class if we're moving away
+    viewer360Container.removeClass("hidden-opacity-360video");
 }
