@@ -48,7 +48,7 @@
 }
 
 .location:hover {
-    fill: #5a5a5a !important;
+    fill: #5a5a5a !important; /* necessary to override because svg style is inlined */
     cursor: pointer;
 }
 
@@ -192,7 +192,3 @@
     General
     =======
 */
-.hidden-opacity-360video {
-    opacity: 0 !important;
-    transition: opacity 1s;
-}

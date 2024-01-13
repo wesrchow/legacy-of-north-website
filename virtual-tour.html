@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/media.css">
     <link rel="stylesheet" href="css/virtual-tour.css">
+    <link rel="stylesheet" href="css/overrides.css">
 </head>
 
 <body id="virtual-tour"> <!--todo: unnecessary id?-->
@@ -123,14 +124,26 @@
             <button class="exit-360-viewer hidden" id="exit-360-viewer">Back to Map</button>
         </div>
 
+        <!-- 360Video Interface -->
+        <div class="video-360-container">
+            <button id="video-360-button-prev" class="video-360-button hidden">previous</button>
+            <button id="video-360-button-next" class="video-360-button hidden">next</button>
+
+            <input id="video-360-range" class="video-360-range hidden" type="range" min="1" max="30" step="1" value="1">
+        </div>
+
         <!-- Maps & 360 Viewer -->
         <div class="map-container" id="map-container">
             <img class="svg hidden" id="map-layer-north-1st" style="width:auto;height:100%;" src="maps/North_Building_Map_1st_Floor_Web.svg" alt="">
             <img class="svg" id="map-layer-north-2nd" style="width:auto;height:100%;" src="maps/North_Building_Map_2nd_Floor_Web.svg" alt="">
             <img class="svg hidden" id="map-layer-north-3rd" style="width:auto;height:100%;" src="maps/North_Building_Map_3rd_Floor_Web.svg" alt="">
             <img class="svg hidden" id="map-layer-south-1st" style="width:auto;height:100%;" src="test-media/test_building.svg" alt="">
+            <img class="svg hidden" id="map-layer-south-2nd" style="width:auto;height:100%;" src="test-media/test_building.svg" alt="">
+            <img class="svg hidden" id="map-layer-outside" style="width:auto;height:100%;" src="test-media/test_building.svg" alt="">
         </div>
-        <div class="viewer-360-container hidden" id="viewer-360-container"></div>
+
+        <div id="viewer-360-container" class="viewer-360-container hidden"></div>
+        <div id="viewer-360-container-secondary" class="viewer-360-container-secondary hidden hidden-opacity-360video"></div>
     </div>
 
 </div>
@@ -151,6 +164,6 @@
         integrity="sha512-EmZuy6vd0ns9wP+3l1hETKq/vNGELFRuLfazPnKKBbDpgZL0sZ7qyao5KgVbGJKOWlAFPNn6G9naB/8WnKN43Q==" crossorigin="anonymous"></script> <!-- pannellum -->
 
 <!-- Custom Scripts -->
-<script src="js/virtual-tour.js"></script>
+<script defer src="js/virtual-tour-core.js" type="module"></script>
 </body>
 </html>
