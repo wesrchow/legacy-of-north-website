@@ -1,0 +1,14 @@
+/* Styles That Should Override All Others */
+
+.hidden/*-display*/ {
+    display: none !important;
+}
+
+.hidden-opacity {
+    opacity: 0 !important;
+}
+
+.hidden-opacity-360video {
+    opacity: 0 !important;
+    transition: opacity 1.2s;
+}
