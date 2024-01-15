@@ -3,6 +3,7 @@
 import * as mapMovement from "./map-movement.js";
 import * as mapMenu from "./map-menu.js";
 import * as viewer360Module from "./360-viewer.js";
+import * as linearVideo from "./linear-video.js";
 
 
 // Replace map SVG with inline SVG, attach 360Photo click events and setup map menu
@@ -40,15 +41,15 @@ export function initMap() {
 
                 // add 360Photo links for map
                 jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data) {
-                    add360PhotoMapLinks($.csv.toArrays(data), 1);
+                    addMediaMapLinks($.csv.toArrays(data), 1);
                 }, 'text');
 
                 jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data) {
-                    add360PhotoMapLinks($.csv.toArrays(data), 2);
+                    addMediaMapLinks($.csv.toArrays(data), 2);
                 }, 'text');
 
                 jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data) {
-                    add360PhotoMapLinks($.csv.toArrays(data), 3);
+                    addMediaMapLinks($.csv.toArrays(data), 3);
                 }, 'text');
 
                 // center map when svg is finished fully loading
@@ -62,17 +63,22 @@ export function initMap() {
 }
 
 // Add 360Photo click events for map
-function add360PhotoMapLinks(filenameArray, section) {
+function addMediaMapLinks(filenameArray, section) {
     for (let i = 1; i < filenameArray.length; i++) {
-        // loop through filename array and almost directly use filenames as ID selector
+        // loop through filename array and directly use filenames (minus extension) as ID selector
         let mapIDNameString = filenameArray[i].toString().split(".")[0];
         let mapIDName = $(`#${mapIDNameString}`);
 
         if (mapIDName.length) { // check if the map selection exists (further multi image locations won't)
             mapIDName.addClass("location"); // give location link custom css
 
-            // Add the actual 360Photo viewer click event
-            viewer360Module.create360PhotoViewerEvent(mapIDNameString, filenameArray[i].toString(), section);
+            if (!mapIDNameString.includes("LinearVideo")) {
+                // Add the actual 360Photo viewer click event
+                viewer360Module.create360PhotoViewerEvent(mapIDNameString, filenameArray[i].toString(), section);
+            } else {
+                // add linear video click event
+                linearVideo.createLinearVideoEvent(mapIDNameString, filenameArray[i].toString(), section);
+            }
         } else {
             // console.log(mapIDNameString + " does not exist in the map SVG");
             // TODO: confirm its only the further multi image locations that are being skipped
