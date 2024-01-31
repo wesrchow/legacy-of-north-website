@@ -72,7 +72,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
             // create a new pannellum viewer
             window.viewer360 = pannellum.viewer('viewer-360-container', {
                 "type": "equirectangular",
-                "panorama": `media/${sectionFilepath[section]}/${content360Filename}`,
+                "panorama": `media/virtual-tour/${sectionFilepath[section]}/${content360Filename}`,
                 "friction": 0.1,
                 "autoLoad": true,
                 "compass": false,
@@ -145,7 +145,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 
             window.viewer360 = pannellum.viewer("viewer-360-container", {
                 "type": "equirectangular",
-                "panorama": `media/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
+                "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
                 "friction": 0.1,
                 "autoLoad": true,
                 "compass": false,
@@ -245,7 +245,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 
             nextPannellumViewer = pannellum.viewer(nextContainerString, {
                 "type": "equirectangular",
-                "panorama": `media/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
+                "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
                 "friction": 0.1,
                 "autoLoad": true,
                 "compass": false,
