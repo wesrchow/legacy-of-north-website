@@ -29,6 +29,10 @@ export function initAll360Videos() {
         addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
 
+    jQuery.get("./csv/360Video/north-3rd-floor-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
+    }, 'text');
+
     jQuery.get("./csv/360Video/north-foyer-filenames.csv", function (data) {
         addAll360VideoLinks($.csv.toArrays(data), 230, 18, 1);
     }, 'text');
