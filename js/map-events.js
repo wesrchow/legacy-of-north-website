@@ -69,6 +69,7 @@ function addMediaMapLinks(filenameArray, section) {
         let mapIDNameString = filenameArray[i].toString().split(".")[0];
         let mapIDName = $(`#${mapIDNameString}`);
 
+        // TODO: also check for repeated stairways (setup array for?), add events as many times as necessary (by standard 2?)
         if (mapIDName.length) { // check if the map selection exists (further multi image locations won't)
             mapIDName.addClass("location"); // give location link custom css
 

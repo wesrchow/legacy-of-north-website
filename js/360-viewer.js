@@ -21,6 +21,10 @@ const sectionFilepath = ["", "north", "south", "outside"];
 
 // Sets up all 360Videos
 export function initAll360Videos() {
+    jQuery.get("./csv/360Video/north-1st-floor-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 240, 44, 1);
+    }, 'text');
+
     jQuery.get("./csv/360Video/north-2nd-floor-filenames.csv", function (data) {
         addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
