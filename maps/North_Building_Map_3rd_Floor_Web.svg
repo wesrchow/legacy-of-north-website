@@ -26,10 +26,6 @@
      id="defs1253">
     <pattern
        xlink:href="#Strips1_5"
-       id="pattern17383"
-       patternTransform="matrix(4.4279305,3.031793,-2.7099616,3.9578962,0,0)" />
-    <pattern
-       xlink:href="#Strips1_5"
        id="pattern17381"
        patternTransform="matrix(4.4279305,3.031793,-2.7099616,3.9578962,0,0)" />
     <pattern
@@ -52,14 +48,6 @@
   <g
      id="layer4">
     <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:6.29291;stop-color:#000000"
-       d="m 529.68,0.23597265 44.91,128.30999735 -436.33,152.71 -5.6,-15.98 -20.71,7.24 -7.45,-43.8 166.59,-58.3 -7.41,-23.61 160.27,-56.099997 -10.69,-30.56 95.01,-33.26 -5.97,-17.0700004 z"
-       id="path6468" />
-    <path
-       style="fill:#e6e6e6;stroke:none;stroke-width:6.29291;stop-color:#000000"
-       d="m 0.25,319.16597 h 114.81 v 141.2 H 0.25 Z"
-       id="path12494" />
-    <path
        style="fill:#b3b3b3;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 538.18,561.16597 18.36,5.54 -10.11,33.53 -18.36,-5.54 z"
        id="path12503" />
@@ -72,13 +60,21 @@
        d="m 149.84,390.71597 19.97,6.02 -10.53,34.9 c 0,0 -20.11,-6.06 -20.11,-6.06 z"
        id="path12507" />
     <path
-       style="opacity:0.09;fill:url(#pattern17381);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
-       d="m 529.68,0.23597265 44.91,128.30999735 -436.33,152.71 -5.6,-15.98 -20.71,7.24 -7.45,-43.8 166.59,-58.3 -7.41,-23.61 160.27,-56.099997 -10.69,-30.56 95.01,-33.26 -5.97,-17.0700004 z"
-       id="path15148" />
+       style="fill:#b3b3b3;stroke:none;stop-color:#000000"
+       d="m 285.00561,431.46248 9.91439,2.99349 -10.52102,34.89969 c 0,0 -9.91254,-2.98593 -9.91222,-2.98701 3.3e-4,-10e-4 10.51885,-34.90617 10.51885,-34.90617 z"
+       id="path2907" />
     <path
-       style="opacity:0.09;fill:url(#pattern17383);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
+       style="opacity:0.15;fill:#999999;fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
+       d="m 529.68,0.23597265 44.91,128.30999735 -436.33,152.71 -5.6,-15.98 -20.71,7.24 -7.45,-43.8 166.59,-58.3 -7.41,-23.61 160.27,-56.099997 -10.69,-30.56 95.01,-33.26 -5.97,-17.0700004 z"
+       id="path6468" />
+    <path
+       style="opacity:0.15;fill:#999999;fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 0.25,319.16597 h 114.81 v 141.2 H 0.25 Z"
-       id="path15150" />
+       id="path12494" />
+    <path
+       id="path15148"
+       style="opacity:0.09;fill:url(#pattern17381);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
+       d="M 529.67969 0.23632812 L 502.30078 9.8164062 L 508.26953 26.886719 L 413.25977 60.146484 L 423.94922 90.705078 L 263.67969 146.80664 L 271.08984 170.41602 L 104.5 228.7168 L 111.94922 272.51562 L 132.66016 265.27539 L 138.25977 281.25586 L 574.58984 128.54688 L 529.67969 0.23632812 z M 0.25 319.16602 L 0.25 460.36523 L 115.06055 460.36523 L 115.06055 319.16602 L 0.25 319.16602 z " />
   </g>
   <g
      id="layer3">
@@ -108,12 +104,8 @@
        id="path12862" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
-       d="m 200.92,406.11597 77.97,23.5 -10.52,34.91 -77.97,-23.5 z"
+       d="m 200.92,406.11597 65.01075,19.59939 -10.5214,34.90096 L 190.4,441.02597 Z"
        id="Gallery_360Photo_1_Web" />
-    <path
-       style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
-       d="m 278.89,429.61597 16.03,4.84 -10.52,34.9 -16.03,-4.83 z"
-       id="path12866" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 294.92,434.45597 -6.23,20.64 19.52,5.88 6.23,-20.64 z"
@@ -177,7 +169,7 @@
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 356.6,506.42597 -14.85,-4.48 -10.11,33.53 14.85,4.48 z"
-       id="path2426" />
+       id="Black_Room_360Photo_1_Web" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 341.75,501.94597 -10.11,33.53 -36.87,-11.11 10.11,-33.53 z"
@@ -202,6 +194,10 @@
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 133.64,444.63597 -9.55,-2.77 h -9.03 v 18.5 l 12.92,3.75 z"
        id="North_Stairway4_360Photo_3_Web" />
+    <path
+       style="fill:#f2f2f2;stroke:none;stop-color:#000000"
+       d="m 265.93075,425.71536 19.07458,5.74805 -10.51972,34.90907 -19.07505,-5.75246 z"
+       id="path14658" />
   </g>
   <g
      id="layer1"
@@ -420,7 +416,7 @@
          id="path1105"
          style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none" />
       <path
-         d="m 268.37,464.52597 10.52,-34.91"
+         d="m 274.48561,466.37248 10.52,-34.91"
          fill="none"
          stroke="#000000"
          stroke-width="0.5"
@@ -920,8 +916,221 @@
          style="display:inline;opacity:1;fill:none;stroke:#000000;stroke-width:1.0015748;stroke-opacity:1;stop-color:#000000;stroke-dasharray:none"
          d="m 149.84,277.20597 -11.58,4.05"
          id="path29923" />
+      <path
+         style="fill:#000000;stroke:#000000;stop-color:#000000"
+         d="m 265.93075,425.71536 -10.52019,34.90466"
+         id="path2752" />
     </g>
   </g>
   <g
-     id="layer2" />
+     id="layer2">
+    <g
+       id="g5457"
+       style="pointer-events:none;">
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle"
+         x="199.25081"
+         y="382.26221"
+         id="text4581"><tspan
+           id="tspan4579"
+           x="199.25081"
+           y="382.26221">Math</tspan><tspan
+           x="199.25081"
+           y="397.96594"
+           id="tspan4583">Rsrc.</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="205.76913"
+         y="436.87494"
+         id="text4587"><tspan
+           id="tspan4585"
+           x="205.76913"
+           y="436.87494">Gallery</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="26.811855"
+         y="308.73337"
+         id="text4752"><tspan
+           id="tspan4750"
+           x="26.811855"
+           y="308.73337">Bleachers</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="16.981365"
+         y="262.2171"
+         id="text4756"><tspan
+           id="tspan4754"
+           x="16.981365"
+           y="262.2171">Aux Gym</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle"
+         x="177.41318"
+         y="323.85187"
+         id="text4760"><tspan
+           id="tspan4758"
+           x="177.41318"
+           y="323.85187">Student</tspan><tspan
+           x="177.41318"
+           y="339.5556"
+           id="tspan4766">Service</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="312.65799"
+         y="467.06793"
+         id="text4938"><tspan
+           id="tspan4936"
+           x="312.65799"
+           y="467.06793">306</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="345.56799"
+         y="477.01794"
+         id="text4938-3"><tspan
+           id="tspan4936-1"
+           x="345.56799"
+           y="477.01794">308</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="391.353"
+         y="490.77295"
+         id="text4938-6"><tspan
+           id="tspan4936-6"
+           x="391.353"
+           y="490.77295">310</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="454.22299"
+         y="509.75293"
+         id="text4938-67"><tspan
+           id="tspan4936-3"
+           x="454.22299"
+           y="509.75293">312</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="484.513"
+         y="518.88293"
+         id="text4938-5"><tspan
+           id="tspan4936-14"
+           x="484.513"
+           y="518.88293">314</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="517.33801"
+         y="528.77795"
+         id="text4938-4"><tspan
+           id="tspan4936-2"
+           x="517.33801"
+           y="528.77795">316</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="502.21298"
+         y="576.84296"
+         id="text4938-9"><tspan
+           id="tspan4936-24"
+           x="502.21298"
+           y="576.84296">319</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="468.8255"
+         y="566.83795"
+         id="text4938-1"><tspan
+           id="tspan4936-8"
+           x="468.8255"
+           y="566.83795">317</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="440.68799"
+         y="558.29297"
+         id="text4938-97"><tspan
+           id="tspan4936-66"
+           x="440.68799"
+           y="558.29297">315</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="391.40298"
+         y="543.43793"
+         id="text4938-42"><tspan
+           id="tspan4936-11"
+           x="391.40298"
+           y="543.43793">313</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="357.46799"
+         y="533.20795"
+         id="text4938-56"><tspan
+           id="tspan4936-9"
+           x="357.46799"
+           y="533.20795">311</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="306.108"
+         y="517.72296"
+         id="text4938-677"><tspan
+           id="tspan4936-12"
+           x="306.108"
+           y="517.72296">309</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="271.36801"
+         y="507.24792"
+         id="text4938-35"><tspan
+           id="tspan4936-29"
+           x="271.36801"
+           y="507.24792">307</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="236.843"
+         y="496.84293"
+         id="text4938-53"><tspan
+           id="tspan4936-16"
+           x="236.843"
+           y="496.84293">305</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="202.27299"
+         y="486.41794"
+         id="text4938-38"><tspan
+           id="tspan4936-169"
+           x="202.27299"
+           y="486.41794">303</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="148.60814"
+         y="471.36902"
+         id="text4938-58"><tspan
+           id="tspan4936-4"
+           x="148.60814"
+           y="471.36902">Staff</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="277.14246"
+         y="550.13293"
+         id="text5207"><tspan
+           id="tspan5205"
+           x="277.14246"
+           y="550.13293">Darkroom</tspan></text>
+    </g>
+  </g>
 </svg>

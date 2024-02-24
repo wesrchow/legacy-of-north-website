@@ -34,7 +34,7 @@ export function initAll360Videos() {
     }, 'text');
 
     jQuery.get("./csv/360Video/north-foyer-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 230, 18, 1);
+        addAll360VideoLinks($.csv.toArrays(data), 230, 17, 1);
     }, 'text');
 
     // TODO: to add

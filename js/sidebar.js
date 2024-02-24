@@ -15,7 +15,6 @@ const searchBarReg = document.getElementById("search-bar");
 // Inject sidebar elements, attach clickable events, init searchbar
 export function initSidebar() {
     let sidebarLoadCounter = 0; // wait till all 3 sections are loaded before adding dropdown click events
-    // TODO bonus: properly synchronize this
 
     // use title formatted lists to inject sidebar elements
     jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
@@ -61,7 +60,7 @@ export function initSidebar() {
 
 // Inject sidebar elements and add 360Photo events
 function sidebarElement360PhotoInjection(locationArray, filenameArray, section) {
-    let selectionIDArray = []; // TODO: keep it global or no? its needed for the map scrolling
+    let selectionIDArray = []; // TODO: keep it global or no? its contents are needed for the map selection, scrolling to sidebar entry
     let sectionID = sectionMenuSelectors[section];
     let injectionString;
 
@@ -105,7 +104,6 @@ function sidebarElement360PhotoInjection(locationArray, filenameArray, section) 
 
 // Add 360Photo click events for sidebar
 function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray, section) {
-    // TODO: fix iterating past hallways, add comments
     let filenameOffset = 0;
     let locationArrayOffset = 0;
     let specialProperty = null;

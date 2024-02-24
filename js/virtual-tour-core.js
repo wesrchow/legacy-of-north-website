@@ -24,7 +24,7 @@ window.mouseDragging = false; // used for map panning checks
 // TODO: reorder map and sidebar init so we have the sidebar ids to scroll to for map links? or other method to do this
 mapEvents.initMap(); // Replace map SVG with inline SVG, attach media clickable events and setup map controls/interaction
 
-sidebar.initSidebar(); // Inject sidebar elements, attach clickable events, init searchbar
+sidebar.initSidebar(); // Inject sidebar elements, attach clickable events, init searchbar TODO: is this a concern if we do that reorder (also init 360Videos)
 
 mapMovement.initMapMovementEvents(); // Add map events to facilitate map movement
 
