@@ -5,8 +5,11 @@ import * as mapMenu from "./map-menu.js";
 import * as viewer360Module from "./360-viewer.js";
 import * as linearVideo from "./linear-video.js";
 
+// repeated locations helper
+const repeatedMapLocations = ["North_Stairway1_360Photo_1_Web", "North_Stairway2_360Photo_1_Web", "North_Stairway3_360Photo_1_Web", "North_Stairway4_360Photo_2_Web",
+    "North_Stairway1_360Photo_2_Web", "North_Stairway2_360Photo_2_Web", "North_Stairway3_360Photo_2_Web", "North_Stairway4_360Photo_3_Web"];
 
-// Replace map SVG with inline SVG, attach 360Photo click events and setup map menu
+// replace map SVG with inline SVG, attach 360Photo click events and setup map menu
 export function initMap() {
     let mapLoadCounter = 0;
 
@@ -65,24 +68,29 @@ export function initMap() {
 // Add 360Photo click events for map
 function addMediaMapLinks(filenameArray, section) {
     for (let i = 1; i < filenameArray.length; i++) {
-        // loop through filename array and directly use filenames (minus extension) as ID selector
-        let mapIDNameString = filenameArray[i].toString().split(".")[0];
-        let mapIDName = $(`#${mapIDNameString}`);
+        // loop through filename array and directly use filenames (minus file extension) as ID selector
+        let mapIDString = filenameArray[i].toString().split(".")[0];
+        let mapIDSelector = $(`#${mapIDString}`);
 
-        // TODO: also check for repeated stairways (setup test array for?), then add events as many times as necessary (afaik always 2?)
-        if (mapIDName.length) { // check if the map selection exists (further multi image locations won't)
-            mapIDName.addClass("location"); // give location link custom css
+        if (mapIDSelector.length) { // check if the map selection exists (further multi image locations won't)
+            mapIDSelector.addClass("location"); // give location link custom css
 
-            if (!mapIDNameString.includes("LinearVideo")) {
+            if (!mapIDString.includes("LinearVideo")) {
                 // Add the actual 360Photo viewer click event
-                viewer360Module.create360PhotoViewerEvent(mapIDNameString, filenameArray[i].toString(), section);
+                viewer360Module.create360PhotoViewerEvent(mapIDString, filenameArray[i].toString(), section);
+
+                if (repeatedMapLocations.includes(mapIDString)) { // add known repeated locations again with altered map ID
+                    let mapIDSelectorRepeat = $(`#${mapIDString}_Repeat`);
+                    mapIDSelectorRepeat.addClass("location");
+                    viewer360Module.create360PhotoViewerEvent(mapIDString + "_Repeat", filenameArray[i].toString(), section);
+                }
             } else {
                 // add linear video click event
-                linearVideo.createLinearVideoEvent(mapIDNameString, filenameArray[i].toString(), section);
+                linearVideo.createLinearVideoEvent(mapIDString, filenameArray[i].toString(), section); // todo: write this function
             }
         } else {
-            // console.log(mapIDNameString + " does not exist in the map SVG");
-            // TODO: confirm its only the further multi image locations that are being skipped
+            // console.log(mapIDString + " does not exist in the map SVG");
+            // TODO: confirm its only the further multi image locations that are being skipped (and roof)
         }
     }
 }
