@@ -95,6 +95,7 @@ export function initMapMovementEvents() {
     mediaContainerReg.addEventListener('wheel', (event) => {
         event.preventDefault();
         if (!window.mouseDragging && !window.lockDrag) { // disallow while panning and while panning is locked
+            // TODO bonus: make zoom buttons that zoom relative to the center of the media container
             // pointer position relative to
             pointer.x = event.pageX - mediaContainerReg.offsetLeft - centeredOffset;
             pointer.y = event.pageY - mediaContainerReg.offsetTop;

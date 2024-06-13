@@ -21,19 +21,27 @@ const sectionFilepath = ["", "north", "south", "outside"];
 
 // Sets up all 360Videos
 export function initAll360Videos() {
+    jQuery.get("./csv/360Video/north-1st-floor-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 240, 44, 1);
+    }, 'text');
+
     jQuery.get("./csv/360Video/north-2nd-floor-filenames.csv", function (data) {
         addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
 
+    jQuery.get("./csv/360Video/north-3rd-floor-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
+    }, 'text');
+
     jQuery.get("./csv/360Video/north-foyer-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 230, 18, 1);
+        addAll360VideoLinks($.csv.toArrays(data), 230, 17, 1);
     }, 'text');
 
     // TODO: to add
 }
 
-// Sets up all 360 viewer controls (photo and video)
-export function initAll360ViewerControls() {
+// Sets up 360 viewer controls
+export function init360ViewerControls() { // todo: how to manage this with linear video
     // main viewer exit button
     exit360Viewer.click(function () {
         close360Viewer();
@@ -67,12 +75,12 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
             window.lockDrag = true; // lock map movement
 
             // check if there's existing viewer(s) already, if so destroy it
-            destroyAll360Viewers();
+            // destroyAll360Viewers(); // todo: double check this removal doesn't cause issues (we overwrite the viewer anyway and cant easily check if one is active)
 
             // create a new pannellum viewer
             window.viewer360 = pannellum.viewer('viewer-360-container', {
                 "type": "equirectangular",
-                "panorama": `media/${sectionFilepath[section]}/${content360Filename}`,
+                "panorama": `media/virtual-tour/${sectionFilepath[section]}/${content360Filename}`,
                 "friction": 0.1,
                 "autoLoad": true,
                 "compass": false,
@@ -84,7 +92,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 }
 
 
-// TODO: revise and finish up
+// adds all 360 video links to the map and sidebar
 function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, section) {
     const mapSelector = $(`#${filename360VideoArray[0][0].toString()}`);
 
@@ -145,7 +153,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 
             window.viewer360 = pannellum.viewer("viewer-360-container", {
                 "type": "equirectangular",
-                "panorama": `media/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
+                "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
                 "friction": 0.1,
                 "autoLoad": true,
                 "compass": false,
@@ -245,7 +253,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 
             nextPannellumViewer = pannellum.viewer(nextContainerString, {
                 "type": "equirectangular",
-                "panorama": `media/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
+                "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
                 "friction": 0.1,
                 "autoLoad": true,
                 "compass": false,
@@ -274,7 +282,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 }
 
 // closes and cleans up the 360 viewer
-function close360Viewer() { // todo: flesh out for 360 video
+function close360Viewer() {
     // reveal and unlock map
     mapLayerMenuDropdown.removeClass("hidden");
     mapContainer.removeClass("hidden");
@@ -295,11 +303,11 @@ function close360Viewer() { // todo: flesh out for 360 video
 
 // clean up all 360 viewers
 function destroyAll360Viewers() {
-    if (typeof viewer360 !== "undefined") {
-        viewer360.destroy();
+    if (typeof viewer360 !== "undefined") { // avoid errors if any, but destroy() doesn't seem to clear pannellum to undefined anyway
+        window.viewer360.destroy();
     }
     if (typeof viewer360Secondary !== "undefined") {
-        viewer360Secondary.destroy();
+        window.viewer360Secondary.destroy();
     }
 }
 
