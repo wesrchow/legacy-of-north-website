@@ -25,11 +25,11 @@
   <defs
      id="defs1253">
     <pattern
-       xlink:href="#Strips1_5"
-       id="pattern17383"
+       xlink:href="#Strips1_5_3"
+       id="pattern17388"
        patternTransform="matrix(4.4279305,3.031793,-2.7099616,3.9578962,0,0)" />
     <pattern
-       xlink:href="#Strips1_5"
+       xlink:href="#Strips1_5_3"
        id="pattern17381"
        patternTransform="matrix(4.4279305,3.031793,-2.7099616,3.9578962,0,0)" />
     <pattern
@@ -37,7 +37,7 @@
        width="6"
        height="1"
        patternTransform="translate(0,0) scale(10,10)"
-       id="Strips1_5">
+       id="Strips1_5_3">
       <rect
          style="fill:black;stroke:none"
          x="0"
@@ -72,7 +72,7 @@
        d="m 529.68,0.23597265 44.91,128.30999735 -436.33,152.71 -5.6,-15.98 -20.71,7.24 -7.45,-43.8 166.59,-58.3 -7.41,-23.61 160.27,-56.099997 -10.69,-30.56 95.01,-33.26 -5.97,-17.0700004 z"
        id="path6468" />
     <path
-       style="display:inline;opacity:0.09;fill:url(#pattern17381);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
+       style="opacity:0.09;fill:url(#pattern17381);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 529.68,0.23597265 44.91,128.30999735 -436.33,152.71 -5.6,-15.98 -20.71,7.24 -7.45,-43.8 166.59,-58.3 -7.41,-23.61 160.27,-56.099997 -10.69,-30.56 95.01,-33.26 -5.97,-17.0700004 z"
        id="path15148" />
     <path
@@ -80,7 +80,7 @@
        d="m 0.25,319.16597 h 114.81 v 141.2 H 0.25 Z"
        id="path12494" />
     <path
-       style="opacity:0.09;fill:url(#pattern17383);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
+       style="opacity:0.09;fill:url(#pattern17388);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 0.25,319.16597 h 114.81 v 141.2 H 0.25 Z"
        id="path15150" />
   </g>

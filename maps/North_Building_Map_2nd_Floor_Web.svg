@@ -14,22 +14,22 @@
   <defs
      id="defs2">
     <pattern
-       xlink:href="#Strips1_8"
-       id="pattern3805"
-       patternTransform="matrix(0.51751592,0.33488296,-12.291015,18.994084,1.4940823e-7,8.784e-7)" />
+       xlink:href="#Strips1_5_2"
+       id="pattern17383"
+       patternTransform="matrix(1.1715566,0.80216189,-0.71701066,1.0471934,-4.3999999e-7,0)" />
     <pattern
        patternUnits="userSpaceOnUse"
-       width="9"
+       width="6"
        height="1"
        patternTransform="translate(0,0) scale(10,10)"
-       id="Strips1_8">
+       id="Strips1_5_2">
       <rect
          style="fill:black;stroke:none"
          x="0"
          y="-0.5"
          width="1"
          height="2"
-         id="rect2828" />
+         id="rect14198" />
     </pattern>
   </defs>
   <metadata
@@ -74,9 +74,9 @@
        d="m 0.06614727,60.514433 -1.15e-6,15.935854 H 30.442958 v 4.071937 h 1.918229 l -0.0013,-9.376833 -2.73976,0.957792 -1.971146,-11.58875 z"
        id="path3817" />
     <path
-       style="opacity:0.0903226;fill:url(#pattern3805);fill-opacity:1;stroke:none;stroke-width:0.33;stroke-miterlimit:4;stroke-dasharray:none;stop-color:#000000"
-       d="M 0.06614727,60.514434 H 27.648958 l 1.971146,11.58875 2.741083,-0.957792 v 9.376833 H 30.442958 V 76.450288 H 0.06614727 Z"
-       id="path1806" />
+       style="opacity:0.09;fill:url(#pattern17383);fill-opacity:1;stroke:none;stroke-width:1.665;stop-color:#000000"
+       d="m 0.06614712,60.514434 27.58281088,-1e-6 1.971146,11.58875 2.739761,-0.957791 v 9.376833 h -1.916907 v -4.071938 l -30.37681088,0 z"
+       id="path15150" />
   </g>
   <g
      id="layer2"
