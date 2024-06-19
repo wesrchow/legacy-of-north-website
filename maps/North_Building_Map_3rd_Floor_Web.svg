@@ -83,6 +83,10 @@
        style="opacity:0.09;fill:url(#pattern17388);fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 0.25,319.16597 h 114.81 v 141.2 H 0.25 Z"
        id="path15150" />
+    <path
+       style="fill:#b3b3b3;stroke:none;stroke-width:6.29291;stop-color:#000000;fill-opacity:1"
+       d="m 169.81,396.73597 31.11,9.38 -10.52,34.91 -31.12,-9.39 z"
+       id="path12862" />
   </g>
   <g
      id="layer3">
@@ -106,10 +110,6 @@
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 149.84,277.20597 -11.58,4.05 v 7.69 h -15.95 v 15.39 h -7.25 v 113.97 l 24.11,7.27 10.67,-34.86 z"
        id="Student_Services_360Photo_1_Web" />
-    <path
-       style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
-       d="m 169.81,396.73597 31.11,9.38 -10.52,34.91 -31.12,-9.39 z"
-       id="path12862" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 200.92,406.11597 65.01075,19.59939 -10.5214,34.90096 L 190.4,441.02597 Z"
@@ -205,7 +205,7 @@
     <path
        style="fill:#f2f2f2;stroke:none;stop-color:#000000"
        d="m 265.93075,425.71536 19.07458,5.74805 -10.51972,34.90907 -19.07505,-5.75246 z"
-       id="path15267" />
+       id="Room304_360Photo_1_Web" />
   </g>
   <g
      id="layer1"
@@ -748,18 +748,6 @@
        style="pointer-events:none;">
       <text
          xml:space="preserve"
-         style="font-size:12.563px;line-height:1.25;font-family:sans-serif;text-align:center;text-anchor:middle"
-         x="199.25081"
-         y="382.26221"
-         id="text4581"><tspan
-           id="tspan4579"
-           x="199.25081"
-           y="382.26221">Math</tspan><tspan
-           x="199.25081"
-           y="397.96594"
-           id="tspan4583">Rsrc.</tspan></text>
-      <text
-         xml:space="preserve"
          style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
          x="205.76913"
          y="436.87494"
@@ -806,6 +794,15 @@
            id="tspan4936"
            x="312.65799"
            y="467.06793">306</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
+         x="273.12912"
+         y="424.28235"
+         id="text4938-92"><tspan
+           id="tspan4936-32"
+           x="273.12912"
+           y="424.28235">304</tspan></text>
       <text
          xml:space="preserve"
          style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
@@ -944,12 +941,12 @@
       <text
          xml:space="preserve"
          style="font-size:12.563px;line-height:1.25;font-family:sans-serif"
-         x="277.14246"
-         y="550.13293"
+         x="279.14246"
+         y="550.64795"
          id="text5207"><tspan
            id="tspan5205"
-           x="277.14246"
-           y="550.13293">Darkroom</tspan></text>
+           x="279.14246"
+           y="550.64795">Darkroom</tspan></text>
     </g>
   </g>
 </svg>

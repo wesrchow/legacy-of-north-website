@@ -37,6 +37,26 @@ export function initAll360Videos() {
         addAll360VideoLinks($.csv.toArrays(data), 230, 17, 1);
     }, 'text');
 
+    jQuery.get("./csv/360Video/south-1st-floor-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 230, 32, 2);
+    }, 'text');
+
+    jQuery.get("./csv/360Video/south-2nd-floor-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 230, 31, 2);
+    }, 'text');
+
+    jQuery.get("./csv/360Video/south-foyer-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 65, 18, 2);
+    }, 'text');
+
+    jQuery.get("./csv/360Video/south-tech-ed-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 230, 8, 2);
+    }, 'text');
+
+    jQuery.get("./csv/360Video/sports-centre-filenames.csv", function (data) {
+        addAll360VideoLinks($.csv.toArrays(data), 230, 8, 2);
+    }, 'text');
+
     // TODO: to add
 }
 
