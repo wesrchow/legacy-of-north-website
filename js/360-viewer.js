@@ -60,7 +60,7 @@ export function initAll360Videos() {
 }
 
 // Sets up 360 viewer controls
-export function init360ViewerControls() { // todo: how to manage this with linear video
+export function init360ViewerControls() {
     // 360 viewer exit button
     exit360Viewer.click(function () {
         close360Viewer();
@@ -103,8 +103,8 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 "autoLoad": true,
                 "compass": false,
                 "keyboardZoom": false,
-                "disableKeyboardCtrl": true // TODO: why?
-            });
+                "disableKeyboardCtrl": true
+            }); // todo: finalize these options and do proper pathing
         }
     });
 }

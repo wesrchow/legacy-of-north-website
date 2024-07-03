@@ -28,7 +28,7 @@ export function initMapMovementEvents() {
     // reset map on page resize
     $(window).resize(function () {
         // reset the map to the center
-        centerResetMap();
+        centerResetMap(); // todo bonus: use a state variable to check this trigger and have it run at a media close function
 
         // TODO: when below a certain screen size (mobile), hide the map completely and have only the sidebar span the whole screen
 
@@ -50,20 +50,20 @@ export function initMapMovementEvents() {
 
     // mouseup event for map panning
     $(document).mouseup(function () {
-        if (!window.lockDrag) { // TODO BONUS: necessary? yes for mouseup in linear video to not trigger this
-        window.mouseDragging = false;
-        mediaContainer.css("cursor", "grab");
+        if (!window.lockDrag) {
+            window.mouseDragging = false;
+            mediaContainer.css("cursor", "grab");
 
-        previousMap.x = position.x;
-        previousMap.y = position.y;
+            previousMap.x = position.x;
+            previousMap.y = position.y;
 
-        // add the zoom transition back
-        mapContainerReg.style.transition = 'transform 0.2s';
+            // add the zoom transition back
+            mapContainerReg.style.transition = 'transform 0.2s';
 
-        // release map selection
-        setTimeout(function () {
-            window.lockMapSelection = false;
-        }, 80);
+            // release map selection
+            setTimeout(function () {
+                window.lockMapSelection = false;
+            }, 80);
         }
     });
 
