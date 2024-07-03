@@ -155,7 +155,7 @@ body, html {
 
 /* todo: also necessary later when styling the sidebar items */
 .active.dropdown-btn {
-    background-color: #ff0000;
+    background-color: #2a5072;
     color: #ffffff;
 }
 

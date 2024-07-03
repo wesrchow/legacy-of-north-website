@@ -50,7 +50,7 @@ export function initMapMovementEvents() {
 
     // mouseup event for map panning
     $(document).mouseup(function () {
-        // if (!window.lockDrag) { // TODO BONUS: necessary?
+        if (!window.lockDrag) { // TODO BONUS: necessary? yes for mouseup in linear video to not trigger this
         window.mouseDragging = false;
         mediaContainer.css("cursor", "grab");
 
@@ -64,7 +64,7 @@ export function initMapMovementEvents() {
         setTimeout(function () {
             window.lockMapSelection = false;
         }, 80);
-        // }
+        }
     });
 
     // mousemove event for map panning

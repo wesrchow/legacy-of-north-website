@@ -10,8 +10,8 @@
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"> <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.6/pannellum.css"
           integrity="sha512-UoT/Ca6+2kRekuB1IDZgwtDt0ZUfsweWmyNhMqhG4hpnf7sFnhrLrO0zHJr2vFp7eZEvJ3FN58dhVx+YMJMt2A==" crossorigin="anonymous"> <!-- pannellum -->
-
-    <!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script> &lt;!&ndash; pannellum &ndash;&gt;-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.12.0/video-js.min.css"
+          integrity="sha512-qdNDoWK29TwXVKBtiWgkyY6zUC/2Ml5mVT6tQr7cPBraxBnSNgPuKt484AHwTqOBZmm4LPG+qBp3F3/419kzAA==" crossorigin="anonymous"> <!-- video js -->
 
     <!-- Stylesheets Custom -->
     <link rel="stylesheet" href="css/main.css">
@@ -81,7 +81,7 @@
 
         <!-- Map Layer Menu -->
         <div class="map-layer-menu-container">
-            <button id="map-layer-menu-dropdown">North 2nd Floor</button>
+            <button id="map-layer-menu-dropdown"></button>
             <ul class="map-layer-menu hidden" id="map-layer-menu">
                 <li id="north-building-layers">
                     <span class="map-layer-titles">North Building</span>
@@ -132,18 +132,29 @@
             <input id="video-360-range" class="video-360-range hidden" type="range" min="1" max="30" step="1" value="1">
         </div>
 
-        <!-- Maps & 360 Viewer -->
+        <!-- Linear Video Controls -->
+        <div class="exit-video-container">
+            <button class="exit-linear-video hidden" id="exit-linear-video">Back to Map</button>
+        </div>
+
+        <!-- Maps -->
         <div class="map-container" id="map-container">
             <img class="svg hidden" id="map-layer-north-1st" style="width:auto;height:100%;" src="maps/North_Building_Map_1st_Floor_Web.svg" alt="">
-            <img class="svg" id="map-layer-north-2nd" style="width:auto;height:100%;" src="maps/North_Building_Map_2nd_Floor_Web.svg" alt="">
+            <img class="svg hidden" id="map-layer-north-2nd" style="width:auto;height:100%;" src="maps/North_Building_Map_2nd_Floor_Web.svg" alt="">
             <img class="svg hidden" id="map-layer-north-3rd" style="width:auto;height:100%;" src="maps/North_Building_Map_3rd_Floor_Web.svg" alt="">
-            <img class="svg hidden" id="map-layer-south-1st" style="width:auto;height:100%;" src="maps/South_Building_Map_1st_Floor_Web.svg" alt="">
+            <img class="svg" id="map-layer-south-1st" style="width:auto;height:100%;" src="maps/South_Building_Map_1st_Floor_Web.svg" alt="">
             <img class="svg hidden" id="map-layer-south-2nd" style="width:auto;height:100%;" src="maps/South_Building_Map_2nd_Floor_Web.svg" alt="">
             <img class="svg hidden" id="map-layer-outside" style="width:auto;height:100%;" src="maps/Outside_Map_Web.svg" alt="">
         </div>
 
+        <!-- 360 Viewers -->
         <div id="viewer-360-container" class="viewer-360-container hidden"></div>
         <div id="viewer-360-container-secondary" class="viewer-360-container-secondary hidden hidden-opacity-360video"></div>
+
+        <!-- Linear Video -->
+        <video id="video-container" class="video-js hidden">
+            <source src="" type="video/mp4" />
+        </video>
     </div>
 
 </div>
@@ -162,6 +173,8 @@
         integrity="sha512-Y8iWYJDo6HiTo5xtml1g4QqHtl/PO1w+dmUpQfQSOTqKNsMhExfyPN2ncNAe9JuJUSKzwK/b6oaNPop4MXzkwg==" crossorigin="anonymous"></script> <!-- jquery-csv -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.6/pannellum.js"
         integrity="sha512-EmZuy6vd0ns9wP+3l1hETKq/vNGELFRuLfazPnKKBbDpgZL0sZ7qyao5KgVbGJKOWlAFPNn6G9naB/8WnKN43Q==" crossorigin="anonymous"></script> <!-- pannellum -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.12.0/video.min.js"
+        integrity="sha512-wyzXdA8r2OvueoZ5xp49Es+tpOwr36QsNBVcg2zjtT1oxDVm5juVrbS0AbdkjPvelIHtcTRb4vFCC3u3K2Sj/A==" crossorigin="anonymous"></script> <!-- video js -->
 
 <!-- Custom Scripts -->
 <script defer src="js/virtual-tour-core.js" type="module"></script>

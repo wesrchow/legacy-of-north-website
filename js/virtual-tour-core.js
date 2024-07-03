@@ -4,6 +4,7 @@ import * as sidebar from "./sidebar.js";
 import * as mapEvents from "./map-events.js";
 import * as mapMovement from "./map-movement.js";
 import * as viewer360Module from "./360-viewer.js";
+import * as linearVideo from "./linear-video.js";
 
 /*
 *
@@ -31,4 +32,7 @@ mapMovement.initMapMovementEvents(); // Add map events to facilitate map movemen
 
 viewer360Module.init360ViewerControls(); // Add all 360 viewer controls (photo and video)
 
+linearVideo.initLinearVideoControls(); // Add all linear video controls
+
 // init 360 videos moved to sidebar since it must be deferred until sidebar is loaded
+

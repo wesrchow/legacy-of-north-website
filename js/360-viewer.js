@@ -1,6 +1,7 @@
 /* 360 viewer related function */
 
 import * as mapMovement from "./map-movement.js";
+import * as linearVideo from "./linear-video.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
@@ -56,13 +57,11 @@ export function initAll360Videos() {
     jQuery.get("./csv/360Video/sports-centre-filenames.csv", function (data) {
         addAll360VideoLinks($.csv.toArrays(data), 230, 8, 2);
     }, 'text');
-
-    // TODO: to add
 }
 
 // Sets up 360 viewer controls
 export function init360ViewerControls() { // todo: how to manage this with linear video
-    // main viewer exit button
+    // 360 viewer exit button
     exit360Viewer.click(function () {
         close360Viewer();
     });
@@ -80,13 +79,15 @@ export function init360ViewerControls() { // todo: how to manage this with linea
 export function create360PhotoViewerEvent(selectorIDString, content360Filename, section) {
     $(`#${selectorIDString}`).click(function () {
         if (!window.lockMapSelection) {
-            // hide necessary elements
+            // cleans up any prior 360 video, pannellum renderers and linear video
+            clean360Video();
+            destroyAll360Viewers();
+            linearVideo.closeLinearVideo();
+
+            // (re)hide necessary elements
             mapLayerMenu.addClass("hidden");
             mapLayerMenuDropdown.addClass("hidden");
             mapContainer.addClass("hidden");
-
-            // cleans up any prior 360 video
-            clean360Video();
 
             // reveal 360 viewer things
             viewer360Container.removeClass("hidden");
@@ -94,14 +95,11 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 
             window.lockDrag = true; // lock map movement
 
-            // check if there's existing viewer(s) already, if so destroy it
-            // destroyAll360Viewers(); // todo: double check this removal doesn't cause issues (we overwrite the viewer anyway and cant easily check if one is active)
-
             // create a new pannellum viewer
             window.viewer360 = pannellum.viewer('viewer-360-container', {
                 "type": "equirectangular",
                 "panorama": `media/virtual-tour/${sectionFilepath[section]}/${content360Filename}`,
-                "friction": 0.1,
+                "friction": 0.08,
                 "autoLoad": true,
                 "compass": false,
                 "keyboardZoom": false,
@@ -139,13 +137,15 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
     // add click event to both map and sidebar
     video360Selectors.click(function () {
         if (!window.lockMapSelection) {
-            // hide necessary elements
-            mapLayerMenuDropdown.addClass("hidden");
-            mapLayerMenu.addClass("hidden");
-            mapContainer.addClass("hidden");
-
-            // cleans up any prior 360 video
+            // cleans up any prior 360 video, pannellum renderers and linear video
             clean360Video();
+            destroyAll360Viewers();
+            linearVideo.closeLinearVideo();
+
+            // (re)hide necessary elements
+            mapLayerMenu.addClass("hidden");
+            mapLayerMenuDropdown.addClass("hidden");
+            mapContainer.addClass("hidden");
 
             // reveal and bring to foreground main 360 viewer
             viewer360Container.removeClass("hidden");
@@ -166,15 +166,10 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
             videoPos = 1;
             video360Range.val(1);
 
-            // check if there's an existing viewer already, if so destroy it
-            if (typeof window.viewer360 !== "undefined") {
-                window.viewer360.destroy();
-            }
-
             window.viewer360 = pannellum.viewer("viewer-360-container", {
                 "type": "equirectangular",
                 "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
-                "friction": 0.1,
+                "friction": 0.08,
                 "autoLoad": true,
                 "compass": false,
                 "keyboardZoom": false,
@@ -259,6 +254,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
         function triggerVideo360Transition() {
             if (video360TargetToggle) { // toggle back and forth between the two viewers to simulate 360 video
                 tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, tempPrevViewer, window.viewer360Secondary);
+                window.viewer360Secondary = tempPrevViewer; // necessary to keep track of the secondary viewer since js is pass by value
             } else {
                 tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, tempPrevViewer, window.viewer360);
             }
@@ -274,7 +270,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
             nextPannellumViewer = pannellum.viewer(nextContainerString, {
                 "type": "equirectangular",
                 "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
-                "friction": 0.1,
+                "friction": 0.08,
                 "autoLoad": true,
                 "compass": false,
                 "keyboardZoom": false,
@@ -302,7 +298,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 }
 
 // closes and cleans up the 360 viewer
-function close360Viewer() {
+export function close360Viewer() {
     // reveal and unlock map
     mapLayerMenuDropdown.removeClass("hidden");
     mapContainer.removeClass("hidden");
@@ -312,21 +308,21 @@ function close360Viewer() {
     viewer360Container.addClass("hidden");
     exit360Viewer.addClass("hidden");
     clean360Video(); // cleans up any prior 360 video
+    destroyAll360Viewers(); // cleans up any prior pannellum renderers
 
     // reset the map in case we resize while the 360 viewer is open
     // necessary because window resize check doesn't work when map is hidden
-    mapMovement.resetMapVars();
+    mapMovement.resetMapVars(); // todo: fix to do the vertical centering if theres a resize (make the resize trigger something globally bc we need it for excluding mobile anyway?)
     mapMovement.constrainMap();
-
-    destroyAll360Viewers();
 }
 
-// clean up all 360 viewers
+// clean up all 360 viewer renderers
 function destroyAll360Viewers() {
-    if (typeof viewer360 !== "undefined") { // avoid errors if any, but destroy() doesn't seem to clear pannellum to undefined anyway
+    // destroy all 360 viewers only if they exist
+    if (viewer360Container.children().length) {
         window.viewer360.destroy();
     }
-    if (typeof viewer360Secondary !== "undefined") {
+    if (viewer360ContainerSecondary.children().length) {
         window.viewer360Secondary.destroy();
     }
 }
@@ -334,7 +330,7 @@ function destroyAll360Viewers() {
 // 360 video clean up
 // necessary to trigger between active 360 video map to any sidebar selection
 function clean360Video() {
-    // hide 360 viewer elements
+    // hide 360 video elements
     viewer360ContainerSecondary.addClass("hidden");
     video360ButtonNext.addClass("hidden");
     video360ButtonPrev.addClass("hidden");
