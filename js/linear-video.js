@@ -17,6 +17,9 @@ const mediaContainer = $("#media-container");
 
 const videoContainerReg = document.getElementById("video-container");
 
+// buffered so section 1 = north, 2 = south, 3 = outside
+const sectionFilepath = ["", "north", "south", "outside"];
+
 // set up linear video controls
 export function initLinearVideoControls() {
     // linear video exit button
@@ -57,7 +60,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
             console.log(contentVideoFilename);
             videojs("video-container", {
                 sources: [{
-                    src: `test-media/${contentVideoFilename}`, /*media/virtual-tour/${sectionFilepath[section]}/${content360Filename}*/
+                    src: `media/virtual-tour/${sectionFilepath[section]}/${contentVideoFilename}`,
                     type: 'video/mp4'
                 }],
                 controls: true,
@@ -89,6 +92,7 @@ export function closeLinearVideo() {
     // necessary because window resize check doesn't work when map is hidden
     mapMovement.resetMapVars(); // todo: fix to do the vertical centering if theres a resize (make the resize trigger something globally bc we need it for excluding mobile anyway?)
     mapMovement.constrainMap();
+    // todo: grab hand cursor after close
 }
 
 // clean up linear video renderer

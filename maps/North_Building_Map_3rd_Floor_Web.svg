@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <svg
-   width="574.82599"
-   height="600.47534"
-   viewBox="0 0 574.82599 600.47534"
+   width="575.47711"
+   height="601.26013"
+   viewBox="0 0 575.47711 601.26013"
    version="1.1"
    id="svg1249"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -47,10 +47,9 @@
          id="rect14198" />
     </pattern>
   </defs>
-  <desc
-     id="desc1045">Produce by Acme CAD Converter</desc>
   <g
-     id="layer4">
+     id="layer4"
+     transform="translate(0.25,0.40108395)">
     <path
        style="fill:#b3b3b3;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 538.18,561.16597 18.36,5.54 -10.11,33.53 -18.36,-5.54 z"
@@ -84,12 +83,13 @@
        d="m 0.25,319.16597 h 114.81 v 141.2 H 0.25 Z"
        id="path15150" />
     <path
-       style="fill:#b3b3b3;stroke:none;stroke-width:6.29291;stop-color:#000000;fill-opacity:1"
+       style="fill:#b3b3b3;fill-opacity:1;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 169.81,396.73597 31.11,9.38 -10.52,34.91 -31.12,-9.39 z"
        id="path12862" />
   </g>
   <g
-     id="layer3">
+     id="layer3"
+     transform="translate(0.25,0.40108395)">
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 0.25,228.71597 h 90.26 v 60.23 H 0.25 Z"
@@ -177,7 +177,7 @@
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 356.6,506.42597 -14.85,-4.48 -10.11,33.53 14.85,4.48 z"
-       id="Black_Room_360Photo_1_Web" />
+       id="Darkroom_360Photo_1_Web" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 341.75,501.94597 -10.11,33.53 -36.87,-11.11 10.11,-33.53 z"
@@ -209,7 +209,8 @@
   </g>
   <g
      id="layer1"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(0.25,0.40108395)">
     <g
        id="g3810"
        style="pointer-events:none;">
@@ -742,7 +743,8 @@
     </g>
   </g>
   <g
-     id="layer2">
+     id="layer2"
+     transform="translate(0.25,0.40108395)">
     <g
        id="g5457"
        style="pointer-events:none;">
