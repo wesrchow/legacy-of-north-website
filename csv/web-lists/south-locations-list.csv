@@ -57,9 +57,7 @@ South Foyer,360Video
 South Boiler Room,
 South Boys Changeroom,
 South Cafeteria,
-South Courtyard 1,3 LinearVideo
-South Courtyard 2,
-South Courtyard 3,
+South Courtyard,LinearVideo
 South Girls Changeroom,
 South Gym 1,3
 South Gym 2,
@@ -67,8 +65,6 @@ South Gym 3,
 South Gym Equipment Room 1,
 South Gym Equipment Room 2,
 South Gym Stage,
-South Science Supply 1,
-South Science Supply 2,
 South Staffroom,LinearVideo
 South Stage Left Stairs,
 South Stage Right Stairs,

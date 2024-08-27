@@ -7,7 +7,7 @@ const mediaContainer = $("#media-container");
 const mapContainerReg = document.getElementById("map-container");
 const mediaContainerReg = document.getElementById("media-container");
 
-// map movement variables
+// map movement variables (doesn't really matter if defined values here)
 const speed = 0.2; // speed of scale, actual transition speed is handled in css
 let mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
 let mapContainerInitialW = mapContainerSize.w;
@@ -16,7 +16,8 @@ let position = {x: 0, y: 0};
 let target = {x: 0, y: 0};
 let pointer = {x: 0, y: 0};
 let scale = 1;
-let centeredOffset = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
+let centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
+let centeredOffsetY;
 let startMouse = {x: 0, y: 0};
 let currentMouse = {x: 0, y: 0};
 let previousMap = {x: 0, y: 0};
@@ -27,7 +28,7 @@ export function initMapMovementEvents() {
     // reset map on page resize
     $(window).resize(function () {
         // reset the map to the center
-        centerResetMap();
+        centerResetMap(); // todo bonus: use a state variable to check this trigger and have it run at a media close function
 
         // TODO: when below a certain screen size (mobile), hide the map completely and have only the sidebar span the whole screen
 
@@ -49,21 +50,21 @@ export function initMapMovementEvents() {
 
     // mouseup event for map panning
     $(document).mouseup(function () {
-        // if (!window.lockDrag) { // TODO BONUS: necessary?
-        window.mouseDragging = false;
-        mediaContainer.css("cursor", "grab");
+        if (!window.lockDrag) {
+            window.mouseDragging = false;
+            mediaContainer.css("cursor", "grab");
 
-        previousMap.x = position.x;
-        previousMap.y = position.y;
+            previousMap.x = position.x;
+            previousMap.y = position.y;
 
-        // add the zoom transition back
-        mapContainerReg.style.transition = 'transform 0.2s';
+            // add the zoom transition back
+            mapContainerReg.style.transition = 'transform 0.2s';
 
-        // release map selection
-        setTimeout(function () {
-            window.lockMapSelection = false;
-        }, 80);
-        // }
+            // release map selection
+            setTimeout(function () {
+                window.lockMapSelection = false;
+            }, 80);
+        }
     });
 
     // mousemove event for map panning
@@ -95,8 +96,9 @@ export function initMapMovementEvents() {
     mediaContainerReg.addEventListener('wheel', (event) => {
         event.preventDefault();
         if (!window.mouseDragging && !window.lockDrag) { // disallow while panning and while panning is locked
+            // TODO bonus: make zoom buttons that zoom relative to the center of the media container
             // pointer position relative to
-            pointer.x = event.pageX - mediaContainerReg.offsetLeft - centeredOffset;
+            pointer.x = event.pageX - mediaContainerReg.offsetLeft - centeredOffsetX;
             pointer.y = event.pageY - mediaContainerReg.offsetTop;
 
             target.x = (pointer.x - position.x) / scale;
@@ -107,7 +109,7 @@ export function initMapMovementEvents() {
 
             // limit the scale within a range
             const max_scale = 4;
-            const min_scale = 1;
+            const min_scale = 1.3;
             scale = Math.max(min_scale, Math.min(max_scale, scale));
 
             // calculate position for the image container using relative target with scale
@@ -129,18 +131,20 @@ export function resetMapVars() {
     mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
     mapContainerInitialW = mapContainerSize.w;
     mediaContainerInitialW = mediaContainerReg.clientWidth;
-    centeredOffset = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
+    centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
 }
 
 // constrain map position within media container bounds and apply the transform
 export function constrainMap() {
     // horizontal constraint
     if (mapContainerInitialW * scale > mediaContainerInitialW) {
-        if (position.x > -centeredOffset) position.x = -centeredOffset;
-        if (position.x - centeredOffset + mapContainerSize.w * scale < mapContainerSize.w) position.x = -mapContainerSize.w * (scale - 1) + centeredOffset;
+        if (position.x > -centeredOffsetX) position.x = -centeredOffsetX;
+        if (position.x - centeredOffsetX + mapContainerSize.w * scale < mapContainerSize.w) position.x = -mapContainerSize.w * (scale - 1) + centeredOffsetX;
     } else {
         // to reimplement if allowing horizontal pan when map width is smaller than container
-        // TODO: instead just give padding to the map container and start at a different zoom
+        // TODO: instead just give padding to the map container and start at a different zoom. dont bother reimplementing this since media container is usually way wider. code
+        //  wasnt designed for map wider than media container. vertical centering is implemented okay though. maybe when map is wider than media container assume mobile and
+        //  block user?
         // if (position.x > 0) position.x = 0;
         // if (position.x + mapContainerSize.w * scale < mapContainerSize.w) position.x = -mapContainerSize.w * (scale - 1);
         position.x = -(mapContainerInitialW * scale - mapContainerInitialW) / 2;
@@ -151,13 +155,20 @@ export function constrainMap() {
     if (position.y + mapContainerSize.h * scale < mapContainerSize.h) position.y = -mapContainerSize.h * (scale - 1);
 
     // apply the transform
-    mapContainerReg.style.transform = `translate(${position.x + centeredOffset}px,${position.y}px) scale(${scale},${scale})`;
+    mapContainerReg.style.transform = `translate(${position.x + centeredOffsetX}px,${position.y}px) scale(${scale},${scale})`;
 }
 
 // recalculate page size properties and center map
 export function centerResetMap() {
-    position = {x: 0, y: 0};
-    scale = 1;
+    scale = 1.3; // todo: tie this into responsive page size somehow
     resetMapVars();
+
+    // vertically center when padding extends beyond the media container
+    let mapContainerRegStyle = getComputedStyle(mapContainerReg);
+    let heightY = parseFloat(mapContainerRegStyle.height);
+    centeredOffsetY = (heightY*scale - mediaContainerReg.clientHeight) / 2;
+    position = {x: 0, y: -centeredOffsetY};
+    previousMap = {x: 0, y: -centeredOffsetY};
+
     constrainMap();
 }

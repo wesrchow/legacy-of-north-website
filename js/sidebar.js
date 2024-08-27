@@ -1,6 +1,7 @@
 /* Sidebar element injection, 360Photo click events, searchbar */
 
 import * as viewer360Module from "./360-viewer.js";
+import * as linearVideo from "./linear-video.js";
 
 // sidebar location menus
 const northLocationMenu = $("#north-location-menu");
@@ -15,7 +16,6 @@ const searchBarReg = document.getElementById("search-bar");
 // Inject sidebar elements, attach clickable events, init searchbar
 export function initSidebar() {
     let sidebarLoadCounter = 0; // wait till all 3 sections are loaded before adding dropdown click events
-    // TODO bonus: properly synchronize this
 
     // use title formatted lists to inject sidebar elements
     jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
@@ -61,7 +61,7 @@ export function initSidebar() {
 
 // Inject sidebar elements and add 360Photo events
 function sidebarElement360PhotoInjection(locationArray, filenameArray, section) {
-    let selectionIDArray = []; // TODO: keep it global or no? its needed for the map scrolling
+    let selectionIDArray = []; // TODO: keep it global or no? its contents are needed for the map selection, scrolling to sidebar entry
     let sectionID = sectionMenuSelectors[section];
     let injectionString;
 
@@ -105,7 +105,6 @@ function sidebarElement360PhotoInjection(locationArray, filenameArray, section) 
 
 // Add 360Photo click events for sidebar
 function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray, section) {
-    // TODO: fix iterating past hallways, add comments
     let filenameOffset = 0;
     let locationArrayOffset = 0;
     let specialProperty = null;
@@ -132,8 +131,17 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
             counting = false;
         }
 
-        // add the actual 360Photo viewer click event
-        viewer360Module.create360PhotoViewerEvent(selectionIDArray[i].toString(), filenameArray[(i + 1 - filenameOffset)].toString(), section);
+        // check linear video branch
+        let menuIDString = selectionIDArray[i].toString();
+        let filenameParam = filenameArray[(i + 1 - filenameOffset)].toString();
+        if (!filenameParam.includes("LinearVideo")) {
+            // add the actual 360Photo viewer click event
+            viewer360Module.create360PhotoViewerEvent(menuIDString, filenameParam, section);
+        } else {
+            // add linear video click event
+            linearVideo.createLinearVideoEvent(menuIDString, filenameParam, section);
+        }
+
 
         // Check if the special property is decimal (multi image) using regex while ignoring 360Video cases
         // offset the filename for multi images so it matches up with the sidebar elements

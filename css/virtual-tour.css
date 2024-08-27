@@ -10,6 +10,7 @@
     position: relative;
     height: 100%;
     width: auto;
+    padding: 100px 150px;
 
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -78,6 +79,25 @@
     opacity: 80%;
 }
 
+.exit-video-container {
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    right: 0;
+}
+
+.exit-linear-video {
+    background-color: #414141;
+    color: white;
+    border: none;
+    height: 60px;
+    width: 90px;
+    text-align: center;
+    text-decoration: none;
+    margin: 10px;
+    opacity: 80%;
+}
+
 .video-360-button {
     width: 100px;
     height: 40px;
@@ -109,7 +129,7 @@
     -webkit-user-drag: none;
     text-decoration: none;
     color: #000000;
-    background-color: #00bdff;
+    background-color: #50c7ff;
     border: none;
     cursor: pointer;
 }
@@ -185,6 +205,22 @@
     text-align: center;
 }
 
+
+
+/*
+    ============
+    Linear Video
+    ============
+*/
+.video-js {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    z-index: 1;
+    opacity: 1;
+    position: absolute !important;
+    transition: none;
+}
 
 
 /*
