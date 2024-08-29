@@ -16,6 +16,8 @@ window.lockMapSelection = false; // lock map selection location clicks
 window.viewer360 = undefined;
 window.viewer360Secondary = undefined;
 window.mouseDragging = false; // used for map panning checks
+window.activeMedia = undefined;
+window.activeMediaSecondary = undefined;
 
 /*
 *

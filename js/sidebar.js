@@ -8,6 +8,7 @@ const northLocationMenu = $("#north-location-menu");
 const southLocationMenu = $("#south-location-menu");
 const outsideLocationMenu = $("#outside-location-menu");
 const sectionMenuSelectors = ["", northLocationMenu, southLocationMenu, outsideLocationMenu];
+const sectionSidebarButtons = ["", "north-sidebar-button", "south-sidebar-button", "outside-sidebar-button"];
 
 // search bar vanilla js selector
 const searchBarReg = document.getElementById("search-bar");
@@ -23,7 +24,7 @@ export function initSidebar() {
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
-                addDropdownClick();
+                addSidebarButtonClick();
                 viewer360Module.initAll360Videos();
             }
         }, 'text');
@@ -34,7 +35,7 @@ export function initSidebar() {
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
-                addDropdownClick();
+                addSidebarButtonClick();
                 viewer360Module.initAll360Videos();
             }
         }, 'text');
@@ -45,7 +46,7 @@ export function initSidebar() {
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
-                addDropdownClick();
+                addSidebarButtonClick();
                 viewer360Module.initAll360Videos();
             }
         }, 'text');
@@ -152,38 +153,82 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
     }
 }
 
-function addDropdownClick() {
-    let dropdown = $(".dropdown-btn");
+// Add sidebar button click events for dropdowns and active media
+function addSidebarButtonClick() {
+    // setup list of sidebar buttons
+    let sidebarButtons = $("#location-menu a");
 
-    for (let i = 0; i < dropdown.length; i++) {
-        // open all dropdowns
-        // dropdown[i].classList.add("active");
+    // close section dropdowns initially
+    for (let i = 0; i < sidebarButtons.length; i++) {
+        if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close only all dropdowns initially
+            sidebarButtons[i].nextElementSibling.style.display = "none"
+        }
 
-        // close all dropdowns initially
-        let dropdownContent = dropdown[i].nextElementSibling;
-        dropdownContent.style.display = "none"
-
-        // setup dropdown toggle
-        dropdown[i].addEventListener("click", function () {
+        // add click event to sidebar buttons
+        sidebarButtons[i].addEventListener("click", function () {
             this.classList.toggle("active");
-            let dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "none") {
-                dropdownContent.style.display = "block";
-            } else {
-                dropdownContent.style.display = "none";
+
+            // active buttons handling
+            if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
+                if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media within same dropdown
+
+                    if (window.activeMediaSecondary !== self) {
+                        // remove other active sub media, set new current as active secondary
+                        window.activeMediaSecondary.classList.remove("active");
+                        this.classList.add("active");
+                        window.activeMediaSecondary = this;
+                    }
+
+                } else if (window.activeMedia !== this) { // if not clicking same media again
+
+                    if (window.activeMedia !== undefined) { // not first button
+                         if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
+                                window.activeMedia.nextElementSibling.style.display = "none";
+                                if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
+                                    window.activeMediaSecondary.classList.remove("active"); // clear secondary active
+                                    window.activeMediaSecondary = undefined;
+                                }
+                        }
+
+                        window.activeMedia.classList.remove("active");
+                    }
+
+                    window.activeMedia = this; // sets the new current active media
+
+                } else { // todo: must be self?, closes current media
+                    viewer360Module.close360Viewer();
+                    linearVideo.closeLinearVideo();
+                    window.activeMedia = undefined;
+                }
             }
-            // kind of terrible code but it works
-            // adds visual toggle arrows
-            // TODO: add back basically
-            // var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
-            // if (cls.contains("fa-angle-down")) {
-            //     cls.add("fa-angle-up");
-            //     cls.remove("fa-angle-down");
-            // }
-            // else if (cls.contains("fa-angle-up")) {
-            //     cls.add("fa-angle-down");
-            //     cls.remove("fa-angle-up");
-            // }
+
+
+            // only for dropdowns toggle display and deal with active sub buttons
+            if (sidebarButtons[i].classList.contains("dropdown-btn")) {
+                let dropdownContent = this.nextElementSibling;
+
+                if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
+                    if (window.activeMediaSecondary === undefined) { // switched from elsewhere or opening new
+                        // active first image when opening a media dropdown
+                        let firstImage = dropdownContent.firstChild.firstChild;
+                        firstImage.classList.toggle("active");
+                        window.activeMediaSecondary = firstImage;
+                    } else { // closing current dropdown
+                        window.activeMediaSecondary.classList.remove("active");
+                        window.activeMediaSecondary = undefined;
+                    }
+
+                }
+
+                // hiding and revealing dropdown content
+                if (dropdownContent.style.display === "none") {
+                    dropdownContent.style.display = "block";
+                } else {
+                    dropdownContent.style.display = "none";
+                }
+            }
+
+            // todo bonus: add toggle arrows
         });
     }
 }
