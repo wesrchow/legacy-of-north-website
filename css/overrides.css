@@ -12,3 +12,7 @@
     opacity: 0 !important;
     transition: opacity 1.2s;
 }
+
+.fp-watermark {
+    display: none !important;
+}
