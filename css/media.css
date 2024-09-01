@@ -1,5 +1,5 @@
 /* Custom Styles Within Media Pages */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 /*
     ===========
@@ -7,17 +7,18 @@
     ===========
 */
 body, html {
-    display: -webkit-flex;
-    -webkit-flex-flow: column;
+    display: flex;
+    flex-flow: column;
     height: 100%;
-    font-family: Nunito, serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 .media-page-container {
-    display: -webkit-flex;
-    -webkit-flex-grow: 1;
+    /*flex-grow: 1;*/
+    height: 95vh;
     width: 100%;
-    -webkit-flex-flow: row;
+    display: flex;
+    flex-flow: row;
     overflow: hidden;
 }
 
@@ -88,7 +89,7 @@ body, html {
 .sidebar {
     /*float: left;*/
     height: 100%;
-    width: 23%;
+    width: 24%;
     padding: 0;
     /*!*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*!*/
     z-index: 1; /* Stay on top */
@@ -96,7 +97,7 @@ body, html {
     /*overflow-y: -moz-scrollbars-vertical; !* must stay like this for elements to expand the width, then scroll bar fills in when content expands (this may need a "fix")*!*/
     overflow-y: scroll;
     overflow-x: hidden; /* Disable horizontal scroll */
-    border-right: 1px solid black;
+    /*border-right: 1px solid black;*/
     /*box-shadow: 1px 0 5px -2px;*/
 }
 
@@ -148,20 +149,27 @@ body, html {
 
 .sidebar a:hover {
     text-decoration: none;
-    color: black;
-    background-color: #41b4ff;
-    border-radius: 0.4em;
 
-    transition: 0.3s;
+    color: black;
+    background-color: #ffe54b;
+    font-weight: 600;
+    /*border-radius: 0.4em;*/
+
+    transform: scale(1.03);
+
+    transition: 0.2s;
 }
 
 /* todo: also necessary later when styling the sidebar items */
 a.active {
-    background-color: #2a5072;
-    color: #ffffff;
-    border-radius: 0.4em;
+    background-color: #debb00;
+    font-weight: 600;
+    /*color: #ffffff;*/
+    /*border-radius: 0.4em;*/
 
-    transition: 0.3s;
+    transform: scale(1.02);
+
+    transition: 0.2s;
 }
 
 /*.dropdown-container { todo: overriding list style
@@ -222,44 +230,3 @@ a.active {
     General
     =======
 */
-
-
-/*
-    =====================
-    Data Usage Disclaimer TODO: probably remove
-    =====================
-*/
-.data-disclaimer {
-    display: flex;
-    height: 90px;
-    width: 310px;
-    z-index: 10;
-    position: fixed;
-    margin: 0;
-    padding: 0;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ff5757;
-    color: white;
-    border: 2px solid black;
-    border-radius: 10px;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
-
-.data-disclaimer p {
-    margin: 0;
-}
-
-.close-btn {
-    display: flex;
-    font-weight: bold;
-    float: right;
-    font-size: 20px;
-    text-align: center;
-    align-items: center;
-    margin-right: 12px;
-    cursor: pointer;
-}

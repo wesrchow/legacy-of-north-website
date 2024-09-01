@@ -1,20 +1,24 @@
 /* Styles Across The Website */
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 /*
     ======
     Global
     ======
 */
 html {
-    font-family: Nunito, serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 body {
     margin: 0;
     padding: 0;
     background-color: #fbfbfe;
-    background-image: radial-gradient(color-mix(in srgb,#f6f8fa 95%,black) 2px,#f6f8fa 0);
+    /*background-image: radial-gradient(color-mix(in srgb,#f6f8fa 95%,black) 2px,#f6f8fa 0);*/
+    background-image:
+            linear-gradient(to right, #f3f3f3 1px, transparent 1px),
+            linear-gradient(to bottom, #f3f3f3 1px, transparent 1px);
     background-size: 40px 40px;
+    background-position: -20px -20px;
 }
 
 *, ::after, ::before {
@@ -51,15 +55,15 @@ body {
 .navbar-custom {
     background-color: #860000;
     width: 100%;
-    min-height: 5%;
-    height: 5%;
+    min-height: 5vh;
+    height: 5vh;
 
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
     align-items: center;
 
-    position: relative;
+    /*position: relative;*/
     z-index: 1;
 }
 
@@ -75,33 +79,59 @@ body {
 /*    margin: 0;*/
 /*}*/
 
-.navbar-links li {
-    height: 100%;
-}
+/*.navbar-links li {*/
+/*    height: 100%;*/
+/*}*/
 
 .navbar-custom a {
     text-decoration: none;
     color: #ffffff;
+    font-size: 1.1em;
     height: 100%;
+    line-height: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 
     padding: 0 7em;
 
     transition: 0.3s;
 }
 
+.navbar-custom a::after {
+    content: '';
+    position: absolute;
+    /*bottom: 0.64em;*/
+    /*left: 0;*/
+    margin-top: 1.1em;
+    width: calc(100% - 14em);
+    height: 0.12em;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 350ms, transform 350ms;
+}
+
 .navbar-custom a:hover {
     text-decoration: none;
-    background-color: #dcae00;
+    /*background-color: #dcae00;*/
 
-    transition: 0.3s;
+    /*transition: 0.3s;*/
+}
+
+.navbar-custom a:hover::after, .navbar-custom a:focus::after {
+    opacity: 1;
+    transform: translate(0, 2px);
 }
 
 .navbar-custom a:visited {
     text-decoration: none;
+}
+
+.navbar-custom a.active-page::after {
+    opacity: 1;
+    transform: translate(0, 2px);
 }
 
 /*
