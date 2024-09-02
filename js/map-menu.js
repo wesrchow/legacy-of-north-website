@@ -87,8 +87,7 @@ export function initMapLayerMenu() {
 
 // properly lock map panning when hovering over the layer menu
 function mapMenuLockPanning(menuElement) {
-    menuElement.hover(
-        function () { // enter element
+    menuElement.hover(function () { // enter element
             if (!mouseDragging) { // lock map panning if not dragging
                 window.lockDrag = true;
             }
@@ -97,7 +96,9 @@ function mapMenuLockPanning(menuElement) {
         }
     );
 
-    menuElement.mouseup(function () { // lock if we mouseup within the menu (usually while having been dragging)
-        window.lockDrag = true;
+    menuElement.mouseup(function () { // lock if we mouseup within the menu as well (usually while having been dragging)
+        setTimeout(function () { // waits for the mouseup in map-movement to trigger first
+            window.lockDrag = true;
+        }, 10);
     });
 }
