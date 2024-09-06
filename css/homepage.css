@@ -154,7 +154,7 @@
 */
 .info-container {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column nowrap;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -165,7 +165,7 @@
 
 .info-container-row {
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     justify-content: center;
 
     margin: 0 3em;
@@ -173,7 +173,7 @@
 
 .header-section-container {
     font-size: 1.8em;
-    margin-bottom: 3em;
+    margin-bottom: 2.5em;
 }
 
 .info-section-container {

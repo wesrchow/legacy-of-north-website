@@ -175,22 +175,22 @@ body, html {
 
     color: black;
     background-color: #ffe54b;
-    font-weight: 600;
+    /*font-weight: 600;*/
     /*border-radius: 0.4em;*/
 
     transform: scale(1.03);
 
-    transition: 0.2s;
+    transition: transform 0.2s;
 }
 
 /* todo: also necessary later when styling the sidebar items */
 a.active {
     background-color: #debb00;
-    font-weight: 600;
+    /*font-weight: 600;*/
     /*color: #ffffff;*/
     /*border-radius: 0.4em;*/
 
-    transform: scale(1.02);
+    transform: scale(1.03);
 
     transition: 0.2s;
 }
