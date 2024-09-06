@@ -54,9 +54,7 @@ export function initSidebar() {
 
     // filter the search results on key up events
     searchBarReg.addEventListener("keyup", function () {
-        filterSearchElements(document.getElementById("north-location-menu"));
-        filterSearchElements(document.getElementById("south-location-menu"));
-        filterSearchElements(document.getElementById("outside-location-menu"));
+        filterSearchElements();
     });
 }
 
@@ -233,25 +231,81 @@ function addSidebarButtonClick() {
     }
 }
 
-// repetitive search filtering for the different location areas
+// locatin search filtering
 // TODO bonus: merge with gallery searching
-function filterSearchElements(ul) {
-    // setup variables
-    let filter = searchBarReg.value.toUpperCase();
-    let li = ul.getElementsByClassName("sidebar-list-2");
+function filterSearchElements() {
+    let filter = searchBarReg.value.toUpperCase(); // comparison search string
+    const sidebarLocationElements = $(".sidebar-list-2"); // get all the li location elements
+    let sectionCheck = ["", false, false, false]; // check if the section should be active
 
-    // loop through all list items, and hide those who don't match the search query
-    for (let i = 0; i < li.length; i++) {
-        let a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].classList.remove("hidden");
-            li[i].classList.remove("hidden-opacity");
+    // loop through all list items, do the filtering
+    for (let i = 0; i < sidebarLocationElements.length; i++) {
+        let locationName = sidebarLocationElements.eq(i).find("a").eq(0).text().toUpperCase(); // get formatted location name
+        let sectionLink = sidebarLocationElements.eq(i).parent().prev(); // get the section of the location
+
+        if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
+            sectionCheck[sectionCheckFilter(sectionLink)] = true; // set section to active
+
+            if (!sectionLink.hasClass("active")) { // open relevant section once
+                sectionLink[0].click();
+            }
+
+            // sidebarLocationElements.eq(i).show('fast'); // reveal element
+            sidebarLocationElements.eq(i).stop().css({
+                display: "block",     // Set display to block to make the element visible
+                overflow: "hidden",
+                height: 0,            // Start with height of 0 (collapsed)
+                opacity: 0            // Start with opacity 0 (invisible)
+            }).animate({
+                height: "100%",       // Animate to full height (or set to a specific height)
+                opacity: 1            // Animate to full opacity
+            }, 800);
         } else {
-            li[i].classList.add("hidden-opacity");
-            li[i].ontransitionend = () => {
-                li[i].classList.add("hidden")
-                console.log('Transition ended');
-            };
+            sidebarLocationElements.eq(i).stop().animate({
+                height: 0,         // Squish the height to 0
+                opacity: 0         // Reduce the opacity to 0
+            }, 800, function() {    // Adjust duration (400ms) as needed
+                $(this).css("display", "none"); // After the animation, set display to none
+            });
+            /*sidebarLocationElements.eq(i).hide();animate({
+                opacity: 0
+            }, 500, function() {
+                $(this).hide(); // applies display: none; to the element .panel
+            }); // hide element*/
         }
+    }
+
+    if (filter === "") { // shut all sections if search bar is empty
+        sectionCheck = ["", false, false, false];
+    }
+
+    verifySectionCheck(sectionCheck); // shuts sections if no elements are searched from them
+}
+
+// section search filtering for indexing
+function sectionCheckFilter (sectionLink) {
+    let sectionText = sectionLink.text();
+    if (sectionText === "North Building") {
+        return 1;
+    } else if (sectionText === "South Building") {
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
+// verify if sections should be closed
+function verifySectionCheck (sectionCheck) {
+    // give the section a click if its active but should be closed
+    if (sectionCheck[1] === false && northLocationMenu.prev().hasClass("active")) {
+        northLocationMenu.prev()[0].click();
+    }
+
+    if (sectionCheck[2] === false && southLocationMenu.prev().hasClass("active")) {
+        southLocationMenu.prev()[0].click();
+    }
+
+    if (sectionCheck[3] === false && outsideLocationMenu.prev().hasClass("active")) {
+        outsideLocationMenu.prev()[0].click();
     }
 }

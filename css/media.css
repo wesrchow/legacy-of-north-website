@@ -14,8 +14,7 @@ body, html {
 }
 
 .media-page-container {
-    /*flex-grow: 1;*/
-    height: 95vh;
+    flex-grow: 1;
     width: 100%;
     display: flex;
     flex-flow: row;
@@ -68,14 +67,13 @@ body, html {
 
 #search-bar {
     float: none;
-    padding: 8px 8px;
+    padding: 0.5em;
     border: none;
-    font-size: 20px;
+    font-size: 1.3rem;
     display: block;
     text-align: left;
     width: 100%;
     margin: 0;
-    font-family: 'Blinker', sans-serif;
     color: #000000;
     outline: none;
     background-color: #ffffff;
@@ -89,7 +87,7 @@ body, html {
 .sidebar {
     /*float: left;*/
     height: 100%;
-    width: 24%;
+    width: 28em;
     padding: 0;
     /*!*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*!*/
     z-index: 1; /* Stay on top */
@@ -116,20 +114,27 @@ body, html {
 .sidebar-list-2 {
     opacity: 1;
     list-style: none;
+    border-left: #343434 2px solid;
+    padding-left: 30px;
+
     transition: opacity 0.4s;
 }
 
 .sidebar-list-3 {
     list-style: none;
+    border-left: #343434 2px solid;
+    padding-left: 30px;
 }
 
 /* Menu Options */
 .sidebar a {
     text-decoration: none;
-    font-size: 20px;
+    font-size: 1.3rem;
     color: #000000;
     display: block;
-    padding: 8px 8px 8px 32px;
+    width: 100%;
+
+    padding: 0.5em 0.5em 0.5em 1.5em;
     -webkit-user-drag: none;
 
     transition: 0.3s;
@@ -142,6 +147,24 @@ body, html {
 .sidebar-list-2 a {
     background-color: #acacac;
 }
+
+/*.sidebar-list-2::before {*/
+/*    content: "";*/
+/*    width: 2px;*/
+/*    height: 20px;*/
+/*    background-color: black;*/
+
+/*    position: absolute;*/
+/*    !*right:-3px;*!*/
+/*    !*top:0;*!*/
+/*    margin-right: 4em;*/
+/*    transform: none;*/
+
+/*}*/
+
+/*.sidebar-list-2:hover::before {*/
+/*    transform: scale(1);*/
+/*}*/
 
 .sidebar-list-3 a {
     background-color: #e2e2e2;
