@@ -56,7 +56,7 @@ body {
     background-color: #860000;
     width: 100%;
     /*min-height: 80px;*/
-    height: 40px;
+    height: 43px;
 
     display: flex;
     flex-flow: row nowrap;
@@ -66,22 +66,6 @@ body {
     /*position: relative;*/
     z-index: 1;
 }
-
-/*.navbar-links {*/
-/*    height: 100%;*/
-
-/*    display: flex;*/
-/*    flex-flow: row wrap;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-
-/*    !*padding-inline-start: 0; !* gets rid of ul padding *!*!*/
-/*    margin: 0;*/
-/*}*/
-
-/*.navbar-links li {*/
-/*    height: 100%;*/
-/*}*/
 
 .navbar-custom a {
     text-decoration: none;
@@ -96,24 +80,34 @@ body {
     align-items: center;
     position: relative;
 
-    padding: 0 8%;
+    padding: 0 1%;
+    margin: 0 2%;
 
     transition: 0.3s;
 }
 
-.navbar-custom a::after {
+/*.navbar-custom a:not(:last-child)::after {*/
+/*    content:"";*/
+/*    border:1px solid #e2e2e2;*/
+/*    border-width: 1px 1px 0 0;*/
+/*    position:absolute;*/
+/*    right:-3px;*/
+/*    !*top:0;*!*/
+/*    height:60%;*/
+/*}*/
+
+.navbar-custom a::before {
     content: '';
-    position: absolute;
-    display: inline-block;
+    /*position: absolute;*/
     /*bottom: 0.64em;*/
     /*left: 0;*/
-    margin-top: 1.1em;
-    width: 100%;
-    /*width: calc(100% - 16%);*/
-    height: 0.12em;
-    background-color: #ffffff;
+    /*margin-top: 1.7em;*/
+    margin-right: 8px;
+    width: 10px;
+    height: 10px;
+    background-color: white;
     opacity: 0;
-    transition: opacity 350ms, transform 350ms;
+    transition: 350ms;
 }
 
 .navbar-custom a:hover {
@@ -123,18 +117,18 @@ body {
     /*transition: 0.3s;*/
 }
 
-.navbar-custom a:hover::after, .navbar-custom a:focus::after {
+.navbar-custom a:hover::before, .navbar-custom a:focus::before {
     opacity: 1;
-    transform: translate(0, 2px);
+    background-color: rgba(255, 255, 255, 0.49);
 }
 
 .navbar-custom a:visited {
     text-decoration: none;
 }
 
-.navbar-custom a.active-page::after {
+.navbar-custom a.active-page::before {
     opacity: 1;
-    transform: translate(0, 2px);
+    background-color: white;
 }
 
 /*
