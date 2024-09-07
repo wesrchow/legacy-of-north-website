@@ -115,9 +115,12 @@ body, html {
     opacity: 1;
     list-style: none;
     border-left: #343434 2px solid;
-    padding-left: 30px;
+    overflow: hidden;
 
-    transition: opacity 0.4s;
+    padding-left: 30px;
+    /*max-height: 5em;*/
+
+    transition: 0.4s;
 }
 
 .sidebar-list-3 {

@@ -154,11 +154,11 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
 // Add sidebar button click events for dropdowns and active media
 function addSidebarButtonClick() {
     // setup list of sidebar buttons
-    let sidebarButtons = $("#location-menu a");
+    const sidebarButtons = $("#location-menu a");
 
-    // close section dropdowns initially
+    // go through sidebar and close dropdowns, add click events
     for (let i = 0; i < sidebarButtons.length; i++) {
-        if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close only all dropdowns initially
+        if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close all dropdown initially
             sidebarButtons[i].nextElementSibling.style.display = "none"
         }
 
@@ -250,28 +250,26 @@ function filterSearchElements() {
                 sectionLink[0].click();
             }
 
-            // sidebarLocationElements.eq(i).show('fast'); // reveal element
-            sidebarLocationElements.eq(i).stop().css({
-                display: "block",     // Set display to block to make the element visible
-                overflow: "hidden",
-                height: 0,            // Start with height of 0 (collapsed)
-                opacity: 0            // Start with opacity 0 (invisible)
-            }).animate({
-                height: "100%",       // Animate to full height (or set to a specific height)
-                opacity: 1            // Animate to full opacity
-            }, 800);
+            //todo: dont do anything if already visible
+
+            // reveal element
+            sidebarLocationElements.eq(i).css("display", "block");
+            sidebarLocationElements.eq(i).height(sidebarLocationElements.eq(i)[0].scrollHeight); // temp set height for animation
+            sidebarLocationElements.eq(i).removeClass("sidebar-selection-hidden");
+            sidebarLocationElements.eq(i)[0].ontransitionend = () => {
+                sidebarLocationElements.eq(i).height("auto"); // set back to auto to allow dropdown to expand properly
+            };
         } else {
-            sidebarLocationElements.eq(i).stop().animate({
-                height: 0,         // Squish the height to 0
-                opacity: 0         // Reduce the opacity to 0
-            }, 800, function() {    // Adjust duration (400ms) as needed
-                $(this).css("display", "none"); // After the animation, set display to none
-            });
-            /*sidebarLocationElements.eq(i).hide();animate({
-                opacity: 0
-            }, 500, function() {
-                $(this).hide(); // applies display: none; to the element .panel
-            }); // hide element*/
+            //todo: dont do anything if already hidden
+
+            sidebarLocationElements.eq(i).height(sidebarLocationElements.eq(i)[0].scrollHeight); // temp set height for animation
+            setTimeout(function () { //
+                sidebarLocationElements.eq(i).addClass("sidebar-selection-hidden");
+            }, 10);
+
+            sidebarLocationElements.eq(i)[0].ontransitionend = () => {
+                sidebarLocationElements.eq(i).css("display", "none");
+            };
         }
     }
 

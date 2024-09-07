@@ -8,6 +8,12 @@
     opacity: 0 !important;
 }
 
+.sidebar-selection-hidden {
+    opacity: 0 !important;
+    height: 0 !important;
+    transition: 0.4s;
+}
+
 .hidden-opacity-360video {
     opacity: 0 !important;
     transition: opacity 1.2s;
