@@ -18,3 +18,7 @@
     opacity: 0 !important;
     transition: opacity 1.2s;
 }
+
+.no-transition {
+    transition: none !important;
+}

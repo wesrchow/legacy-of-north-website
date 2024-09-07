@@ -159,7 +159,19 @@ function addSidebarButtonClick() {
     // go through sidebar and close dropdowns, add click events
     for (let i = 0; i < sidebarButtons.length; i++) {
         if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close all dropdown initially
-            sidebarButtons[i].nextElementSibling.style.display = "none"
+
+            sidebarButtons.eq(i).next().height(sidebarButtons[i].nextElementSibling.scrollHeight); // temp set height for animation
+
+            setTimeout(function () { // delay to allow height to be set first
+                sidebarButtons.eq(i).next().addClass("no-transition"); // prevent animation on first load
+                sidebarButtons.eq(i).next().addClass("sidebar-selection-hidden"); // add hidden class
+                sidebarButtons.eq(i).next().css("display", "none");
+
+                sidebarButtons.eq(i).next()[0].offsetHeight;
+                sidebarButtons.eq(i).next().removeClass("no-transition");
+            }, 5);
+
+
         }
 
         // add click event to sidebar buttons
@@ -204,7 +216,9 @@ function addSidebarButtonClick() {
             // only for dropdowns toggle display and deal with active sub buttons
             if (sidebarButtons[i].classList.contains("dropdown-btn")) {
                 let dropdownContent = this.nextElementSibling;
+                let dropdownContentJ = $(this).next();
 
+                // dropdown active status toggling
                 if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
                     if (window.activeMediaSecondary === undefined) { // switched from elsewhere or opening new
                         // active first image when opening a media dropdown
@@ -220,9 +234,24 @@ function addSidebarButtonClick() {
 
                 // hiding and revealing dropdown content
                 if (dropdownContent.style.display === "none") {
-                    dropdownContent.style.display = "block";
+                    // dropdownContent.style.display = "block";
+                    dropdownContentJ.css("display", "block");
+                    dropdownContentJ.height(dropdownContent.scrollHeight); // temp set height for animation
+                    dropdownContentJ.removeClass("sidebar-selection-hidden"); // remove hidden class
+
+                    dropdownContentJ[0].ontransitionend = () => {
+                        dropdownContentJ.height("auto"); // set back to auto to allow dropdown to expand properly
+                    };
                 } else {
-                    dropdownContent.style.display = "none";
+                    // dropdownContent.style.display = "none";
+                    dropdownContentJ.height(dropdownContent.scrollHeight); // temp set height for animation
+                    setTimeout(function () { // delay to allow height to be set first
+                        dropdownContentJ.addClass("sidebar-selection-hidden");
+                    }, 5);
+
+                    dropdownContent.ontransitionend = () => { // once transition is done, display hide it
+                        dropdownContentJ.css("display", "none");
+                    };
                 }
             }
 
@@ -255,7 +284,8 @@ function filterSearchElements() {
             // reveal element
             sidebarLocationElements.eq(i).css("display", "block");
             sidebarLocationElements.eq(i).height(sidebarLocationElements.eq(i)[0].scrollHeight); // temp set height for animation
-            sidebarLocationElements.eq(i).removeClass("sidebar-selection-hidden");
+            sidebarLocationElements.eq(i).removeClass("sidebar-selection-hidden"); // remove hidden class
+
             sidebarLocationElements.eq(i)[0].ontransitionend = () => {
                 sidebarLocationElements.eq(i).height("auto"); // set back to auto to allow dropdown to expand properly
             };
@@ -263,11 +293,12 @@ function filterSearchElements() {
             //todo: dont do anything if already hidden
 
             sidebarLocationElements.eq(i).height(sidebarLocationElements.eq(i)[0].scrollHeight); // temp set height for animation
-            setTimeout(function () { //
-                sidebarLocationElements.eq(i).addClass("sidebar-selection-hidden");
-            }, 10);
 
-            sidebarLocationElements.eq(i)[0].ontransitionend = () => {
+            setTimeout(function () { // delay to allow height to be set first
+                sidebarLocationElements.eq(i).addClass("sidebar-selection-hidden"); // add hidden class
+            }, 5);
+
+            sidebarLocationElements.eq(i)[0].ontransitionend = () => { // once transition is done, display hide it
                 sidebarLocationElements.eq(i).css("display", "none");
             };
         }

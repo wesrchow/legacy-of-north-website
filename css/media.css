@@ -198,11 +198,12 @@ a.active {
     transition: 0.2s;
 }
 
-/*.dropdown-container { todo: overriding list style
-    display: block;
-    background-color: #ffffff;
-    padding-left: 32px;
-}*/
+.dropdown-container {
+    opacity: 1;
+    overflow: hidden;
+
+    transition: 0.4s;
+}
 
 /*!* Optional: Style the caret down icon *!*/
 /*!* Use if icons should float right *!*/
