@@ -265,11 +265,11 @@ function filterSearchElements() {
                 sectionLink[0].click();
             }
 
-            if (!sidebarLocationElements.eq(i).is(":visible")) { // don't do anything if already visible
+            if (sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already visible
                 sidebarAnimReveal(sidebarLocationElements.eq(i));
             }
         } else {
-            if (sidebarLocationElements.eq(i).is(":visible")) { // don't do anything if already hidden
+            if (!sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already hidden
                 sidebarAnimHide(sidebarLocationElements.eq(i), false);
             }
         }
