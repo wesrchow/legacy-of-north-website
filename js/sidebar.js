@@ -52,9 +52,15 @@ export function initSidebar() {
         }, 'text');
     }, 'text');
 
+    let typingTimer;
     // filter the search results on key up events
     searchBarReg.addEventListener("keyup", function () {
-        filterSearchElements();
+        clearTimeout(typingTimer);
+
+        typingTimer = setTimeout(function () {
+            filterSearchElements();
+        }, 150);
+
     });
 }
 
@@ -156,26 +162,21 @@ function addSidebarButtonClick() {
     // setup list of sidebar buttons
     const sidebarButtons = $("#location-menu a");
 
+    // let sidebarClickTimeout = [];
+
     // go through sidebar and close dropdowns, add click events
     for (let i = 0; i < sidebarButtons.length; i++) {
         if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close all dropdown initially
-
-            sidebarButtons.eq(i).next().height(sidebarButtons[i].nextElementSibling.scrollHeight); // temp set height for animation
-
-            setTimeout(function () { // delay to allow height to be set first
-                sidebarButtons.eq(i).next().addClass("no-transition"); // prevent animation on first load
-                sidebarButtons.eq(i).next().addClass("sidebar-selection-hidden"); // add hidden class
-                sidebarButtons.eq(i).next().css("display", "none");
-
-                sidebarButtons.eq(i).next()[0].offsetHeight;
-                sidebarButtons.eq(i).next().removeClass("no-transition");
-            }, 5);
-
-
+            sidebarAnimHide(sidebarButtons.eq(i).next(), true);
         }
 
+        // sidebarClickTimeout[i] = false; // todo bonus: prevent fast double clicks
         // add click event to sidebar buttons
         sidebarButtons[i].addEventListener("click", function () {
+            // if (sidebarClickTimeout[i]) return; // ignore clicks if already clicked
+            // sidebarClickTimeout[i] = true;
+            // setTimeout(function () { sidebarClickTimeout[i] = false; }, 400);
+
             this.classList.toggle("active");
 
             // active buttons handling
@@ -193,7 +194,7 @@ function addSidebarButtonClick() {
 
                     if (window.activeMedia !== undefined) { // not first button
                          if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
-                                window.activeMedia.nextElementSibling.style.display = "none";
+                                 sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
                                 if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
                                     window.activeMediaSecondary.classList.remove("active"); // clear secondary active
                                     window.activeMediaSecondary = undefined;
@@ -234,24 +235,9 @@ function addSidebarButtonClick() {
 
                 // hiding and revealing dropdown content
                 if (dropdownContent.style.display === "none") {
-                    // dropdownContent.style.display = "block";
-                    dropdownContentJ.css("display", "block");
-                    dropdownContentJ.height(dropdownContent.scrollHeight); // temp set height for animation
-                    dropdownContentJ.removeClass("sidebar-selection-hidden"); // remove hidden class
-
-                    dropdownContentJ[0].ontransitionend = () => {
-                        dropdownContentJ.height("auto"); // set back to auto to allow dropdown to expand properly
-                    };
+                    sidebarAnimReveal(dropdownContentJ);
                 } else {
-                    // dropdownContent.style.display = "none";
-                    dropdownContentJ.height(dropdownContent.scrollHeight); // temp set height for animation
-                    setTimeout(function () { // delay to allow height to be set first
-                        dropdownContentJ.addClass("sidebar-selection-hidden");
-                    }, 5);
-
-                    dropdownContent.ontransitionend = () => { // once transition is done, display hide it
-                        dropdownContentJ.css("display", "none");
-                    };
+                    sidebarAnimHide(dropdownContentJ, false);
                 }
             }
 
@@ -279,28 +265,13 @@ function filterSearchElements() {
                 sectionLink[0].click();
             }
 
-            //todo: dont do anything if already visible
-
-            // reveal element
-            sidebarLocationElements.eq(i).css("display", "block");
-            sidebarLocationElements.eq(i).height(sidebarLocationElements.eq(i)[0].scrollHeight); // temp set height for animation
-            sidebarLocationElements.eq(i).removeClass("sidebar-selection-hidden"); // remove hidden class
-
-            sidebarLocationElements.eq(i)[0].ontransitionend = () => {
-                sidebarLocationElements.eq(i).height("auto"); // set back to auto to allow dropdown to expand properly
-            };
+            if (!sidebarLocationElements.eq(i).is(":visible")) { // don't do anything if already visible
+                sidebarAnimReveal(sidebarLocationElements.eq(i));
+            }
         } else {
-            //todo: dont do anything if already hidden
-
-            sidebarLocationElements.eq(i).height(sidebarLocationElements.eq(i)[0].scrollHeight); // temp set height for animation
-
-            setTimeout(function () { // delay to allow height to be set first
-                sidebarLocationElements.eq(i).addClass("sidebar-selection-hidden"); // add hidden class
-            }, 5);
-
-            sidebarLocationElements.eq(i)[0].ontransitionend = () => { // once transition is done, display hide it
-                sidebarLocationElements.eq(i).css("display", "none");
-            };
+            if (sidebarLocationElements.eq(i).is(":visible")) { // don't do anything if already hidden
+                sidebarAnimHide(sidebarLocationElements.eq(i), false);
+            }
         }
     }
 
@@ -336,5 +307,37 @@ function verifySectionCheck (sectionCheck) {
 
     if (sectionCheck[3] === false && outsideLocationMenu.prev().hasClass("active")) {
         outsideLocationMenu.prev()[0].click();
+    }
+}
+
+function sidebarAnimReveal (sidebarElementJ) {
+    sidebarElementJ.css("display", "block");
+    sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
+    sidebarElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
+
+    sidebarElementJ[0].ontransitionend = () => {
+        sidebarElementJ.height("auto"); // set back to auto to allow dropdown to expand properly
+    };
+}
+
+function sidebarAnimHide (sidebarElementJ, setup) {
+    sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
+
+    setTimeout(function () { // delay to allow height to be set first
+        if (setup) sidebarElementJ.addClass("no-transition"); // prevent animation on first load
+
+        sidebarElementJ.addClass("sidebar-selection-hidden"); // add hidden class
+
+        if (setup) { // bring back animation after first load
+            sidebarElementJ.css("display", "none");
+            sidebarElementJ[0].offsetHeight;
+            sidebarElementJ.removeClass("no-transition");
+        }
+    }, 5);
+
+    if (!setup) {
+        sidebarElementJ[0].ontransitionend = () => { // once transition is done, display hide it
+            sidebarElementJ.css("display", "none");
+        };
     }
 }

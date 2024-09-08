@@ -108,7 +108,7 @@ body, html {
 .sidebar-list-1 {
     opacity: 1;
     list-style: none;
-    transition: opacity 0.4s;
+    transition: opacity 0.3s;
 }
 
 .sidebar-list-2 {
@@ -120,7 +120,7 @@ body, html {
     padding-left: 30px;
     /*max-height: 5em;*/
 
-    transition: 0.4s;
+    transition: 0.3s;
 }
 
 .sidebar-list-3 {
@@ -202,7 +202,7 @@ a.active {
     opacity: 1;
     overflow: hidden;
 
-    transition: 0.4s;
+    transition: 0.3s;
 }
 
 /*!* Optional: Style the caret down icon *!*/
