@@ -56,10 +56,17 @@ export function initMap() {
                     addMediaMapLinks($.csv.toArrays(data), 3);
                 }, 'text');
 
-                // center map when svg is finished fully loading
+                console.log("doing new stuff");
+                let idArray = ["filename", "room-212_map"];
+                setTimeout(() => {
+                    addMapLinksNew(idArray);
+                }, 500);
+
+
+                // center map when svg is finished fully loading (excluding media clicks)
                 mapMovement.centerResetMap();
 
-                // defer setting up map menu until SVGs have finished loading
+                // defer setting up map menu until SVGs have finished loading (excluding media clicks)
                 mapMenu.initMapLayerMenu();
             }
         }, 'xml');
@@ -99,5 +106,28 @@ function addMediaMapLinks(filenameArray, section) {
             // console.log(mapIDString + " does not exist in the map SVG");
             // TODO: confirm its only the further multi image locations that are being skipped (and roof)
         }
+    }
+}
+
+function addMapLinksNew(idArray) {
+    for (let i = 1; i < idArray.length; i++) {
+        let mapIDSelector = $(`#${idArray[i]}`);
+        let sidebarIDSelector = $(`#${idArray[i].split("_")[0]}`); // sidebar button to click
+        let sectionLink = sidebarIDSelector.parent().parent().prev(); // get the section of the location
+
+        mapIDSelector.addClass("location"); // give location link custom css
+
+        // add click event to map location that triggers sidebar click
+        mapIDSelector.click(function () {
+            if (!sectionLink.hasClass("active")) { // open relevant section once
+                sectionLink[0].click();
+            }
+
+            setTimeout(() => {
+                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: do something better than a timeout
+            }, 100);
+
+            sidebarIDSelector[0].click();
+        });
     }
 }

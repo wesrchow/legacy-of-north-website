@@ -21,6 +21,7 @@ export function initSidebar() {
     // use title formatted lists to inject sidebar elements
     jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
         jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data2) {
+            console.log("adding sidebar elements");
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
@@ -32,6 +33,7 @@ export function initSidebar() {
 
     jQuery.get("./csv/web-lists/south-locations-list.csv", function (data) {
         jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data2) {
+            console.log("adding sidebar elements");
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
@@ -43,6 +45,7 @@ export function initSidebar() {
 
     jQuery.get("./csv/web-lists/outside-locations-list.csv", function (data) {
         jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data2) {
+            console.log("adding sidebar elements");
             sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
             sidebarLoadCounter++;
             if (sidebarLoadCounter === 3) {
@@ -283,7 +286,7 @@ function filterSearchElements() {
 }
 
 // section search filtering for indexing
-function sectionCheckFilter (sectionLink) {
+function sectionCheckFilter(sectionLink) {
     let sectionText = sectionLink.text();
     if (sectionText === "North Building") {
         return 1;
@@ -295,7 +298,7 @@ function sectionCheckFilter (sectionLink) {
 }
 
 // verify if sections should be closed
-function verifySectionCheck (sectionCheck) {
+function verifySectionCheck(sectionCheck) {
     // give the section a click if its active but should be closed
     if (sectionCheck[1] === false && northLocationMenu.prev().hasClass("active")) {
         northLocationMenu.prev()[0].click();
@@ -310,7 +313,7 @@ function verifySectionCheck (sectionCheck) {
     }
 }
 
-function sidebarAnimReveal (sidebarElementJ) {
+function sidebarAnimReveal(sidebarElementJ) {
     sidebarElementJ.css("display", "block");
     sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
     sidebarElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
@@ -320,7 +323,7 @@ function sidebarAnimReveal (sidebarElementJ) {
     };
 }
 
-function sidebarAnimHide (sidebarElementJ, setup) {
+function sidebarAnimHide(sidebarElementJ, setup) {
     sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
 
     setTimeout(function () { // delay to allow height to be set first
