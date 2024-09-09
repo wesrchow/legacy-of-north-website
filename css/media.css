@@ -66,17 +66,21 @@ body, html {
 /*}*/
 
 #search-bar {
-    float: none;
     padding: 0.5em;
     border: none;
     font-size: 1.3rem;
     display: block;
     text-align: left;
     width: 100%;
-    margin: 0;
     color: #000000;
     outline: none;
     background-color: #ffffff;
+
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    float: none;
+    margin: 0;
 }
 
 #search-bar::placeholder {
@@ -137,6 +141,7 @@ body, html {
     display: block;
     width: 100%;
 
+    z-index: 2;
     padding: 0.5em 0.5em 0.5em 1.5em;
     -webkit-user-drag: none;
 

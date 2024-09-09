@@ -27,6 +27,7 @@ export function initSidebar() {
             if (sidebarLoadCounter === 3) {
                 addSidebarButtonClick();
                 viewer360Module.initAll360Videos();
+                initSidebarSticky();
             }
         }, 'text');
     }, 'text');
@@ -39,6 +40,7 @@ export function initSidebar() {
             if (sidebarLoadCounter === 3) {
                 addSidebarButtonClick();
                 viewer360Module.initAll360Videos();
+                initSidebarSticky();
             }
         }, 'text');
     }, 'text');
@@ -51,6 +53,7 @@ export function initSidebar() {
             if (sidebarLoadCounter === 3) {
                 addSidebarButtonClick();
                 viewer360Module.initAll360Videos();
+                initSidebarSticky();
             }
         }, 'text');
     }, 'text');
@@ -343,4 +346,15 @@ function sidebarAnimHide(sidebarElementJ, setup) {
             sidebarElementJ.css("display", "none");
         };
     }
+}
+
+function initSidebarSticky() {
+    const searchHeight = searchBarReg.scrollHeight;
+    const northSidebarButton = $("#north-sidebar-button");
+    const southSidebarButton = $("#south-sidebar-button");
+    const outsideSidebarButton = $("#outside-sidebar-button");
+
+    northSidebarButton.css("top", searchHeight - 0.5);
+    southSidebarButton.css("top", searchHeight - 0.5);
+    outsideSidebarButton.css("top", searchHeight - 0.5);
 }

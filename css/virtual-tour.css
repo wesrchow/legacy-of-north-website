@@ -60,6 +60,14 @@
     Interface Controls
     ==================
 */
+#north-sidebar-button, #south-sidebar-button, #outside-sidebar-button {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+
+
 .exit-360-container {
     position: absolute;
     z-index: 5;

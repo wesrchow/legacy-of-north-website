@@ -26,9 +26,9 @@ export function initMapLayerMenu() {
     // Helper variables
     const mapLayerMenuTitles = ["North 1st Floor", "North 2nd Floor", "North 3rd Floor", "South 1st Floor", "South 2nd Floor", "Outside"];
     // default start state
-    let currentMapLayer = mapLayerSouth1st; // initial map layer
-    mapLayerMenuDropdown.text(mapLayerMenuTitles[3]); // initial menu title
-    let currentBuilding = 2; // 1 = north, 2 = south, 3 = outside
+    let currentMapLayer = mapLayerNorth2nd; // initial map layer
+    mapLayerMenuDropdown.text(mapLayerMenuTitles[1]); // initial menu title
+    let currentBuilding = 1; // 1 = north, 2 = south, 3 = outside
 
     // events for locking map when mouse is hovering the menu
     mapMenuLockPanning(mapLayerMenuDropdown);
