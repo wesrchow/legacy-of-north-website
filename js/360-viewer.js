@@ -63,14 +63,18 @@ export function initAll360Videos() {
 export function init360ViewerControls() {
     // 360 viewer exit button
     exit360Viewer.click(function () {
-        close360Viewer();
+        // close360Viewer();
+        window.activeMedia.click();
+        window.activeMedia = undefined;
     });
 
     // escape shortcut to exit viewer
     $(document).keyup(function (e) {
         // note: always active on the virtual tour page. kept this way so we can always close the viewer in case something else goes wrong
         if (e.key === "Escape") {
-            close360Viewer();
+            // close360Viewer();
+            window.activeMedia.click();
+            window.activeMedia = undefined;
         }
     });
 }

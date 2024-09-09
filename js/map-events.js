@@ -119,15 +119,17 @@ function addMapLinksNew(idArray) {
 
         // add click event to map location that triggers sidebar click
         mapIDSelector.click(function () {
-            if (!sectionLink.hasClass("active")) { // open relevant section once
-                sectionLink[0].click();
+            if (!window.lockMapSelection) {
+                if (!sectionLink.hasClass("active")) { // open relevant section once
+                    sectionLink[0].click();
+                }
+
+                setTimeout(() => {
+                    sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: do something better than a timeout
+                }, 100);
+
+                sidebarIDSelector[0].click();
             }
-
-            setTimeout(() => {
-                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: do something better than a timeout
-            }, 100);
-
-            sidebarIDSelector[0].click();
         });
     }
 }
