@@ -16,57 +16,53 @@ const searchBarReg = document.getElementById("search-bar");
 
 // Inject sidebar elements, attach clickable events, init searchbar
 export function initSidebar() {
-    let sidebarLoadCounter = 0; // wait till all 3 sections are loaded before adding dropdown click events
+    return new Promise((resolve, reject) => {
+        let sidebarLoadCounter = 0; // wait till all 3 sections are loaded before adding dropdown click events
 
-    // use title formatted lists to inject sidebar elements
-    jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
-        jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data2) {
-            console.log("adding sidebar elements");
-            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
-            sidebarLoadCounter++;
-            if (sidebarLoadCounter === 3) {
-                addSidebarButtonClick();
-                viewer360Module.initAll360Videos();
-                initSidebarSticky();
-            }
-        }, 'text');
-    }, 'text');
+        // use title formatted lists to inject sidebar elements
+        jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
+            jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data2) {
+                sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
+                sidebarLoadCounter++;
+                if (sidebarLoadCounter === 3) {
+                    addSidebarButtonClick();
+                    viewer360Module.initAll360Videos();
+                    initSidebarSticky();
 
-    jQuery.get("./csv/web-lists/south-locations-list.csv", function (data) {
-        jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data2) {
-            console.log("adding sidebar elements");
-            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
-            sidebarLoadCounter++;
-            if (sidebarLoadCounter === 3) {
-                addSidebarButtonClick();
-                viewer360Module.initAll360Videos();
-                initSidebarSticky();
-            }
-        }, 'text');
-    }, 'text');
+                    resolve(); // resolve promise once sidebar is done loading
+                }
+            }, 'text').fail(reject);
+        }, 'text').fail(reject);
 
-    jQuery.get("./csv/web-lists/outside-locations-list.csv", function (data) {
-        jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data2) {
-            console.log("adding sidebar elements");
-            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
-            sidebarLoadCounter++;
-            if (sidebarLoadCounter === 3) {
-                addSidebarButtonClick();
-                viewer360Module.initAll360Videos();
-                initSidebarSticky();
-            }
-        }, 'text');
-    }, 'text');
+        jQuery.get("./csv/web-lists/south-locations-list.csv", function (data) {
+            jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data2) {
+                sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
+                sidebarLoadCounter++;
+                if (sidebarLoadCounter === 3) {
+                    addSidebarButtonClick();
+                    viewer360Module.initAll360Videos();
+                    initSidebarSticky();
 
-    let typingTimer;
-    // filter the search results on key up events
-    searchBarReg.addEventListener("keyup", function () {
-        clearTimeout(typingTimer);
+                    resolve(); // resolve promise once sidebar is done loading
+                }
+            }, 'text').fail(reject);
+        }, 'text').fail(reject);
 
-        typingTimer = setTimeout(function () {
-            filterSearchElements();
-        }, 150);
+        jQuery.get("./csv/web-lists/outside-locations-list.csv", function (data) {
+            jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data2) {
+                sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
+                sidebarLoadCounter++;
+                if (sidebarLoadCounter === 3) {
+                    addSidebarButtonClick();
+                    viewer360Module.initAll360Videos();
+                    initSidebarSticky();
 
+                    resolve(); // resolve promise once sidebar is done loading
+                }
+            }, 'text').fail(reject);
+        }, 'text').fail(reject);
+
+        searchTypeEvent();
     });
 }
 
@@ -252,8 +248,21 @@ function addSidebarButtonClick() {
     }
 }
 
-// locatin search filtering
-// TODO bonus: merge with gallery searching
+function searchTypeEvent() {
+    let typingTimer;
+    // filter the search results on key up events
+    searchBarReg.addEventListener("keyup", function () {
+        clearTimeout(typingTimer);
+
+        typingTimer = setTimeout(function () {
+            filterSearchElements();
+        }, 150);
+
+    });
+}
+
+// location search filtering
+// TODO bonus: merge with gallery searching (but theres no dropdowns there)
 function filterSearchElements() {
     let filter = searchBarReg.value.toUpperCase(); // comparison search string
     const sidebarLocationElements = $(".sidebar-list-2"); // get all the li location elements
@@ -316,6 +325,7 @@ function verifySectionCheck(sectionCheck) {
     }
 }
 
+// sidebar reveal display and animation
 function sidebarAnimReveal(sidebarElementJ) {
     sidebarElementJ.css("display", "block");
     sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
@@ -326,6 +336,7 @@ function sidebarAnimReveal(sidebarElementJ) {
     };
 }
 
+// sidebar hide display and animation
 function sidebarAnimHide(sidebarElementJ, setup) {
     sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
 
@@ -348,6 +359,7 @@ function sidebarAnimHide(sidebarElementJ, setup) {
     }
 }
 
+// Setup sidebar stick headers for search and sections
 function initSidebarSticky() {
     const searchHeight = searchBarReg.scrollHeight;
     const northSidebarButton = $("#north-sidebar-button");

@@ -24,11 +24,15 @@ window.activeMediaSecondary = undefined;
 * Initialization functions
 *
 * */
-// TODO: reorder map and sidebar init so we have the sidebar ids to scroll to for map links? or other method to do this
-mapEvents.initMap(); // Replace map SVG with inline SVG, attach media clickable events and setup map controls/interaction
-
-sidebar.initSidebar(); // Inject sidebar elements, attach clickable events, init searchbar, init 360Videos (defers till sidebar is loaded)
-// TODO: is this a concern if we do that reorder
+// Inject sidebar elements, attach clickable events, init searchbar, init 360Videos (defers till sidebar is loaded)
+// Replace map SVG with inline SVG, attach media clickable events and setup map controls/interaction
+Promise.all([sidebar.initSidebar(), mapEvents.initMap()]).then(() => {
+    jQuery.get("./csv/web-lists/map-id-list.csv", function (data) {
+        mapEvents.addMapLinksNew($.csv.toArrays(data)); // wait until both sidebar and map are loaded before adding map links
+    }, 'text');
+}).catch((error) => {
+    console.error(error);
+});
 
 mapMovement.initMapMovementEvents(); // Add map events to facilitate map movement
 
@@ -37,4 +41,3 @@ viewer360Module.init360ViewerControls(); // Add all 360 viewer controls (photo a
 linearVideo.initLinearVideoControls(); // Add all linear video controls
 
 // init 360 videos moved to sidebar since it must be deferred until sidebar is loaded
-
