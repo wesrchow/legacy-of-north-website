@@ -68,7 +68,7 @@ export function initSidebar() {
 
 // Inject sidebar elements and add 360Photo events
 function sidebarElement360PhotoInjection(locationArray, filenameArray, section) {
-    let selectionIDArray = []; // TODO: keep it global or no? its contents are needed for the map selection, scrolling to sidebar entry
+    let selectionIDArray = [];
     let sectionID = sectionMenuSelectors[section];
     let injectionString;
 
@@ -172,7 +172,7 @@ function addSidebarButtonClick() {
             sidebarAnimHide(sidebarButtons.eq(i).next(), true);
         }
 
-        // sidebarClickTimeout[i] = false; // todo bonus: prevent fast double clicks
+        // sidebarClickTimeout[i] = false; // todo bonus: prevent fast double clicks for dropdown anims and other breakables when clicking around fast (latter seems to be fine now)
         // add click event to sidebar buttons
         sidebarButtons[i].addEventListener("click", function () {
             // if (sidebarClickTimeout[i]) return; // ignore clicks if already clicked
@@ -190,7 +190,7 @@ function addSidebarButtonClick() {
                     if (window.activeMediaSecondary !== this) {
                         // remove other active sub media, set new current as active secondary
                         window.activeMediaSecondary.classList.remove("active");
-                        $(window.activeMediaSecondary).data("mediaActive", false); console.log("false 1")
+                        $(window.activeMediaSecondary).data("mediaActive", false);
                         this.classList.add("active");
                         window.activeMediaSecondary = this;
                     }
@@ -202,22 +202,22 @@ function addSidebarButtonClick() {
                                  sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
                                 if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
                                     window.activeMediaSecondary.classList.remove("active"); // clear secondary active
-                                    $(window.activeMediaSecondary).data("mediaActive", false); console.log("false 2")
+                                    $(window.activeMediaSecondary).data("mediaActive", false);
                                     window.activeMediaSecondary = undefined;
                                 }
                         }
 
                         window.activeMedia.classList.remove("active");
-                        $(window.activeMedia).data("mediaActive", false); console.log("false 3")
+                        $(window.activeMedia).data("mediaActive", false);
                     }
 
                     window.activeMedia = this; // sets the new current active media
 
-                } else { // todo: must be self?, closes current media
+                } else { // must be self, closes current media
                     viewer360Module.close360Viewer();
                     linearVideo.closeLinearVideo();
-                    setTimeout(function () {
-                        $(window.activeMedia).data("mediaActive", false); console.log("false 4");
+                    setTimeout(function () { // delay to allow media opener click block to check first
+                        $(window.activeMedia).data("mediaActive", false);
                         window.activeMedia = undefined;
                     }, 8);
 
@@ -240,7 +240,7 @@ function addSidebarButtonClick() {
                         window.activeMediaSecondary = firstImage;
                     } else { // closing current dropdown
                         window.activeMediaSecondary.classList.remove("active");
-                        $(window.activeMediaSecondary).data("mediaActive", false); console.log("false 5")
+                        $(window.activeMediaSecondary).data("mediaActive", false);
                         window.activeMediaSecondary = undefined;
                     }
 
