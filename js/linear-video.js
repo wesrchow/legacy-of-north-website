@@ -24,14 +24,14 @@ const sectionFilepath = ["", "north", "south", "outside"];
 export function initLinearVideoControls() {
     // linear video exit button
     exitLinearViewer.click(function () {
-        closeLinearVideo();
+        window.activeMedia.click();
     });
 
     // escape shortcut to exit viewer
     $(document).keyup(function (e) {
         // note: always active on the virtual tour page. kept this way so we can always close the viewer in case something else goes wrong
         if (e.key === "Escape") {
-            closeLinearVideo();
+            window.activeMedia.click();
         }
     });
 }
@@ -39,7 +39,7 @@ export function initLinearVideoControls() {
 // creates and adds linear video event to input selector using input media info
 export function createLinearVideoEvent(selectorIDString, contentVideoFilename, section) {
     $(`#${selectorIDString}`).click(function () {
-        if (!window.lockMapSelection) {
+        if (!window.lockMapSelection && $(this).data("mediaActive") !== true) {
             // close any prior 360 photo & video, clean linear video
             viewer360Module.close360Viewer();
             destroyLinearVideo();
@@ -70,6 +70,8 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
             }); // todo: finalize these options and do proper pathing
 
             window.lockDrag = true; // lock map movement
+
+            $(this).data("mediaActive", true);
         }
     });
 }

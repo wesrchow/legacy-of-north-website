@@ -179,31 +179,36 @@ function addSidebarButtonClick() {
             // sidebarClickTimeout[i] = true;
             // setTimeout(function () { sidebarClickTimeout[i] = false; }, 400);
 
-            this.classList.toggle("active");
+            if (window.activeMediaSecondary !== this) {
+                this.classList.toggle("active");
+            }
 
             // active buttons handling
             if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
                 if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media within same dropdown
 
-                    if (window.activeMediaSecondary !== self) {
+                    if (window.activeMediaSecondary !== this) {
                         // remove other active sub media, set new current as active secondary
                         window.activeMediaSecondary.classList.remove("active");
+                        $(window.activeMediaSecondary).data("mediaActive", false); console.log("false 1")
                         this.classList.add("active");
                         window.activeMediaSecondary = this;
                     }
 
                 } else if (window.activeMedia !== this) { // if not clicking same media again
 
-                    if (window.activeMedia !== undefined) { // not first button
+                    if (window.activeMedia !== undefined) { // not first button / only button action
                          if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
                                  sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
                                 if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
                                     window.activeMediaSecondary.classList.remove("active"); // clear secondary active
+                                    $(window.activeMediaSecondary).data("mediaActive", false); console.log("false 2")
                                     window.activeMediaSecondary = undefined;
                                 }
                         }
 
                         window.activeMedia.classList.remove("active");
+                        $(window.activeMedia).data("mediaActive", false); console.log("false 3")
                     }
 
                     window.activeMedia = this; // sets the new current active media
@@ -211,7 +216,11 @@ function addSidebarButtonClick() {
                 } else { // todo: must be self?, closes current media
                     viewer360Module.close360Viewer();
                     linearVideo.closeLinearVideo();
-                    window.activeMedia = undefined;
+                    setTimeout(function () {
+                        $(window.activeMedia).data("mediaActive", false); console.log("false 4");
+                        window.activeMedia = undefined;
+                    }, 8);
+
                 }
             }
 
@@ -227,9 +236,11 @@ function addSidebarButtonClick() {
                         // active first image when opening a media dropdown
                         let firstImage = dropdownContent.firstChild.firstChild;
                         firstImage.classList.toggle("active");
+                        $(firstImage).data("mediaActive", true);
                         window.activeMediaSecondary = firstImage;
                     } else { // closing current dropdown
                         window.activeMediaSecondary.classList.remove("active");
+                        $(window.activeMediaSecondary).data("mediaActive", false); console.log("false 5")
                         window.activeMediaSecondary = undefined;
                     }
 
