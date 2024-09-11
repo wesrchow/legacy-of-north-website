@@ -66,10 +66,10 @@ export function init360ViewerControls() {
         window.activeMedia.click();
     });
 
-    // escape shortcut to exit viewer
+    // escape shortcut to exit BOTH 360 viewer and linear video
     $(document).keyup(function (e) {
         // note: always active on the virtual tour page. kept this way so we can always close the viewer in case something else goes wrong
-        if (e.key === "Escape") {
+        if (e.key === "Escape" && window.activeMedia !== undefined) {
             window.activeMedia.click();
         }
     });

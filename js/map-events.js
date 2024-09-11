@@ -6,9 +6,8 @@ import * as viewer360Module from "./360-viewer.js";
 import * as linearVideo from "./linear-video.js";
 
 // repeated locations helper
-const repeatedMapLocations = ["North_Stairway1_360Photo_1_Web", "North_Stairway2_360Photo_1_Web", "North_Stairway3_360Photo_1_Web", "North_Stairway4_360Photo_2_Web",
-    "North_Stairway1_360Photo_2_Web", "North_Stairway2_360Photo_2_Web", "North_Stairway3_360Photo_2_Web", "North_Stairway4_360Photo_3_Web", "South_Stairway3_360Photo_Web",
-    "South_Stairway2_360Photo_Web", "South_Stairway4_LinearVideo_Web"];
+const repeatedMapLocations = ["north-stairway-1-map", "north-stairway-12-map", "north-stairway-2-map", "north-stairway-22-map", "north-stairway-3-map",
+    "north-stairway-32-map", "north-stairway-42-map", "north-stairway-43-map", "south-stairway-3-map", "south-stairway-2-map", "south-stairway-4-map"];
 
 // replace map SVG with inline SVG, attach 360Photo click events and setup map menu
 export function initMap() {
@@ -108,25 +107,52 @@ function addMediaMapLinks(filenameArray, section) {
 
 export function addMapLinksNew(idArray) {
     for (let i = 1; i < idArray.length; i++) {
-        let mapIDSelector = $(`#${idArray[i]}`);
-        let sidebarIDSelector = $(`#${idArray[i].toString().slice(0,-4)}`); // sidebar button to click
-        let sectionLink = sidebarIDSelector.parent().parent().prev(); // get the section of the location
+        let mapIDString = idArray[i].toString();
+        let mapIDSelector = $(`#${mapIDString}`);
+        let sidebarIDSelector = $(`#${mapIDString.slice(0,-4)}`); // sidebar button to click
+        let sectionLink;
+        let dropdownLink = undefined;
 
-        mapIDSelector.addClass("location"); // give location link custom css
+        if (sidebarIDSelector.parent().hasClass("sidebar-list-3")) {
+            sectionLink = sidebarIDSelector.parent().parent().parent().parent().prev(); // get the section of the location
+            dropdownLink = sidebarIDSelector.parent().parent().prev(); // get the dropdown of the location
+        } else {
+            sectionLink = sidebarIDSelector.parent().parent().prev(); // get the section of the location
+        }
 
-        // add click event to map location that triggers sidebar click
-        mapIDSelector.click(function () {
-            if (!window.lockMapSelection) {
-                if (!sectionLink.hasClass("active")) { // open relevant section once
-                    sectionLink[0].click();
-                }
+        if (mapIDSelector.length) {
+            addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink);
 
-                setTimeout(() => {
-                    sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: do something better than a timeout?
-                }, 130);
-
-                sidebarIDSelector[0].click();
+            if (repeatedMapLocations.includes(mapIDString)) {
+                addMapLinkClickNew($(`#${mapIDString + "-repeat"}`), sidebarIDSelector, sectionLink, dropdownLink);
             }
-        });
+        } else {
+            console.log(idArray[i] + " does not exist");
+        }
     }
+}
+
+function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink) {
+    mapIDSelector.addClass("location"); // give location link custom css
+
+    // add click event to map location that triggers sidebar click
+    mapIDSelector.click(function () {
+        if (!window.lockMapSelection) {
+            if (!sectionLink.hasClass("active")) { // open relevant section once
+                sectionLink[0].click();
+            }
+
+            if (dropdownLink !== undefined && !dropdownLink.hasClass("active")) { // open relevant dropdown once
+                dropdownLink.data("mediaActive", true); // stop the dropdown from rendering the first image event todo bonus: make sure this always fires before the click and check
+                dropdownLink[0].click();
+            }
+
+            setTimeout(() => {
+                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: fix block center? shifting when theres sub buttons
+            }, 130);// todo: do something better than a timeout?
+
+            sidebarIDSelector[0].click();
+        }
+    });
+
 }

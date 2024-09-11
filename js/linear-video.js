@@ -27,13 +27,14 @@ export function initLinearVideoControls() {
         window.activeMedia.click();
     });
 
+    // todo: remove so we dont double trigger since now we exit by reclicking the media button
     // escape shortcut to exit viewer
-    $(document).keyup(function (e) {
-        // note: always active on the virtual tour page. kept this way so we can always close the viewer in case something else goes wrong
-        if (e.key === "Escape") {
-            window.activeMedia.click();
-        }
-    });
+    // $(document).keyup(function (e) {
+    //     // note: always active on the virtual tour page. kept this way so we can always close the viewer in case something else goes wrong
+    //     if (e.key === "Escape") {
+    //         window.activeMedia.click();
+    //     }
+    // });
 }
 
 // creates and adds linear video event to input selector using input media info

@@ -185,15 +185,15 @@ function addSidebarButtonClick() {
 
             // active buttons handling
             if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
-                if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media within same dropdown
+                if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 
-                    if (window.activeMediaSecondary !== this) {
+                    if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown
                         // remove other active sub media, set new current as active secondary
                         window.activeMediaSecondary.classList.remove("active");
                         $(window.activeMediaSecondary).data("mediaActive", false);
                         this.classList.add("active");
                         window.activeMediaSecondary = this;
-                    }
+                    } // otherwise it's a map clicking a sub media and we simulate a dropdown click to open it
 
                 } else if (window.activeMedia !== this) { // if not clicking same media again
 
@@ -250,7 +250,8 @@ function addSidebarButtonClick() {
                 if (dropdownContent.style.display === "none") {
                     sidebarAnimReveal(dropdownContentJ);
                 } else {
-                    sidebarAnimHide(dropdownContentJ, false);
+                    sidebarAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably
+                    // reading 0 because of the display none)
                 }
             }
 

@@ -93,119 +93,119 @@
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 0.25,228.71597 h 90.26 v 60.23 H 0.25 Z"
-       id="Aux_Gym_360Photo_1_Web" />
+       id="aux-gym-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 90.51,228.71597 h 13.99 l 7.45,43.8 H 90.51 Z"
-       id="Aux_Gym_Hallway_360Photo_Web" />
+       id="aux-gym-hallway-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 90.51,272.51597 h 21.44 l 20.71,-7.24 5.6,15.98 v 7.69 h -15.95 v 15.39 h -7.25 v -15.39 H 90.51 Z"
-       id="North_Stairway5_360Photo_Web" />
+       id="north-stairway-5-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 115.06,288.94597 v 30.22 H 0.25 v -30.22 z"
-       id="North_Bleachers_360Photo_1_Web" />
+       id="north-bleachers-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 149.84,277.20597 -11.58,4.05 v 7.69 h -15.95 v 15.39 h -7.25 v 113.97 l 24.11,7.27 10.67,-34.86 z"
-       id="Student_Services_360Photo_1_Web" />
+       id="student-services-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 200.92,406.11597 65.01075,19.59939 -10.5214,34.90096 L 190.4,441.02597 Z"
-       id="Gallery_360Photo_1_Web" />
+       id="gallery-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 294.92,434.45597 -6.23,20.64 19.52,5.88 6.23,-20.64 z"
-       id="North_Stairway3_360Photo_2_Web_Repeat" />
+       id="north-stairway-32-map-repeat" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 314.44,440.33597 -10.52,34.91 31.26,9.42 10.52,-34.9 z"
-       id="Room306_360Photo_Web" />
+       id="room-306-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 345.7,449.76597 34.56,10.42 -10.37,34.95 -34.71,-10.47 z"
-       id="Room308_360Photo_Web" />
+       id="room-308-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 380.26,460.18597 56.86,17.14 -10.52,34.9 -56.71,-17.09 z"
-       id="Room310_360Photo_1_Web" />
+       id="room-310-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 457.15,483.36597 28.97,8.73 -10.52,34.91 -28.97,-8.74 z"
-       id="Room312_360Photo_1_Web" />
+       id="room-312-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 486.12,492.09597 31.61,9.53 -10.52,34.91 -31.61,-9.53 z"
-       id="Room314_360Photo_Web" />
+       id="room-314-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 517.73,501.62597 34.04,10.26 -10.53,34.91 -34.03,-10.26 z"
-       id="Room316_360Photo_Web" />
+       id="room-316-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 551.77,511.88597 19.52,5.89 -6.22,20.64 -19.53,-5.89 z"
-       id="North_Stairway1_360Photo_2_Web_Repeat" />
+       id="north-stairway-12-map-repeat" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 545.54,532.52597 19.53,5.89 -8.53,28.29 -112.55,-33.94 -3.89,12.89 -19.53,-5.88 3.9,-12.89 -289.38,-87.25 -1.45,5 -9.55,-2.77 h -9.03 v -23.56 l 169.34,51.05 4.29,-14.26 19.52,5.88 -4.29,14.27 237.32,71.55 z"
-       id="North_3rd_Floor_360Video" />
+       id="north-3rd-floor-hallway-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 500.66,549.85597 37.52,11.31 -10.11,33.53 -37.52,-11.31 z"
-       id="Room319_360Photo_Web" />
+       id="room-319-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 471.8,541.15597 28.465,8.58 -9.715,33.65 -28.86,-8.7 z"
-       id="Room317_360Photo_Web" />
+       id="room-317-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 471.8,541.15597 -27.81,-8.39 -10.11,33.54 27.81,8.38 z"
-       id="Room315_360Photo_1_Web" />
+       id="room-315-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 420.57,539.77597 19.53,5.88 -6.22,20.65 -19.52,-5.89 z"
-       id="North_Stairway2_360Photo_2_Web_Repeat" />
+       id="north-stairway-22-map-repeat" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 424.47,526.88597 -10.11,33.53 -31.72,-9.56 10.11,-33.53 z"
-       id="Room313_360Photo_Web" />
+       id="room-313-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 392.75,517.32597 -36.15,-10.9 -10.11,33.53 36.15,10.9 z"
-       id="Room311_360Photo_Web" />
+       id="room-311-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 356.6,506.42597 -14.85,-4.48 -10.11,33.53 14.85,4.48 z"
-       id="Darkroom_360Photo_1_Web" />
+       id="darkroom-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 341.75,501.94597 -10.11,33.53 -36.87,-11.11 10.11,-33.53 z"
-       id="Room309_360Photo_1_Web" />
+       id="room-309-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 304.88,490.83597 -32.61,-9.84 -10.11,33.54 32.61,9.83 z"
-       id="Room307_360Photo_Web" />
+       id="room-307-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 272.27,480.99597 -36.44,-10.98 -10.11,33.53 36.44,10.99 z"
-       id="Room305_360Photo_Web" />
+       id="room-305-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 235.83,470.01597 -32.7,-9.86 -10.11,33.53 32.7,9.86 z"
-       id="Room303_360Photo_Web" />
+       id="room-303-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 203.13,460.15597 -68.04,-20.52 -9.86,33.61 67.79,20.44 z"
-       id="North_3rd_Floor_Staffroom_360Photo_1_Web" />
+       id="north-3rd-floor-staffroom-map" />
     <path
        style="fill:#f9f9f9;stroke:none;stroke-width:6.29291;stop-color:#000000"
        d="m 133.64,444.63597 -9.55,-2.77 h -9.03 v 18.5 l 12.92,3.75 z"
-       id="North_Stairway4_360Photo_3_Web_Repeat" />
+       id="north-stairway-43-map-repeat" />
     <path
        style="fill:#f2f2f2;stroke:none;stop-color:#000000"
        d="m 265.93075,425.71536 19.07458,5.74805 -10.51972,34.90907 -19.07505,-5.75246 z"
-       id="Room304_360Photo_1_Web" />
+       id="room-304-map" />
   </g>
   <g
      id="layer1"
