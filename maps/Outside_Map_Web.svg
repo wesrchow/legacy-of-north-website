@@ -59,143 +59,143 @@
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 220.85936,220.73213 0.01,16.5 h -48.99 l -4.97,-16.5 z"
-       id="North_Perimeter_360Photo_1_Web" />
+       id="north-perimeter-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 359.92936,248.03213 v 16.5 h -43.74 v -16.5 z"
-       id="Buildings_Walkway_360Photo_2_Web" />
+       id="buildings-walkway2-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 359.92936,248.03213 h 37.04 l 6.71,16.5 h -43.745 z"
-       id="Buildings_Walkway_360Photo_3_Web" />
+       id="buildings-walkway3-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 396.96936,248.03213 h 16.5 l 9.83,24.17 h 27.04 v 16.5 h -16.5 -54.08 v -16.5 h 27.04 z"
-       id="Buildings_Walkway_360Photo_4_Web" />
+       id="buildings-walkway4-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 450.33936,288.70213 v 6.77 l 12.23,56.17 -15.74998,3.43011 -12.98002,-59.60011 v -6.77 z"
-       id="South_Perimeter_360Photo_1_Web" />
+       id="south-perimeter-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 462.56936,351.64213 -15.75,3.43 12.98,59.6 h 16.5 z"
-       id="South_Perimeter_360Photo_2_Web" />
+       id="south-perimeter2-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 476.29936,446.38213 -16.53997,-0.0209 v -31.68914 h 16.53997 z"
-       id="South_Perimeter_360Photo_3_Web" />
+       id="south-perimeter3-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 476.29936,446.38213 v 15.58 h -25.26 v -15.58 z"
-       id="South_Perimeter_360Photo_4_Web" />
+       id="south-perimeter4-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 461.00936,545.40213 v 54.8 h -25.9 v -24.80995 h 5.7 v -22.25005 h 3.7 v -7.74 z"
-       id="South_Perimeter_360Photo_5_Web" />
+       id="south-perimeter5-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 435.10936,600.20213 h -46.18 v -16.49995 h 46.18 z"
-       id="South_Perimeter_360Photo_6_Web" />
+       id="south-perimeter6-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 388.92936,600.20213 h -36.31 v -21.52 l 36.31,5e-5 z"
-       id="South_Perimeter_360Photo_7_Web" />
+       id="south-perimeter7-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 346.71936,578.68213 h 22.4 v -28.71 l 7.44,5e-5 v -4.92 h -13.35 v -49.14005 h -16.49 z"
-       id="South_Perimeter_360Photo_8_Web" />
+       id="south-perimeter8-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 379.75936,288.70213 h 16.49 v 166.55 l -4,5e-5 v -20.49 l -24.98,-5e-5 v -16.5 h 12.49 z"
-       id="South_Perimeter_360Photo_9_Web" />
+       id="south-perimeter9-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 367.26936,410.44213 h -84.11 v 16.49005 h 74.06 v 28.32 l 10.05,-5e-5 z"
-       id="Language_Wing_Side_LinearVideo_Web" />
+       id="language-wing-side-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 283.15936,461.96213 h -33 v -170.12 h 16.5 v 118.6 h 16.5 z"
-       id="Language_Wing_Overpass_Entrance_LinearVideo_Web" />
+       id="language-wing-outside-entrance-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 316.18936,237.22213 h -16.5 v 54.62 h 16.5 z"
-       id="Buildings_Walkway_360Photo_1_Web" />
+       id="buildings-walkway-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 316.18936,220.73213 v 16.49 h -37.89 v -16.49 z"
-       id="North_Perimeter_360Photo_3_Web" />
+       id="north-perimeter3-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 299.68936,275.34213 v 16.5 h -40.93 l -8.5e-4,-16.4979 z"
-       id="North_Perimeter_360Photo_4_Web" />
+       id="north-perimeter4-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 258.74936,275.35213 h -55.02 v 16.49 h 55.03 z"
-       id="North_Perimeter_360Photo_5_Web" />
+       id="north-perimeter5-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 203.72936,275.35213 h -60.14 c 0,0 0,16.49 0,16.49 h 60.14 z"
-       id="North_Perimeter_360Photo_6_Web" />
+       id="north-perimeter6-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 143.58936,275.35213 v 16.49 h -38.32 l -6.23,-20.65 h 5.95 l 2.1e-4,4.16 z"
-       id="North_Perimeter_360Photo_7_Web" />
+       id="north-perimeter7-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 66.949356,296.57213 -28.011229,8.44593 -9.27232,-30.77787 15.790191,-4.76372 4.943358,16.38566 12.210004,-3.68 z"
-       id="North_Perimeter_360Photo_8_Web" />
+       id="north-perimeter8-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 45.455998,269.47647 -15.146642,-50.23434 -15.8,4.76 15.15,50.24 z"
-       id="North_Perimeter_360Photo_9_Web" />
+       id="north-perimeter9-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 16.039356,171.91213 -15.79999975,4.76 14.26999975,47.33 15.793353,-4.76026 z"
-       id="North_Perimeter_360Photo_10_Web" />
+       id="north-perimeter10-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 16.039356,171.91213 44.16,-13.32 59.150004,-43.07 8.76,12.88 -63.140004,45.99 -44.173616,13.308 z"
-       id="North_Perimeter_360Photo_11_Web" />
+       id="north-perimeter11-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 112.67936,105.69213 60.31,-43.930005 9.71,13.33 -60.75,44.250005 z"
-       id="North_Perimeter_360Photo_12_Web" />
+       id="north-perimeter12-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 159.82936,43.702125 14.43,19.81 36.01,-26.23 -4.71,-6.47 10.37,-7.56 -9.71,-13.34 z"
-       id="North_Perimeter_360Photo_13_Web" />
+       id="north-perimeter13-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 206.21936,9.912125 13.34,-9.70999996 45.13,61.95999996 -13.31033,9.705654 z"
-       id="North_Perimeter_360Photo_14_Web" />
+       id="north-perimeter14-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 264.68936,62.162125 9.71,13.34 -35.4,25.790005 -9.71171,-13.332688 z"
-       id="North_Perimeter_360Photo_15_Web" />
+       id="north-perimeter15-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 229.28765,87.959442 9.71171,13.332688 -29.01,21.13 -9.72,-13.33 z"
-       id="North_Perimeter_360Photo_16_Web" />
+       id="north-perimeter16-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 200.26936,109.09213 9.72,13.33 -29.89,21.77 -9.71,-13.33 z"
-       id="North_Perimeter_360Photo_17_Web" />
+       id="north-perimeter17-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 170.38936,130.86213 -25.08,18.26 5.05,16.73 29.74,-21.66 z"
-       id="North_Perimeter_360Photo_18_Web" />
+       id="north-perimeter18-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 145.30936,149.12213 26.57,88.11 h -67 l -14.500004,-48.09 z"
-       id="North_Courtyard_360Photo_1_Web" />
+       id="north-courtyard-map" />
     <path
        style="opacity:1;fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00157;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 220.85936,220.73213 h 57.44 v 16.49 l -57.43,0.01 z"
-       id="North_Perimeter_360Photo_2_Web" />
+       id="north-perimeter2-map" />
     <path
        style="opacity:0;fill:#fefefe;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.710287;stroke-dasharray:none;stroke-opacity:1;stop-color:#000000"
        d="m 293.13489,244.14073 v 24.2828 h -49.16455 l -0.006,-24.27826 z"
-       id="North_Roof_360Photo_1_Web" />
+       id="north-roof-map" />
   </g>
   <g
      id="layer2"
