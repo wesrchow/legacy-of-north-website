@@ -22,3 +22,12 @@
 .no-transition {
     transition: none !important;
 }
+
+/*
+    Pannellum
+*/
+.pnlm-controls-container {
+    opacity: 0.8;
+    inset: auto 16px 16px auto;
+    z-index: 6;
+}

@@ -11,7 +11,7 @@ const mapContainer = $("#map-container");
 // 360 viewer jquery selectors
 const viewer360Container = $("#viewer-360-container");
 const viewer360ContainerSecondary = $("#viewer-360-container-secondary");
-const exit360Viewer = $("#exit-360-viewer");
+const exitMediaButton = $("#exit-media-button");
 const video360Range = $("#video-360-range");
 const video360ButtonPrev = $("#video-360-button-prev");
 const video360ButtonNext = $("#video-360-button-next");
@@ -21,48 +21,48 @@ const sectionFilepath = ["", "north", "south", "outside"];
 
 
 // Sets up all 360Videos
-export function initAll360Videos() {
+export function init360Videos() {
     jQuery.get("./csv/360Video/north-1st-floor-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 240, 44, 1);
+        add360VideoLinks($.csv.toArrays(data), 240, 44, 1);
     }, 'text');
 
     jQuery.get("./csv/360Video/north-2nd-floor-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
+        add360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
 
     jQuery.get("./csv/360Video/north-3rd-floor-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 240, 46, 1);
+        add360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
 
     jQuery.get("./csv/360Video/north-foyer-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 230, 17, 1);
+        add360VideoLinks($.csv.toArrays(data), 230, 17, 1);
     }, 'text');
 
     jQuery.get("./csv/360Video/south-1st-floor-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 230, 32, 2);
+        add360VideoLinks($.csv.toArrays(data), 230, 32, 2);
     }, 'text');
 
     jQuery.get("./csv/360Video/south-2nd-floor-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 230, 31, 2);
+        add360VideoLinks($.csv.toArrays(data), 230, 31, 2);
     }, 'text');
 
     jQuery.get("./csv/360Video/south-foyer-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 65, 18, 2);
+        add360VideoLinks($.csv.toArrays(data), 65, 18, 2);
     }, 'text');
 
     jQuery.get("./csv/360Video/south-tech-ed-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 230, 8, 2);
+        add360VideoLinks($.csv.toArrays(data), 230, 8, 2);
     }, 'text');
 
     jQuery.get("./csv/360Video/sports-centre-filenames.csv", function (data) {
-        addAll360VideoLinks($.csv.toArrays(data), 230, 8, 2);
+        add360VideoLinks($.csv.toArrays(data), 230, 8, 2);
     }, 'text');
 }
 
 // Sets up 360 viewer controls
 export function init360ViewerControls() {
     // 360 viewer exit button
-    exit360Viewer.click(function () {
+    exitMediaButton.click(function () {
         window.activeMedia.click();
     });
 
@@ -77,7 +77,8 @@ export function init360ViewerControls() {
 
 // Creates and adds 360Photo viewer event to input selector using input media info
 export function create360PhotoViewerEvent(selectorIDString, content360Filename, section) {
-    $(`#${selectorIDString}`).click(function () {
+    $(`#${selectorIDString}`).click(function (e) {
+        e.preventDefault()
         if (!window.lockMapSelection && $(this).data("mediaActive") !== true) {
             setTimeout(function () { // todo: stall clicks when loading media and filter to do this stall for only dropdowns
                 // cleans up any prior 360 video, pannellum renderers and linear video
@@ -92,7 +93,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 
                 // reveal 360 viewer things
                 viewer360Container.removeClass("hidden");
-                exit360Viewer.removeClass("hidden");
+                exitMediaButton.removeClass("hidden");
 
                 window.lockDrag = true; // lock map movement
 
@@ -115,9 +116,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 
 
 // adds all 360 video links to the map and sidebar
-function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, section) {
-    const mapSelector = $(`#${filename360VideoArray[0][0].toString()}`);
-
+function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section) {
     // find the relevant sidebar ID through some manipulation
     let sidebarSelectorString = filename360VideoArray[0][0].toString();
     sidebarSelectorString = sidebarSelectorString.substring(0, sidebarSelectorString.length - 9); // gets rid of _360Video
@@ -127,19 +126,15 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
     }
     const sidebarSelector = $(`#${sidebarSelectorString}`);
 
-    // combine the two selectors so we add the same click event to both
-    const video360Selectors = mapSelector.add(sidebarSelector);
-
     let video360TargetToggle = true; // controls alternating between the two 360 viewers
     let videoPos = 1;
     let tempPrevViewer; // holds current viewer until we transition where it's treated as the previous viewer and altered accordingly
     let content360Filename;
     let moveTimeout = false; // used to timeout 360 video clicks
 
-    mapSelector.addClass("location"); // add css class that gives the hover effect to just map
-
-    // add click event to both map and sidebar
-    video360Selectors.click(function () {
+    // add click event to sidebar
+    sidebarSelector.click(function (e) {
+        e.preventDefault()
         if (!window.lockMapSelection && $(this).data("mediaActive") !== true) {
             // cleans up any prior 360 video, pannellum renderers and linear video
             clean360Video();
@@ -153,7 +148,7 @@ function addAll360VideoLinks(filename360VideoArray, initialYaw, fileCount, secti
 
             // reveal and bring to foreground main 360 viewer
             viewer360Container.removeClass("hidden");
-            exit360Viewer.removeClass("hidden");
+            exitMediaButton.removeClass("hidden");
             // reset secondary viewer to initial state
             viewer360ContainerSecondary.addClass("hidden-opacity-360video");
             viewer360ContainerSecondary.removeClass("hidden");
@@ -313,7 +308,7 @@ export function close360Viewer() {
 
     // hide 360 viewer elements
     viewer360Container.addClass("hidden");
-    exit360Viewer.addClass("hidden");
+    exitMediaButton.addClass("hidden");
     clean360Video(); // cleans up any prior 360 video
     destroyAll360Viewers(); // cleans up any prior pannellum renderers
 

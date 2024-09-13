@@ -88,7 +88,8 @@ $(document).ready(function () {
 
         // go through all the gallery menu items and add click functions
         for (let i = 0; i < galleryMenu.children().length; i++) {
-            galleryMenu.children().eq(i).click(function () {
+            galleryMenu.children().eq(i).click(function (e) {
+                e.preventDefault()
                 // delete any previous gallery content
                 try {
                     mediaContainer.children().eq(0).nanogallery2("destroy");

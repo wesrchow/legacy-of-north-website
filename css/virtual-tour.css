@@ -68,14 +68,14 @@
 
 
 
-.exit-360-container {
+.exit-media-button-container {
     position: absolute;
     z-index: 5;
     display: flex;
     right: 0;
 }
 
-.exit-360-viewer {
+.exit-media-button {
     background-color: #414141;
     color: white;
     border: none;
@@ -92,18 +92,6 @@
     z-index: 5;
     display: flex;
     right: 0;
-}
-
-.exit-linear-video {
-    background-color: #414141;
-    color: white;
-    border: none;
-    height: 60px;
-    width: 90px;
-    text-align: center;
-    text-decoration: none;
-    margin: 10px;
-    opacity: 80%;
 }
 
 .video-360-button {

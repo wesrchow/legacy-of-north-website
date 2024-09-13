@@ -136,7 +136,8 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
     mapIDSelector.addClass("location"); // give location link custom css
 
     // add click event to map location that triggers sidebar click
-    mapIDSelector.click(function () {
+    mapIDSelector.click(function (e) {
+        e.preventDefault()
         if (!window.lockMapSelection) {
             if (!sectionLink.hasClass("active")) { // open relevant section once
                 sectionLink[0].click();

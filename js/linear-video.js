@@ -10,7 +10,7 @@ const mapContainer = $("#map-container");
 
 // linear video jquery selectors
 let videoContainer = $("#video-container");
-const exitLinearViewer = $("#exit-linear-video");
+const exitMediaButton = $("#exit-media-button");
 
 // other jquery selectors
 const mediaContainer = $("#media-container");
@@ -22,24 +22,14 @@ const sectionFilepath = ["", "north", "south", "outside"];
 
 // set up linear video controls
 export function initLinearVideoControls() {
-    // linear video exit button
-    exitLinearViewer.click(function () {
-        window.activeMedia.click();
-    });
-
-    // todo: remove so we dont double trigger since now we exit by reclicking the media button
-    // escape shortcut to exit viewer
-    // $(document).keyup(function (e) {
-    //     // note: always active on the virtual tour page. kept this way so we can always close the viewer in case something else goes wrong
-    //     if (e.key === "Escape") {
-    //         window.activeMedia.click();
-    //     }
-    // });
+    // removed since we synced media exit buttons
+    // todo: add anything for video js controls?
 }
 
 // creates and adds linear video event to input selector using input media info
 export function createLinearVideoEvent(selectorIDString, contentVideoFilename, section) {
-    $(`#${selectorIDString}`).click(function () {
+    $(`#${selectorIDString}`).click(function (e) {
+        e.preventDefault()
         if (!window.lockMapSelection && $(this).data("mediaActive") !== true) {
             // close any prior 360 photo & video, clean linear video
             viewer360Module.close360Viewer();
@@ -55,7 +45,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
 
             // reveal linear video things
             videoContainer.removeClass("hidden");
-            exitLinearViewer.removeClass("hidden");
+            exitMediaButton.removeClass("hidden");
 
             // initialize video js and set params (required to be after reveal)
             console.log(contentVideoFilename);
@@ -89,7 +79,7 @@ export function closeLinearVideo() {
 
     // hide linear video elements
     videoContainer.addClass("hidden");
-    exitLinearViewer.addClass("hidden");
+    exitMediaButton.addClass("hidden");
 
     // reset the map in case we resize while the linear video is open
     // necessary because window resize check doesn't work when map is hidden

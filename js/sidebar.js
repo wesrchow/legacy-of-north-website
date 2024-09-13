@@ -26,7 +26,7 @@ export function initSidebar() {
                 sidebarLoadCounter++;
                 if (sidebarLoadCounter === 3) {
                     addSidebarButtonClick();
-                    viewer360Module.initAll360Videos();
+                    viewer360Module.init360Videos();
                     initSidebarSticky();
 
                     resolve(); // resolve promise once sidebar is done loading
@@ -40,7 +40,7 @@ export function initSidebar() {
                 sidebarLoadCounter++;
                 if (sidebarLoadCounter === 3) {
                     addSidebarButtonClick();
-                    viewer360Module.initAll360Videos();
+                    viewer360Module.init360Videos();
                     initSidebarSticky();
 
                     resolve(); // resolve promise once sidebar is done loading
@@ -54,7 +54,7 @@ export function initSidebar() {
                 sidebarLoadCounter++;
                 if (sidebarLoadCounter === 3) {
                     addSidebarButtonClick();
-                    viewer360Module.initAll360Videos();
+                    viewer360Module.init360Videos();
                     initSidebarSticky();
 
                     resolve(); // resolve promise once sidebar is done loading
