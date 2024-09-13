@@ -119,13 +119,15 @@
 
         <!-- 360 Viewer Controls -->
         <div class="exit-media-button-container">
-            <button class="exit-media-button hidden" id="exit-media-button"><img src="test-media/close-button.png" alt=""></button>
+            <button class="exit-media-button hidden" id="exit-media-button"><img src="test-media/close-button.png" alt="X" draggable="false"></button>
         </div>
 
         <!-- 360Video Interface -->
-        <div class="video-360-container">
-            <button id="video-360-button-prev" class="video-360-button hidden">previous</button>
-            <button id="video-360-button-next" class="video-360-button hidden">next</button>
+        <div class="video-360-controls-container">
+            <div class="video-360-buttons-container">
+                <button id="video-360-button-prev" class="video-360-button hidden">◄  Back</button>
+                <button id="video-360-button-next" class="video-360-button hidden">Next  ►</button>
+            </div>
 
             <input id="video-360-range" class="video-360-range hidden" type="range" min="1" max="30" step="1" value="1">
         </div>

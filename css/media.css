@@ -91,7 +91,7 @@ body, html {
 .sidebar {
     /*float: left;*/
     height: 100%;
-    width: 28em;
+    width: 28.5em;
     padding: 0;
     /*!*position: fixed; !* Fixed Sidebar (stay in place on scroll) *!*!*/
     z-index: 1; /* Stay on top */

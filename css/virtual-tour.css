@@ -86,6 +86,7 @@
     height: 35px;
     width: 35px;
     cursor: pointer;
+    user-select: none;
 
     display: flex;
     justify-content: center;
@@ -96,21 +97,56 @@
 }
 
 .exit-media-button img {
-    height: 16px;
-    width: 16px;
+    height: 15px;
+    width: 15px;
+}
+
+.video-360-controls-container {
+    width: 100%;
+    position: absolute;
+    pointer-events: none;
+
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 5;
+    bottom: 0;
+    text-align: center;
+}
+
+.video-360-buttons-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 .video-360-button {
-    width: 100px;
-    height: 40px;
-    display: inline-block;
+    font-size: 1em;
+    width: 5.5em;
+    height: 2.5em;
+    line-height: 2.5em;
+    cursor: pointer;
+    opacity: 85%;
+
+    white-space: pre;
+    text-align: center;
+    padding: 0;
+    margin: 0 25px;
+
+    pointer-events: auto;
 }
 
 .video-360-range {
-    display: block;
-    width: 90%;
-    padding: 10px 0;
-    margin: auto;
+    width: 80%;
+    cursor: pointer;
+    opacity: 85%;
+
+    margin: 16px 0;
+
+    pointer-events: auto;
 }
 
 .map-layer-menu-container {
@@ -196,15 +232,6 @@
     opacity: 1;
     position: absolute !important;
     transition: none;
-}
-
-.video-360-container {
-    display: block;
-    width: 100%;
-    position: absolute;
-    z-index: 5;
-    bottom: 0;
-    text-align: center;
 }
 
 

@@ -190,7 +190,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     videoPos++
 
-                    if (videoPos >= fileCount) { // if we're past the range, hold position
+                    if (videoPos > fileCount) { // if we're past the range, hold position
                         videoPos--;
                     } else {
                         video360Range.val(videoPos);
@@ -200,6 +200,10 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                 timeoutLock(); // always lock after a move
             });
+
+            // disable previous button initially
+            video360ButtonPrev.prop("disabled", true);
+            video360ButtonPrev.css("cursor", "default");
 
             // 360 video previous button event
             video360ButtonPrev.click(function () {
@@ -225,7 +229,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 if (!moveTimeout) {
                     timeoutCountdown();
 
-                    videoPos = video360Range.val();
+                    videoPos = parseInt(video360Range.val());
                     triggerVideo360Transition();
                 }
 
@@ -235,8 +239,11 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
             // trigger timeout lock
             function timeoutLock() {
                 video360ButtonNext.prop("disabled", true);
+                video360ButtonNext.css("cursor", "default");
                 video360ButtonPrev.prop("disabled", true);
+                video360ButtonPrev.css("cursor", "default");
                 video360Range.prop("disabled", true);
+                video360Range.css("cursor", "default");
                 moveTimeout = true;
             }
 
@@ -244,9 +251,18 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
             function timeoutCountdown() {
                 // allow the timeout to expire when we allow a transition
                 setTimeout(function () {
-                    video360ButtonNext.prop("disabled", false);
-                    video360ButtonPrev.prop("disabled", false);
+                    if (videoPos !== fileCount) {
+                        video360ButtonNext.prop("disabled", false);
+                        video360ButtonNext.css("cursor", "pointer");
+                    }
+
+                    if (videoPos !== 1) {
+                        video360ButtonPrev.prop("disabled", false);
+                        video360ButtonPrev.css("cursor", "pointer");
+                    }
+
                     video360Range.prop("disabled", false);
+                    video360Range.css("cursor", "pointer");
                     moveTimeout = false;
                 }, 1200);
             }
