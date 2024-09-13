@@ -197,7 +197,7 @@ function addSidebarButtonClick() {
 
                 } else if (window.activeMedia !== this) { // if not clicking same media again
 
-                    if (window.activeMedia !== undefined) { // not first button / only button action
+                    if (window.activeMedia !== undefined) { // not first button / not only button action
                          if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
                                  sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
                                 if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself

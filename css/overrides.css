@@ -27,7 +27,7 @@
     Pannellum
 */
 .pnlm-controls-container {
-    opacity: 0.8;
+    opacity: 70%;
     inset: auto 16px 16px auto;
     z-index: 6;
 }

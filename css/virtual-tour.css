@@ -72,26 +72,32 @@
     position: absolute;
     z-index: 5;
     display: flex;
-    right: 0;
+    justify-content: center;
+    align-items: center;
+
+    inset: 16px 16px auto auto;
+    margin: 0;
 }
 
 .exit-media-button {
-    background-color: #414141;
-    color: white;
-    border: none;
-    height: 60px;
-    width: 90px;
-    text-align: center;
-    text-decoration: none;
-    margin: 10px;
-    opacity: 80%;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    height: 35px;
+    width: 35px;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+    opacity: 70%;
 }
 
-.exit-video-container {
-    position: absolute;
-    z-index: 5;
-    display: flex;
-    right: 0;
+.exit-media-button img {
+    height: 16px;
+    width: 16px;
 }
 
 .video-360-button {
