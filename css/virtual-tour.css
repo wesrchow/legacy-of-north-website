@@ -96,6 +96,10 @@
     opacity: 70%;
 }
 
+.exit-media-button:hover {
+    background-color: #c9c9c9;
+}
+
 .exit-media-button img {
     height: 15px;
     width: 15px;
@@ -125,9 +129,12 @@
 
 .video-360-button {
     font-size: 1em;
-    width: 5.5em;
-    height: 2.5em;
-    line-height: 2.5em;
+    width: 5.4em;
+    height: 2.4em;
+    line-height: 2.4em;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
     cursor: pointer;
     opacity: 85%;
 
@@ -137,6 +144,10 @@
     margin: 0 25px;
 
     pointer-events: auto;
+}
+
+.video-360-button:hover:enabled {
+    background-color: #c9c9c9;
 }
 
 .video-360-range {

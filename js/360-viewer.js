@@ -264,7 +264,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     video360Range.prop("disabled", false);
                     video360Range.css("cursor", "pointer");
                     moveTimeout = false;
-                }, 1200);
+                }, 1400);
             }
 
             // trigger for 360 video transition
