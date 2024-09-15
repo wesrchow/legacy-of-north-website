@@ -2,7 +2,6 @@
 
 import * as viewer360Module from "./360-viewer.js";
 import * as linearVideo from "./linear-video.js";
-import {startMediaClickTimeout} from "./360-viewer.js";
 
 // sidebar location menus
 const northLocationMenu = $("#north-location-menu");
@@ -223,7 +222,7 @@ function addSidebarButtonClick() {
 
                         // lock media clicks when closing self media
                         window.mediaClickTimeout = true;
-                        startMediaClickTimeout();
+                        viewer360Module.startMediaClickTimeout();
 
                         setTimeout(function () { // delay to allow media opener click block to check first
                             $(window.activeMedia).data("mediaActive", false);
@@ -395,6 +394,6 @@ function initSidebarSticky() {
 
 function startDropdownClickTimeout() {
     setTimeout(function () {
-        dropdownClickTimeout = false;
-    }, 380);
+        window.dropdownClickTimeout = false;
+    }, 290);
 }

@@ -86,7 +86,9 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
             window.mediaClickTimeout = true;
             startMediaClickTimeout();
 
-            setTimeout(function () { // todo: stall clicks when loading media and filter to do this stall for only dropdowns
+            $(this).data("mediaActive", true);
+
+            setTimeout(function () { // stall 360 viewer load so dropdowns can animate without lag
                 // cleans up any prior 360 video, pannellum renderers and linear video
                 clean360Video();
                 destroyAll360Viewers();
@@ -113,9 +115,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                     "keyboardZoom": false,
                     "disableKeyboardCtrl": true
                 }); // todo: finalize these options and do proper pathing
-            }, 350);
-
-            $(this).data("mediaActive", true);
+            }, 260);
         }
     });
 }
@@ -146,155 +146,39 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
             window.mediaClickTimeout = true;
             startMediaClickTimeout();
 
-            // cleans up any prior 360 video, pannellum renderers and linear video
-            clean360Video();
-            destroyAll360Viewers();
-            linearVideo.closeLinearVideo();
+            $(this).data("mediaActive", true); // sets this elements media as active to prevent repeat clicks
 
-            // (re)hide necessary elements
-            mapLayerMenu.addClass("hidden");
-            mapLayerMenuDropdown.addClass("hidden");
-            mapContainer.addClass("hidden");
+            setTimeout(() => { // stall 360 video load so button can animate without lag (and sync with other media load timings)
+                // cleans up any prior 360 video, pannellum renderers and linear video
+                clean360Video();
+                destroyAll360Viewers();
+                linearVideo.closeLinearVideo();
 
-            // reveal and bring to foreground main 360 viewer
-            viewer360Container.removeClass("hidden");
-            exitMediaButton.removeClass("hidden");
-            // reset secondary viewer to initial state
-            viewer360ContainerSecondary.addClass("hidden-opacity-360video");
-            viewer360ContainerSecondary.removeClass("hidden");
+                // (re)hide necessary elements
+                mapLayerMenu.addClass("hidden");
+                mapLayerMenuDropdown.addClass("hidden");
+                mapContainer.addClass("hidden");
 
-            // reveal 360 video controls
-            video360ButtonNext.removeClass("hidden");
-            video360ButtonPrev.removeClass("hidden");
-            video360Range.removeClass("hidden");
+                // reveal and bring to foreground main 360 viewer
+                viewer360Container.removeClass("hidden");
+                exitMediaButton.removeClass("hidden");
+                // reset secondary viewer to initial state
+                viewer360ContainerSecondary.addClass("hidden-opacity-360video");
+                viewer360ContainerSecondary.removeClass("hidden");
 
-            window.lockDrag = true; // lock map movement
+                // reveal 360 video controls
+                video360ButtonNext.removeClass("hidden");
+                video360ButtonPrev.removeClass("hidden");
+                video360Range.removeClass("hidden");
 
-            // always start at the one end of the hallway
-            content360Filename = filename360VideoArray[1].toString();
-            videoPos = 1;
-            video360Range.val(1);
+                window.lockDrag = true; // lock map movement
 
-            window.viewer360 = pannellum.viewer("viewer-360-container", {
-                "type": "equirectangular",
-                "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
-                "friction": 0.08,
-                "autoLoad": true,
-                "compass": false,
-                "keyboardZoom": false,
-                "disableKeyboardCtrl": true,
-                "yaw": initialYaw
-            });
+                // always start at the one end of the hallway
+                content360Filename = filename360VideoArray[1].toString();
+                videoPos = 1;
+                video360Range.val(1);
 
-            $(this).data("mediaActive", true);
-
-            // set up view switching
-            video360TargetToggle = true;
-            tempPrevViewer = window.viewer360;
-
-
-            // 360 video next button event
-            video360ButtonNext.click(function () {
-                if (!moveTimeout) {
-                    timeoutCountdown();
-
-                    videoPos++
-
-                    if (videoPos > fileCount) { // if we're past the range, hold position
-                        videoPos--;
-                    } else {
-                        video360Range.val(videoPos);
-                        triggerVideo360Transition();
-                    }
-                }
-
-                timeoutLock(); // always lock after a move
-            });
-
-            // disable previous button initially
-            video360ButtonPrev.prop("disabled", true);
-            video360ButtonPrev.css("cursor", "default");
-
-            // 360 video previous button event
-            video360ButtonPrev.click(function () {
-                if (!moveTimeout) {
-                    timeoutCountdown();
-
-                    videoPos--
-
-                    if (videoPos < 1) { // if we're past the range, hold position
-                        videoPos++;
-                    } else {
-                        video360Range.val(videoPos);
-                        triggerVideo360Transition();
-                    }
-                }
-
-                timeoutLock(); // always lock after a move
-            });
-
-            // set up range slider
-            video360Range.attr("max", fileCount);
-            video360Range.change(function () {
-                if (!moveTimeout) {
-                    timeoutCountdown();
-
-                    videoPos = parseInt(video360Range.val());
-                    triggerVideo360Transition();
-                }
-
-                timeoutLock(); // always lock after a move
-            })
-
-            // trigger timeout lock
-            function timeoutLock() {
-                video360ButtonNext.prop("disabled", true);
-                video360ButtonNext.css("cursor", "default");
-                video360ButtonPrev.prop("disabled", true);
-                video360ButtonPrev.css("cursor", "default");
-                video360Range.prop("disabled", true);
-                video360Range.css("cursor", "default");
-                moveTimeout = true;
-            }
-
-            // timeout countdown helper
-            function timeoutCountdown() {
-                // allow the timeout to expire when we allow a transition
-                setTimeout(function () {
-                    if (videoPos !== fileCount) {
-                        video360ButtonNext.prop("disabled", false);
-                        video360ButtonNext.css("cursor", "pointer");
-                    }
-
-                    if (videoPos !== 1) {
-                        video360ButtonPrev.prop("disabled", false);
-                        video360ButtonPrev.css("cursor", "pointer");
-                    }
-
-                    video360Range.prop("disabled", false);
-                    video360Range.css("cursor", "pointer");
-                    moveTimeout = false;
-                }, 1400);
-            }
-
-            // trigger for 360 video transition
-            function triggerVideo360Transition() {
-                if (video360TargetToggle) { // toggle back and forth between the two viewers to simulate 360 video
-                    tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, tempPrevViewer, window.viewer360Secondary);
-                    window.viewer360Secondary = tempPrevViewer; // necessary to keep track of the secondary viewer since js is pass by value
-                } else {
-                    tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, tempPrevViewer, window.viewer360);
-                }
-
-                video360TargetToggle = !video360TargetToggle;
-            }
-
-            // facilitates 360 video transition
-            function video360Transition(nextContainerString, prevContainer, prevPannellumViewer, nextPannellumViewer) {
-                const nextContainerSelector = $(`#${nextContainerString}`);
-                content360Filename = filename360VideoArray[videoPos].toString();
-
-                nextPannellumViewer = pannellum.viewer(nextContainerString, {
+                window.viewer360 = pannellum.viewer("viewer-360-container", {
                     "type": "equirectangular",
                     "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
                     "friction": 0.08,
@@ -302,25 +186,145 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     "compass": false,
                     "keyboardZoom": false,
                     "disableKeyboardCtrl": true,
-                    "yaw": 360 + prevPannellumViewer.getYaw(),
-                    "pitch": prevPannellumViewer.getPitch()
+                    "yaw": initialYaw
                 });
 
-                // show next viewer immediately underneath while fading out previous viewer
-                nextContainerSelector.removeClass("hidden-opacity-360video");
+                $(this).data("mediaActive", true);
 
-                prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
-                prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-                    // destroy previous viewer renderer, push to background
-                    prevPannellumViewer.destroy();
-                    prevContainer.css("z-index", 0);
+                // set up view switching
+                video360TargetToggle = true;
+                tempPrevViewer = window.viewer360;
 
-                    // bring next viewer to foreground
-                    nextContainerSelector.css("z-index", 1);
+
+                // 360 video next button event
+                video360ButtonNext.click(function () {
+                    if (!moveTimeout) {
+                        timeoutCountdown();
+
+                        videoPos++
+
+                        if (videoPos > fileCount) { // if we're past the range, hold position
+                            videoPos--;
+                        } else {
+                            video360Range.val(videoPos);
+                            triggerVideo360Transition();
+                        }
+                    }
+
+                    timeoutLock(); // always lock after a move
                 });
 
-                return nextPannellumViewer;
-            }
+                // disable previous button initially
+                video360ButtonPrev.prop("disabled", true);
+                video360ButtonPrev.css("cursor", "default");
+
+                // 360 video previous button event
+                video360ButtonPrev.click(function () {
+                    if (!moveTimeout) {
+                        timeoutCountdown();
+
+                        videoPos--
+
+                        if (videoPos < 1) { // if we're past the range, hold position
+                            videoPos++;
+                        } else {
+                            video360Range.val(videoPos);
+                            triggerVideo360Transition();
+                        }
+                    }
+
+                    timeoutLock(); // always lock after a move
+                });
+
+                // set up range slider
+                video360Range.attr("max", fileCount);
+                video360Range.change(function () {
+                    if (!moveTimeout) {
+                        timeoutCountdown();
+
+                        videoPos = parseInt(video360Range.val());
+                        triggerVideo360Transition();
+                    }
+
+                    timeoutLock(); // always lock after a move
+                })
+
+                // trigger timeout lock
+                function timeoutLock() {
+                    video360ButtonNext.prop("disabled", true);
+                    video360ButtonNext.css("cursor", "default");
+                    video360ButtonPrev.prop("disabled", true);
+                    video360ButtonPrev.css("cursor", "default");
+                    video360Range.prop("disabled", true);
+                    video360Range.css("cursor", "default");
+                    moveTimeout = true;
+                }
+
+                // timeout countdown helper
+                function timeoutCountdown() {
+                    // allow the timeout to expire when we allow a transition
+                    setTimeout(function () {
+                        if (videoPos !== fileCount) {
+                            video360ButtonNext.prop("disabled", false);
+                            video360ButtonNext.css("cursor", "pointer");
+                        }
+
+                        if (videoPos !== 1) {
+                            video360ButtonPrev.prop("disabled", false);
+                            video360ButtonPrev.css("cursor", "pointer");
+                        }
+
+                        video360Range.prop("disabled", false);
+                        video360Range.css("cursor", "pointer");
+                        moveTimeout = false;
+                    }, 1400);
+                }
+
+                // trigger for 360 video transition
+                function triggerVideo360Transition() {
+                    if (video360TargetToggle) { // toggle back and forth between the two viewers to simulate 360 video
+                        tempPrevViewer = video360Transition("viewer-360-container-secondary", viewer360Container, tempPrevViewer, window.viewer360Secondary);
+                        window.viewer360Secondary = tempPrevViewer; // necessary to keep track of the secondary viewer since js is pass by value
+                    } else {
+                        tempPrevViewer = video360Transition("viewer-360-container", viewer360ContainerSecondary, tempPrevViewer, window.viewer360);
+                    }
+
+                    video360TargetToggle = !video360TargetToggle;
+                }
+
+                // facilitates 360 video transition
+                function video360Transition(nextContainerString, prevContainer, prevPannellumViewer, nextPannellumViewer) {
+                    const nextContainerSelector = $(`#${nextContainerString}`);
+                    content360Filename = filename360VideoArray[videoPos].toString();
+
+                    nextPannellumViewer = pannellum.viewer(nextContainerString, {
+                        "type": "equirectangular",
+                        "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
+                        "friction": 0.08,
+                        "autoLoad": true,
+                        "compass": false,
+                        "keyboardZoom": false,
+                        "disableKeyboardCtrl": true,
+                        "yaw": 360 + prevPannellumViewer.getYaw(),
+                        "pitch": prevPannellumViewer.getPitch()
+                    });
+
+                    // show next viewer immediately underneath while fading out previous viewer
+                    nextContainerSelector.removeClass("hidden-opacity-360video");
+
+                    prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
+                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+                        // destroy previous viewer renderer, push to background
+                        prevPannellumViewer.destroy();
+                        prevContainer.css("z-index", 0);
+
+                        // bring next viewer to foreground
+                        nextContainerSelector.css("z-index", 1);
+                    });
+
+                    return nextPannellumViewer;
+                }
+            }, 260);
         }
     });
 }
@@ -379,5 +383,5 @@ function clean360Video() {
 export function startMediaClickTimeout() {
     setTimeout(() => {
         window.mediaClickTimeout = false;
-    }, 380);
+    }, 290);
 }

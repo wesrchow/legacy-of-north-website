@@ -2,7 +2,6 @@
 
 import * as viewer360Module from "./360-viewer.js";
 import * as mapMovement from "./map-movement.js";
-import {startMediaClickTimeout} from "./360-viewer.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
@@ -34,40 +33,42 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
         if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
             // click timeout management
             window.mediaClickTimeout = true;
-            startMediaClickTimeout();
+            viewer360Module.startMediaClickTimeout();
 
-            // close any prior 360 photo & video, clean linear video
-            viewer360Module.close360Viewer();
-            destroyLinearVideo();
+            $(this).data("mediaActive", true); // sets this elements media as active to prevent repeat clicks
 
-            // (re)hide necessary elements
-            mapLayerMenu.addClass("hidden");
-            mapLayerMenuDropdown.addClass("hidden");
-            mapContainer.addClass("hidden");
+            setTimeout(() => { // stall video load so button can animate without lag (and sync with other media)
+                // close any prior 360 photo & video, clean linear video
+                viewer360Module.close360Viewer();
+                destroyLinearVideo();
 
-            // linear video style
-            mediaContainer.css("cursor", "auto"); // override out of map cursor
+                // (re)hide necessary elements
+                mapLayerMenu.addClass("hidden");
+                mapLayerMenuDropdown.addClass("hidden");
+                mapContainer.addClass("hidden");
 
-            // reveal linear video things
-            videoContainer.removeClass("hidden");
-            exitMediaButton.removeClass("hidden");
+                // linear video style
+                mediaContainer.css("cursor", "auto"); // override out of map cursor
 
-            // initialize video js and set params (required to be after reveal)
-            console.log(contentVideoFilename);
-            videojs("video-container", {
-                sources: [{
-                    src: `media/virtual-tour/${sectionFilepath[section]}/${contentVideoFilename}`,
-                    type: 'video/mp4'
-                }],
-                controls: true,
-                autoplay: false,
-                preload: 'auto',
-                restoreEl: true
-            }); // todo: finalize these options and do proper pathing
+                // reveal linear video things
+                videoContainer.removeClass("hidden");
+                exitMediaButton.removeClass("hidden");
 
-            window.lockDrag = true; // lock map movement
+                // initialize video js and set params (required to be after reveal)
+                console.log(contentVideoFilename);
+                videojs("video-container", {
+                    sources: [{
+                        src: `media/virtual-tour/${sectionFilepath[section]}/${contentVideoFilename}`,
+                        type: 'video/mp4'
+                    }],
+                    controls: true,
+                    autoplay: false,
+                    preload: 'auto',
+                    restoreEl: true
+                }); // todo: finalize these options and do proper pathing
 
-            $(this).data("mediaActive", true);
+                window.lockDrag = true; // lock map movement
+            }, 260);
         }
     });
 }

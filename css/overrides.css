@@ -11,7 +11,7 @@
 .sidebar-selection-hidden {
     /*opacity: 0 !important;*/
     height: 0 !important;
-    transition: 0.3s;
+    transition: 0.25s;
 }
 
 .hidden-opacity-360video {
