@@ -44,17 +44,17 @@ export function initMap() {
                 if (mapLoadCounter === 6) { // Wait till all 6 maps are replaced then execute the following once
 
                     // add 360Photo links for map
-                    jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data) {
-                        addMediaMapLinks($.csv.toArrays(data), 1);
-                    }, 'text').fail(reject);
-
-                    jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data) {
-                        addMediaMapLinks($.csv.toArrays(data), 2);
-                    }, 'text').fail(reject);
-
-                    jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data) {
-                        addMediaMapLinks($.csv.toArrays(data), 3);
-                    }, 'text').fail(reject);
+                    // jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data) {
+                    //     addMediaMapLinks($.csv.toArrays(data), 1);
+                    // }, 'text').fail(reject);
+                    //
+                    // jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data) {
+                    //     addMediaMapLinks($.csv.toArrays(data), 2);
+                    // }, 'text').fail(reject);
+                    //
+                    // jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data) {
+                    //     addMediaMapLinks($.csv.toArrays(data), 3);
+                    // }, 'text').fail(reject);
 
                     // center map when svg is finished fully loading (excluding media clicks)
                     mapMovement.centerResetMap();
@@ -70,48 +70,48 @@ export function initMap() {
 }
 
 // Add 360Photo click events for map
-function addMediaMapLinks(filenameArray, section) {
-    for (let i = 1; i < filenameArray.length; i++) {
-        // loop through filename array and directly use filenames (minus file extension) as ID selector
-        let mapIDString = filenameArray[i].toString().split(".")[0];
-        let mapIDSelector = $(`#${mapIDString}`);
-
-        if (mapIDSelector.length) { // check if the map selection exists (further multi image locations won't)
-            mapIDSelector.addClass("location"); // give location link custom css
-
-            if (!mapIDString.includes("LinearVideo")) {
-                // Add the actual 360Photo viewer click event
-                viewer360Module.create360PhotoViewerEvent(mapIDString, filenameArray[i].toString(), section);
-
-                if (repeatedMapLocations.includes(mapIDString)) { // add known repeated locations again with altered map ID
-                    let mapIDSelectorRepeat = $(`#${mapIDString}_Repeat`);
-                    mapIDSelectorRepeat.addClass("location");
-                    viewer360Module.create360PhotoViewerEvent(mapIDString + "_Repeat", filenameArray[i].toString(), section);
-                }
-            } else {
-                // add linear video click event
-                linearVideo.createLinearVideoEvent(mapIDString, filenameArray[i].toString(), section);
-
-                if (repeatedMapLocations.includes(mapIDString)) { // add known repeated locations again with altered map ID
-                    let mapIDSelectorRepeat = $(`#${mapIDString}_Repeat`);
-                    mapIDSelectorRepeat.addClass("location");
-                    linearVideo.createLinearVideoEvent(mapIDString + "_Repeat", filenameArray[i].toString(), section);
-                }
-            }
-        } else {
-            // console.log(mapIDString + " does not exist in the map SVG");
-            // TODO: confirm its only the further multi image locations that are being skipped (and roof)
-        }
-    }
-}
+// function addMediaMapLinks(filenameArray, section) {
+//     for (let i = 1; i < filenameArray.length; i++) {
+//         // loop through filename array and directly use filenames (minus file extension) as ID selector
+//         let mapIDString = filenameArray[i].toString().split(".")[0];
+//         let mapIDSelector = $(`#${mapIDString}`);
+//
+//         if (mapIDSelector.length) { // check if the map selection exists (further multi image locations won't)
+//             mapIDSelector.addClass("location"); // give location link custom css
+//
+//             if (!mapIDString.includes("LinearVideo")) {
+//                 // Add the actual 360Photo viewer click event
+//                 viewer360Module.create360PhotoViewerEvent(mapIDString, filenameArray[i].toString(), section);
+//
+//                 if (repeatedMapLocations.includes(mapIDString)) { // add known repeated locations again with altered map ID
+//                     let mapIDSelectorRepeat = $(`#${mapIDString}_Repeat`);
+//                     mapIDSelectorRepeat.addClass("location");
+//                     viewer360Module.create360PhotoViewerEvent(mapIDString + "_Repeat", filenameArray[i].toString(), section);
+//                 }
+//             } else {
+//                 // add linear video click event
+//                 linearVideo.createLinearVideoEvent(mapIDString, filenameArray[i].toString(), section);
+//
+//                 if (repeatedMapLocations.includes(mapIDString)) { // add known repeated locations again with altered map ID
+//                     let mapIDSelectorRepeat = $(`#${mapIDString}_Repeat`);
+//                     mapIDSelectorRepeat.addClass("location");
+//                     linearVideo.createLinearVideoEvent(mapIDString + "_Repeat", filenameArray[i].toString(), section);
+//                 }
+//             }
+//         } else {
+//             // console.log(mapIDString + " does not exist in the map SVG");
+//             // TODO: confirm its only the further multi image locations that are being skipped (and roof)
+//         }
+//     }
+// }
 
 export function addMapLinksNew(idArray) {
     for (let i = 1; i < idArray.length; i++) {
         let mapIDString = idArray[i].toString();
         let mapIDSelector = $(`#${mapIDString}`);
         let sidebarIDSelector = $(`#${mapIDString.slice(0,-4)}`); // sidebar button to click
-        let sectionLink;
-        let dropdownLink = undefined;
+        let sectionLink; // section of the location
+        let dropdownLink = undefined; // dropdown link of the location if it exists
 
         if (sidebarIDSelector.parent().hasClass("sidebar-list-3")) {
             sectionLink = sidebarIDSelector.parent().parent().parent().parent().prev(); // get the section of the location
@@ -120,14 +120,10 @@ export function addMapLinksNew(idArray) {
             sectionLink = sidebarIDSelector.parent().parent().prev(); // get the section of the location
         }
 
-        if (mapIDSelector.length) {
-            addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink);
+        addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink); // add the actual click event
 
-            if (repeatedMapLocations.includes(mapIDString)) {
-                addMapLinkClickNew($(`#${mapIDString + "-repeat"}`), sidebarIDSelector, sectionLink, dropdownLink);
-            }
-        } else {
-            console.log(idArray[i] + " does not exist");
+        if (repeatedMapLocations.includes(mapIDString)) { // for repeated locations add it again to the repeated map location
+            addMapLinkClickNew($(`#${mapIDString + "-repeat"}`), sidebarIDSelector, sectionLink, dropdownLink);
         }
     }
 }
@@ -138,7 +134,11 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
     // add click event to map location that triggers sidebar click
     mapIDSelector.click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection) {
+        if (!window.lockMapSelection && !window.mapClickTimeout) {
+            // manage click timeout
+            window.mapClickTimeout = true;
+            startMapClickTimeout();
+
             if (!sectionLink.hasClass("active")) { // open relevant section once
                 sectionLink[0].click();
             }
@@ -156,4 +156,10 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
         }
     });
 
+}
+
+function startMapClickTimeout() {
+    setTimeout(() => {
+        window.mapClickTimeout = false;
+    }, 380);
 }

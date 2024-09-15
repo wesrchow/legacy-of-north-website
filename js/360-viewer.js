@@ -63,13 +63,15 @@ export function init360Videos() {
 export function init360ViewerControls() {
     // 360 viewer exit button
     exitMediaButton.click(function () {
-        window.activeMedia.click();
+        if (!window.mediaClickTimeout) {
+            window.activeMedia.click();
+        }
     });
 
     // escape shortcut to exit BOTH 360 viewer and linear video
     $(document).keyup(function (e) {
         // note: always active on the virtual tour page. kept this way so we can always close the viewer in case something else goes wrong
-        if (e.key === "Escape" && window.activeMedia !== undefined) {
+        if (e.key === "Escape" && window.activeMedia !== undefined && !window.mediaClickTimeout) {
             window.activeMedia.click();
         }
     });
@@ -79,7 +81,11 @@ export function init360ViewerControls() {
 export function create360PhotoViewerEvent(selectorIDString, content360Filename, section) {
     $(`#${selectorIDString}`).click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && $(this).data("mediaActive") !== true) {
+        if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+            // handle click timeout
+            window.mediaClickTimeout = true;
+            startMediaClickTimeout();
+
             setTimeout(function () { // todo: stall clicks when loading media and filter to do this stall for only dropdowns
                 // cleans up any prior 360 video, pannellum renderers and linear video
                 clean360Video();
@@ -130,12 +136,16 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
     let videoPos = 1;
     let tempPrevViewer; // holds current viewer until we transition where it's treated as the previous viewer and altered accordingly
     let content360Filename;
-    let moveTimeout = false; // used to timeout 360 video clicks
+    let moveTimeout = false; // used to timeout 360 video clicks (not actually necessary after we added element disabling)
 
     // add click event to sidebar
     sidebarSelector.click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && $(this).data("mediaActive") !== true) {
+        if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+            // click timeout management
+            window.mediaClickTimeout = true;
+            startMediaClickTimeout();
+
             // cleans up any prior 360 video, pannellum renderers and linear video
             clean360Video();
             destroyAll360Viewers();
@@ -346,7 +356,6 @@ function destroyAll360Viewers() {
 }
 
 // 360 video clean up
-// necessary to trigger between active 360 video map to any sidebar selection
 function clean360Video() {
     // hide 360 video elements
     viewer360ContainerSecondary.addClass("hidden");
@@ -365,4 +374,10 @@ function clean360Video() {
 
     // cut the transition class if we're moving away
     viewer360Container.removeClass("hidden-opacity-360video");
+}
+
+export function startMediaClickTimeout() {
+    setTimeout(() => {
+        window.mediaClickTimeout = false;
+    }, 380);
 }

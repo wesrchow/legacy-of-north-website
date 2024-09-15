@@ -2,6 +2,7 @@
 
 import * as viewer360Module from "./360-viewer.js";
 import * as mapMovement from "./map-movement.js";
+import {startMediaClickTimeout} from "./360-viewer.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
@@ -30,7 +31,11 @@ export function initLinearVideoControls() {
 export function createLinearVideoEvent(selectorIDString, contentVideoFilename, section) {
     $(`#${selectorIDString}`).click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && $(this).data("mediaActive") !== true) {
+        if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+            // click timeout management
+            window.mediaClickTimeout = true;
+            startMediaClickTimeout();
+
             // close any prior 360 photo & video, clean linear video
             viewer360Module.close360Viewer();
             destroyLinearVideo();

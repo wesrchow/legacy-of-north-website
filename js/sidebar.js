@@ -2,6 +2,7 @@
 
 import * as viewer360Module from "./360-viewer.js";
 import * as linearVideo from "./linear-video.js";
+import {startMediaClickTimeout} from "./360-viewer.js";
 
 // sidebar location menus
 const northLocationMenu = $("#north-location-menu");
@@ -172,90 +173,98 @@ function addSidebarButtonClick() {
             sidebarAnimHide(sidebarButtons.eq(i).next(), true);
         }
 
-        // sidebarClickTimeout[i] = false; // todo bonus: prevent fast double clicks for dropdown anims and other breakables when clicking around fast (latter seems to be fine now)
         // add click event to sidebar buttons
         sidebarButtons[i].addEventListener("click", function () {
-            // if (sidebarClickTimeout[i]) return; // ignore clicks if already clicked
-            // sidebarClickTimeout[i] = true;
-            // setTimeout(function () { sidebarClickTimeout[i] = false; }, 400);
+            if (!window.dropdownClickTimeout) {
 
-            if (window.activeMediaSecondary !== this) {
-                this.classList.toggle("active");
-            }
+                if (window.activeMediaSecondary !== this) {
+                    this.classList.toggle("active");
+                }
 
-            // active buttons handling
-            if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
-                if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
+                // active buttons handling
+                if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
+                    // manage click timeouts
+                    if (!window.mapClickTimeout) {
+                        window.dropdownClickTimeout = true;
+                        startDropdownClickTimeout();
+                    }
 
-                    if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown
-                        // remove other active sub media, set new current as active secondary
-                        window.activeMediaSecondary.classList.remove("active");
-                        $(window.activeMediaSecondary).data("mediaActive", false);
-                        this.classList.add("active");
-                        window.activeMediaSecondary = this;
-                    } // otherwise it's a map clicking a sub media and we simulate a dropdown click to open it
+                    if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 
-                } else if (window.activeMedia !== this) { // if not clicking same media again
+                        if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown
+                            // remove other active sub media, set new current as active secondary
+                            window.activeMediaSecondary.classList.remove("active");
+                            $(window.activeMediaSecondary).data("mediaActive", false);
+                            this.classList.add("active");
+                            window.activeMediaSecondary = this;
+                        } // otherwise it's a map clicking a sub media and we simulate a dropdown click to open it
 
-                    if (window.activeMedia !== undefined) { // not first button / not only button action
-                         if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
-                                 sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
+                    } else if (window.activeMedia !== this) { // if not clicking same media again
+
+                        if (window.activeMedia !== undefined) { // not first button / not only button action
+                            if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
+                                sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
                                 if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
                                     window.activeMediaSecondary.classList.remove("active"); // clear secondary active
                                     $(window.activeMediaSecondary).data("mediaActive", false);
                                     window.activeMediaSecondary = undefined;
                                 }
+                            }
+
+                            window.activeMedia.classList.remove("active");
+                            $(window.activeMedia).data("mediaActive", false);
                         }
 
-                        window.activeMedia.classList.remove("active");
-                        $(window.activeMedia).data("mediaActive", false);
+                        window.activeMedia = this; // sets the new current active media
+
+                    } else { // must be self, closes current media
+                        viewer360Module.close360Viewer();
+                        linearVideo.closeLinearVideo();
+
+                        // lock media clicks when closing self media
+                        window.mediaClickTimeout = true;
+                        startMediaClickTimeout();
+
+                        setTimeout(function () { // delay to allow media opener click block to check first
+                            $(window.activeMedia).data("mediaActive", false);
+                            window.activeMedia = undefined;
+                        }, 8);
+
+                    }
+                }
+
+                // only for dropdowns toggle display and deal with active sub buttons
+                if (sidebarButtons[i].classList.contains("dropdown-btn")) {
+                    let dropdownContent = this.nextElementSibling;
+                    let dropdownContentJ = $(this).next();
+
+                    // dropdown active status toggling
+                    if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
+                        if (window.activeMediaSecondary === undefined) { // switched from elsewhere or opening new
+                            // active first image when opening a media dropdown
+                            let firstImage = dropdownContent.firstChild.firstChild;
+                            firstImage.classList.toggle("active");
+                            $(firstImage).data("mediaActive", true);
+                            window.activeMediaSecondary = firstImage;
+                        } else { // closing current dropdown
+                            window.activeMediaSecondary.classList.remove("active");
+                            $(window.activeMediaSecondary).data("mediaActive", false);
+                            window.activeMediaSecondary = undefined;
+                        }
+
                     }
 
-                    window.activeMedia = this; // sets the new current active media
-
-                } else { // must be self, closes current media
-                    viewer360Module.close360Viewer();
-                    linearVideo.closeLinearVideo();
-                    setTimeout(function () { // delay to allow media opener click block to check first
-                        $(window.activeMedia).data("mediaActive", false);
-                        window.activeMedia = undefined;
-                    }, 8);
-
-                }
-            }
-
-
-            // only for dropdowns toggle display and deal with active sub buttons
-            if (sidebarButtons[i].classList.contains("dropdown-btn")) {
-                let dropdownContent = this.nextElementSibling;
-                let dropdownContentJ = $(this).next();
-
-                // dropdown active status toggling
-                if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
-                    if (window.activeMediaSecondary === undefined) { // switched from elsewhere or opening new
-                        // active first image when opening a media dropdown
-                        let firstImage = dropdownContent.firstChild.firstChild;
-                        firstImage.classList.toggle("active");
-                        $(firstImage).data("mediaActive", true);
-                        window.activeMediaSecondary = firstImage;
-                    } else { // closing current dropdown
-                        window.activeMediaSecondary.classList.remove("active");
-                        $(window.activeMediaSecondary).data("mediaActive", false);
-                        window.activeMediaSecondary = undefined;
+                    // hiding and revealing dropdown content
+                    if (dropdownContent.style.display === "none") {
+                        sidebarAnimReveal(dropdownContentJ);
+                    } else {
+                        sidebarAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably
+                        // reading 0 because of the display none)
                     }
-
                 }
 
-                // hiding and revealing dropdown content
-                if (dropdownContent.style.display === "none") {
-                    sidebarAnimReveal(dropdownContentJ);
-                } else {
-                    sidebarAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably
-                    // reading 0 because of the display none)
-                }
+                // todo bonus: add toggle arrows
             }
-
-            // todo bonus: add toggle arrows
         });
     }
 }
@@ -381,4 +390,11 @@ function initSidebarSticky() {
     northSidebarButton.css("top", searchHeight - 0.5);
     southSidebarButton.css("top", searchHeight - 0.5);
     outsideSidebarButton.css("top", searchHeight - 0.5);
+}
+
+
+function startDropdownClickTimeout() {
+    setTimeout(function () {
+        dropdownClickTimeout = false;
+    }, 380);
 }

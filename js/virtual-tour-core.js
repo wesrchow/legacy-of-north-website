@@ -13,11 +13,14 @@ import * as linearVideo from "./linear-video.js";
 * */
 window.lockDrag = false; // lock map panning
 window.lockMapSelection = false; // lock map selection location clicks
-window.viewer360 = undefined;
-window.viewer360Secondary = undefined;
+window.viewer360 = undefined; // pannellum viewer object
+window.viewer360Secondary = undefined; // pannellum viewer object for 360 video
 window.mouseDragging = false; // used for map panning checks
-window.activeMedia = undefined;
-window.activeMediaSecondary = undefined;
+window.activeMedia = undefined; // handles media switching and closing
+window.activeMediaSecondary = undefined; // handles media switching and closing for sub media
+window.mediaClickTimeout = false; //
+window.dropdownClickTimeout = false; //
+window.mapClickTimeout = false; //
 
 /*
 *
