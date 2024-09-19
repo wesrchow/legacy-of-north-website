@@ -188,7 +188,7 @@ body, html {
 
     /*transform: scale(1.03);*/
 
-    transition: transform 0.2s;
+    transition: 0.2s;
 }
 
 /* todo: also necessary later when styling the sidebar items */

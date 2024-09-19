@@ -23,6 +23,10 @@
     transition: none !important;
 }
 
+.fp-watermark {
+    display: none !important;
+}
+
 /*
     Pannellum
 */

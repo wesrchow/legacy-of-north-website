@@ -1,9 +1,10 @@
+const fullpageArrow = $("#fullpage-arrow");
+
 new fullpage('#fullpage', {
+    licenseKey: 'gzwV0RK%h9',
     scrollOverflow: true,
     scrolloverflowmacstyle: false
 });
-
-const fullpageArrow = $("#fullpage-arrow");
 
 fullpageArrow.click(function () {
     fullpage_api.moveSectionDown();

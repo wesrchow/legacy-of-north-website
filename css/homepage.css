@@ -244,3 +244,11 @@
 .info-section-container p {
     margin: 1.5rem 0;
 }
+
+.footer-credit {
+    position: absolute;
+    bottom: 0.5em;
+    right: 0.7em;
+    color: black;
+    text-decoration: none;
+}
