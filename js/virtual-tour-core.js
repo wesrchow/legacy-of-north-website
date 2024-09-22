@@ -18,9 +18,9 @@ window.viewer360Secondary = undefined; // pannellum viewer object for 360 video
 window.mouseDragging = false; // used for map panning checks
 window.activeMedia = undefined; // handles media switching and closing
 window.activeMediaSecondary = undefined; // handles media switching and closing for sub media
-window.mediaClickTimeout = false; //
-window.dropdownClickTimeout = false; //
-window.mapClickTimeout = false; //
+window.mediaClickTimeout = false; // prevent media double clicks
+window.sidebarClickTimeout = false; // prevent sidebar double clicks
+window.mapClickTimeout = false; // prevent map double clicks
 
 /*
 *

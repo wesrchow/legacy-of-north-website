@@ -28,6 +28,7 @@ export function initSidebar() {
                     addSidebarButtonClick();
                     viewer360Module.init360Videos();
                     initSidebarSticky();
+                    searchTypeEvent();
 
                     resolve(); // resolve promise once sidebar is done loading
                 }
@@ -42,6 +43,7 @@ export function initSidebar() {
                     addSidebarButtonClick();
                     viewer360Module.init360Videos();
                     initSidebarSticky();
+                    searchTypeEvent();
 
                     resolve(); // resolve promise once sidebar is done loading
                 }
@@ -56,13 +58,12 @@ export function initSidebar() {
                     addSidebarButtonClick();
                     viewer360Module.init360Videos();
                     initSidebarSticky();
+                    searchTypeEvent();
 
                     resolve(); // resolve promise once sidebar is done loading
                 }
             }, 'text').fail(reject);
         }, 'text').fail(reject);
-
-        searchTypeEvent();
     });
 }
 
@@ -174,7 +175,7 @@ function addSidebarButtonClick() {
 
         // add click event to sidebar buttons
         sidebarButtons[i].addEventListener("click", function () {
-            if (!window.dropdownClickTimeout) {
+            if (!window.sidebarClickTimeout) {
 
                 if (window.activeMediaSecondary !== this) {
                     this.classList.toggle("active");
@@ -214,7 +215,7 @@ function addSidebarButtonClick() {
                             $(window.activeMedia).data("mediaActive", false);
                         }
 
-                        window.activeMedia = this; // sets the new current active media
+                        window.activeMedia = this; // (sometimes first open) sets the new current active media
 
                     } else { // must be self, closes current media
                         viewer360Module.close360Viewer();
@@ -269,13 +270,14 @@ function addSidebarButtonClick() {
 }
 
 function searchTypeEvent() {
+    const sidebarLocationElements = $(".sidebar-list-2"); // get all the li location elements
     let typingTimer;
     // filter the search results on key up events
     searchBarReg.addEventListener("keyup", function () {
         clearTimeout(typingTimer);
 
         typingTimer = setTimeout(function () {
-            filterSearchElements();
+            filterSearchElements(sidebarLocationElements);
         }, 150);
 
     });
@@ -283,9 +285,8 @@ function searchTypeEvent() {
 
 // location search filtering
 // TODO bonus: merge with gallery searching (but theres no dropdowns there)
-function filterSearchElements() {
+function filterSearchElements(sidebarLocationElements) {
     let filter = searchBarReg.value.toUpperCase(); // comparison search string
-    const sidebarLocationElements = $(".sidebar-list-2"); // get all the li location elements
     let sectionCheck = ["", false, false, false]; // check if the section should be active
 
     // loop through all list items, do the filtering
