@@ -110,9 +110,7 @@ body, html {
 }
 
 .sidebar-list-1 {
-    opacity: 1;
     list-style: none;
-    transition: opacity 0.3s;
 }
 
 .sidebar-list-2 {

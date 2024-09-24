@@ -185,8 +185,8 @@ function addSidebarButtonClick() {
                 if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
                     // manage click timeouts
                     if (!window.mapClickTimeout) {
-                        window.dropdownClickTimeout = true;
-                        startDropdownClickTimeout();
+                        window.sidebarClickTimeout = true;
+                        startSidebarClickTimeout();
                     }
 
                     if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
@@ -393,8 +393,8 @@ function initSidebarSticky() {
 }
 
 
-function startDropdownClickTimeout() {
+function startSidebarClickTimeout() {
     setTimeout(function () {
-        window.dropdownClickTimeout = false;
+        window.sidebarClickTimeout = false;
     }, 290);
 }

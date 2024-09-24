@@ -1,6 +1,8 @@
 /* Gallery sidebar, media handling */
+// noinspection DuplicatedCode
 
 const mediaContainer = $("#media-container");
+const searchBarReg = document.getElementById("search-bar");
 const galleryIDList = ["drone-footage-gallery", "grad-classes-gallery", "new-building-timelapse-gallery"];
 // array of gallery content formatted for nanogallery2
 const galleryContent = [
@@ -17,10 +19,16 @@ window.activeMedia = undefined; // handles media switching and closing
 
 
 /*
-* Gallery loading click events
+* Initialization calls
 * */
-addGalleryClicks();
+addGalleryClicks(); // add click events to the sidebar gallery menu
+searchTypeEvent(); // add search querying event
 
+
+
+/*
+* Gallery & sidebar
+* */
 function addGalleryClicks() {
     const galleryMenu = $("#gallery-menu a");
 
@@ -35,8 +43,8 @@ function addGalleryClicks() {
                 this.classList.toggle("active");
 
                 // manage click timeouts
-                window.dropdownClickTimeout = true;
-                startDropdownClickTimeout();
+                window.sidebarClickTimeout = true;
+                startSidebarClickTimeout();
 
                 if (window.activeMedia !== this) { // if not clicking same media again
                     if (window.activeMedia !== undefined) { // not first button / not only button action
@@ -72,10 +80,6 @@ function closeGallery() {
     }
 }
 
-
-/*
-* Image / Video gallery handling
-* */
 // create the gallery with the given inputs
 function loadNanogallery2(galleryID, galleryListPos) {
     $(`#${galleryID}`).nanogallery2({
@@ -107,35 +111,31 @@ function loadNanogallery2(galleryID, galleryListPos) {
     });
 }
 
-function startDropdownClickTimeout() {
+function startSidebarClickTimeout() {
     setTimeout(function () {
-        window.dropdownClickTimeout = false;
+        window.sidebarClickTimeout = false;
     }, 290);
 }
 
 
-
 /*
-* ==============
-* Sidebar Search
-* ==============
+* Sidebar search
 * */
-const searchBarReg = document.getElementById("search-bar");
-const sidebarLocationElements = $(".sidebar-list-1"); // get all the li location elements
-let typingTimer;
+function searchTypeEvent() {
+    const sidebarLocationElements = $(".sidebar-list-1"); // get all the li location elements
+    let typingTimer;
+    // filter the search results on key up events
+    searchBarReg.addEventListener("keyup", function () {
+        clearTimeout(typingTimer);
 
-// filter the search results on key up events
-searchBarReg.addEventListener("keyup", function () {
-    clearTimeout(typingTimer);
+        typingTimer = setTimeout(function () {
+            filterSearchElements(sidebarLocationElements);
+        }, 150);
 
-    typingTimer = setTimeout(function () {
-        filterSearchElements(sidebarLocationElements);
-        console.log("trigger fn")
-    }, 150);
+    });
+}
 
-});
-
-// repetitive search filtering for the different location areas
+// repetitive search filtering
 function filterSearchElements(sidebarLocationElements) {
     let filter = searchBarReg.value.toUpperCase(); // comparison search string
 
@@ -149,8 +149,7 @@ function filterSearchElements(sidebarLocationElements) {
             }
         } else {
             if (!sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already hidden
-                sidebarAnimHide(sidebarLocationElements.eq(i), false);
-                console.log("trying to hide")
+                sidebarAnimHide(sidebarLocationElements.eq(i));
             }
         }
     }
@@ -168,26 +167,15 @@ function sidebarAnimReveal(sidebarElementJ) {
 }
 
 // sidebar hide display and animation
-function sidebarAnimHide(sidebarElementJ, setup) {
+function sidebarAnimHide(sidebarElementJ) {
     sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
 
     setTimeout(function () { // delay to allow height to be set first
-        if (setup) sidebarElementJ.addClass("no-transition"); // prevent animation on first load
-
         sidebarElementJ.addClass("sidebar-selection-hidden"); // add hidden class
 
-        if (setup) { // bring back animation after first load
-            sidebarElementJ.css("display", "none");
-            sidebarElementJ[0].offsetHeight;
-            sidebarElementJ.removeClass("no-transition");
-        }
     }, 5);
 
-    if (!setup) {
-        sidebarElementJ[0].ontransitionend = () => { // once transition is done, display hide it
-            sidebarElementJ.css("display", "none");
-        };
-    }
+    sidebarElementJ[0].ontransitionend = () => { // once transition is done, display hide it
+        sidebarElementJ.css("display", "none");
+    };
 }
-
-//todo: add sticky search bar

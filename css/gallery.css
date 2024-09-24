@@ -1,4 +1,8 @@
 /* Custom Styles Within Gallery */
+.sidebar-list-1 {
+    overflow: hidden;
+    transition: 0.3s;
+}
 
 /*
     ============
