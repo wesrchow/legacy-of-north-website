@@ -15,16 +15,8 @@ const exitMediaButton = $("#exit-media-button");
 // other jquery selectors
 const mediaContainer = $("#media-container");
 
-const videoContainerReg = document.getElementById("video-container");
-
 // buffered so section 1 = north, 2 = south, 3 = outside
 const sectionFilepath = ["", "north", "south", "outside"];
-
-// set up linear video controls
-export function initLinearVideoControls() {
-    // removed since we synced media exit buttons
-    // todo: add anything for video js controls?
-}
 
 // creates and adds linear video event to input selector using input media info
 export function createLinearVideoEvent(selectorIDString, contentVideoFilename, section) {
@@ -55,17 +47,21 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                 exitMediaButton.removeClass("hidden");
 
                 // initialize video js and set params (required to be after reveal)
-                console.log(contentVideoFilename);
                 videojs("video-container", {
                     sources: [{
                         src: `media/virtual-tour/${sectionFilepath[section]}/${contentVideoFilename}`,
                         type: 'video/mp4'
                     }],
                     controls: true,
+                    controlBar: {
+                        pictureInPictureToggle: false,
+                        volumePanel: false,
+                        remainingTimeDisplay: false
+                    },
                     autoplay: false,
                     preload: 'auto',
                     restoreEl: true
-                }); // todo: finalize these options and do proper pathing
+                }); // todo: do proper pathing
 
                 window.lockDrag = true; // lock map movement
             }, 260);

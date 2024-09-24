@@ -41,6 +41,4 @@ mapMovement.initMapMovementEvents(); // Add map events to facilitate map movemen
 
 viewer360Module.init360ViewerControls(); // Add all 360 viewer controls (photo and video)
 
-linearVideo.initLinearVideoControls(); // Add all linear video controls
-
-// init 360 videos moved to sidebar since it must be deferred until sidebar is loaded
+// note: init 360 videos moved to sidebar since it must be deferred until sidebar is loaded
