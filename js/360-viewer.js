@@ -22,39 +22,39 @@ const sectionFilepath = ["", "north", "south", "outside"];
 
 // Sets up all 360Videos
 export function init360Videos() {
-    jQuery.get("./csv/360Video/north-1st-floor-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/north-1st-floor-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 240, 44, 1);
     }, 'text');
 
-    jQuery.get("./csv/360Video/north-2nd-floor-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/north-2nd-floor-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
 
-    jQuery.get("./csv/360Video/north-3rd-floor-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/north-3rd-floor-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 240, 46, 1);
     }, 'text');
 
-    jQuery.get("./csv/360Video/north-foyer-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/north-foyer-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 230, 17, 1);
     }, 'text');
 
-    jQuery.get("./csv/360Video/south-1st-floor-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/south-1st-floor-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 230, 32, 2);
     }, 'text');
 
-    jQuery.get("./csv/360Video/south-2nd-floor-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/south-2nd-floor-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 230, 31, 2);
     }, 'text');
 
-    jQuery.get("./csv/360Video/south-foyer-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/south-foyer-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 65, 18, 2);
     }, 'text');
 
-    jQuery.get("./csv/360Video/south-tech-ed-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/south-tech-ed-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 230, 8, 2);
     }, 'text');
 
-    jQuery.get("./csv/360Video/sports-centre-filenames.csv", function (data) {
+    jQuery.get("./csv/360-video/sports-centre-filenames.csv", function (data) {
         add360VideoLinks($.csv.toArrays(data), 230, 8, 2);
     }, 'text');
 }

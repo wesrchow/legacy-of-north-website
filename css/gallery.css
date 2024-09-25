@@ -16,11 +16,28 @@
 }
 
 .gallery-container {
-    display: inline-block;
+    display: flex;
     position: relative;
-    height: auto;
+    height: 100%;
     width: 100%;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
 
     -webkit-user-drag: none;
     -webkit-user-select: none;
 }
+
+.gallery-container a {
+    height: 12em;
+    width: 12em;
+
+    margin: 0.5em;
+}
+
+.gallery-container img {
+    height: 12em;
+    width: 12em;
+    object-fit: cover;
+}
+

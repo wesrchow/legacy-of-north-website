@@ -30,7 +30,7 @@ window.mapClickTimeout = false; // prevent map double clicks
 // Inject sidebar elements, attach clickable events, init searchbar, init 360Videos (defers till sidebar is loaded)
 // Replace map SVG with inline SVG, attach media clickable events and setup map controls/interaction
 Promise.all([sidebar.initSidebar(), mapEvents.initMap()]).then(() => {
-    jQuery.get("./csv/web-lists/map-id-list.csv", function (data) {
+    jQuery.get("./csv/virtual-tour/map-id-list.csv", function (data) {
         mapEvents.addMapLinksNew($.csv.toArrays(data)); // wait until both sidebar and map are loaded before adding map links
     }, 'text');
 }).catch((error) => {

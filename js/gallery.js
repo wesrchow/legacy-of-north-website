@@ -3,17 +3,10 @@
 
 const mediaContainer = $("#media-container");
 const searchBarReg = document.getElementById("search-bar");
-const galleryIDList = ["drone-footage-gallery", "grad-classes-gallery", "new-building-timelapse-gallery"];
-// array of gallery content formatted for nanogallery2
-const galleryContent = [
-    [{src: 'Burnaby_North_Viking.jpg', srct: 'Burnaby_North_Viking.jpg', title: 'test 1'},
-        {src: 'DJI_0019.jpg', srct: 'DJI_0019.jpg', title: 'test 2'},
-        {src: 'DJI_0023.jpg', srct: 'DJI_0023.jpg', title: 'test 3'}],
 
-    [{src: 'dji-phantom-4.jpg', srct: 'dji-phantom-4.jpg', title: 'test 1'},
-        {src: 'fpv-racing-drone.jpg', srct: 'fpv-racing-drone.jpg', title: 'test 2'}]
-];
+const galleryIDList = ["drone-footage-1", "grad-classes-plaques", "yearbook-covers"];
 
+window.galleryViewer = undefined; // lightgallery object
 window.sidebarClickTimeout = false; // prevent sidebar double clicks
 window.activeMedia = undefined; // handles media switching and closing
 
@@ -64,51 +57,29 @@ function addGalleryClicks() {
     }
 }
 
+// create the gallery html elements and activate the given gallery
 function openGallery(index) {
-    // create the element and open the given gallery
     mediaContainer.append(`<div class="gallery-container" id="${galleryIDList[index]}"></div>`);
-    loadNanogallery2(galleryIDList[index], index);
+    let galleryContainer = $(`#${galleryIDList[index]}`); // let the gallery container be created first
+
+    // load the gallery items list and inject elements
+    jQuery.get(`csv/gallery/${galleryIDList[index]}.csv`, function (data) {
+        let galleryInfoArray = $.csv.toArrays(data);
+        for (let i = 1; i < galleryInfoArray.length; i++) { // inject gallery item with sources, captions
+            galleryContainer.append(`<a href="test-media/${galleryInfoArray[i][0]}" data-sub-html="<h4>${galleryInfoArray[i][1]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
+        }
+
+        window.galleryViewer = lightGallery(document.getElementById(`${galleryIDList[index]}`), { // load the lightgallery on the setup gallery container
+            // plugins: [lgZoom, lgThumbnail],
+            licenseKey: '0000-0000-000-0000',
+            speed: 500
+        }); // todo: fill in other settings
+    }, 'text');
 }
 
 function closeGallery() {
-    try { // todo: get rid of this try catch. it doesnt ever trigger anyways (will vary depending on which library i end up choosing)
-        mediaContainer.children().eq(0).nanogallery2("destroy"); // destroy the nanogallery element
-        mediaContainer.empty(); // remove the gallery containing element
-        console.log("removing old gallery")
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// create the gallery with the given inputs
-function loadNanogallery2(galleryID, galleryListPos) {
-    $(`#${galleryID}`).nanogallery2({
-        // gallery settings
-        itemsBaseURL: 'test-media/',
-        thumbnailHeight: 200,
-        thumbnailWidth: 200,
-        thumbnailBorderVertical: 1,
-        thumbnailBorderHorizontal: 1,
-        thumbnailDisplayTransition: 'slideUp',
-        thumbnailDisplayTransitionDuration: 800,
-        thumbnailDisplayInterval: 20,
-        thumbnailLabel: {
-            position: 'overImageOnBottom'
-        },
-        thumbnailHoverEffect2: 'scale120',
-        thumbnailAlignment: 'center',
-        thumbnailOpenImage: true,
-
-        // lightbox settings
-        imageTransition: 'swipe2',
-        viewerTools: {
-            topLeft: "pageCounter",
-            topRight: "zoomButton, fullscreenButton, closeButton"
-        },
-
-        // gallery content
-        items: galleryContent[galleryListPos]
-    });
+    window.galleryViewer.destroy();
+    mediaContainer.empty();
 }
 
 function startSidebarClickTimeout() {

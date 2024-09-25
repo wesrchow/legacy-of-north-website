@@ -43,19 +43,6 @@ export function initMap() {
                 mapLoadCounter++;
                 if (mapLoadCounter === 6) { // Wait till all 6 maps are replaced then execute the following once
 
-                    // add 360Photo links for map
-                    // jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data) {
-                    //     addMediaMapLinks($.csv.toArrays(data), 1);
-                    // }, 'text').fail(reject);
-                    //
-                    // jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data) {
-                    //     addMediaMapLinks($.csv.toArrays(data), 2);
-                    // }, 'text').fail(reject);
-                    //
-                    // jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data) {
-                    //     addMediaMapLinks($.csv.toArrays(data), 3);
-                    // }, 'text').fail(reject);
-
                     // center map when svg is finished fully loading (excluding media clicks)
                     mapMovement.centerResetMap();
 
@@ -68,42 +55,6 @@ export function initMap() {
         });
     });
 }
-
-// Add 360Photo click events for map
-// function addMediaMapLinks(filenameArray, section) {
-//     for (let i = 1; i < filenameArray.length; i++) {
-//         // loop through filename array and directly use filenames (minus file extension) as ID selector
-//         let mapIDString = filenameArray[i].toString().split(".")[0];
-//         let mapIDSelector = $(`#${mapIDString}`);
-//
-//         if (mapIDSelector.length) { // check if the map selection exists (further multi image locations won't)
-//             mapIDSelector.addClass("location"); // give location link custom css
-//
-//             if (!mapIDString.includes("LinearVideo")) {
-//                 // Add the actual 360Photo viewer click event
-//                 viewer360Module.create360PhotoViewerEvent(mapIDString, filenameArray[i].toString(), section);
-//
-//                 if (repeatedMapLocations.includes(mapIDString)) { // add known repeated locations again with altered map ID
-//                     let mapIDSelectorRepeat = $(`#${mapIDString}_Repeat`);
-//                     mapIDSelectorRepeat.addClass("location");
-//                     viewer360Module.create360PhotoViewerEvent(mapIDString + "_Repeat", filenameArray[i].toString(), section);
-//                 }
-//             } else {
-//                 // add linear video click event
-//                 linearVideo.createLinearVideoEvent(mapIDString, filenameArray[i].toString(), section);
-//
-//                 if (repeatedMapLocations.includes(mapIDString)) { // add known repeated locations again with altered map ID
-//                     let mapIDSelectorRepeat = $(`#${mapIDString}_Repeat`);
-//                     mapIDSelectorRepeat.addClass("location");
-//                     linearVideo.createLinearVideoEvent(mapIDString + "_Repeat", filenameArray[i].toString(), section);
-//                 }
-//             }
-//         } else {
-//             // console.log(mapIDString + " does not exist in the map SVG");
-//             // TODO: confirm its only the further multi image locations that are being skipped (and roof)
-//         }
-//     }
-// }
 
 export function addMapLinksNew(idArray) {
     for (let i = 1; i < idArray.length; i++) {
