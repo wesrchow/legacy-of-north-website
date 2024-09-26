@@ -1,15 +1,10 @@
 /* Styles That Should Override All Others */
 
-.hidden/*-display*/ {
+.hidden {
     display: none !important;
 }
 
-.hidden-opacity {
-    opacity: 0 !important;
-}
-
 .sidebar-selection-hidden {
-    /*opacity: 0 !important;*/
     height: 0 !important;
     transition: 0.25s;
 }
@@ -19,23 +14,6 @@
     transition: opacity 1.4s;
 }
 
-.no-transition {
-    transition: none !important;
-}
 
-.fp-watermark {
-    display: none !important;
-}
 
-/*
-    Pannellum
-*/
-.pnlm-controls-container {
-    opacity: 70%;
-    inset: auto 16px 16px auto;
-    z-index: 6;
-}
 
-.pnlm-control:hover {
-    background-color: #c9c9c9;
-}

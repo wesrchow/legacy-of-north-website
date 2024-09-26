@@ -1,0 +1,16 @@
+.no-transition {
+    transition: none !important;
+}
+
+/*
+    Pannellum
+*/
+.pnlm-controls-container {
+    opacity: 70%;
+    inset: auto 16px 16px auto;
+    z-index: 6;
+}
+
+.pnlm-control:hover {
+    background-color: #c9c9c9;
+}

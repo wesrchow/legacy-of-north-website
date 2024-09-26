@@ -66,13 +66,39 @@ function openGallery(index) {
     jQuery.get(`csv/gallery/${galleryIDList[index]}.csv`, function (data) {
         let galleryInfoArray = $.csv.toArrays(data);
         for (let i = 1; i < galleryInfoArray.length; i++) { // inject gallery item with sources, captions
-            galleryContainer.append(`<a href="test-media/${galleryInfoArray[i][0]}" data-sub-html="<h4>${galleryInfoArray[i][1]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
+            if (galleryInfoArray[i][1].toString() === "image") {
+                galleryContainer.append(`<a href="test-media/${galleryInfoArray[i][0]}" data-sub-html="<p>${galleryInfoArray[i][2]}</p>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
+            } else { // otherwise video
+                // todo: create a video lightgallery object first
+                    // maybe give the a tag an id so we can target it and inject the data-video stuff
+                galleryContainer.append(`<a data-video='{
+    "source": [
+        {
+            "src": "test-media/${galleryInfoArray[i][0]}",
+            "type": "video/mp4",
+        },
+        ...
+    ],"attributes": { "preload": false, "controls": true },
+};' data-sub-html="<p>${galleryInfoArray[i][2]}</p>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
+            }
         }
 
         window.galleryViewer = lightGallery(document.getElementById(`${galleryIDList[index]}`), { // load the lightgallery on the setup gallery container
-            // plugins: [lgZoom, lgThumbnail],
+            plugins: [lgPager, lgFullscreen, lgZoom, lgVideo],
             licenseKey: '0000-0000-000-0000',
-            speed: 500
+            preload: 2,
+            loop: false,
+            // allowMediaOverlap: true,
+            speed: 500, // transition within gallery speed
+            backdropDuration: 300, // open/close speed
+            download: false, // button
+            hideBarsDelay: 2000, // hide controls
+            hideScrollbar: true,
+            numberOfSlideItemsInDom: 5,
+            swipeToClose: false,
+            actualSize: false, // zoom button
+            showZoomInOutIcons: true,
+            videojs: true
         }); // todo: fill in other settings
     }, 'text');
 }
