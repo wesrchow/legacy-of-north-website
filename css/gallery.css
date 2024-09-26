@@ -22,8 +22,9 @@
     width: 100%;
     flex-flow: row wrap;
     justify-content: center;
-    align-items: center;
+    align-content: flex-start;
 
+    padding: 2em 0;
     overflow-y: scroll;
 
     -webkit-user-drag: none;
@@ -34,12 +35,27 @@
     height: 12em;
     width: 12em;
 
-    margin: 0.5em;
+    overflow: hidden;
+    margin: 0.2em;
 }
 
 .gallery-container img {
     height: 12em;
     width: 12em;
     object-fit: cover;
+}
+
+.gallery-container video {
+    height: 12em;
+    width: auto;
+
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* calculate the width by taking height and multiplying by the aspect ratio, subtract the thumbnail width size, divide by 2 for each side that goes out side the bounds */
+    /*clip-path: inset(0 calc(((12em*(16/9)) - 12em)/2));*/
+
+    cursor: pointer;
 }
 

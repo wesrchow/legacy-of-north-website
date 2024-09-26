@@ -67,28 +67,37 @@ function openGallery(index) {
         let galleryInfoArray = $.csv.toArrays(data);
         for (let i = 1; i < galleryInfoArray.length; i++) { // inject gallery item with sources, captions
             if (galleryInfoArray[i][1].toString() === "image") {
-                galleryContainer.append(`<a href="test-media/${galleryInfoArray[i][0]}" data-sub-html="<p>${galleryInfoArray[i][2]}</p>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
+                galleryContainer.append(`<a href="test-media/${galleryInfoArray[i][0]}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
             } else { // otherwise video
-                // todo: create a video lightgallery object first
-                    // maybe give the a tag an id so we can target it and inject the data-video stuff
-                galleryContainer.append(`<a data-video='{
-    "source": [
-        {
-            "src": "test-media/${galleryInfoArray[i][0]}",
-            "type": "video/mp4",
-        },
-        ...
-    ],"attributes": { "preload": false, "controls": true },
-};' data-sub-html="<p>${galleryInfoArray[i][2]}</p>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
+                let elementID = galleryInfoArray[i][0].toString().split(".")[0]; // give the element an ID so we can target later
+                let elementIDVideo = elementID + "-video";
+
+                galleryContainer.append(`<a id="${elementID}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><video id="${elementIDVideo}" preload="metadata" disablePictureInPicture><source src="test-media/${galleryInfoArray[i][0]}" type="video/mp4"></video></a>`)
+
+                let dataVideo = { // create lightgallery formatted data for html5 video
+                    source: [
+                        {
+                            src: `test-media/${galleryInfoArray[i][0]}`,
+                            type: 'video/mp4',
+                        }
+                    ],
+                    attributes: { preload: false, controls: true, disableRemotePlayback: true },
+                };
+                document.getElementById(`${elementID}`).setAttribute("data-video", JSON.stringify(dataVideo)); // set data-video to element
+
+                // disable right click for thumbnail video
+                document.getElementById(`${elementIDVideo}`).addEventListener('contextmenu', (e) => { e.preventDefault(); });
             }
         }
 
-        window.galleryViewer = lightGallery(document.getElementById(`${galleryIDList[index]}`), { // load the lightgallery on the setup gallery container
+        // load the lightgallery on the setup gallery container
+        window.galleryViewer = lightGallery(document.getElementById(`${galleryIDList[index]}`), {
             plugins: [lgPager, lgFullscreen, lgZoom, lgVideo],
-            licenseKey: '0000-0000-000-0000',
+            licenseKey: 'DBD9A382-30CC40AE-95F97998-82AE427B',
             preload: 2,
             loop: false,
             // allowMediaOverlap: true,
+            zoomFromOrigin: false, // zoom from gallery position thumbnail
             speed: 500, // transition within gallery speed
             backdropDuration: 300, // open/close speed
             download: false, // button
@@ -96,10 +105,26 @@ function openGallery(index) {
             hideScrollbar: true,
             numberOfSlideItemsInDom: 5,
             swipeToClose: false,
+            enableDrag: false,
             actualSize: false, // zoom button
             showZoomInOutIcons: true,
-            videojs: true
-        }); // todo: fill in other settings
+            videojs: true,
+            videojsOptions: {
+                controls: true,
+                controlBar: {
+                    pictureInPictureToggle: false,
+                    remainingTimeDisplay: false,
+                    currentTimeDisplay: true,
+                    durationDisplay: true,
+                    timeDivider: true
+                },
+                autoplay: false,
+                preload: 'auto',
+            },
+            // videoMaxSize: '1920-1080', manually handled in css instead
+            autoplayFirstVideo: false,
+            gotoNextSlideOnVideoEnd: false
+        });
     }, 'text');
 }
 
