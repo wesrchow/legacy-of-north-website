@@ -347,7 +347,7 @@ function verifySectionCheck(sectionCheck) {
 }
 
 // sidebar reveal display and animation
-function sidebarAnimReveal(sidebarElementJ) {
+export function sidebarAnimReveal(sidebarElementJ) {
     sidebarElementJ.css("display", "block");
     sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
     sidebarElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
@@ -358,7 +358,7 @@ function sidebarAnimReveal(sidebarElementJ) {
 }
 
 // sidebar hide display and animation
-function sidebarAnimHide(sidebarElementJ, setup) {
+export function sidebarAnimHide(sidebarElementJ, setup) {
     sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
 
     setTimeout(function () { // delay to allow height to be set first

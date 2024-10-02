@@ -14,3 +14,11 @@
 .pnlm-control:hover {
     background-color: #c9c9c9;
 }
+
+/*
+    Other
+*/
+.dropdown-rotate {
+    transform: rotateX(180deg) !important;
+    transition: 0.3s;
+}

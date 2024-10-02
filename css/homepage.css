@@ -60,9 +60,11 @@
     text-decoration: none;
 }
 
-.fullpage-arrow {
-    font-size: 3em;
-    color: white;
+#fullpage-arrow {
+    /*font-size: 3em;*/
+    /*color: white;*/
+    height: 45px;
+    filter: invert(100%);
 
     position: absolute;
     bottom: 0.7em;
@@ -71,7 +73,7 @@
     transition: 0.5s;
 }
 
-.fullpage-arrow:hover {
+#fullpage-arrow:hover {
     color: #d7b600;
     cursor: pointer;
 
@@ -79,8 +81,6 @@
 
     transition: 0.5s;
 }
-
-
 
 
 

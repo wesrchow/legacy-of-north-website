@@ -1,6 +1,7 @@
 /* Map menu events */
 
 import * as mapMovement from "./map-movement.js";
+import * as sidebar from "./sidebar.js";
 
 
 // add the events for the map layer menu
@@ -15,6 +16,7 @@ export function initMapLayerMenu() {
 
     // Map layer menu selectors
     const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
+    const mapLayerMenuArrow = $("#map-dropdown-arrow");
     const mapLayerMenu = $("#map-layer-menu");
     const mapLayerMenuNorth1st = $("#map-layer-menu-north-1st");
     const mapLayerMenuNorth2nd = $("#map-layer-menu-north-2nd");
@@ -35,8 +37,16 @@ export function initMapLayerMenu() {
     mapMenuLockPanning(mapLayerMenu);
 
     // map menu dropdown toggle
+    sidebar.sidebarAnimHide(mapLayerMenu, true); // hide initially
     mapLayerMenuDropdown.click(function () {
-        mapLayerMenu.toggleClass("hidden");
+        // mapLayerMenu.toggleClass("hidden");
+        if (mapLayerMenu.css("display") === "none") {
+            sidebar.sidebarAnimReveal(mapLayerMenu);
+        } else {
+            sidebar.sidebarAnimHide(mapLayerMenu, false);
+        }
+
+        mapLayerMenuArrow.toggleClass("dropdown-rotate");
     });
 
     //
