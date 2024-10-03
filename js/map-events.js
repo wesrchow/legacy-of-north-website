@@ -44,7 +44,7 @@ export function initMap() {
                 if (mapLoadCounter === 6) { // Wait till all 6 maps are replaced then execute the following once
 
                     // center map when svg is finished fully loading (excluding media clicks)
-                    mapMovement.centerResetMap(1); // todo: change when decided initial map
+                    mapMovement.centerResetMap();
 
                     // defer setting up map menu until SVGs have finished loading (excluding media clicks)
                     mapMenu.initMapLayerMenu();

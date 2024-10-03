@@ -368,7 +368,7 @@ export function sidebarAnimHide(sidebarElementJ, setup) {
 
         if (setup) { // bring back animation after first load
             sidebarElementJ.css("display", "none");
-            sidebarElementJ[0].offsetHeight;
+            sidebarElementJ[0].offsetHeight; // force reflow
             sidebarElementJ.removeClass("no-transition");
         }
     }, 5);

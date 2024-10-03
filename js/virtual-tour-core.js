@@ -4,7 +4,6 @@ import * as sidebar from "./sidebar.js";
 import * as mapEvents from "./map-events.js";
 import * as mapMovement from "./map-movement.js";
 import * as viewer360Module from "./360-viewer.js";
-import * as linearVideo from "./linear-video.js";
 
 /*
 *
