@@ -7,6 +7,7 @@ import {sidebarAnimHide} from "./sidebar.js";
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
 const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
+const mapLayerMenuArrow = $("#map-dropdown-arrow");
 const mapContainer = $("#map-container");
 
 // 360 viewer jquery selectors
@@ -98,9 +99,11 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
                     sidebarAnimHide(mapLayerMenu, true);
+                    mapLayerMenuArrow.toggleClass("dropdown-rotate");
                 }
                 mapLayerMenuDropdown.addClass("hidden");
                 mapContainer.addClass("hidden");
+                mapLayerMenuArrow.addClass("hidden");
 
                 // reveal 360 viewer things
                 viewer360Container.removeClass("hidden");
@@ -160,9 +163,11 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
                     sidebarAnimHide(mapLayerMenu, true);
+                    mapLayerMenuArrow.toggleClass("dropdown-rotate");
                 }
                 mapLayerMenuDropdown.addClass("hidden");
                 mapContainer.addClass("hidden");
+                mapLayerMenuArrow.addClass("hidden");
 
                 // reveal and bring to foreground main 360 viewer
                 viewer360Container.removeClass("hidden");
@@ -339,6 +344,7 @@ export function close360Viewer() {
     // reveal and unlock map
     mapLayerMenuDropdown.removeClass("hidden");
     mapContainer.removeClass("hidden");
+    mapLayerMenuArrow.removeClass("hidden");
     window.lockDrag = false;
 
     // hide 360 viewer elements
