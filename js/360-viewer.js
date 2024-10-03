@@ -2,6 +2,7 @@
 
 import * as mapMovement from "./map-movement.js";
 import * as linearVideo from "./linear-video.js";
+import {sidebarAnimHide} from "./sidebar.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
@@ -95,7 +96,9 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 linearVideo.closeLinearVideo();
 
                 // (re)hide necessary elements
-                mapLayerMenu.addClass("hidden");
+                if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
+                    sidebarAnimHide(mapLayerMenu, true);
+                }
                 mapLayerMenuDropdown.addClass("hidden");
                 mapContainer.addClass("hidden");
 
@@ -155,7 +158,9 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 linearVideo.closeLinearVideo();
 
                 // (re)hide necessary elements
-                mapLayerMenu.addClass("hidden");
+                if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
+                    sidebarAnimHide(mapLayerMenu, true);
+                }
                 mapLayerMenuDropdown.addClass("hidden");
                 mapContainer.addClass("hidden");
 

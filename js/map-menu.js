@@ -1,7 +1,7 @@
 /* Map menu events */
 
 import * as mapMovement from "./map-movement.js";
-import * as sidebar from "./sidebar.js";
+import {sidebarAnimReveal, sidebarAnimHide} from "./sidebar.js";
 
 
 // add the events for the map layer menu
@@ -37,13 +37,13 @@ export function initMapLayerMenu() {
     mapMenuLockPanning(mapLayerMenu);
 
     // map menu dropdown toggle
-    sidebar.sidebarAnimHide(mapLayerMenu, true); // hide initially
+    sidebarAnimHide(mapLayerMenu, true); // hide initially
     mapLayerMenuDropdown.click(function () {
         // mapLayerMenu.toggleClass("hidden");
         if (mapLayerMenu.css("display") === "none") {
-            sidebar.sidebarAnimReveal(mapLayerMenu);
+            sidebarAnimReveal(mapLayerMenu);
         } else {
-            sidebar.sidebarAnimHide(mapLayerMenu, false);
+            sidebarAnimHide(mapLayerMenu, false);
         }
 
         mapLayerMenuArrow.toggleClass("dropdown-rotate");
