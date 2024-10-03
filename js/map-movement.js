@@ -160,11 +160,19 @@ export function constrainMap() {
 
 // recalculate page size properties and center map
 export function centerResetMap() {
-    scale = 1.3; // todo: tie this into responsive page size somehow
+    let mapContainerRegStyle = getComputedStyle(mapContainerReg);
+
+    // set padding relative to media container height
+    // mapContainerReg.style.paddingTop = `${mediaContainerReg.clientHeight/2}px`;
+    // mapContainerReg.style.paddingBottom = `${mediaContainerReg.clientHeight/2}px`;
+    // todo: add back after making constrain work properly for bigger paddings and custom scale
+
+    // fit the actual map edges (ignoring padding) to the media container
+    let mapHeightNoPadding = mapContainerReg.clientHeight - parseFloat(mapContainerRegStyle.paddingTop) - parseFloat(mapContainerRegStyle.paddingBottom);
+    scale = mediaContainerReg.clientHeight / mapHeightNoPadding;
     resetMapVars();
 
     // vertically center when padding extends beyond the media container
-    let mapContainerRegStyle = getComputedStyle(mapContainerReg);
     let heightY = parseFloat(mapContainerRegStyle.height);
     centeredOffsetY = (heightY*scale - mediaContainerReg.clientHeight) / 2;
     position = {x: 0, y: -centeredOffsetY};
