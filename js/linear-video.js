@@ -86,7 +86,7 @@ export function closeLinearVideo() {
     // reset the map in case we resize while the linear video is open
     // necessary because window resize check doesn't work when map is hidden
     mapMovement.resetMapVars(); // todo: fix to do the vertical centering if theres a resize (make the resize trigger something globally bc we need it for excluding mobile anyway?)
-    mapMovement.constrainMap();
+    mapMovement.constrainTransformMap();
     // todo: grab hand cursor after close
 }
 

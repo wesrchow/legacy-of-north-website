@@ -86,7 +86,7 @@ export function initMapLayerMenu() {
             targetMapLayer.toggleClass("hidden");
 
             if (targetBuilding !== currentBuilding) { // if the buildings are different, reset the map
-                mapMovement.centerResetMap();
+                mapMovement.centerResetMap(targetBuilding);
                 currentBuilding = targetBuilding;
             }
 

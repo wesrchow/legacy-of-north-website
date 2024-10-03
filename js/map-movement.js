@@ -7,7 +7,7 @@ const mediaContainer = $("#media-container");
 const mapContainerReg = document.getElementById("map-container");
 const mediaContainerReg = document.getElementById("media-container");
 
-// map movement variables (doesn't really matter if defined values here)
+// map movement variables (not properly defined values here since we alter them later)
 const speed = 0.2; // speed of scale, actual transition speed is handled in css
 let mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
 let mapContainerInitialW = mapContainerSize.w;
@@ -16,11 +16,16 @@ let position = {x: 0, y: 0};
 let target = {x: 0, y: 0};
 let pointer = {x: 0, y: 0};
 let scale = 1;
+const maxScale = 4;
+let minScale = 1.3;
 let centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
 let centeredOffsetY;
 let startMouse = {x: 0, y: 0};
 let currentMouse = {x: 0, y: 0};
 let previousMap = {x: 0, y: 0};
+
+// other
+let currentBuilding;
 
 
 // adds the events for interactive map movement
@@ -28,7 +33,7 @@ export function initMapMovementEvents() {
     // reset map on page resize
     $(window).resize(function () {
         // reset the map to the center
-        centerResetMap(); // todo bonus: use a state variable to check this trigger and have it run at a media close function
+        centerResetMap(currentBuilding); // todo bonus: use a state variable to check this trigger and have it run at a media close function
 
         // TODO: when below a certain screen size (mobile), hide the map completely and have only the sidebar span the whole screen
 
@@ -87,7 +92,7 @@ export function initMapMovementEvents() {
                 position.y = moveY + previousMap.y;
 
                 // constrain and apply movement transform
-                constrainMap();
+                constrainTransformMap();
             }
         }
     });
@@ -108,16 +113,14 @@ export function initMapMovementEvents() {
             scale += -1 * Math.max(-1, Math.min(1, event.deltaY)) * speed * scale;
 
             // limit the scale within a range
-            const max_scale = 4;
-            const min_scale = 1.3;
-            scale = Math.max(min_scale, Math.min(max_scale, scale));
+            scale = Math.max(minScale, Math.min(maxScale, scale));
 
             // calculate position for the image container using relative target with scale
             position.x = -target.x * scale + pointer.x;
             position.y = -target.y * scale + pointer.y;
 
             // constrain and apply movement transform
-            constrainMap();
+            constrainTransformMap();
 
             // set variables for panning
             previousMap.x = position.x;
@@ -135,7 +138,7 @@ export function resetMapVars() {
 }
 
 // constrain map position within media container bounds and apply the transform
-export function constrainMap() {
+export function constrainTransformMap() {
     // horizontal constraint
     if (mapContainerInitialW * scale > mediaContainerInitialW) {
         if (position.x > -centeredOffsetX) position.x = -centeredOffsetX;
@@ -159,24 +162,38 @@ export function constrainMap() {
 }
 
 // recalculate page size properties and center map
-export function centerResetMap() {
+export function centerResetMap(building) {
+    currentBuilding = building;
     let mapContainerRegStyle = getComputedStyle(mapContainerReg);
 
     // set padding relative to media container height
-    // mapContainerReg.style.paddingTop = `${mediaContainerReg.clientHeight/2}px`;
-    // mapContainerReg.style.paddingBottom = `${mediaContainerReg.clientHeight/2}px`;
-    // todo: add back after making constrain work properly for bigger paddings and custom scale
+/*    let paddingWidthDivisor;
+    if (building === 1) {
+        paddingWidthDivisor = 7;
+    } else if (building === 2) {
+        paddingWidthDivisor = 4.5;
+    } else { // outside
+        paddingWidthDivisor = 5.5;
+    }*/
+    // use a fixed divisor so its consistent
+    mapContainerReg.style.padding = `${mediaContainerReg.clientHeight/8.5}px 0`; /*${mediaContainerReg.clientWidth/paddingWidthDivisor}px*/
 
     // fit the actual map edges (ignoring padding) to the media container
     let mapHeightNoPadding = mapContainerReg.clientHeight - parseFloat(mapContainerRegStyle.paddingTop) - parseFloat(mapContainerRegStyle.paddingBottom);
     scale = mediaContainerReg.clientHeight / mapHeightNoPadding;
+    minScale = scale;
+
+    // after scale calculated, set padding relative to media container width
+    // first calculate padding if map was scaled to min, then divide it by scale back down to pre scale, divide 2 for each side, subtract off some space so map always starts middle
+    mapContainerReg.style.padding = `${mediaContainerReg.clientHeight/8.5}px ${(mediaContainerReg.clientWidth - mapContainerReg.clientWidth*scale)/(2*scale)-25}px`;
+
     resetMapVars();
 
-    // vertically center when padding extends beyond the media container
-    let heightY = parseFloat(mapContainerRegStyle.height);
+    // vertically center since padding extends beyond the media container
+    let heightY = mapContainerReg.clientHeight;
     centeredOffsetY = (heightY*scale - mediaContainerReg.clientHeight) / 2;
     position = {x: 0, y: -centeredOffsetY};
     previousMap = {x: 0, y: -centeredOffsetY};
 
-    constrainMap();
+    constrainTransformMap();
 }

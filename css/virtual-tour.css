@@ -10,8 +10,9 @@
     position: relative;
     height: 100%;
     width: auto;
-    padding: 100px 150px;
+    background-color: #5a5a5a;
 
+    padding: 0 0;
     -webkit-user-drag: none;
     -webkit-user-select: none;
 
