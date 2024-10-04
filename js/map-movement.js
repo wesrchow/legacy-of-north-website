@@ -2,6 +2,7 @@
 
 // jquery selector for easier css manipulation
 const mediaContainer = $("#media-container");
+const viewer360Container = $("#viewer-360-container");
 
 // vanilla js selectors for element properties
 const mapContainerReg = document.getElementById("map-container");
@@ -35,8 +36,9 @@ export function initMapMovementEvents() {
         if (window.activeMedia === undefined) {
             // reset the map to the center
             centerResetMap();
+        } else {
+            // todo: track a resize and center when thats NOT a fullscreen when media is open. use fullscreen api?
         }
-        // todo: track a resize and center when thats NOT a fullscreen when media is open
 
         // TODO bonus: when below a certain screen size (mobile), hide the map completely and have only the sidebar span the whole screen
 

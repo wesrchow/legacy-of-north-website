@@ -1,7 +1,7 @@
 /* Map menu events */
 
-import * as mapMovement from "./map-movement.js";
-import {sidebarAnimReveal, sidebarAnimHide} from "./sidebar.js";
+import {centerResetMap} from "./map-movement.js";
+import {sidebarAnimReveal, sidebarAnimHide} from "./media.js";
 
 
 // add the events for the map layer menu
@@ -86,7 +86,7 @@ export function initMapLayerMenu() {
             targetMapLayer.toggleClass("hidden");
 
             if (targetBuilding !== currentBuilding) { // if the buildings are different, reset the map
-                mapMovement.centerResetMap(targetBuilding);
+                centerResetMap(targetBuilding);
                 currentBuilding = targetBuilding;
             }
 

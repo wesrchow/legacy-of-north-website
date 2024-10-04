@@ -1,8 +1,8 @@
 /* 360 viewer related function */
 
 import * as mapMovement from "./map-movement.js";
-import * as linearVideo from "./linear-video.js";
-import {sidebarAnimHide} from "./sidebar.js";
+import {closeLinearVideo} from "./linear-video.js";
+import {sidebarAnimHide} from "./media.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
@@ -94,7 +94,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 // cleans up any prior 360 video, pannellum renderers and linear video
                 clean360Video();
                 destroyAll360Viewers();
-                linearVideo.closeLinearVideo();
+                closeLinearVideo();
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
@@ -158,7 +158,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 // cleans up any prior 360 video, pannellum renderers and linear video
                 clean360Video();
                 destroyAll360Viewers();
-                linearVideo.closeLinearVideo();
+                closeLinearVideo();
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
@@ -355,6 +355,7 @@ export function close360Viewer() {
 
     // reset the map in case we resize while the 360 viewer is open
     // necessary because window resize check doesn't work when map is hidden
+    console.log(window.resizeWhileMedia)
     mapMovement.resetMapVars(); // todo: fix to do the vertical centering if theres a resize (make the resize trigger something globally bc we need it for excluding mobile anyway?)
     mapMovement.constrainTransformMap();
 }

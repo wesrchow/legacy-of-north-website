@@ -1,15 +1,17 @@
 /* Linear video stuff */
 
-import * as viewer360Module from "./360-viewer.js";
+import {startMediaClickTimeout, close360Viewer} from "./360-viewer.js";
 import * as mapMovement from "./map-movement.js";
+import {sidebarAnimHide} from "./media.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
 const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
+const mapLayerMenuArrow = $("#map-dropdown-arrow");
 const mapContainer = $("#map-container");
 
 // linear video jquery selectors
-let videoContainer = $("#video-container");
+let videoContainer = $("#video-container"); // duplicated later because video js destroys it
 const exitMediaButton = $("#exit-media-button");
 
 // other jquery selectors
@@ -25,19 +27,23 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
         if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
             // click timeout management
             window.mediaClickTimeout = true;
-            viewer360Module.startMediaClickTimeout();
+            startMediaClickTimeout();
 
             $(this).data("mediaActive", true); // sets this elements media as active to prevent repeat clicks
 
             setTimeout(() => { // stall video load so button can animate without lag (and sync with other media)
                 // close any prior 360 photo & video, clean linear video
-                viewer360Module.close360Viewer();
+                close360Viewer();
                 destroyLinearVideo();
 
                 // (re)hide necessary elements
-                mapLayerMenu.addClass("hidden");
+                if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
+                    sidebarAnimHide(mapLayerMenu, true);
+                    mapLayerMenuArrow.toggleClass("dropdown-rotate");
+                }
                 mapLayerMenuDropdown.addClass("hidden");
                 mapContainer.addClass("hidden");
+                mapLayerMenuArrow.addClass("hidden");
 
                 // linear video style
                 mediaContainer.css("cursor", "auto"); // override out of map cursor
@@ -74,6 +80,7 @@ export function closeLinearVideo() {
     // reveal and unlock map
     mapLayerMenuDropdown.removeClass("hidden");
     mapContainer.removeClass("hidden");
+    mapLayerMenuArrow.removeClass("hidden");
     window.lockDrag = false;
 
     // clean up video js renderer
@@ -85,9 +92,10 @@ export function closeLinearVideo() {
 
     // reset the map in case we resize while the linear video is open
     // necessary because window resize check doesn't work when map is hidden
+    console.log(window.resizeWhileMedia)
     mapMovement.resetMapVars(); // todo: fix to do the vertical centering if theres a resize (make the resize trigger something globally bc we need it for excluding mobile anyway?)
     mapMovement.constrainTransformMap();
-    // todo: grab hand cursor after close
+    mediaContainer.css("cursor", "grab"); // reset cursor
 }
 
 // clean up linear video renderer

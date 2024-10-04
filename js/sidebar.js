@@ -2,6 +2,7 @@
 
 import * as viewer360Module from "./360-viewer.js";
 import * as linearVideo from "./linear-video.js";
+import {sidebarAnimReveal, sidebarAnimHide} from "./media.js";
 
 // sidebar location menus
 const northLocationMenu = $("#north-location-menu");
@@ -343,40 +344,6 @@ function verifySectionCheck(sectionCheck) {
 
     if (sectionCheck[3] === false && outsideLocationMenu.prev().hasClass("active")) {
         outsideLocationMenu.prev()[0].click();
-    }
-}
-
-// sidebar reveal display and animation
-export function sidebarAnimReveal(sidebarElementJ) {
-    sidebarElementJ.css("display", "block");
-    sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
-    sidebarElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
-
-    sidebarElementJ[0].ontransitionend = () => {
-        sidebarElementJ.height("auto"); // set back to auto to allow dropdown to expand properly
-    };
-}
-
-// sidebar hide display and animation
-export function sidebarAnimHide(sidebarElementJ, setup) {
-    sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
-
-    setTimeout(function () { // delay to allow height to be set first
-        if (setup) sidebarElementJ.addClass("no-transition"); // prevent animation on first load
-
-        sidebarElementJ.addClass("sidebar-selection-hidden"); // add hidden class
-
-        if (setup) { // bring back animation after first load
-            sidebarElementJ.css("display", "none");
-            sidebarElementJ[0].offsetHeight; // force reflow
-            sidebarElementJ.removeClass("no-transition");
-        }
-    }, 5);
-
-    if (!setup) {
-        sidebarElementJ[0].ontransitionend = () => { // once transition is done, display hide it
-            sidebarElementJ.css("display", "none");
-        };
     }
 }
 

@@ -20,6 +20,7 @@ window.activeMediaSecondary = undefined; // handles media switching and closing 
 window.mediaClickTimeout = false; // prevent media double clicks
 window.sidebarClickTimeout = false; // prevent sidebar double clicks
 window.mapClickTimeout = false; // prevent map double clicks
+window.resizeWhileMedia = false; // check resize when media is active (not fullscreens)
 
 /*
 *
