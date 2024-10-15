@@ -83,7 +83,7 @@ export function init360ViewerControls() {
 export function create360PhotoViewerEvent(selectorIDString, content360Filename, section) {
     $(`#${selectorIDString}`).click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
             // handle click timeout
             window.mediaClickTimeout = true;
             startMediaClickTimeout();
@@ -147,7 +147,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
     // add click event to sidebar
     sidebarSelector.click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
             // click timeout management
             window.mediaClickTimeout = true;
             startMediaClickTimeout();

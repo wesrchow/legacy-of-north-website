@@ -24,7 +24,7 @@ const sectionFilepath = ["", "north", "south", "outside"];
 export function createLinearVideoEvent(selectorIDString, contentVideoFilename, section) {
     $(`#${selectorIDString}`).click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && $(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
             // click timeout management
             window.mediaClickTimeout = true;
             startMediaClickTimeout();

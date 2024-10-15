@@ -83,7 +83,7 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
     // add click event to map location that triggers sidebar click
     mapIDSelector.click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && !window.mapClickTimeout) {
+        if (!window.lockMapSelection && !window.mapClickTimeout && !window.sidebarClickTimeout) {
             // manage click timeout
             window.mapClickTimeout = true;
             startMapClickTimeout();
@@ -92,14 +92,10 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
                 sectionLink[0].click();
             }
 
-            if (dropdownLink !== undefined && !dropdownLink.hasClass("active")) { // open relevant dropdown once
-                dropdownLink.data("mediaActive", true); // stop the dropdown from rendering the first image event todo bonus: make sure this always fires before the click and check
-                dropdownLink[0].click();
-            }
-
             setTimeout(() => {
-                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: fix block center? shifting when theres sub buttons
-            }, 130);// todo: do something better than a timeout?
+                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); // todo: double check theres no shifting from these settings,
+                // todo bonus: fix sections pixel gap when animating an element close to the end
+            }, 250); // must match element height animation time (defined in css)
 
             sidebarIDSelector[0].click();
         }

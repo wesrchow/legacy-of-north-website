@@ -11,7 +11,7 @@ import * as viewer360Module from "./360-viewer.js";
 *
 * */
 window.lockDrag = false; // lock map panning
-window.lockMapSelection = false; // lock map selection location clicks
+window.lockMapSelection = false; // lock map selection location clicks for clicking and dragging
 window.viewer360 = undefined; // pannellum viewer object
 window.viewer360Secondary = undefined; // pannellum viewer object for 360 video
 window.mouseDragging = false; // used for map panning checks
