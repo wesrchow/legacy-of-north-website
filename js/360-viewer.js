@@ -66,7 +66,7 @@ export function initMediaControls() {
     // reset map media active handling
     $(window).resize(function () {
         setTimeout(function () { // wait to let fullscreenchange event trigger
-            if (!window.mediaActiveFullscreen) { // if any resize other than media fullscreen
+            if (!window.mediaActiveFullscreen && window.activeMedia !== undefined) { // if any resize other than media fullscreen
                 window.resizedWhileMedia = true;
             }
         }, 5);
