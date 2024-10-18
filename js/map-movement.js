@@ -33,11 +33,9 @@ let previousMap = {x: 0, y: 0};
 export function initMapMovementEvents() {
     // reset map on page resize
     $(window).resize(function () {
+        // reset map and center here if no media is active
         if (window.activeMedia === undefined) {
-            // reset the map to the center
             centerResetMap();
-        } else {
-            // todo: track a resize and center when thats NOT a fullscreen when media is open. use fullscreen api?
         }
 
         // TODO bonus: when below a certain screen size (mobile), hide the map completely and have only the sidebar span the whole screen
@@ -162,28 +160,6 @@ function startZoomTimeout() {
     }, 30);
 }
 
-// reset certain standard variables that change on page resize
-export function resetMapVars() {
-    // let mapContainerRegStyle = getComputedStyle(mapContainerReg);
-
-    mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
-    mapContainerInitialW = mapContainerSize.w;
-    mediaContainerInitialW = mediaContainerReg.clientWidth;
-
-    // let mapHeightNoPadding = mapContainerReg.clientHeight - parseFloat(mapContainerRegStyle.paddingTop)*2;
-    // minScale = mediaContainerReg.clientHeight / mapHeightNoPadding;
-
-    /*if ((mapContainerReg.clientWidth - parseFloat(mapContainerRegStyle.paddingLeft)*2)*minScale > mediaContainerReg.clientWidth - 200) {
-        centeredOffsetX = 0/!*(mapContainerReg.clientWidth*minScale - mediaContainerReg.clientWidth) / 2*!/;
-    } else {
-        centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
-    } TODO bonus: proper initial centering when map width is larger than media container. (need to edit constrain fn accordingly?)*/
-
-    centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
-    centeredOffsetY = (mapContainerReg.clientHeight*minScale - mediaContainerReg.clientHeight) / 2;
-
-}
-
 // constrain map position within media container bounds and apply the transform
 export function constrainTransformMap() {
     // horizontal constraint
@@ -230,10 +206,28 @@ export function centerResetMap() {
     }
     mapContainerReg.style.padding = `${mediaContainerReg.clientHeight/8.5}px ${mapSidePadding}px`;
 
-    resetMapVars();
+
+    // formerly resetMapVars START
+    // reset certain standard variables
+    mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
+    mapContainerInitialW = mapContainerSize.w;
+    mediaContainerInitialW = mediaContainerReg.clientWidth;
+
+    // let mapHeightNoPadding = mapContainerReg.clientHeight - parseFloat(mapContainerRegStyle.paddingTop)*2;
+    // minScale = mediaContainerReg.clientHeight / mapHeightNoPadding;
+
+    /*if ((mapContainerReg.clientWidth - parseFloat(mapContainerRegStyle.paddingLeft)*2)*minScale > mediaContainerReg.clientWidth - 200) {
+        centeredOffsetX = 0/!*(mapContainerReg.clientWidth*minScale - mediaContainerReg.clientWidth) / 2*!/;
+    } else {
+        centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
+    } TODO bonus: proper initial centering when map width is larger than media container. (need to edit constrain fn accordingly?)*/
+
+    centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
+    centeredOffsetY = (mapContainerReg.clientHeight*minScale - mediaContainerReg.clientHeight) / 2;
+    // formerly resetMapVars END
+
 
     // vertically center since padding extends beyond the media container
-    // centeredOffsetY = (mapContainerReg.clientHeight*scale - mediaContainerReg.clientHeight) / 2;
     position = {x: 0, y: -centeredOffsetY};
     previousMap = {x: 0, y: -centeredOffsetY};
 

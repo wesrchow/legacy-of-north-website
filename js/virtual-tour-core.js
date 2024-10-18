@@ -20,7 +20,8 @@ window.activeMediaSecondary = undefined; // handles media switching and closing 
 window.mediaClickTimeout = false; // prevent media double clicks
 window.sidebarClickTimeout = false; // prevent sidebar double clicks
 window.mapClickTimeout = false; // prevent map double clicks
-window.resizeWhileMedia = false; // check resize when media is active (not fullscreens)
+window.resizedWhileMedia = false; // check resized when media is active (not fullscreens)
+window.mediaActiveFullscreen = false; //track media fullscreen toggle (specific window resize type)
 
 /*
 *
@@ -39,6 +40,6 @@ Promise.all([sidebar.initSidebar(), mapEvents.initMap()]).then(() => {
 
 mapMovement.initMapMovementEvents(); // Add map events to facilitate map movement
 
-viewer360Module.init360ViewerControls(); // Add all 360 viewer controls (photo and video)
+viewer360Module.initMediaControls(); // Add all 360 viewer controls (photo and video)
 
 // note: init 360 videos moved to sidebar since it must be deferred until sidebar is loaded

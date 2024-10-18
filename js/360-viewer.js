@@ -1,8 +1,8 @@
 /* 360 viewer related function */
 
-import * as mapMovement from "./map-movement.js";
 import {closeLinearVideo} from "./linear-video.js";
 import {sidebarAnimHide} from "./media.js";
+import {centerResetMap} from "./map-movement.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-layer-menu");
@@ -62,7 +62,29 @@ export function init360Videos() {
 }
 
 // Sets up 360 viewer controls
-export function init360ViewerControls() {
+export function initMediaControls() {
+    // reset map media active handling
+    $(window).resize(function () {
+        setTimeout(function () { // wait to let fullscreenchange event trigger
+            if (!window.mediaActiveFullscreen) { // if any resize other than media fullscreen
+                window.resizedWhileMedia = true;
+            }
+        }, 5);
+    });
+
+    // add fullscreenchange events to 360 viewers (linearvideo in respective file)
+    let mediaContainers = viewer360Container.add(viewer360ContainerSecondary);
+    mediaContainers.on("fullscreenchange", function () {
+        if (!window.mediaActiveFullscreen) { // going into fullscreen
+            window.mediaActiveFullscreen = true;
+        } else {
+            setTimeout(function () { // wait to let resize check trigger (longer here when exiting fullscreen)
+                window.mediaActiveFullscreen = false;
+            }, 10);
+        }
+
+    });
+
     // 360 viewer exit button
     exitMediaButton.click(function () {
         if (!window.mediaClickTimeout) {
@@ -121,6 +143,10 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                     "keyboardZoom": false,
                     "disableKeyboardCtrl": true
                 }); // todo: finalize these options and do proper pathing
+
+                window.viewer360.on("load", function () {
+                    // todo: use for load cover anim?
+                });
             }, 260);
         }
     });
@@ -354,10 +380,11 @@ export function close360Viewer() {
     destroyAll360Viewers(); // cleans up any prior pannellum renderers
 
     // reset the map in case we resize while the 360 viewer is open
-    // necessary because window resize check doesn't work when map is hidden
-    console.log(window.resizeWhileMedia)
-    mapMovement.resetMapVars(); // todo: fix to do the vertical centering if theres a resize (make the resize trigger something globally bc we need it for excluding mobile anyway?)
-    mapMovement.constrainTransformMap();
+    // necessary because center reset doesn't work when map is hidden
+    if (window.resizedWhileMedia) {
+        centerResetMap();
+        window.resizedWhileMedia = false;
+    }
 }
 
 // clean up all 360 viewer renderers
@@ -365,6 +392,7 @@ function destroyAll360Viewers() {
     // destroy all 360 viewers only if they exist
     if (viewer360Container.children().length) {
         window.viewer360.destroy();
+        window.viewer360.off(); // todo: need for clean up? pannellum load check usage
     }
     if (viewer360ContainerSecondary.children().length) {
         window.viewer360Secondary.destroy();
