@@ -1,6 +1,7 @@
 /* Map menu events */
 
-import * as mapMovement from "./map-movement.js";
+import {centerResetMap} from "./map-movement.js";
+import {sidebarAnimReveal, sidebarAnimHide} from "./media.js";
 
 
 // add the events for the map layer menu
@@ -15,6 +16,7 @@ export function initMapLayerMenu() {
 
     // Map layer menu selectors
     const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
+    const mapLayerMenuArrow = $("#map-dropdown-arrow");
     const mapLayerMenu = $("#map-layer-menu");
     const mapLayerMenuNorth1st = $("#map-layer-menu-north-1st");
     const mapLayerMenuNorth2nd = $("#map-layer-menu-north-2nd");
@@ -25,7 +27,9 @@ export function initMapLayerMenu() {
 
     // Helper variables
     const mapLayerMenuTitles = ["North 1st Floor", "North 2nd Floor", "North 3rd Floor", "South 1st Floor", "South 2nd Floor", "Outside"];
-    let currentMapLayer = mapLayerNorth2nd; // default start state
+    // default start state
+    let currentMapLayer = mapLayerNorth2nd; // initial map layer
+    mapLayerMenuDropdown.text(mapLayerMenuTitles[1]); // initial menu title
     let currentBuilding = 1; // 1 = north, 2 = south, 3 = outside
 
     // events for locking map when mouse is hovering the menu
@@ -33,8 +37,16 @@ export function initMapLayerMenu() {
     mapMenuLockPanning(mapLayerMenu);
 
     // map menu dropdown toggle
+    sidebarAnimHide(mapLayerMenu, true); // hide initially
     mapLayerMenuDropdown.click(function () {
-        mapLayerMenu.toggleClass("hidden");
+        // mapLayerMenu.toggleClass("hidden");
+        if (mapLayerMenu.css("display") === "none") {
+            sidebarAnimReveal(mapLayerMenu);
+        } else {
+            sidebarAnimHide(mapLayerMenu, false);
+        }
+
+        mapLayerMenuArrow.toggleClass("dropdown-rotate");
     });
 
     //
@@ -74,7 +86,7 @@ export function initMapLayerMenu() {
             targetMapLayer.toggleClass("hidden");
 
             if (targetBuilding !== currentBuilding) { // if the buildings are different, reset the map
-                mapMovement.centerResetMap();
+                centerResetMap(targetBuilding);
                 currentBuilding = targetBuilding;
             }
 
@@ -85,8 +97,7 @@ export function initMapLayerMenu() {
 
 // properly lock map panning when hovering over the layer menu
 function mapMenuLockPanning(menuElement) {
-    menuElement.hover(
-        function () { // enter element
+    menuElement.hover(function () { // enter element
             if (!mouseDragging) { // lock map panning if not dragging
                 window.lockDrag = true;
             }
@@ -95,7 +106,9 @@ function mapMenuLockPanning(menuElement) {
         }
     );
 
-    menuElement.mouseup(function () { // lock if we mouseup within the menu (usually while having been dragging)
-        window.lockDrag = true;
+    menuElement.mouseup(function () { // lock if we mouseup within the menu as well (usually while having been dragging)
+        setTimeout(function () { // waits for the mouseup in map-movement to trigger first
+            window.lockDrag = true;
+        }, 10);
     });
 }

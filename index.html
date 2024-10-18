@@ -8,90 +8,92 @@
     <!-- Stylesheets CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"> <!-- fontawesome -->
-    <!--TODO: to use?-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.css"
-          integrity="sha512-wCVOuVtxsXqrQK7tj9j4BvyfITQmpp7UE7mVilD7aieGLYFEIAa5UKTP1RapOf6dxQ9JIKAneakcyykWG4r4Ow==" crossorigin="anonymous"> <!-- fullpage -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.28/fullpage.css"
+          integrity="sha512-m30XTOqR5zollntvNa1A1FL6mBFlhzd9Pvm8IHJ97jcZhOfipqTV+s+rdWkD10zRK00hlXHf2amFXzHdrjbHmg==" crossorigin="anonymous"> <!-- fullpage -->
 
     <!-- Stylesheets Custom -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/homepage.css">
+    <link rel="stylesheet" href="css/overrides.css">
+    <link rel="stylesheet" href="css/homepage-overrides.css">
 </head>
 
-<body id="home">
-<!--
-    =======
-    NAV BAR
-    =======
--->
-<nav class="navbar-custom" id="navbar">
-    <ul class="navbar-links" id="navbar-links">
-        <li><a href="#" class="active-page">Home</a></li>
-        <li><a href="virtual-tour.html">Virtual Tour</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
-</nav>
-
-
+<body>
+<div id="fullpage">
 <!--
     ======================
     FULL PAGE COVER SCREEN
     ======================
 -->
-<div class="fullscreen-video-container">
-    <!--    <img src="test-media/Burnaby_North_Viking.jpg" alt="">-->
-<!--        <div class="title-text">Legacy of North</div>-->
-    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-        <source src="test-media/endgame_trailer.mp4" type="video/mp4">
+<div class="section fullscreen-video-container">
+    <video playsinline autoplay muted loop data-keepplaying>
+        <source src="test-media/homepage_test.mp4" type="video/mp4">
     </video>
+
+    <div class="landing-content">
+        <div class="title-text">Legacy of North</div>
+        <a class="virtual-tour-button" href="virtual-tour.html">Virtual Tour</a>
+<!--        <i class="fa-solid fa-chevron-down" id="fullpage-arrow"></i>-->
+        <img src="test-media/down-arrow.png" alt="" id="fullpage-arrow">
+    </div>
 </div>
 
+<div class="section">
+    <!--
+        ======================
+        HOMEPAGE INFO CONTENT
+        ======================
+    -->
+    <section class="info-container">
+        <div class="header-section-container">
+<!--            <h1>Legacy of North: The Project</h1>-->
+<!--            <i class="fa-solid fa-music"></i>-->
+            <p>A project aiming to preserve the vast history of Burnaby North Secondary School</p>
+        </div>
 
-<!--
-    ======================
-    HOMEPAGE INFO CONTENT
-    ======================
--->
-<section class="info-container">
-    <div class="info-section-container">
-        <h1>[intro to project]</h1>
-        <i class="fa-solid fa-music"></i>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at eaque facilis numquam quo recusandae sit temporibus voluptatum! Ab aliquam nesciunt quisquam
-            reiciendis voluptatum. Est fuga maxime minima sed tenetur. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad cupiditate ex laboriosam quibusdam?
-            Aperiam cum earum harum minima mollitia, nemo odit quas quisquam sed suscipit. Amet blanditiis perferendis vero!</p>
-    </div>
+        <div class="info-container-row">
+            <div class="info-section-container">
+                <a href="virtual-tour.html"></a>
+                <h1>Virtual Tour</h1>
 
-    <div class="info-section-container">
-        <h1>[virtual tour summary, link]</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at eaque facilis numquam quo recusandae sit temporibus voluptatum! Ab aliquam nesciunt quisquam
-            reiciendis voluptatum. Est fuga maxime minima sed tenetur. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad cupiditate ex laboriosam quibusdam?
-            Aperiam cum earum harum minima mollitia, nemo odit quas quisquam sed suscipit. Amet blanditiis perferendis vero!</p>
-    </div>
+                <div class="icon-container-row">
+                    <img src="media/site-assets/street%20view%20ios.png" alt="" style="height:2.2em">
+                    <img src="media/site-assets/360-degree3.png" alt="" style="height:2.2em">
+                    <img src="media/site-assets/out3.png" alt="">
+                </div>
 
-    <div class="info-section-container">
-        <h1>[gallery summary, link]</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at eaque facilis numquam quo recusandae sit temporibus voluptatum! Ab aliquam nesciunt quisquam
-            reiciendis voluptatum. Est fuga maxime minima sed tenetur. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad cupiditate ex laboriosam quibusdam?
-            Aperiam cum earum harum minima mollitia, nemo odit quas quisquam sed suscipit. Amet blanditiis perferendis vero!</p>
-    </div>
+                <p>A street view style tour of the historic buildings featuring 300+ locations and 500+ shots</p>
+            </div>
 
-    <div class="info-section-container">
-        <h1>[about summary, link]</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid at eaque facilis numquam quo recusandae sit temporibus voluptatum! Ab aliquam nesciunt quisquam
-            reiciendis voluptatum. Est fuga maxime minima sed tenetur. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus ad cupiditate ex laboriosam quibusdam?
-            Aperiam cum earum harum minima mollitia, nemo odit quas quisquam sed suscipit. Amet blanditiis perferendis vero!</p>
-    </div>
-</section>
+            <div class="info-section-container">
+                <a href="gallery.html"></a>
+                <h1>Gallery</h1>
 
+                <div class="icon-container-row">
+                    <img src="media/site-assets/image2.png" alt="">
+                    <img src="media/site-assets/out3.png" alt="">
+                </div>
 
-<!--
-    ======
-    FOOTER
-    ======
--->
-<footer>
-    <!-- back to top? -->
-</footer>
+                <p>Miscellaneous footage that captures the history of the school from various sources</p>
+            </div>
+
+            <div class="info-section-container">
+                <a href="about.html"></a>
+                <h1>About</h1>
+                <div class="icon-container-row">
+                    <img src="media/site-assets/info.png" alt="">
+                    <img src="media/site-assets/email.png" alt="" style="height:2.3em;width:2.3em">
+                </div>
+                <p>How the project developed, support from people, resource credits and contact info</p>
+            </div>
+        </div>
+
+        <a href="https://www.linkedin.com/in/wesrchow/" class="footer-credit">Legacy of North by Wesley Chow</a>
+    </section>
+
+</div>
+</div>
+
 
 
 <!--
@@ -103,8 +105,10 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.2.0/instantpage.min.js"
         integrity="sha512-p8l0Kir2Q2O+MWF/+qw2yM2LQQf0+m0AMD0EvGTFFL9vHquAXMRQKuyFBvHdTWpGEgIbXZxd9vjCRPUHeAhsOA==" crossorigin="anonymous"></script> <!-- instantpage -->
-<!--TODO: to use?-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"
-        integrity="sha512-LGiXf+jHGTHcIybSsOWO3I/in+OObCkcEsWIZ7IyhzfD6RzD5qDUw2CK+JveuI7zTSEcDG//bIOvOpAJW2BWsg==" crossorigin="anonymous"></script> <!-- fullpage -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.28/fullpage.min.js"
+        integrity="sha512-X0OyMwqsleyiPQgdq3FZzQihWPJ3bf5VrMk9Z8Fi34TUbdzHHOfwu9QoC0Y/yUiMxwpFD6eMHUJcMK8FwvgTtQ==" crossorigin="anonymous"></script> <!-- fullpage -->
+
+<!-- Custom Scripts -->
+<script src="js/homepage.js" type="module"></script>
 </body>
 </html>

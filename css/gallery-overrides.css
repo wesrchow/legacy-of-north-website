@@ -1,0 +1,53 @@
+/*
+    lightgallery
+*/
+.lg-content { /* media content container */
+    bottom: 47px !important;
+}
+
+.lg-outer.lg-grab img.lg-object {
+    cursor: default;
+}
+
+.lg-sub-html { /* captions container */
+    color: #e7e7e7;
+    text-shadow: 0 0 1px #000000;
+    width: 100%;
+
+    position: absolute;
+    bottom: 18px;
+}
+
+.lg-sub-html p {
+    display: inline !important;
+}
+
+.lg-sub-html h4 {
+    display: inline !important;
+    font-weight: 500;
+}
+
+.lg-video-cont { /* video content container*/
+    vertical-align: baseline !important;
+    aspect-ratio: 16/9;
+    width: auto !important;
+    height: 100% !important;
+}
+
+    /*
+        videojs
+    */
+.vjs-current-time {
+    display: inline-block !important;
+    padding: 0 0.5em !important;
+}
+
+.vjs-time-divider {
+    display: inline-block !important;
+    padding: 0 0.5em !important;
+}
+
+.vjs-duration {
+    display: inline-block !important;
+    padding: 0 0.5em !important;
+}

@@ -8,14 +8,17 @@
     <!-- Stylesheet CDNs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"> <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nanogallery2/3.0.5/css/nanogallery2.min.css"
-          integrity="sha512-6sOT9zKSKq1CYgNMqtcY84tFPDnG1yX5mxwdGQiAVpAomVr2kUKJ//pFeU/KfaZDVCOru5iFOVswpT4RWWF2dQ==" crossorigin="anonymous"> <!-- nanogallery2 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery-bundle.min.css"
+          integrity="sha512-nUqPe0+ak577sKSMThGcKJauRI7ENhKC2FQAOOmdyCYSrUh0GnwLsZNYqwilpMmplN+3nO3zso8CWUgu33BDag==" crossorigin="anonymous"> <!-- lightgallery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.12.0/video-js.min.css"
+          integrity="sha512-qdNDoWK29TwXVKBtiWgkyY6zUC/2Ml5mVT6tQr7cPBraxBnSNgPuKt484AHwTqOBZmm4LPG+qBp3F3/419kzAA==" crossorigin="anonymous"> <!-- video js -->
 
     <!-- Stylesheets Custom -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/media.css">
     <link rel="stylesheet" href="css/gallery.css">
     <link rel="stylesheet" href="css/overrides.css">
+    <link rel="stylesheet" href="css/gallery-overrides.css">
 </head>
 
 <body id="gallery">
@@ -25,12 +28,10 @@
     =======
 -->
 <nav class="navbar-custom" id="navbar">
-    <ul class="navbar-links" id="navbar-links">
-        <li><a href="index.html" class="active-page">Home</a></li>
-        <li><a href="virtual-tour.html" id="yeet dsf">Virtual Tour</a></li>
-        <li><a href="#">Gallery</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
+    <a href="index.html">Home</a>
+    <a href="virtual-tour.html">Virtual Tour</a>
+    <a href="#" class="active-page">Gallery</a>
+    <a href="about.html">About</a>
 </nav>
 
 
@@ -50,12 +51,22 @@
 
             <!--  -->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn" id="grad-classes-menu">Grad Classes</a>
+                <a href="#" class="dropdown-btn" id="grad-classes-menu">Grad Class Plaques?</a>
             </li>
 
             <!--  -->
             <li class="sidebar-list-1">
-                <a href="#" id="new-building-timelapse-menu">New Building Timelapse</a>
+                <a href="#" class="dropdown-btn" id="yearbook">Yearbook Covers?</a>
+            </li>
+
+            <!--  -->
+            <li class="sidebar-list-1">
+                <a href="#" id="new-building-timelapse-menu">New Building Timelapse?</a>
+            </li>
+
+            <!--  -->
+            <li class="sidebar-list-1">
+                <a href="#" id="tbd">[TBD]</a>
             </li>
         </ul>
     </div>
@@ -67,7 +78,7 @@
         ==========
     -->
     <div class="media-container" id="media-container">
-        <!-- galleries controlled by nanogallery2 -->
+        <!-- galleries injected by js -->
     </div>
 </div>
 
@@ -81,10 +92,22 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/instant.page/5.2.0/instantpage.min.js"
         integrity="sha512-p8l0Kir2Q2O+MWF/+qw2yM2LQQf0+m0AMD0EvGTFFL9vHquAXMRQKuyFBvHdTWpGEgIbXZxd9vjCRPUHeAhsOA==" crossorigin="anonymous"></script> <!-- instantpage -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/nanogallery2/3.0.5/jquery.nanogallery2.min.js"
-        integrity="sha512-tvpLVnZrWnnNzV2921XEMx4xkFTUF8xg3s+Mi6cvC/R7A6X1FkpBUXPJFa3Xh5uD9BvOZ2tHeYq/5ZqrweW86Q==" crossorigin="anonymous"></script> <!-- nanogallery2 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.21/jquery.csv.min.js"
+        integrity="sha512-Y8iWYJDo6HiTo5xtml1g4QqHtl/PO1w+dmUpQfQSOTqKNsMhExfyPN2ncNAe9JuJUSKzwK/b6oaNPop4MXzkwg==" crossorigin="anonymous"></script> <!-- jquery-csv -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/lightgallery.min.js"
+        integrity="sha512-jEJ0OA9fwz5wUn6rVfGhAXiiCSGrjYCwtQRUwI/wRGEuWRZxrnxoeDoNc+Pnhx8qwKVHs2BRQrVR9RE6T4UHBg==" crossorigin="anonymous"></script> <!-- lightgallery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/pager/lg-pager.min.js"
+        integrity="sha512-p/vQczdCk287Uzj8GS8480KbjCQ8MGzRrXoQ/XFJhySSxWlRzWfgmVk0bjsixwgvLlfddccXMo/sKLpSBONTzw==" crossorigin="anonymous"></script> <!-- lightgallery pager -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/fullscreen/lg-fullscreen.min.js"
+        integrity="sha512-11B0rPDzvnSOYzAT37QdnYgt0z9Xg+wX5tckB1QKl5Znl8RPvrB5npo38K2jCt+Ad44udCfBiKt9D4jRdkSE1A==" crossorigin="anonymous"></script> <!-- lightgallery fullscreen -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/zoom/lg-zoom.min.js"
+        integrity="sha512-BLW2Jrofiqm6m7JhkQDIh2olT0EBI58+hIL/AXWvo8gOXKmsNlU6myJyEkTy6rOAAZjn0032FRk8sl9RgXPYIQ==" crossorigin="anonymous"></script> <!-- lightgallery zoom -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/plugins/video/lg-video.min.js"
+        integrity="sha512-Eo7d/1I/2Yywxw/unjfX06Q+owD82+3ign70yHtNTajId+C3CcHeqb+XP/a+uq/Fhrrkf8MeBcBiZqoMASFiiw==" crossorigin="anonymous"></script> <!-- lightgallery video -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.12.0/video.min.js"
+        integrity="sha512-wyzXdA8r2OvueoZ5xp49Es+tpOwr36QsNBVcg2zjtT1oxDVm5juVrbS0AbdkjPvelIHtcTRb4vFCC3u3K2Sj/A==" crossorigin="anonymous"></script> <!-- video js -->
 
 <!-- Custom Scripts -->
-<script src="js/gallery.js"></script>
+<script defer src="js/gallery.js" type="module"></script>
 </body>
 </html>

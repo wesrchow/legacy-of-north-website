@@ -1,14 +1,15 @@
 /* Styles That Should Override All Others */
 
-.hidden/*-display*/ {
+.hidden {
     display: none !important;
 }
 
-.hidden-opacity {
-    opacity: 0 !important;
+.sidebar-selection-hidden {
+    height: 0 !important;
+    transition: 0.25s;
 }
 
 .hidden-opacity-360video {
     opacity: 0 !important;
-    transition: opacity 1.2s;
+    transition: opacity 1.4s;
 }

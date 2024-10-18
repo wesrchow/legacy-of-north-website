@@ -1,12 +1,15 @@
 /* Sidebar element injection, 360Photo click events, searchbar */
 
 import * as viewer360Module from "./360-viewer.js";
+import * as linearVideo from "./linear-video.js";
+import {sidebarAnimReveal, sidebarAnimHide} from "./media.js";
 
 // sidebar location menus
 const northLocationMenu = $("#north-location-menu");
 const southLocationMenu = $("#south-location-menu");
 const outsideLocationMenu = $("#outside-location-menu");
 const sectionMenuSelectors = ["", northLocationMenu, southLocationMenu, outsideLocationMenu];
+const sectionSidebarButtons = ["", "north-sidebar-button", "south-sidebar-button", "outside-sidebar-button"];
 
 // search bar vanilla js selector
 const searchBarReg = document.getElementById("search-bar");
@@ -14,54 +17,60 @@ const searchBarReg = document.getElementById("search-bar");
 
 // Inject sidebar elements, attach clickable events, init searchbar
 export function initSidebar() {
-    let sidebarLoadCounter = 0; // wait till all 3 sections are loaded before adding dropdown click events
-    // TODO bonus: properly synchronize this
+    return new Promise((resolve, reject) => {
+        let sidebarLoadCounter = 0; // wait till all 3 sections are loaded before adding dropdown click events
 
-    // use title formatted lists to inject sidebar elements
-    jQuery.get("./csv/web-lists/north-locations-list.csv", function (data) {
-        jQuery.get("./csv/web-lists/north-locations-filenames.csv", function (data2) {
-            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
-            sidebarLoadCounter++;
-            if (sidebarLoadCounter === 3) {
-                addDropdownClick();
-                viewer360Module.initAll360Videos();
-            }
-        }, 'text');
-    }, 'text');
+        // use title formatted lists to inject sidebar elements
+        jQuery.get("./csv/virtual-tour/north-locations-list.csv", function (data) {
+            jQuery.get("./csv/virtual-tour/north-locations-filenames.csv", function (data2) {
+                sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 1);
+                sidebarLoadCounter++;
+                if (sidebarLoadCounter === 3) {
+                    addSidebarButtonClick();
+                    viewer360Module.init360Videos();
+                    initSidebarSticky();
+                    searchTypeEvent();
 
-    jQuery.get("./csv/web-lists/south-locations-list.csv", function (data) {
-        jQuery.get("./csv/web-lists/south-locations-filenames.csv", function (data2) {
-            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
-            sidebarLoadCounter++;
-            if (sidebarLoadCounter === 3) {
-                addDropdownClick();
-                viewer360Module.initAll360Videos();
-            }
-        }, 'text');
-    }, 'text');
+                    resolve(); // resolve promise once sidebar is done loading
+                }
+            }, 'text').fail(reject);
+        }, 'text').fail(reject);
 
-    jQuery.get("./csv/web-lists/outside-locations-list.csv", function (data) {
-        jQuery.get("./csv/web-lists/outside-locations-filenames.csv", function (data2) {
-            sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
-            sidebarLoadCounter++;
-            if (sidebarLoadCounter === 3) {
-                addDropdownClick();
-                viewer360Module.initAll360Videos();
-            }
-        }, 'text');
-    }, 'text');
+        jQuery.get("./csv/virtual-tour/south-locations-list.csv", function (data) {
+            jQuery.get("./csv/virtual-tour/south-locations-filenames.csv", function (data2) {
+                sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 2);
+                sidebarLoadCounter++;
+                if (sidebarLoadCounter === 3) {
+                    addSidebarButtonClick();
+                    viewer360Module.init360Videos();
+                    initSidebarSticky();
+                    searchTypeEvent();
 
-    // filter the search results on key up events
-    searchBarReg.addEventListener("keyup", function () {
-        filterSearchElements(document.getElementById("north-location-menu"));
-        filterSearchElements(document.getElementById("south-location-menu"));
-        filterSearchElements(document.getElementById("outside-location-menu"));
+                    resolve(); // resolve promise once sidebar is done loading
+                }
+            }, 'text').fail(reject);
+        }, 'text').fail(reject);
+
+        jQuery.get("./csv/virtual-tour/outside-locations-list.csv", function (data) {
+            jQuery.get("./csv/virtual-tour/outside-locations-filenames.csv", function (data2) {
+                sidebarElement360PhotoInjection($.csv.toArrays(data), $.csv.toArrays(data2), 3);
+                sidebarLoadCounter++;
+                if (sidebarLoadCounter === 3) {
+                    addSidebarButtonClick();
+                    viewer360Module.init360Videos();
+                    initSidebarSticky();
+                    searchTypeEvent();
+
+                    resolve(); // resolve promise once sidebar is done loading
+                }
+            }, 'text').fail(reject);
+        }, 'text').fail(reject);
     });
 }
 
 // Inject sidebar elements and add 360Photo events
 function sidebarElement360PhotoInjection(locationArray, filenameArray, section) {
-    let selectionIDArray = []; // TODO: keep it global or no? its needed for the map scrolling
+    let selectionIDArray = [];
     let sectionID = sectionMenuSelectors[section];
     let injectionString;
 
@@ -105,7 +114,6 @@ function sidebarElement360PhotoInjection(locationArray, filenameArray, section) 
 
 // Add 360Photo click events for sidebar
 function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray, section) {
-    // TODO: fix iterating past hallways, add comments
     let filenameOffset = 0;
     let locationArrayOffset = 0;
     let specialProperty = null;
@@ -132,8 +140,17 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
             counting = false;
         }
 
-        // add the actual 360Photo viewer click event
-        viewer360Module.create360PhotoViewerEvent(selectionIDArray[i].toString(), filenameArray[(i + 1 - filenameOffset)].toString(), section);
+        // check linear video branch
+        let menuIDString = selectionIDArray[i].toString();
+        let filenameParam = filenameArray[(i + 1 - filenameOffset)].toString();
+        if (!filenameParam.includes("LinearVideo")) {
+            // add the actual 360Photo viewer click event
+            viewer360Module.create360PhotoViewerEvent(menuIDString, filenameParam, section);
+        } else {
+            // add linear video click event
+            linearVideo.createLinearVideoEvent(menuIDString, filenameParam, section);
+        }
+
 
         // Check if the special property is decimal (multi image) using regex while ignoring 360Video cases
         // offset the filename for multi images so it matches up with the sidebar elements
@@ -144,61 +161,205 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
     }
 }
 
-function addDropdownClick() {
-    let dropdown = $(".dropdown-btn");
+// Add sidebar button click events for dropdowns and active media
+function addSidebarButtonClick() {
+    // setup list of sidebar buttons
+    const sidebarButtons = $("#location-menu a");
 
-    for (let i = 0; i < dropdown.length; i++) {
-        // open all dropdowns
-        // dropdown[i].classList.add("active");
+    // let sidebarClickTimeout = [];
 
-        // close all dropdowns initially
-        let dropdownContent = dropdown[i].nextElementSibling;
-        dropdownContent.style.display = "none"
+    // go through sidebar and close dropdowns, add click events
+    for (let i = 0; i < sidebarButtons.length; i++) {
+        if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close all dropdown initially
+            sidebarAnimHide(sidebarButtons.eq(i).next(), true);
+        }
 
-        // setup dropdown toggle
-        dropdown[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            let dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "none") {
-                dropdownContent.style.display = "block";
-            } else {
-                dropdownContent.style.display = "none";
+        // add click event to sidebar buttons
+        sidebarButtons[i].addEventListener("click", function () {
+            if (!window.sidebarClickTimeout) {
+
+                if (window.activeMediaSecondary !== this) {
+                    this.classList.toggle("active");
+                }
+
+                // active buttons handling
+                if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
+                    // manage click timeout
+                    window.sidebarClickTimeout = true;
+                    startSidebarClickTimeout();
+
+                    if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
+
+                        if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown
+                            // remove other active sub media, set new current as active secondary
+                            window.activeMediaSecondary.classList.remove("active");
+                            $(window.activeMediaSecondary).data("mediaActive", false);
+                            this.classList.add("active");
+                            window.activeMediaSecondary = this;
+                        } // otherwise it's a map clicking a sub media and we simulate a dropdown click to open it
+
+                    } else if (window.activeMedia !== this) { // if not clicking same media again
+
+                        if (window.activeMedia !== undefined) { // not first button / not only button action
+                            if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
+                                sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
+                                if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
+                                    window.activeMediaSecondary.classList.remove("active"); // clear secondary active
+                                    $(window.activeMediaSecondary).data("mediaActive", false);
+                                    window.activeMediaSecondary = undefined;
+                                }
+                            }
+
+                            window.activeMedia.classList.remove("active");
+                            $(window.activeMedia).data("mediaActive", false);
+                        }
+
+                        window.activeMedia = this; // (sometimes first open) sets the new current active media
+
+                    } else { // must be self, closes current media
+                        viewer360Module.close360Viewer();
+                        linearVideo.closeLinearVideo();
+
+                        // lock media clicks when closing self media
+                        window.mediaClickTimeout = true;
+                        viewer360Module.startMediaClickTimeout();
+
+                        setTimeout(function () { // delay to allow media opener click block to check first
+                            $(window.activeMedia).data("mediaActive", false);
+                            window.activeMedia = undefined;
+                        }, 8);
+
+                    }
+                }
+
+                // only for dropdowns toggle display and deal with active sub buttons
+                if (sidebarButtons[i].classList.contains("dropdown-btn")) {
+                    let dropdownContent = this.nextElementSibling;
+                    let dropdownContentJ = $(this).next();
+
+                    // dropdown active status toggling
+                    if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
+                        if (window.activeMediaSecondary === undefined) { // switched from elsewhere or opening new
+                            // active first image when opening a media dropdown
+                            let firstImage = dropdownContent.firstChild.firstChild;
+                            firstImage.classList.toggle("active");
+                            $(firstImage).data("mediaActive", true);
+                            window.activeMediaSecondary = firstImage;
+                        } else { // closing current dropdown
+                            window.activeMediaSecondary.classList.remove("active");
+                            $(window.activeMediaSecondary).data("mediaActive", false);
+                            window.activeMediaSecondary = undefined;
+                        }
+
+                    }
+
+                    // hiding and revealing dropdown content
+                    if (dropdownContent.style.display === "none") {
+                        sidebarAnimReveal(dropdownContentJ);
+                    } else {
+                        sidebarAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably
+                        // reading 0 because of the display none)
+                    }
+                }
+
+                // todo bonus: add toggle arrows
             }
-            // kind of terrible code but it works
-            // adds visual toggle arrows
-            // TODO: add back basically
-            // var cls = this.getElementsByClassName("svg-inline--fa")[0].classList;
-            // if (cls.contains("fa-angle-down")) {
-            //     cls.add("fa-angle-up");
-            //     cls.remove("fa-angle-down");
-            // }
-            // else if (cls.contains("fa-angle-up")) {
-            //     cls.add("fa-angle-down");
-            //     cls.remove("fa-angle-up");
-            // }
         });
     }
 }
 
-// repetitive search filtering for the different location areas
-// TODO bonus: merge with gallery searching
-function filterSearchElements(ul) {
-    // setup variables
-    let filter = searchBarReg.value.toUpperCase();
-    let li = ul.getElementsByClassName("sidebar-list-2");
+function searchTypeEvent() {
+    const sidebarLocationElements = $(".sidebar-list-2"); // get all the li location elements
+    let typingTimer;
+    // filter the search results on key up events
+    searchBarReg.addEventListener("keyup", function () {
+        clearTimeout(typingTimer);
 
-    // loop through all list items, and hide those who don't match the search query
-    for (let i = 0; i < li.length; i++) {
-        let a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-            li[i].classList.remove("hidden");
-            li[i].classList.remove("hidden-opacity");
+        typingTimer = setTimeout(function () {
+            filterSearchElements(sidebarLocationElements);
+        }, 150);
+
+    });
+}
+
+// location search filtering
+// TODO bonus: merge with gallery searching (but theres no dropdowns there)
+function filterSearchElements(sidebarLocationElements) {
+    let filter = searchBarReg.value.toUpperCase(); // comparison search string
+    let sectionCheck = ["", false, false, false]; // check if the section should be active
+
+    // loop through all list items, do the filtering
+    for (let i = 0; i < sidebarLocationElements.length; i++) {
+        let locationName = sidebarLocationElements.eq(i).find("a").eq(0).text().toUpperCase(); // get formatted location name
+        let sectionLink = sidebarLocationElements.eq(i).parent().prev(); // get the section of the location
+
+        if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
+            sectionCheck[sectionCheckFilter(sectionLink)] = true; // set section to active
+
+            if (!sectionLink.hasClass("active")) { // open relevant section once
+                sectionLink[0].click();
+            }
+
+            if (sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already visible
+                sidebarAnimReveal(sidebarLocationElements.eq(i));
+            }
         } else {
-            li[i].classList.add("hidden-opacity");
-            li[i].ontransitionend = () => {
-                li[i].classList.add("hidden")
-                console.log('Transition ended');
-            };
+            if (!sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already hidden
+                sidebarAnimHide(sidebarLocationElements.eq(i), false);
+            }
         }
     }
+
+    if (filter === "") { // shut all sections if search bar is empty
+        sectionCheck = ["", false, false, false];
+    }
+
+    verifySectionCheck(sectionCheck); // shuts sections if no elements are searched from them
+}
+
+// section search filtering for indexing
+function sectionCheckFilter(sectionLink) {
+    let sectionText = sectionLink.text();
+    if (sectionText === "North Building") {
+        return 1;
+    } else if (sectionText === "South Building") {
+        return 2;
+    } else {
+        return 3;
+    }
+}
+
+// verify if sections should be closed
+function verifySectionCheck(sectionCheck) {
+    // give the section a click if its active but should be closed
+    if (sectionCheck[1] === false && northLocationMenu.prev().hasClass("active")) {
+        northLocationMenu.prev()[0].click();
+    }
+
+    if (sectionCheck[2] === false && southLocationMenu.prev().hasClass("active")) {
+        southLocationMenu.prev()[0].click();
+    }
+
+    if (sectionCheck[3] === false && outsideLocationMenu.prev().hasClass("active")) {
+        outsideLocationMenu.prev()[0].click();
+    }
+}
+
+// Setup sidebar stick headers for search and sections
+function initSidebarSticky() {
+    const searchHeight = searchBarReg.scrollHeight;
+    const northSidebarButton = $("#north-sidebar-button");
+    const southSidebarButton = $("#south-sidebar-button");
+    const outsideSidebarButton = $("#outside-sidebar-button");
+
+    northSidebarButton.css("top", searchHeight - 0.5);
+    southSidebarButton.css("top", searchHeight - 0.5);
+    outsideSidebarButton.css("top", searchHeight - 0.5);
+}
+
+
+function startSidebarClickTimeout() {
+    setTimeout(function () {
+        window.sidebarClickTimeout = false;
+    }, 290);
 }

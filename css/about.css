@@ -1,1 +1,139 @@
 /* Custom Styles Within About */
+/*
+    ===========
+    Page Layout
+    ===========
+*/
+body, html {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.navbar-custom {
+    /*position: fixed;*/
+}
+
+.about-content {
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    scroll-behavior: smooth;
+}
+
+p {
+    font-size: 1.15em;
+}
+
+/*
+    ==============
+    HEADER SECTION
+    ==============
+*/
+.header-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+
+    /*margin-bottom: 1.5em;*/
+}
+
+.header-container h1 {
+    font-size: 4rem;
+}
+
+.title-text {
+    color: #860000;
+}
+
+.about-contents {
+    padding-inline-start: 0;
+    list-style: none;
+}
+
+.about-contents li {
+    display: inline;
+    margin: 0 1em;
+}
+
+.about-contents li a {
+    font-size: 1.2em;
+    color: white;
+    text-decoration: none;
+    background-color: #860000;
+    padding: 0.5em 1em;
+
+    transition: 0.3s;
+}
+
+.about-contents li a:hover {
+    background-color: #a63939;
+
+    transition: 0.3s;
+}
+
+.intro-section-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 2em;
+
+    text-align: center;
+}
+
+.intro-section-container h1 {
+    margin-bottom: 0;
+}
+
+.intro-section-container p {
+    width: 70%;
+    margin: 0;
+}
+
+
+
+
+/*
+    ==================
+    ABOUT INFO CONTENT
+    ==================
+*/
+.info-container {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+
+    /*margin: 0 5em;*/
+}
+
+.info-section-container {
+    width: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: center;
+
+    padding: 0 9em;
+}
+
+.info-section-container h1 {
+    font-size: 2.2em;
+}
+
+.acknowledgements-credits {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.acknowledgements-credits p {
+    margin: 1em 3em;
+}

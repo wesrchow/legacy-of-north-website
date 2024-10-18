@@ -10,14 +10,15 @@
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous"> <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.6/pannellum.css"
           integrity="sha512-UoT/Ca6+2kRekuB1IDZgwtDt0ZUfsweWmyNhMqhG4hpnf7sFnhrLrO0zHJr2vFp7eZEvJ3FN58dhVx+YMJMt2A==" crossorigin="anonymous"> <!-- pannellum -->
-
-    <!--    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script> &lt;!&ndash; pannellum &ndash;&gt;-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.12.0/video-js.min.css"
+          integrity="sha512-qdNDoWK29TwXVKBtiWgkyY6zUC/2Ml5mVT6tQr7cPBraxBnSNgPuKt484AHwTqOBZmm4LPG+qBp3F3/419kzAA==" crossorigin="anonymous"> <!-- video js -->
 
     <!-- Stylesheets Custom -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/media.css">
     <link rel="stylesheet" href="css/virtual-tour.css">
     <link rel="stylesheet" href="css/overrides.css">
+    <link rel="stylesheet" href="css/virtual-tour-overrides.css">
 </head>
 
 <body id="virtual-tour"> <!--todo: unnecessary id?-->
@@ -27,12 +28,10 @@
     =======
  -->
 <nav class="navbar-custom" id="navbar">
-    <ul class="navbar-links" id="navbar-links">
-        <li><a href="index.html" class="active-page">Home</a></li>
-        <li><a href="#" id="yeet dsf">Virtual Tour</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
+    <a href="index.html">Home</a>
+    <a href="#" class="active-page">Virtual Tour</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="about.html">About</a>
 </nav>
 
 
@@ -43,28 +42,28 @@
         =======
     -->
     <div class="sidebar" id="sidebar">
-        <input type="text" id="search-bar" placeholder="Search Location...">
+        <input type="text" id="search-bar" placeholder="Search...">
         <ul id="location-menu" class="location-menu">
             <!-- North Building -->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn">North Building</a>
-                <ul class="" id="north-location-menu">
+                <a href="#" class="dropdown-btn" id="north-sidebar-button">North Building</a>
+                <ul class="dropdown-container" id="north-location-menu">
                     <!-- to be injected -->
                 </ul>
             </li>
 
             <!-- South Building-->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn">South Building</a>
-                <ul class="" id="south-location-menu">
+                <a href="#" class="dropdown-btn" id="south-sidebar-button">South Building</a>
+                <ul class="dropdown-container" id="south-location-menu">
                     <!-- to be injected -->
                 </ul>
             </li>
 
             <!-- Outside -->
             <li class="sidebar-list-1">
-                <a href="#" class="dropdown-btn">Outside</a>
-                <ul class="" id="outside-location-menu">
+                <a href="#" class="dropdown-btn" id="outside-sidebar-button">Outside</a>
+                <ul class="dropdown-container" id="outside-location-menu">
                     <!-- to be injected -->
                 </ul>
             </li>
@@ -81,8 +80,10 @@
 
         <!-- Map Layer Menu -->
         <div class="map-layer-menu-container">
-            <button id="map-layer-menu-dropdown">North 2nd Floor</button>
-            <ul class="map-layer-menu hidden" id="map-layer-menu">
+            <button id="map-layer-menu-dropdown"></button>
+<!--            <span class="fa-solid fa-chevron-down" id="map-dropdown-arrow"></span>-->
+            <img src="test-media/down-arrow.png" alt="" id="map-dropdown-arrow">
+            <ul class="map-layer-menu" id="map-layer-menu">
                 <li id="north-building-layers">
                     <span class="map-layer-titles">North Building</span>
                     <ul class="map-layer-menu-sub">
@@ -112,7 +113,7 @@
                     <span class="map-layer-titles">Outside</span>
                     <ul class="map-layer-menu-sub">
                         <li>
-                            <button id="map-layer-menu-outside">Outside Perimeter</button>
+                            <button id="map-layer-menu-outside">Outside</button>
                         </li>
                     </ul>
                 </li>
@@ -120,30 +121,38 @@
         </div>
 
         <!-- 360 Viewer Controls -->
-        <div class="exit-360-container">
-            <button class="exit-360-viewer hidden" id="exit-360-viewer">Back to Map</button>
+        <div class="exit-media-button-container">
+            <button class="exit-media-button hidden" id="exit-media-button"><img src="test-media/close-button.png" alt="X" draggable="false"></button>
         </div>
 
         <!-- 360Video Interface -->
-        <div class="video-360-container">
-            <button id="video-360-button-prev" class="video-360-button hidden">previous</button>
-            <button id="video-360-button-next" class="video-360-button hidden">next</button>
+        <div class="video-360-controls-container">
+            <div class="video-360-buttons-container">
+                <button id="video-360-button-prev" class="video-360-button hidden">◄  Back</button>
+                <button id="video-360-button-next" class="video-360-button hidden">Next  ►</button>
+            </div>
 
             <input id="video-360-range" class="video-360-range hidden" type="range" min="1" max="30" step="1" value="1">
         </div>
 
-        <!-- Maps & 360 Viewer -->
+        <!-- Maps -->
         <div class="map-container" id="map-container">
             <img class="svg hidden" id="map-layer-north-1st" style="width:auto;height:100%;" src="maps/North_Building_Map_1st_Floor_Web.svg" alt="">
             <img class="svg" id="map-layer-north-2nd" style="width:auto;height:100%;" src="maps/North_Building_Map_2nd_Floor_Web.svg" alt="">
             <img class="svg hidden" id="map-layer-north-3rd" style="width:auto;height:100%;" src="maps/North_Building_Map_3rd_Floor_Web.svg" alt="">
-            <img class="svg hidden" id="map-layer-south-1st" style="width:auto;height:100%;" src="test-media/test_building.svg" alt="">
-            <img class="svg hidden" id="map-layer-south-2nd" style="width:auto;height:100%;" src="test-media/test_building.svg" alt="">
-            <img class="svg hidden" id="map-layer-outside" style="width:auto;height:100%;" src="test-media/test_building.svg" alt="">
+            <img class="svg hidden" id="map-layer-south-1st" style="width:auto;height:100%;" src="maps/South_Building_Map_1st_Floor_Web.svg" alt="">
+            <img class="svg hidden" id="map-layer-south-2nd" style="width:auto;height:100%;" src="maps/South_Building_Map_2nd_Floor_Web.svg" alt="">
+            <img class="svg hidden" id="map-layer-outside" style="width:auto;height:100%;" src="maps/Outside_Map_Web.svg" alt="">
         </div>
 
+        <!-- 360 Viewers -->
         <div id="viewer-360-container" class="viewer-360-container hidden"></div>
         <div id="viewer-360-container-secondary" class="viewer-360-container-secondary hidden hidden-opacity-360video"></div>
+
+        <!-- Linear Video -->
+        <video id="video-container" class="video-js hidden">
+            <source src="" type="video/mp4" />
+        </video>
     </div>
 
 </div>
@@ -162,6 +171,8 @@
         integrity="sha512-Y8iWYJDo6HiTo5xtml1g4QqHtl/PO1w+dmUpQfQSOTqKNsMhExfyPN2ncNAe9JuJUSKzwK/b6oaNPop4MXzkwg==" crossorigin="anonymous"></script> <!-- jquery-csv -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pannellum/2.5.6/pannellum.js"
         integrity="sha512-EmZuy6vd0ns9wP+3l1hETKq/vNGELFRuLfazPnKKBbDpgZL0sZ7qyao5KgVbGJKOWlAFPNn6G9naB/8WnKN43Q==" crossorigin="anonymous"></script> <!-- pannellum -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/video.js/8.12.0/video.min.js"
+        integrity="sha512-wyzXdA8r2OvueoZ5xp49Es+tpOwr36QsNBVcg2zjtT1oxDVm5juVrbS0AbdkjPvelIHtcTRb4vFCC3u3K2Sj/A==" crossorigin="anonymous"></script> <!-- video js -->
 
 <!-- Custom Scripts -->
 <script defer src="js/virtual-tour-core.js" type="module"></script>
