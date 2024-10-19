@@ -92,12 +92,18 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
                 sectionLink[0].click();
             }
 
+            // selecting sub media
+            if (dropdownLink !== undefined && !dropdownLink.hasClass("active")) { // open relevant dropdown once
+                dropdownLink.data("mediaActive", true); // stop the dropdown from rendering the first image event todo bonus: make sure this always fires before the click and check
+                dropdownLink[0].click(); // click the sub media's parent dropdown
+            }
+
             setTimeout(() => {
                 sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); // todo: double check theres no shifting from these settings,
                 // todo bonus: fix sections pixel gap when animating an element close to the end
             }, 250); // must match element height animation time (defined in css)
 
-            sidebarIDSelector[0].click();
+            sidebarIDSelector[0].click(); // click the target media button
         }
     });
 

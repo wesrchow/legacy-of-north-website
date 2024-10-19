@@ -184,9 +184,11 @@ function addSidebarButtonClick() {
 
                 // active buttons handling
                 if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
-                    // manage click timeout
-                    window.sidebarClickTimeout = true;
-                    startSidebarClickTimeout();
+                    // manage click timeouts
+                    if (!window.mapClickTimeout) { // skips timeout to allow sidebar to be double-clicked fast from map events (for sub media)
+                        window.sidebarClickTimeout = true;
+                        startSidebarClickTimeout();
+                    }
 
                     if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 
