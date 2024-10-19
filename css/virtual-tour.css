@@ -45,11 +45,14 @@
 
 .location {
     /*fill: #c8c8c8 !important;*/
+    transition: 0.2s;
 }
 
 .location:hover {
     fill: #5a5a5a !important; /* necessary to override because svg style is inlined */
     cursor: pointer;
+
+    transition: 0.2s;
 }
 
 

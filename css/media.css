@@ -11,6 +11,8 @@ body, html {
     flex-flow: column;
     height: 100%;
     font-family: "Open Sans", sans-serif;
+
+    overscroll-behavior: none;
 }
 
 .media-page-container {
@@ -249,7 +251,6 @@ body, html {
     max-width: initial;
     /*float: right;*/
     padding: 0;
-    cursor: grab;
     overflow: hidden;
 }
 

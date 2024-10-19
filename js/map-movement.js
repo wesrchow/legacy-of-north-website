@@ -9,7 +9,7 @@ const mapContainerReg = document.getElementById("map-container");
 const mediaContainerReg = document.getElementById("media-container");
 
 // map movement variables (not properly defined values here since we alter them later)
-const zoomSpeed = 0.18; // speed of scale, actual transition speed is handled in css
+const zoomSpeed = 0.18; // speed of scale, actual transition speed is handled by css anim
 let mapContainerSize = {w: mapContainerReg.clientWidth, h: mapContainerReg.clientHeight};
 let mapContainerInitialW = mapContainerSize.w;
 let mediaContainerInitialW = mediaContainerReg.clientWidth;
@@ -18,7 +18,7 @@ let target = {x: 0, y: 0};
 let pointer = {x: 0, y: 0};
 let scale = 1;
 const maxScale = 5;
-let minScale = 1.3; // can't be const, must be set programatically
+let minScale = 1; // can't be const, must be set programmatically
 let zoomTimeout;
 let zoomOutCenterCounter = 0;
 let centeredOffsetX = (mediaContainerReg.clientWidth - mapContainerReg.clientWidth) / 2;
@@ -46,14 +46,13 @@ export function initMapMovementEvents() {
     mediaContainer.mousedown(function (event) {
         if (!window.lockDrag) { // check if allowed to pan
             window.mouseDragging = true;
-            mediaContainer.css("cursor", "grabbing");
+            mediaContainer.css("cursor", "move");
 
             startMouse.x = event.clientX;
             startMouse.y = event.clientY;
 
-            // different transition during panning vs zoom
-            mapContainerReg.style.transition = 'transform 0.03s';
-            // todo: keep at all? it just makes it lag behind the cursor a bit causing a "smooth" effect but every pan also triggers transition which impacts performance
+            // no transition during panning
+            mapContainerReg.style.transition = 'transform 0s';
         }
     });
 
@@ -61,7 +60,7 @@ export function initMapMovementEvents() {
     $(document).mouseup(function () {
         if (!window.lockDrag) {
             window.mouseDragging = false;
-            mediaContainer.css("cursor", "grab");
+            mediaContainer.css("cursor", "default");
 
             previousMap.x = position.x;
             previousMap.y = position.y;
@@ -157,7 +156,7 @@ export function initMapMovementEvents() {
 function startZoomTimeout() {
     setTimeout(function () {
         zoomTimeout = false;
-    }, 30);
+    }, 35);
 }
 
 // constrain map position within media container bounds and apply the transform

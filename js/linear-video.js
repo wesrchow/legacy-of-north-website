@@ -96,7 +96,7 @@ export function closeLinearVideo() {
         mapMovement.centerResetMap();
         window.resizedWhileMedia = false;
     }
-    mediaContainer.css("cursor", "grab"); // reset cursor
+    mediaContainer.css("cursor", "default"); // reset cursor (for 360 media close as well)
 }
 
 // clean up linear video renderer
