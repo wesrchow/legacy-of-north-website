@@ -46,7 +46,7 @@ export function initMapMovementEvents() {
     mediaContainer.mousedown(function (event) {
         if (!window.lockDrag) { // check if allowed to pan
             window.mouseDragging = true;
-            mediaContainer.css("cursor", "move");
+            mediaContainer.css("cursor", "move"); // todo bonus: move cursor when dragging on locations (mouse over, stylesheet editing, idk)
 
             startMouse.x = event.clientX;
             startMouse.y = event.clientY;

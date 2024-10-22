@@ -11,5 +11,5 @@
 
 .hidden-opacity-360video {
     opacity: 0 !important;
-    transition: opacity 1.4s;
+    transition: opacity 0.8s;
 }

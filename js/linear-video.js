@@ -70,7 +70,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                 }, linearVideoFullscreenCheck); // apply fullscreen check on load callback // todo: do proper pathing, use for load cover anim?
 
                 window.lockDrag = true; // lock map movement
-            }, 260);
+            }, 260); // relative to sidebar animation delay
         }
     });
 }

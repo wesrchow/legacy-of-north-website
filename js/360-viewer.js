@@ -147,7 +147,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 window.viewer360.on("load", function () {
                     // todo: use for load cover anim?
                 });
-            }, 260);
+            }, 260); // relative to sidebar animation delay
         }
     });
 }
@@ -168,7 +168,6 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
     let videoPos = 1;
     let tempPrevViewer; // holds current viewer until we transition where it's treated as the previous viewer and altered accordingly
     let content360Filename;
-    let moveTimeout = false; // used to timeout 360 video clicks (not actually necessary after we added element disabling)
 
     // add click event to sidebar
     sidebarSelector.click(function (e) {
@@ -234,39 +233,37 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                 // 360 video next button event
                 video360ButtonNext.click(function () {
-                    if (!moveTimeout) {
-                        timeoutCountdown();
+                    timeoutCountdown();
 
-                        videoPos++
+                    videoPos++
 
-                        if (videoPos > fileCount) { // if we're past the range, hold position
-                            videoPos--;
-                        } else {
-                            video360Range.val(videoPos);
-                            triggerVideo360Transition();
-                        }
+                    if (videoPos > fileCount) { // if we're past the range, hold position
+                        videoPos--;
+                    } else {
+                        video360Range.val(videoPos);
+                        triggerVideo360Transition();
                     }
 
                     timeoutLock(); // always lock after a move
                 });
 
-                // disable previous button initially
+                // disable previous button initially, enable next button
                 video360ButtonPrev.prop("disabled", true);
                 video360ButtonPrev.css("cursor", "default");
+                video360ButtonNext.prop("disabled", false);
+                video360ButtonNext.css("cursor", "pointer");
 
                 // 360 video previous button event
                 video360ButtonPrev.click(function () {
-                    if (!moveTimeout) {
-                        timeoutCountdown();
+                    timeoutCountdown();
 
-                        videoPos--
+                    videoPos--
 
-                        if (videoPos < 1) { // if we're past the range, hold position
-                            videoPos++;
-                        } else {
-                            video360Range.val(videoPos);
-                            triggerVideo360Transition();
-                        }
+                    if (videoPos < 1) { // if we're past the range, hold position
+                        videoPos++;
+                    } else {
+                        video360Range.val(videoPos);
+                        triggerVideo360Transition();
                     }
 
                     timeoutLock(); // always lock after a move
@@ -275,12 +272,10 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 // set up range slider
                 video360Range.attr("max", fileCount);
                 video360Range.change(function () {
-                    if (!moveTimeout) {
-                        timeoutCountdown();
+                    timeoutCountdown();
 
-                        videoPos = parseInt(video360Range.val());
-                        triggerVideo360Transition();
-                    }
+                    videoPos = parseInt(video360Range.val());
+                    triggerVideo360Transition();
 
                     timeoutLock(); // always lock after a move
                 })
@@ -293,7 +288,6 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     video360ButtonPrev.css("cursor", "default");
                     video360Range.prop("disabled", true);
                     video360Range.css("cursor", "default");
-                    moveTimeout = true;
                 }
 
                 // timeout countdown helper
@@ -312,8 +306,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                         video360Range.prop("disabled", false);
                         video360Range.css("cursor", "pointer");
-                        moveTimeout = false;
-                    }, 1400);
+                    }, 1030); // relative to fade delay & transition time (transitionend takes longer than exact transition time, extra 110ms absolute min)
                 }
 
                 // trigger for 360 video transition
@@ -348,7 +341,9 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     // show next viewer immediately underneath while fading out previous viewer
                     nextContainerSelector.removeClass("hidden-opacity-360video");
 
-                    prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
+                    setTimeout(function () {
+                        prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
+                    }, 50);
                     prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
                         // destroy previous viewer renderer, push to background
                         prevPannellumViewer.destroy();
@@ -360,7 +355,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     return nextPannellumViewer;
                 }
-            }, 260);
+            }, 260); // relative to sidebar animation delay
         }
     });
 }
@@ -420,8 +415,9 @@ function clean360Video() {
     viewer360Container.removeClass("hidden-opacity-360video");
 }
 
+// delays opening and closing of media
 export function startMediaClickTimeout() {
     setTimeout(() => {
         window.mediaClickTimeout = false;
-    }, 290);
+    }, 290); // relative to media load & sidebar animation delay
 }

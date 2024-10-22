@@ -185,6 +185,7 @@ function addSidebarButtonClick() {
                 // active buttons handling
                 if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
                     // manage click timeouts
+                    // todo bonus: re addition of condition breaks fast map click to click sidebar
                     if (!window.mapClickTimeout) { // skips timeout to allow sidebar to be double-clicked fast from map events (for sub media)
                         window.sidebarClickTimeout = true;
                         startSidebarClickTimeout();
@@ -363,5 +364,5 @@ function initSidebarSticky() {
 function startSidebarClickTimeout() {
     setTimeout(function () {
         window.sidebarClickTimeout = false;
-    }, 290);
+    }, 290); // relative to media load & sidebar animation delay
 }
