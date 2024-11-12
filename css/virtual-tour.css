@@ -45,14 +45,14 @@
 
 .location {
     /*fill: #c8c8c8 !important;*/
-    transition: 0.2s;
+    transition: fill 0.2s;
 }
 
 .location:hover {
     fill: #5a5a5a !important; /* necessary to override because svg style is inlined */
     cursor: pointer;
 
-    transition: 0.2s;
+    transition: fill 0.2s;
 }
 
 
@@ -96,6 +96,7 @@
 
     padding: 0;
     opacity: 70%;
+
 }
 
 .exit-media-button:hover {
@@ -184,14 +185,14 @@
 
     cursor: pointer;
 
-    transition: 0.3s;
+    transition: background-color 0.2s;
 }
 
 .map-layer-menu-container button:hover {
     text-decoration: none;
     background-color: #961a1a;
 
-    transition: 0.3s;
+    transition: background-color 0.2s;
 }
 
 #map-dropdown-arrow {
@@ -208,7 +209,7 @@
 
     pointer-events: none;
     transform: none;
-    transition: 0.3s;
+    transition: transform 0.3s;
 }
 
 .map-layer-menu {
@@ -220,7 +221,7 @@
 
     overflow: hidden;
     margin: 0;
-    transition: 0.25s;
+    transition: height 0.3s;
 }
 
 .map-layer-titles {

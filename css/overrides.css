@@ -6,10 +6,5 @@
 
 .sidebar-selection-hidden {
     height: 0 !important;
-    transition: 0.25s;
-}
-
-.hidden-opacity-360video {
-    opacity: 0 !important;
-    transition: opacity 0.8s;
+    transition: height 0.25s;
 }

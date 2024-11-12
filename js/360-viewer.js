@@ -306,7 +306,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                         video360Range.prop("disabled", false);
                         video360Range.css("cursor", "pointer");
-                    }, 1030); // relative to fade delay & transition time (transitionend takes longer than exact transition time, extra 110ms absolute min)
+                    }, 1050); // relative to fade delay & transition time (transitionend takes longer than exact transition time, extra 110ms absolute min)
                 }
 
                 // trigger for 360 video transition
@@ -343,7 +343,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     setTimeout(function () {
                         prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
-                    }, 50);
+                    }, 70); // allow other viewer to load fully first
                     prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
                         // destroy previous viewer renderer, push to background
                         prevPannellumViewer.destroy();

@@ -361,7 +361,7 @@ function initSidebarSticky() {
 }
 
 
-function startSidebarClickTimeout() {
+export function startSidebarClickTimeout() {
     setTimeout(function () {
         window.sidebarClickTimeout = false;
     }, 290); // relative to media load & sidebar animation delay

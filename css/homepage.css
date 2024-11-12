@@ -41,7 +41,9 @@
     text-align: center;
 
     z-index: 1;
-    transition: 0.3s;
+
+    transition-property: background-color, transform, box-shadow;
+    transition-duration: 0.3s;
 }
 
 .virtual-tour-button:hover {
@@ -49,7 +51,8 @@
 
     transform: scale(1.03);
 
-    transition: 0.3s;
+    transition-property: background-color, transform, box-shadow;
+    transition-duration: 0.3s;
 }
 
 .virtual-tour-button:visited {
@@ -70,7 +73,7 @@
     bottom: 0.7em;
     z-index: 1;
 
-    transition: 0.5s;
+    transition: bottom 0.5s;
 }
 
 #fullpage-arrow:hover {
@@ -79,7 +82,7 @@
 
     bottom: 0.55em;
 
-    transition: 0.5s;
+    transition: bottom 0.5s;
 }
 
 
@@ -189,7 +192,8 @@
     margin-top: 2em;
     position: relative;
 
-    transition: 0.3s;
+    transition-property: transform, box-shadow;
+    transition-duration: 0.3s;
 }
 
 .icon-container-row {
@@ -219,7 +223,8 @@
 
     transform: scale(1.03);
 
-    transition: 0.3s;
+    transition-property: transform, box-shadow;
+    transition-duration: 0.3s;
 }
 
 .info-section-container a {
