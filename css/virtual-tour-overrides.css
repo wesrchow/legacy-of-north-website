@@ -12,12 +12,24 @@
 
 .pnlm-controls-container {
     opacity: 70%;
+
     inset: auto 16px 16px auto;
     z-index: 6;
 }
 
+.pnlm-controls {
+    border-radius: 0;
+}
+
+.pnlm-control {
+    border-radius: 0;
+    transition: background-color 0.2s;
+}
+
 .pnlm-control:hover {
     background-color: #c9c9c9;
+
+    transition: background-color 0.2s;
 }
 
 /*
