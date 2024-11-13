@@ -23,13 +23,13 @@
 
 .pnlm-control {
     border-radius: 0;
-    transition: background-color 0.2s;
+    /*transition: background-color 0.2s;*/ /* TODO: pannellum not happy when: transition away from current viewer (destroy?), go back to that viewer in any way, touch the controls with mouse */
 }
 
 .pnlm-control:hover {
     background-color: #c9c9c9;
 
-    transition: background-color 0.2s;
+    /*transition: background-color 0.2s;*/ /* TODO: pannellum not happy when: transition away from current viewer (destroy?), go back to that viewer in any way, touch the controls with mouse */
 }
 
 /*

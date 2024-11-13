@@ -343,7 +343,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     setTimeout(function () {
                         prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
-                    }, 70); // allow other viewer to load fully first
+                    }, 75); // allow other viewer to load fully first
                     prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
                         // destroy previous viewer renderer, push to background
                         prevPannellumViewer.destroy();
