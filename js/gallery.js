@@ -1,5 +1,4 @@
 /* Gallery sidebar, media handling */
-// noinspection DuplicatedCode
 
 const mediaContainer = $("#media-container");
 const searchBarReg = document.getElementById("search-bar");
@@ -23,7 +22,7 @@ searchTypeEvent(); // add search querying event
 * Gallery & sidebar
 * */
 function addGalleryClicks() {
-    const galleryMenu = $("#gallery-menu a");
+    const galleryMenu = $("#gallery-menu button");
 
     // go through all the gallery menu items and add click functions
     for (let i = 0; i < galleryMenu.length; i++) {
@@ -67,12 +66,12 @@ function openGallery(index) {
         let galleryInfoArray = $.csv.toArrays(data);
         for (let i = 1; i < galleryInfoArray.length; i++) { // inject gallery item with sources, captions
             if (galleryInfoArray[i][1].toString() === "image") {
-                galleryContainer.append(`<a href="test-media/${galleryInfoArray[i][0]}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></a>`)
+                galleryContainer.append(`<div data-src="test-media/${galleryInfoArray[i][0]}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></div>`)
             } else { // otherwise video
                 let elementID = galleryInfoArray[i][0].toString().split(".")[0]; // give the element an ID so we can target later
                 let elementIDVideo = elementID + "-video";
 
-                galleryContainer.append(`<a id="${elementID}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><video id="${elementIDVideo}" preload="metadata" disablePictureInPicture><source src="test-media/${galleryInfoArray[i][0]}" type="video/mp4"></video></a>`)
+                galleryContainer.append(`<div id="${elementID}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><video id="${elementIDVideo}" preload="metadata" disablePictureInPicture><source src="test-media/${galleryInfoArray[i][0]}" type="video/mp4"></video></div>`)
 
                 let dataVideo = { // create lightgallery formatted data for html5 video
                     source: [
@@ -163,7 +162,7 @@ function filterSearchElements(sidebarLocationElements) {
 
     // loop through all list items, do the filtering
     for (let i = 0; i < sidebarLocationElements.length; i++) {
-        let locationName = sidebarLocationElements.eq(i).find("a").eq(0).text().toUpperCase(); // get formatted location name
+        let locationName = sidebarLocationElements.eq(i).find("button").eq(0).text().toUpperCase(); // get formatted location name
 
         if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
             if (sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already visible

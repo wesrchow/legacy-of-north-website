@@ -86,13 +86,13 @@ function sidebarElement360PhotoInjection(locationArray, filenameArray, section) 
 
                 let locationNameID = cutLocationName.replaceAll(" ", "-").toLowerCase(); // generate well formatted ID
                 selectionIDArray.push(locationNameID);
-                injectionString = `<li class="sidebar-list-2"><a href="#" class="dropdown-btn" id="${locationNameID}">${cutLocationName}</\a><ul class="dropdown-container">`;
+                injectionString = `<li class="sidebar-list-2"><button class="dropdown-btn" id="${locationNameID}">${cutLocationName}</button><ul class="dropdown-container">`;
 
                 // keep adding sidebar entries given by the number of location images (defined by specialProperty)
                 for (let k = 0; k < parseInt(specialProperty); k++) {
                     locationNameID = cutLocationName.replaceAll(" ", "-").toLowerCase() + (k + 1);
                     selectionIDArray.push(locationNameID);
-                    injectionString += `<li class="sidebar-list-3"><a href="#" id="${locationNameID}">Image ` + (k + 1) + '</\a>';
+                    injectionString += `<li class="sidebar-list-3"><button id="${locationNameID}">Image ` + (k + 1) + '</button>';
                 }
 
                 sectionID.append(injectionString);
@@ -103,7 +103,7 @@ function sidebarElement360PhotoInjection(locationArray, filenameArray, section) 
                 if (specialProperty !== "360Video") { // don't push 360video entries to the click event list
                     selectionIDArray.push(locationNameID);
                 }
-                sectionID.append(`<li class="sidebar-list-2"><a href="#" id="${locationNameID}">${locationName}</\a></\li>`);
+                sectionID.append(`<li class="sidebar-list-2"><button id="${locationNameID}">${locationName}</button></li>`);
             }
         }
 
@@ -164,9 +164,7 @@ function add360PhotoSidebarLinks(filenameArray, selectionIDArray, locationArray,
 // Add sidebar button click events for dropdowns and active media
 function addSidebarButtonClick() {
     // setup list of sidebar buttons
-    const sidebarButtons = $("#location-menu a");
-
-    // let sidebarClickTimeout = [];
+    const sidebarButtons = $("#location-menu button");
 
     // go through sidebar and close dropdowns, add click events
     for (let i = 0; i < sidebarButtons.length; i++) {
@@ -293,7 +291,7 @@ function filterSearchElements(sidebarLocationElements) {
 
     // loop through all list items, do the filtering
     for (let i = 0; i < sidebarLocationElements.length; i++) {
-        let locationName = sidebarLocationElements.eq(i).find("a").eq(0).text().toUpperCase(); // get formatted location name
+        let locationName = sidebarLocationElements.eq(i).find("button").eq(0).text().toUpperCase(); // get formatted location name
         let sectionLink = sidebarLocationElements.eq(i).parent().prev(); // get the section of the location
 
         if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
