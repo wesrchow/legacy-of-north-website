@@ -5,9 +5,9 @@ import * as mapMovement from "./map-movement.js";
 import {sidebarAnimHide} from "./media.js";
 
 // map jquery selectors
-const mapLayerMenu = $("#map-layer-menu");
-const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
-const mapLayerMenuArrow = $("#map-dropdown-arrow");
+const mapLayerMenu = $("#map-menu");
+const mapMenuDropdownBtn = $("#map-menu-dropdown-btn");
+const mapMenuDropdownArrow = $("#map-menu-dropdown-arrow");
 const mapContainer = $("#map-container");
 
 // linear video jquery selectors
@@ -39,11 +39,11 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
                     sidebarAnimHide(mapLayerMenu, true);
-                    mapLayerMenuArrow.toggleClass("dropdown-rotate");
+                    mapMenuDropdownArrow.toggleClass("dropdown-rotate");
                 }
-                mapLayerMenuDropdown.addClass("hidden");
+                mapMenuDropdownBtn.addClass("hidden");
                 mapContainer.addClass("hidden");
-                mapLayerMenuArrow.addClass("hidden");
+                mapMenuDropdownArrow.addClass("hidden");
 
                 // linear video style
                 mediaContainer.css("cursor", "auto"); // override out of map cursor
@@ -78,9 +78,9 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
 // closes and cleans up the linear video
 export function closeLinearVideo() {
     // reveal and unlock map
-    mapLayerMenuDropdown.removeClass("hidden");
+    mapMenuDropdownBtn.removeClass("hidden");
     mapContainer.removeClass("hidden");
-    mapLayerMenuArrow.removeClass("hidden");
+    mapMenuDropdownArrow.removeClass("hidden");
     window.lockDrag = false;
 
     // clean up video js renderer

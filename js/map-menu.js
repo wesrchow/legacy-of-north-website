@@ -15,30 +15,30 @@ export function initMapLayerMenu() {
     const mapLayerOutside = $("#map-layer-outside");
 
     // Map layer menu selectors
-    const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
-    const mapLayerMenuArrow = $("#map-dropdown-arrow");
-    const mapLayerMenu = $("#map-layer-menu");
-    const mapLayerMenuNorth1st = $("#map-layer-menu-north-1st");
-    const mapLayerMenuNorth2nd = $("#map-layer-menu-north-2nd");
-    const mapLayerMenuNorth3rd = $("#map-layer-menu-north-3rd");
-    const mapLayerMenuSouth1st = $("#map-layer-menu-south-1st");
-    const mapLayerMenuSouth2nd = $("#map-layer-menu-south-2nd");
-    const mapLayerMenuOutside = $("#map-layer-menu-outside");
+    const mapMenuDropdownBtn = $("#map-menu-dropdown-btn");
+    const mapMenuDropdownArrow = $("#map-menu-dropdown-arrow");
+    const mapLayerMenu = $("#map-menu");
+    const mapLayerMenuNorth1st = $("#map-menu-north-1st");
+    const mapLayerMenuNorth2nd = $("#map-menu-north-2nd");
+    const mapLayerMenuNorth3rd = $("#map-menu-north-3rd");
+    const mapLayerMenuSouth1st = $("#map-menu-south-1st");
+    const mapLayerMenuSouth2nd = $("#map-menu-south-2nd");
+    const mapLayerMenuOutside = $("#map-menu-outside");
 
     // Helper variables
     const mapLayerMenuTitles = ["North 1st Floor", "North 2nd Floor", "North 3rd Floor", "South 1st Floor", "South 2nd Floor", "Outside"];
     // default start state
     let currentMapLayer = mapLayerNorth2nd; // initial map layer
-    mapLayerMenuDropdown.text(mapLayerMenuTitles[1]); // initial menu title
+    mapMenuDropdownBtn.text(mapLayerMenuTitles[1]); // initial menu title
     let currentBuilding = 1; // 1 = north, 2 = south, 3 = outside
 
     // events for locking map when mouse is hovering the menu
-    mapMenuLockPanning(mapLayerMenuDropdown);
+    mapMenuLockPanning(mapMenuDropdownBtn);
     mapMenuLockPanning(mapLayerMenu);
 
     // map menu dropdown toggle
     sidebarAnimHide(mapLayerMenu, true); // hide initially
-    mapLayerMenuDropdown.click(function () {
+    mapMenuDropdownBtn.click(function () {
         // mapLayerMenu.toggleClass("hidden");
         if (mapLayerMenu.css("display") === "none") {
             sidebarAnimReveal(mapLayerMenu);
@@ -46,7 +46,7 @@ export function initMapLayerMenu() {
             sidebarAnimHide(mapLayerMenu, false);
         }
 
-        mapLayerMenuArrow.toggleClass("dropdown-rotate");
+        mapMenuDropdownArrow.toggleClass("dropdown-rotate");
     });
 
     //
@@ -79,7 +79,7 @@ export function initMapLayerMenu() {
     // helper function to switch map layers by toggling "hidden" class
     function switchMapLayers(targetMapLayer, targetBuilding, title) {
         if (currentMapLayer !== targetMapLayer) {
-            mapLayerMenuDropdown.text(mapLayerMenuTitles[title]); // change menu title (active layer)
+            mapMenuDropdownBtn.text(mapLayerMenuTitles[title]); // change menu title (active layer)
 
             // hide the current layer and show the target layer
             currentMapLayer.toggleClass("hidden");
