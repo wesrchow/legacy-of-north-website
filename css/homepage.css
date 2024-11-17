@@ -66,11 +66,11 @@
 #fullpage-arrow {
     /*font-size: 3em;*/
     /*color: white;*/
-    height: 45px;
+    height: 30px;
     filter: invert(100%);
 
     position: absolute;
-    bottom: 0.7em;
+    bottom: 1.2em;
     z-index: 1;
 
     transition: bottom 0.5s;
@@ -80,7 +80,7 @@
     color: #d7b600;
     cursor: pointer;
 
-    bottom: 0.55em;
+    bottom: 0.9em;
 
     transition: bottom 0.5s;
 }

@@ -46,7 +46,10 @@
         <ul id="location-menu" class="location-menu">
             <!-- North Building -->
             <li class="sidebar-list-1">
-                <button class="dropdown-btn" id="north-sidebar-button">North Building</button>
+                <div class="dropdown-header-container" id="north-sidebar-header">
+                    <button class="dropdown-btn" id="north-sidebar-button">North Building</button>
+                    <img src="media/site-assets/dropdown-svgrepo-com-cropped.svg" alt="\/" class="sidebar-dropdown-arrow">
+                </div>
                 <ul class="dropdown-container" id="north-location-menu">
                     <!-- to be injected -->
                 </ul>
@@ -54,7 +57,10 @@
 
             <!-- South Building-->
             <li class="sidebar-list-1">
-                <button class="dropdown-btn" id="south-sidebar-button">South Building</button>
+                <div class="dropdown-header-container" id="south-sidebar-header">
+                    <button class="dropdown-btn" id="south-sidebar-button">South Building</button>
+                    <img src="media/site-assets/dropdown-svgrepo-com-cropped.svg" alt="\/" class="sidebar-dropdown-arrow">
+                </div>
                 <ul class="dropdown-container" id="south-location-menu">
                     <!-- to be injected -->
                 </ul>
@@ -62,7 +68,10 @@
 
             <!-- Outside -->
             <li class="sidebar-list-1">
-                <button class="dropdown-btn" id="outside-sidebar-button">Outside</button>
+                <div class="dropdown-header-container" id="outside-sidebar-header">
+                    <button class="dropdown-btn" id="outside-sidebar-button">Outside</button>
+                    <img src="media/site-assets/dropdown-svgrepo-com-cropped.svg" alt="\/" class="sidebar-dropdown-arrow">
+                </div>
                 <ul class="dropdown-container" id="outside-location-menu">
                     <!-- to be injected -->
                 </ul>
@@ -138,12 +147,12 @@
 
         <!-- Maps -->
         <div class="map-container" id="map-container">
-            <img class="svg hidden" id="map-layer-north-1st" style="width:auto;height:100%;" src="maps/North_Building_Map_1st_Floor_Web.svg" alt="">
-            <img class="svg" id="map-layer-north-2nd" style="width:auto;height:100%;" src="maps/North_Building_Map_2nd_Floor_Web.svg" alt="">
-            <img class="svg hidden" id="map-layer-north-3rd" style="width:auto;height:100%;" src="maps/North_Building_Map_3rd_Floor_Web.svg" alt="">
-            <img class="svg hidden" id="map-layer-south-1st" style="width:auto;height:100%;" src="maps/South_Building_Map_1st_Floor_Web.svg" alt="">
-            <img class="svg hidden" id="map-layer-south-2nd" style="width:auto;height:100%;" src="maps/South_Building_Map_2nd_Floor_Web.svg" alt="">
-            <img class="svg hidden" id="map-layer-outside" style="width:auto;height:100%;" src="maps/Outside_Map_Web.svg" alt="">
+            <img src="maps/North_Building_Map_1st_Floor_Web.svg" alt="" class="svg hidden" id="map-layer-north-1st" style="width:auto;height:100%;">
+            <img src="maps/North_Building_Map_2nd_Floor_Web.svg" alt="" class="svg" id="map-layer-north-2nd" style="width:auto;height:100%;">
+            <img src="maps/North_Building_Map_3rd_Floor_Web.svg" alt="" class="svg hidden" id="map-layer-north-3rd" style="width:auto;height:100%;">
+            <img src="maps/South_Building_Map_1st_Floor_Web.svg" alt="" class="svg hidden" id="map-layer-south-1st" style="width:auto;height:100%;">
+            <img src="maps/South_Building_Map_2nd_Floor_Web.svg" alt="" class="svg hidden" id="map-layer-south-2nd" style="width:auto;height:100%;">
+            <img src="maps/Outside_Map_Web.svg" alt="" class="svg hidden" id="map-layer-outside" style="width:auto;height:100%;">
         </div>
 
         <!-- 360 Viewers -->

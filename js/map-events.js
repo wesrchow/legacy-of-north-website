@@ -64,10 +64,12 @@ export function addMapLinksNew(idArray) {
         let dropdownLink = undefined; // dropdown link of the location if it exists
 
         if (sidebarIDSelector.parent().hasClass("sidebar-list-3")) {
-            sectionLink = sidebarIDSelector.parent().parent().parent().parent().prev(); // get the section of the location
-            dropdownLink = sidebarIDSelector.parent().parent().prev(); // get the dropdown of the location
+            sectionLink = sidebarIDSelector.parent().parent().parent().parent().prev().children().eq(0); // get the section of the location
+            dropdownLink = sidebarIDSelector.parent().parent().prev().children().eq(0); // get the dropdown of the location
+        } else if (sidebarIDSelector.parent().hasClass("dropdown-header-container")) {
+            sectionLink = sidebarIDSelector.parent().parent().parent().prev().children().eq(0); // get the section of the location
         } else {
-            sectionLink = sidebarIDSelector.parent().parent().prev(); // get the section of the location
+            sectionLink = sidebarIDSelector.parent().parent().prev().children().eq(0); // get the section of the location
         }
 
         addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink); // add the actual click event

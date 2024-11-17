@@ -8,6 +8,9 @@ import {sidebarAnimReveal, sidebarAnimHide} from "./media.js";
 const northLocationMenu = $("#north-location-menu");
 const southLocationMenu = $("#south-location-menu");
 const outsideLocationMenu = $("#outside-location-menu");
+const northSidebarButton = $("#north-sidebar-button");
+const southSidebarButton = $("#south-sidebar-button");
+const outsideSidebarButton = $("#outside-sidebar-button");
 const sectionMenuSelectors = ["", northLocationMenu, southLocationMenu, outsideLocationMenu];
 const sectionSidebarButtons = ["", "north-sidebar-button", "south-sidebar-button", "outside-sidebar-button"];
 
@@ -86,7 +89,8 @@ function sidebarElement360PhotoInjection(locationArray, filenameArray, section) 
 
                 let locationNameID = cutLocationName.replaceAll(" ", "-").toLowerCase(); // generate well formatted ID
                 selectionIDArray.push(locationNameID);
-                injectionString = `<li class="sidebar-list-2"><button class="dropdown-btn" id="${locationNameID}">${cutLocationName}</button><ul class="dropdown-container">`;
+                injectionString = `<li class="sidebar-list-2"><div class="dropdown-header-container"><button class="dropdown-btn" id="${locationNameID}">${cutLocationName}</button>
+                    <img src="media/site-assets/dropdown-svgrepo-com-cropped.svg" alt="\/" class="sidebar-dropdown-arrow"></div><ul class="dropdown-container">`;
 
                 // keep adding sidebar entries given by the number of location images (defined by specialProperty)
                 for (let k = 0; k < parseInt(specialProperty); k++) {
@@ -169,7 +173,7 @@ function addSidebarButtonClick() {
     // go through sidebar and close dropdowns, add click events
     for (let i = 0; i < sidebarButtons.length; i++) {
         if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close all dropdown initially
-            sidebarAnimHide(sidebarButtons.eq(i).next(), true);
+            sidebarAnimHide(sidebarButtons.eq(i).parent().next(), true);
         }
 
         // add click event to sidebar buttons
@@ -203,7 +207,8 @@ function addSidebarButtonClick() {
 
                         if (window.activeMedia !== undefined) { // not first button / not only button action
                             if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
-                                sidebarAnimHide($(window.activeMedia.nextElementSibling), false);
+                                sidebarAnimHide($(window.activeMedia.parentElement.nextElementSibling), false);
+                                $(window.activeMedia.nextElementSibling).toggleClass("dropdown-flip");
                                 if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
                                     window.activeMediaSecondary.classList.remove("active"); // clear secondary active
                                     $(window.activeMediaSecondary).data("mediaActive", false);
@@ -235,8 +240,11 @@ function addSidebarButtonClick() {
 
                 // only for dropdowns toggle display and deal with active sub buttons
                 if (sidebarButtons[i].classList.contains("dropdown-btn")) {
-                    let dropdownContent = this.nextElementSibling;
-                    let dropdownContentJ = $(this).next();
+                    let dropdownContent = this.parentElement.nextElementSibling;
+                    let dropdownContentJ = $(this).parent().next();
+                    let dropdownArrow = $(this).next();
+
+                    dropdownArrow.toggleClass("dropdown-flip"); // flip dropdown arrow
 
                     // dropdown active status toggling
                     if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
@@ -258,12 +266,10 @@ function addSidebarButtonClick() {
                     if (dropdownContent.style.display === "none") {
                         sidebarAnimReveal(dropdownContentJ);
                     } else {
-                        sidebarAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably
-                        // reading 0 because of the display none)
+                        sidebarAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably reading 0 because of the display none)
                     }
                 }
 
-                // todo bonus: add toggle arrows
             }
         });
     }
@@ -292,7 +298,7 @@ function filterSearchElements(sidebarLocationElements) {
     // loop through all list items, do the filtering
     for (let i = 0; i < sidebarLocationElements.length; i++) {
         let locationName = sidebarLocationElements.eq(i).find("button").eq(0).text().toUpperCase(); // get formatted location name
-        let sectionLink = sidebarLocationElements.eq(i).parent().prev(); // get the section of the location
+        let sectionLink = sidebarLocationElements.eq(i).parent().prev().children().eq(0); // get the section of the location
 
         if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
             sectionCheck[sectionCheckFilter(sectionLink)] = true; // set section to active
@@ -333,34 +339,34 @@ function sectionCheckFilter(sectionLink) {
 // verify if sections should be closed
 function verifySectionCheck(sectionCheck) {
     // give the section a click if its active but should be closed
-    if (sectionCheck[1] === false && northLocationMenu.prev().hasClass("active")) {
-        northLocationMenu.prev()[0].click();
+    if (sectionCheck[1] === false && northSidebarButton.hasClass("active")) {
+        northSidebarButton[0].click();
     }
 
-    if (sectionCheck[2] === false && southLocationMenu.prev().hasClass("active")) {
-        southLocationMenu.prev()[0].click();
+    if (sectionCheck[2] === false && southSidebarButton.hasClass("active")) {
+        southSidebarButton[0].click();
     }
 
-    if (sectionCheck[3] === false && outsideLocationMenu.prev().hasClass("active")) {
-        outsideLocationMenu.prev()[0].click();
+    if (sectionCheck[3] === false && outsideSidebarButton.hasClass("active")) {
+        outsideSidebarButton[0].click();
     }
 }
 
 // Setup sidebar stick headers for search and sections
 function initSidebarSticky() {
     const searchHeight = searchBarReg.scrollHeight;
-    const northSidebarButton = $("#north-sidebar-button");
-    const southSidebarButton = $("#south-sidebar-button");
-    const outsideSidebarButton = $("#outside-sidebar-button");
+    const northSidebarHeader = $("#north-sidebar-header");
+    const southSidebarHeader = $("#south-sidebar-header");
+    const outsideSidebarHeader = $("#outside-sidebar-header");
 
-    northSidebarButton.css("top", searchHeight - 0.5);
-    southSidebarButton.css("top", searchHeight - 0.5);
-    outsideSidebarButton.css("top", searchHeight - 0.5);
+    northSidebarHeader.css("top", searchHeight - 0.5);
+    southSidebarHeader.css("top", searchHeight - 0.5);
+    outsideSidebarHeader.css("top", searchHeight - 0.5);
 }
 
 
 export function startSidebarClickTimeout() {
     setTimeout(function () {
         window.sidebarClickTimeout = false;
-    }, 290); // relative to media load & sidebar animation delay
+    }, 310); // relative to media load & sidebar animation delay todo: fix timing
 }

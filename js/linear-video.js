@@ -39,7 +39,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
                     sidebarAnimHide(mapLayerMenu, true);
-                    mapMenuDropdownArrow.toggleClass("dropdown-rotate");
+                    mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
                 mapMenuDropdownBtn.addClass("hidden");
                 mapContainer.addClass("hidden");
@@ -70,7 +70,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                 }, linearVideoFullscreenCheck); // apply fullscreen check on load callback // todo: do proper pathing, use for load cover anim?
 
                 window.lockDrag = true; // lock map movement
-            }, 260); // relative to sidebar animation delay
+            }, 310); // relative to sidebar animation delay todo: fix timing
         }
     });
 }

@@ -121,7 +121,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
                     sidebarAnimHide(mapLayerMenu, true);
-                    mapMenuDropdownArrow.toggleClass("dropdown-rotate");
+                    mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
                 mapMenuDropdownBtn.addClass("hidden");
                 mapContainer.addClass("hidden");
@@ -188,7 +188,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
                     sidebarAnimHide(mapLayerMenu, true);
-                    mapMenuDropdownArrow.toggleClass("dropdown-rotate");
+                    mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
                 mapMenuDropdownBtn.addClass("hidden");
                 mapContainer.addClass("hidden");
@@ -344,7 +344,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     setTimeout(function () {
                         prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
                     }, 75); // allow other viewer to load fully first
-                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
+                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () { // todo: add compatibility to other transitionend?
                         // destroy previous viewer renderer, push to background
                         prevPannellumViewer.destroy();
                         prevContainer.css("z-index", 0);
@@ -355,7 +355,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     return nextPannellumViewer;
                 }
-            }, 260); // relative to sidebar animation delay
+            }, 310); // relative to sidebar animation delay todo: fix timing
         }
     });
 }

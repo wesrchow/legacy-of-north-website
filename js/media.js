@@ -31,7 +31,9 @@ export function sidebarAnimHide(sidebarElementJ, setup) {
 
     if (!setup) {
         sidebarElementJ[0].ontransitionend = () => { // once transition is done, display hide it
-            sidebarElementJ.css("display", "none");
+            setTimeout(function () {
+                sidebarElementJ.css("display", "none");
+            }, 110); // allow dropdown to fully collapse (transitionend takes longer than exact transition time) todo: play with this timing
         };
     }
 }

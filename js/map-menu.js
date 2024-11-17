@@ -46,7 +46,7 @@ export function initMapLayerMenu() {
             sidebarAnimHide(mapLayerMenu, false);
         }
 
-        mapMenuDropdownArrow.toggleClass("dropdown-rotate");
+        mapMenuDropdownArrow.toggleClass("dropdown-flip");
     });
 
     //

@@ -55,7 +55,7 @@ body, html {
 
     position: sticky;
     top: 0;
-    z-index: 2;
+    z-index: 3;
     float: none;
     margin: 0;
 }
@@ -115,7 +115,6 @@ body, html {
     border: none;
     text-align: left;
 
-    z-index: 2;
     padding: 0.5em 0.5em 0.5em 1.5em;
     -webkit-user-drag: none; /* todo: still necessary now that it's button? */
     cursor: pointer;

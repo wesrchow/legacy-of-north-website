@@ -6,5 +6,9 @@
 
 .sidebar-selection-hidden {
     height: 0 !important;
-    transition: height 0.25s;
+    transition: height 0.3s;
 }
+
+/*#north-location-menu.sidebar-selection-hidden {*/
+/*    transition: height 0.4s;*/
+/*}*/

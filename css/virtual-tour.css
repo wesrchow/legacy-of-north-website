@@ -62,10 +62,32 @@
     Sidebar
     =======
 */
-#north-sidebar-button, #south-sidebar-button, #outside-sidebar-button {
+#north-sidebar-header, #south-sidebar-header, #outside-sidebar-header {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
+}
+
+#north-location-menu, #south-location-menu, #outside-location-menu {
+    transition: height 0.4s; /* longer transition for big menu */
+}
+
+.dropdown-header-container {
+    position: relative;
+    display: flex;
+    align-items: center; /* just to center dropdown arrow */
+}
+
+.sidebar-dropdown-arrow {
+    height: 12px;
+
+    position: absolute;
+    right: 0.85em;
+    /*z-index: 1;*/
+
+    pointer-events: none;
+    transform: none;
+    transition: transform 0.3s;
 }
 
 
@@ -119,7 +141,7 @@
 
 #map-menu-dropdown-arrow {
     filter: invert(100%);
-    height: 9px;
+    height: 8px;
 
     position: absolute;
     right: 0.57em;
