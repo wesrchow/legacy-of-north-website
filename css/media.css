@@ -186,6 +186,20 @@ body, html {
     overflow: hidden;
 }
 
+.media-trans-container {
+    height: 100%;
+    width: 100%;
+    background: #8c8c8c;
+    opacity: 1;
+    display: block;
+
+    position: absolute;
+    z-index: 6;
+
+    pointer-events: none;
+    transition: opacity 0.25s;
+}
+
 
 
 /*

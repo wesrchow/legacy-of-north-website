@@ -186,7 +186,7 @@
     Media Controls
     ==============
 */
-.exit-media-button-container {
+.exit-media-btn-container {
     position: absolute;
     z-index: 5;
     display: flex;
@@ -197,7 +197,7 @@
     margin: 0;
 }
 
-.exit-media-button {
+.exit-media-btn {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.4);
     height: 35px;
@@ -215,13 +215,13 @@
     transition: background-color 0.2s;
 }
 
-.exit-media-button:hover {
+.exit-media-btn:hover {
     background-color: #c9c9c9;
 
     transition: background-color 0.2s;
 }
 
-.exit-media-button img {
+.exit-media-btn img {
     height: 14px;
     width: 14px;
 }

@@ -2,7 +2,7 @@
 
 import * as viewer360Module from "./360-viewer.js";
 import * as linearVideo from "./linear-video.js";
-import {sidebarAnimReveal, sidebarAnimHide} from "./media.js";
+import * as mediaHelper from "./media.js";
 
 // sidebar location menus
 const northLocationMenu = $("#north-location-menu");
@@ -173,7 +173,7 @@ function addSidebarButtonClick() {
     // go through sidebar and close dropdowns, add click events
     for (let i = 0; i < sidebarButtons.length; i++) {
         if (sidebarButtons[i].classList.contains("dropdown-btn")) { // close all dropdown initially
-            sidebarAnimHide(sidebarButtons.eq(i).parent().next(), true);
+            mediaHelper.heightAnimHide(sidebarButtons.eq(i).parent().next(), true);
         }
 
         // add click event to sidebar buttons
@@ -193,6 +193,9 @@ function addSidebarButtonClick() {
                         startSidebarClickTimeout();
                     }
 
+                    // always trans cover when clicking sidebar media buttons (media closes utilize a sidebar click)
+                    mediaHelper.mediaTransReveal();
+
                     if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 
                         if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown
@@ -207,7 +210,7 @@ function addSidebarButtonClick() {
 
                         if (window.activeMedia !== undefined) { // not first button / not only button action
                             if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
-                                sidebarAnimHide($(window.activeMedia.parentElement.nextElementSibling), false);
+                                mediaHelper.heightAnimHide($(window.activeMedia.parentElement.nextElementSibling), false);
                                 $(window.activeMedia.nextElementSibling).toggleClass("dropdown-flip");
                                 if (window.activeMediaSecondary !== undefined) { // will already be undefined if closed itself
                                     window.activeMediaSecondary.classList.remove("active"); // clear secondary active
@@ -223,9 +226,6 @@ function addSidebarButtonClick() {
                         window.activeMedia = this; // (sometimes first open) sets the new current active media
 
                     } else { // must be self, closes current media
-                        viewer360Module.close360Viewer();
-                        linearVideo.closeLinearVideo();
-
                         // lock media clicks when closing self media
                         window.mediaClickTimeout = true;
                         viewer360Module.startMediaClickTimeout();
@@ -235,6 +235,12 @@ function addSidebarButtonClick() {
                             window.activeMedia = undefined;
                         }, 8);
 
+                        setTimeout(function () { // allow trans cover to show first
+                            viewer360Module.close360Viewer();
+                            linearVideo.closeLinearVideo();
+
+                            mediaHelper.mediaTransHide(); // hide trans cover & reveal map
+                        }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
                     }
                 }
 
@@ -264,9 +270,9 @@ function addSidebarButtonClick() {
 
                     // hiding and revealing dropdown content
                     if (dropdownContent.style.display === "none") {
-                        sidebarAnimReveal(dropdownContentJ);
+                        mediaHelper.heightAnimReveal(dropdownContentJ);
                     } else {
-                        sidebarAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably reading 0 because of the display none)
+                        mediaHelper.heightAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably reading 0 because of the display none)
                     }
                 }
 
@@ -308,11 +314,11 @@ function filterSearchElements(sidebarLocationElements) {
             }
 
             if (sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already visible
-                sidebarAnimReveal(sidebarLocationElements.eq(i));
+                mediaHelper.heightAnimReveal(sidebarLocationElements.eq(i));
             }
         } else {
             if (!sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already hidden
-                sidebarAnimHide(sidebarLocationElements.eq(i), false);
+                mediaHelper.heightAnimHide(sidebarLocationElements.eq(i), false);
             }
         }
     }

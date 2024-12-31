@@ -9,6 +9,7 @@
     transition: height 0.3s;
 }
 
-/*#north-location-menu.sidebar-selection-hidden {*/
-/*    transition: height 0.4s;*/
-/*}*/
+.media-trans-hidden {
+    opacity: 0 !important;
+    transition: opacity 0.25s;
+}

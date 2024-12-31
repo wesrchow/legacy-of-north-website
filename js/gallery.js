@@ -166,37 +166,37 @@ function filterSearchElements(sidebarLocationElements) {
 
         if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
             if (sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already visible
-                sidebarAnimReveal(sidebarLocationElements.eq(i));
+                heightAnimReveal(sidebarLocationElements.eq(i));
             }
         } else {
             if (!sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already hidden
-                sidebarAnimHide(sidebarLocationElements.eq(i));
+                heightAnimHide(sidebarLocationElements.eq(i));
             }
         }
     }
 }
 
 // sidebar reveal display and animation
-function sidebarAnimReveal(sidebarElementJ) {
-    sidebarElementJ.css("display", "block");
-    sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
-    sidebarElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
+function heightAnimReveal(animElementJ) {
+    animElementJ.css("display", "block");
+    animElementJ.height(animElementJ[0].scrollHeight); // temp set height for animation
+    animElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
 
-    sidebarElementJ[0].ontransitionend = () => {
-        sidebarElementJ.height("auto"); // set back to auto to allow dropdown to expand properly
+    animElementJ[0].ontransitionend = () => {  // todo: CONDITION TRIGGER CHECK
+        animElementJ.height("auto"); // set back to auto to allow dropdown to expand properly
     };
 }
 
 // sidebar hide display and animation
-function sidebarAnimHide(sidebarElementJ) {
-    sidebarElementJ.height(sidebarElementJ[0].scrollHeight); // temp set height for animation
+function heightAnimHide(animElementJ) {
+    animElementJ.height(animElementJ[0].scrollHeight); // temp set height for animation
 
     setTimeout(function () { // delay to allow height to be set first
-        sidebarElementJ.addClass("sidebar-selection-hidden"); // add hidden class
+        animElementJ.addClass("sidebar-selection-hidden"); // add hidden class
 
     }, 5);
 
-    sidebarElementJ[0].ontransitionend = () => { // once transition is done, display hide it
-        sidebarElementJ.css("display", "none");
+    animElementJ[0].ontransitionend = () => { // once transition is done, display hide it  // todo: CONDITION TRIGGER CHECK
+        animElementJ.css("display", "none");
     };
 }

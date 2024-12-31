@@ -40,6 +40,6 @@ Promise.all([sidebar.initSidebar(), mapEvents.initMap()]).then(() => {
 
 mapMovement.initMapMovementEvents(); // Add map events to facilitate map movement
 
-viewer360Module.initMediaControls(); // Add all 360 viewer controls (photo and video)
+viewer360Module.initMediaControls(); // Add 360 viewer & general media controls
 
 // note: init 360 videos moved to sidebar since it must be deferred until sidebar is loaded

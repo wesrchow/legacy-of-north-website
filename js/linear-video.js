@@ -2,7 +2,7 @@
 
 import {startMediaClickTimeout, close360Viewer} from "./360-viewer.js";
 import * as mapMovement from "./map-movement.js";
-import {sidebarAnimHide} from "./media.js";
+import {heightAnimHide} from "./media.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-menu");
@@ -12,7 +12,7 @@ const mapContainer = $("#map-container");
 
 // linear video jquery selectors
 let videoContainer = $("#video-container"); // duplicated later because video js destroys it
-const exitMediaButton = $("#exit-media-button");
+const exitMediaButton = $("#exit-media-btn");
 
 // other jquery selectors
 const mediaContainer = $("#media-container");
@@ -38,7 +38,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
-                    sidebarAnimHide(mapLayerMenu, true);
+                    heightAnimHide(mapLayerMenu, true);
                     mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
                 mapMenuDropdownBtn.addClass("hidden");

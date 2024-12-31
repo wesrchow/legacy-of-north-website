@@ -1,7 +1,7 @@
 /* 360 viewer related function */
 
 import {closeLinearVideo} from "./linear-video.js";
-import {sidebarAnimHide} from "./media.js";
+import {heightAnimHide, mediaTransReveal, mediaTransHide} from "./media.js";
 import {centerResetMap} from "./map-movement.js";
 
 // map jquery selectors
@@ -13,7 +13,7 @@ const mapContainer = $("#map-container");
 // 360 viewer jquery selectors
 const viewer360Container = $("#viewer-360-container");
 const viewer360ContainerSecondary = $("#viewer-360-container-secondary");
-const exitMediaButton = $("#exit-media-button");
+const exitMediaButton = $("#exit-media-btn");
 const video360Range = $("#video-360-range");
 const video360ButtonPrev = $("#video-360-button-prev");
 const video360ButtonNext = $("#video-360-button-next");
@@ -61,7 +61,7 @@ export function init360Videos() {
     }, 'text');
 }
 
-// Sets up 360 viewer controls
+// Sets up 360 viewer & general media controls
 export function initMediaControls() {
     // reset map media active handling
     $(window).resize(function () {
@@ -120,7 +120,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
-                    sidebarAnimHide(mapLayerMenu, true);
+                    heightAnimHide(mapLayerMenu, true);
                     mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
                 mapMenuDropdownBtn.addClass("hidden");
@@ -144,8 +144,9 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                     "disableKeyboardCtrl": true
                 }); // todo: finalize these options and do proper pathing
 
+                // once viewer loaded, fade out the media trans
                 window.viewer360.on("load", function () {
-                    // todo: use for load cover anim?
+                    mediaTransHide();
                 });
             }, 260); // relative to sidebar animation delay
         }
@@ -187,7 +188,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
-                    sidebarAnimHide(mapLayerMenu, true);
+                    heightAnimHide(mapLayerMenu, true);
                     mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
                 mapMenuDropdownBtn.addClass("hidden");
@@ -222,6 +223,11 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     "keyboardZoom": false,
                     "disableKeyboardCtrl": true,
                     "yaw": initialYaw
+                });
+
+                // once viewer loaded, fade out the media trans
+                window.viewer360.on("load", function () {
+                    mediaTransHide();
                 });
 
                 $(this).data("mediaActive", true);
@@ -344,7 +350,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     setTimeout(function () {
                         prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
                     }, 75); // allow other viewer to load fully first
-                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () { // todo: add compatibility to other transitionend?
+                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () { // todo: add compatibility to other transitionend?  // todo: CONDITION TRIGGER CHECK
                         // destroy previous viewer renderer, push to background
                         prevPannellumViewer.destroy();
                         prevContainer.css("z-index", 0);
