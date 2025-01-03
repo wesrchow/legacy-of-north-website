@@ -9,6 +9,7 @@
     transition: height 0.3s;
 }
 
+/* media transition cover for virtual tour & gallery as well as map transition */
 .media-trans-hidden {
     opacity: 0 !important;
     transition: opacity 0.25s;

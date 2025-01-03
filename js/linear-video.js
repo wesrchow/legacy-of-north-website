@@ -2,7 +2,7 @@
 
 import {startMediaClickTimeout, close360Viewer} from "./360-viewer.js";
 import * as mapMovement from "./map-movement.js";
-import {heightAnimHide} from "./media.js";
+import {heightAnimHide, mediaTransHide} from "./media.js";
 
 // map jquery selectors
 const mapLayerMenu = $("#map-menu");
@@ -67,7 +67,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                     autoplay: false,
                     preload: 'auto',
                     restoreEl: true
-                }, linearVideoFullscreenCheck); // apply fullscreen check on load callback // todo: do proper pathing, use for load cover anim?
+                }, linearVideoLoadInit); // video js load callback // todo: do proper pathing
 
                 window.lockDrag = true; // lock map movement
             }, 310); // relative to sidebar animation delay todo: fix timing
@@ -108,8 +108,11 @@ function destroyLinearVideo() {
     }
 }
 
+// video js load callback trigger
 // fullscreenchange event for linear video (works in tandem with 360 viewer module init media controls)
-function linearVideoFullscreenCheck() {
+function linearVideoLoadInit() {
+    mediaTransHide(); // once loaded, fade out the media trans
+
     videoContainer = $("#video-container"); // need to set this again since it gets thrashed by video js
 
     videoContainer.on("fullscreenchange", function () {

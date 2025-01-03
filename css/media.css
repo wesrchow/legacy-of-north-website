@@ -189,15 +189,38 @@ body, html {
 .media-trans-container {
     height: 100%;
     width: 100%;
-    background: #8c8c8c;
+    background: #8c8c8c; /* todo: colour */
     opacity: 1;
-    display: block;
+    display: flex;
+    justify-content: center;
 
     position: absolute;
     z-index: 6;
 
     pointer-events: none;
     transition: opacity 0.25s;
+}
+
+.media-trans-loader { /* todo: dimensions, colour, position */
+    height: 35px;
+    width: 35px;
+    background: white;
+    opacity: 0;
+
+    position: absolute;
+    inset: auto auto 50px auto;
+
+    animation: loader-pulse 0.85s infinite alternate;
+    animation-delay: 1s; /* wait longer than typical load time before showing */
+}
+
+@keyframes loader-pulse { /* todo: anim details */
+    from {
+        opacity: 10%;
+    }
+    to {
+        opacity: 55%;
+    }
 }
 
 

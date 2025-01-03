@@ -193,12 +193,11 @@ function addSidebarButtonClick() {
                         startSidebarClickTimeout();
                     }
 
-                    // always trans cover when clicking sidebar media buttons (media closes utilize a sidebar click)
-                    mediaHelper.mediaTransReveal();
-
                     if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 
-                        if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown
+                        if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown, not self
+                            mediaHelper.mediaTransReveal(); // media trans cover
+
                             // remove other active sub media, set new current as active secondary
                             window.activeMediaSecondary.classList.remove("active");
                             $(window.activeMediaSecondary).data("mediaActive", false);
@@ -207,6 +206,7 @@ function addSidebarButtonClick() {
                         } // otherwise it's a map clicking a sub media and we simulate a dropdown click to open it
 
                     } else if (window.activeMedia !== this) { // if not clicking same media again
+                        mediaHelper.mediaTransReveal(); // media trans cover
 
                         if (window.activeMedia !== undefined) { // not first button / not only button action
                             if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
@@ -226,6 +226,8 @@ function addSidebarButtonClick() {
                         window.activeMedia = this; // (sometimes first open) sets the new current active media
 
                     } else { // must be self, closes current media
+                        mediaHelper.mediaTransReveal(); // media trans cover
+
                         // lock media clicks when closing self media
                         window.mediaClickTimeout = true;
                         viewer360Module.startMediaClickTimeout();
