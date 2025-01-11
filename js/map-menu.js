@@ -1,7 +1,7 @@
 /* Map menu events */
 
 import {centerResetMap} from "./map-movement.js";
-import {heightAnimReveal, heightAnimHide} from "./media.js";
+import * as mediaHelper from "./media.js";
 
 
 // add the events for the map layer menu
@@ -37,13 +37,13 @@ export function initMapLayerMenu() {
     mapMenuLockPanning(mapLayerMenu);
 
     // map menu dropdown toggle
-    heightAnimHide(mapLayerMenu, true); // hide initially
+    mediaHelper.heightAnimHide(mapLayerMenu, true); // hide initially
     mapMenuDropdownBtn.click(function () {
         // mapLayerMenu.toggleClass("hidden");
         if (mapLayerMenu.css("display") === "none") {
-            heightAnimReveal(mapLayerMenu);
+            mediaHelper.heightAnimReveal(mapLayerMenu);
         } else {
-            heightAnimHide(mapLayerMenu, false);
+            mediaHelper.heightAnimHide(mapLayerMenu, false);
         }
 
         mapMenuDropdownArrow.toggleClass("dropdown-flip");
@@ -82,8 +82,17 @@ export function initMapLayerMenu() {
             mapMenuDropdownBtn.text(mapLayerMenuTitles[title]); // change menu title (active layer)
 
             // hide the current layer and show the target layer
-            currentMapLayer.toggleClass("hidden");
-            targetMapLayer.toggleClass("hidden");
+            // currentMapLayer.toggleClass("hidden");
+            // targetMapLayer.toggleClass("hidden");
+
+            // fade out current layer
+            // set target layer to absolute properties
+            // fade in target layer
+            mediaHelper.mediaTransHide(currentMapLayer);
+            mediaHelper.mediaTransReveal(targetMapLayer, true);
+
+            // fade out finish, hide
+            // set target layer to regular properties
 
             if (targetBuilding !== currentBuilding) { // if the buildings are different, reset the map
                 centerResetMap(targetBuilding);

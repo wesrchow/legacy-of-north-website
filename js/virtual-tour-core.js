@@ -4,6 +4,7 @@ import * as sidebar from "./sidebar.js";
 import * as mapEvents from "./map-events.js";
 import * as mapMovement from "./map-movement.js";
 import * as viewer360Module from "./360-viewer.js";
+import * as mediaHelper from "./media.js";
 
 /*
 *
@@ -33,6 +34,7 @@ window.mediaActiveFullscreen = false; //track media fullscreen toggle (specific 
 Promise.all([sidebar.initSidebar(), mapEvents.initMap()]).then(() => {
     jQuery.get("./csv/virtual-tour/map-id-list.csv", function (data) {
         mapEvents.addMapLinksNew($.csv.toArrays(data)); // wait until both sidebar and map are loaded before adding map links
+        mediaHelper.initMapLayerAnim(); // wait until map is loaded before handling map layer animations
     }, 'text');
 }).catch((error) => {
     console.error(error);

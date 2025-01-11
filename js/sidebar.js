@@ -17,6 +17,9 @@ const sectionSidebarButtons = ["", "north-sidebar-button", "south-sidebar-button
 // search bar vanilla js selector
 const searchBarReg = document.getElementById("search-bar");
 
+// other selectors
+const mediaTransCover = $("#media-trans-cover");
+
 
 // Inject sidebar elements, attach clickable events, init searchbar
 export function initSidebar() {
@@ -196,7 +199,7 @@ function addSidebarButtonClick() {
                     if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 
                         if (window.activeMediaSecondary !== this && window.activeMediaSecondary !== undefined) { // within same dropdown, not self
-                            mediaHelper.mediaTransReveal(); // media trans cover
+                            mediaHelper.mediaTransReveal(mediaTransCover, false); // media trans cover
 
                             // remove other active sub media, set new current as active secondary
                             window.activeMediaSecondary.classList.remove("active");
@@ -206,7 +209,7 @@ function addSidebarButtonClick() {
                         } // otherwise it's a map clicking a sub media and we simulate a dropdown click to open it
 
                     } else if (window.activeMedia !== this) { // if not clicking same media again
-                        mediaHelper.mediaTransReveal(); // media trans cover
+                        mediaHelper.mediaTransReveal(mediaTransCover, false); // media trans cover
 
                         if (window.activeMedia !== undefined) { // not first button / not only button action
                             if (window.activeMedia.classList.contains("dropdown-btn")) { // if previous is dropdown, close it properly
@@ -226,7 +229,7 @@ function addSidebarButtonClick() {
                         window.activeMedia = this; // (sometimes first open) sets the new current active media
 
                     } else { // must be self, closes current media
-                        mediaHelper.mediaTransReveal(); // media trans cover
+                        mediaHelper.mediaTransReveal(mediaTransCover, false); // media trans cover
 
                         // lock media clicks when closing self media
                         window.mediaClickTimeout = true;
@@ -241,7 +244,7 @@ function addSidebarButtonClick() {
                             viewer360Module.close360Viewer();
                             linearVideo.closeLinearVideo();
 
-                            mediaHelper.mediaTransHide(); // hide trans cover & reveal map
+                            mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
                         }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
                     }
                 }

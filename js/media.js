@@ -40,26 +40,34 @@ export function heightAnimHide(animElementJ, setup) {
 }
 
 
-const mediaTransCover = $("#media-trans-cover");
+// helper to trace back target map layer
+let targetMapLayer = null;
 
-export function mediaTransReveal() {
-    mediaTransCover.removeClass("hidden");
-    mediaTransCover[0].offsetHeight; // force reflow
-    mediaTransCover.removeClass("media-trans-hidden");
+// media opacity transition reveal
+export function mediaTransReveal(transElementJ, mapElement) {
+    if (mapElement) {
+        transElementJ.addClass("absolute-map");
+        targetMapLayer = transElementJ;
+    }
 
-    // add loading indicator (but probably not "location text" because the load is quite quick)
+    transElementJ.removeClass("hidden");
+    transElementJ[0].offsetHeight; // force reflow
+    transElementJ.removeClass("media-trans-hidden");
 }
 
-export function mediaTransHide() {
-    mediaTransCover.addClass("media-trans-hidden");
-    mediaTransCover[0].offsetHeight; // force reflow (necessary? seems to work okay without, not working for throttled testing)
-
-    // add loading indicator (but probably not "back to map text" because the load is quite quick)
+// media opacity transition hide
+export function mediaTransHide(transElementJ) {
+    transElementJ.addClass("media-trans-hidden");
+    transElementJ[0].offsetHeight; // force reflow (necessary? seems to work okay without)
 
     // TRANSITION END TRIGGER HERE
 }
 
-// mediaTransHide TRANSITION END TRIGGER
+// selectors here to handle transition end
+// media transition cover selector
+const mediaTransCover = $("#media-trans-cover");
+
+// mediaTransHide TRANSITION END TRIGGERS
 mediaTransCover[0].ontransitionend = () => {
     if (mediaTransCover.hasClass("media-trans-hidden")) { // only trigger on hide
         setTimeout(function () {
@@ -67,3 +75,28 @@ mediaTransCover[0].ontransitionend = () => {
         }, 120); // allow cover to fully fade (transitionend takes longer than exact transition time) todo: play with this timing
     }
 };
+
+// mediaTransHide TRANSITION END TRIGGERS for map layers
+// setup from virtual tour core
+export function initMapLayerAnim() {
+    // map layer selectors
+    window.mapLayers = [
+        $("#map-layer-north-1st"),
+        $("#map-layer-north-2nd"),
+        $("#map-layer-north-3rd"),
+        $("#map-layer-south-1st"),
+        $("#map-layer-south-2nd"),
+        $("#map-layer-outside")
+    ];
+
+    mapLayers.forEach((mapLayer) => {
+        mapLayer[0].ontransitionend = () => {
+            if (mapLayer.hasClass("media-trans-hidden")) { // only trigger on hide
+                setTimeout(function () {
+                    mapLayer.addClass("hidden");
+                    targetMapLayer.removeClass("absolute-map");
+                }, 120); // allow cover to fully fade
+            }
+        };
+    });
+}

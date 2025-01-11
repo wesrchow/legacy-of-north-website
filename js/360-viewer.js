@@ -1,7 +1,7 @@
 /* 360 viewer related function */
 
 import {closeLinearVideo} from "./linear-video.js";
-import {heightAnimHide, mediaTransReveal, mediaTransHide} from "./media.js";
+import {heightAnimHide, mediaTransHide} from "./media.js";
 import {centerResetMap} from "./map-movement.js";
 
 // map jquery selectors
@@ -17,6 +17,9 @@ const exitMediaButton = $("#exit-media-btn");
 const video360Range = $("#video-360-range");
 const video360ButtonPrev = $("#video-360-button-prev");
 const video360ButtonNext = $("#video-360-button-next");
+
+// other selectors
+const mediaTransCover = $("#media-trans-cover");
 
 // buffered so section 1 = north, 2 = south, 3 = outside
 const sectionFilepath = ["", "north", "south", "outside"];
@@ -146,7 +149,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 
                 // once viewer loaded, fade out the media trans
                 window.viewer360.on("load", function () {
-                    mediaTransHide();
+                    mediaTransHide(mediaTransCover);
                 });
             }, 260); // relative to sidebar animation delay
         }
@@ -227,7 +230,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                 // once viewer loaded, fade out the media trans
                 window.viewer360.on("load", function () {
-                    mediaTransHide();
+                    mediaTransHide(mediaTransCover);
                 });
 
                 $(this).data("mediaActive", true);

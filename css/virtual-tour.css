@@ -18,11 +18,14 @@
     transform-origin: 0 0;
 }
 
-/*.map-container img + .locations-container { todo: unused
-    position: absolute;
+.absolute-map {
+    position: absolute !important;
     top: 0;
     left: 0;
-}*/
+    right: 0;
+    bottom: 0;
+    padding: inherit;
+}
 
 .map-container svg {
     -webkit-user-drag: none;

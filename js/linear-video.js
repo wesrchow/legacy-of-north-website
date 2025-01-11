@@ -14,8 +14,9 @@ const mapContainer = $("#map-container");
 let videoContainer = $("#video-container"); // duplicated later because video js destroys it
 const exitMediaButton = $("#exit-media-btn");
 
-// other jquery selectors
+// other selectors
 const mediaContainer = $("#media-container");
+const mediaTransCover = $("#media-trans-cover");
 
 // buffered so section 1 = north, 2 = south, 3 = outside
 const sectionFilepath = ["", "north", "south", "outside"];
@@ -111,7 +112,7 @@ function destroyLinearVideo() {
 // video js load callback trigger
 // fullscreenchange event for linear video (works in tandem with 360 viewer module init media controls)
 function linearVideoLoadInit() {
-    mediaTransHide(); // once loaded, fade out the media trans
+    mediaTransHide(mediaTransCover); // once loaded, fade out the media trans
 
     videoContainer = $("#video-container"); // need to set this again since it gets thrashed by video js
 
