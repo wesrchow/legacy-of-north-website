@@ -241,7 +241,7 @@ function addSidebarButtonClick() {
                         }, 8);
 
                         setTimeout(function () { // allow trans cover to show first
-                            viewer360Module.close360Viewer();
+                            viewer360Module.close360Viewer(); // todo bonus: small concern about this not closing faster than the media cover begins hiding
                             linearVideo.closeLinearVideo();
 
                             mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map

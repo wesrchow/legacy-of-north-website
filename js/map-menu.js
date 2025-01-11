@@ -15,6 +15,7 @@ export function initMapLayerMenu() {
     const mapLayerOutside = $("#map-layer-outside");
 
     // Map layer menu selectors
+    const mapMenuContainer = $("#map-menu-container");
     const mapMenuDropdownBtn = $("#map-menu-dropdown-btn");
     const mapMenuDropdownArrow = $("#map-menu-dropdown-arrow");
     const mapLayerMenu = $("#map-menu");
@@ -24,6 +25,9 @@ export function initMapLayerMenu() {
     const mapLayerMenuSouth1st = $("#map-menu-south-1st");
     const mapLayerMenuSouth2nd = $("#map-menu-south-2nd");
     const mapLayerMenuOutside = $("#map-menu-outside");
+
+    // other selectors
+    const mediaTransCover = $("#media-trans-cover");
 
     // Helper variables
     const mapLayerMenuTitles = ["North 1st Floor", "North 2nd Floor", "North 3rd Floor", "South 1st Floor", "South 2nd Floor", "Outside"];
@@ -77,29 +81,39 @@ export function initMapLayerMenu() {
     });
 
     // helper function to switch map layers by toggling "hidden" class
-    function switchMapLayers(targetMapLayer, targetBuilding, title) {
+    function switchMapLayers(targetMapLayer, targetBuilding, title) { // todo: add click timeout to prevent rapid clicking
         if (currentMapLayer !== targetMapLayer) {
             mapMenuDropdownBtn.text(mapLayerMenuTitles[title]); // change menu title (active layer)
 
-            // hide the current layer and show the target layer
-            // currentMapLayer.toggleClass("hidden");
-            // targetMapLayer.toggleClass("hidden");
-
-            // fade out current layer
-            // set target layer to absolute properties
-            // fade in target layer
-            mediaHelper.mediaTransHide(currentMapLayer);
-            mediaHelper.mediaTransReveal(targetMapLayer, true);
-
-            // fade out finish, hide
-            // set target layer to regular properties
-
+            // swap map layers accordingly
             if (targetBuilding !== currentBuilding) { // if the buildings are different, reset the map
-                centerResetMap(targetBuilding);
-                currentBuilding = targetBuilding;
+                mapMenuContainer.css('z-index', '7'); // temp set z-index to be above trans cover
+                mediaHelper.mediaTransReveal(mediaTransCover, false); // media trans cover
+
+                setTimeout(function () { // allow trans cover to show first
+                    currentMapLayer.addClass("hidden"); // todo bonus: small concern about this not switching faster than the media cover begins hiding
+                    currentMapLayer.addClass("media-trans-hidden");
+
+                    targetMapLayer.removeClass("hidden");
+                    targetMapLayer.removeClass("media-trans-hidden");
+
+                    centerResetMap();
+                    currentBuilding = targetBuilding;
+
+                    mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
+                }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
+            } else { // within building transition
+                mediaHelper.mediaTransHide(currentMapLayer);
+                mediaHelper.mediaTransReveal(targetMapLayer, true);
             }
 
-            currentMapLayer = targetMapLayer;
+            setTimeout(function () {
+                currentMapLayer = targetMapLayer;
+            }, 355); // relative to letting maps transition first
+
+            setTimeout(function () {
+                mapMenuContainer.css('z-index', '5'); // reset z-index
+            }, 700); // relative to above trans hide cover finishing
         }
     }
 }

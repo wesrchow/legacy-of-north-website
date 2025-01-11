@@ -32,7 +32,9 @@
     -webkit-user-select: none;
     height: 100%;
     width: auto;
-    /*padding: 15px 15px;*/
+    opacity: 1;
+
+    transition: opacity 0.25s;
 }
 
 /*.locations-container { todo: unused

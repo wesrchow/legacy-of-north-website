@@ -51,8 +51,10 @@ export function mediaTransReveal(transElementJ, mapElement) {
     }
 
     transElementJ.removeClass("hidden");
-    transElementJ[0].offsetHeight; // force reflow
-    transElementJ.removeClass("media-trans-hidden");
+    setTimeout(function () { // force reflow (timeout necessary because of otherwise strong layering optimizations)
+        transElementJ[0].offsetHeight;
+        transElementJ.removeClass("media-trans-hidden");
+    }, 1);
 }
 
 // media opacity transition hide
@@ -77,7 +79,7 @@ mediaTransCover[0].ontransitionend = () => {
 };
 
 // mediaTransHide TRANSITION END TRIGGERS for map layers
-// setup from virtual tour core
+// setup called from virtual tour core after waiting for maps to load
 export function initMapLayerAnim() {
     // map layer selectors
     window.mapLayers = [
