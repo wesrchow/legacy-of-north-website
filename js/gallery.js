@@ -1,8 +1,11 @@
 /* Gallery sidebar, media handling */
 
+import * as mediaHelper from "./media.js";
+
 const mediaContainer = $("#media-container");
 const searchBarReg = document.getElementById("search-bar");
 
+// Order matched up to the manually created sidebar buttons, directly matched to gallery items list csv filenames and folder paths
 const galleryIDList = ["drone-footage-1", "grad-classes-plaques", "yearbook-covers"];
 
 window.galleryViewer = undefined; // lightgallery object
@@ -29,9 +32,7 @@ function addGalleryClicks() {
         galleryMenu[i].addEventListener("click", function () {
             if (!window.sidebarClickTimeout) {
 
-                //
-                // active buttons handling
-                //
+                // active class toggle
                 this.classList.toggle("active");
 
                 // manage click timeouts
@@ -64,14 +65,18 @@ function openGallery(index) {
     // load the gallery items list and inject elements
     jQuery.get(`csv/gallery/${galleryIDList[index]}.csv`, function (data) {
         let galleryInfoArray = $.csv.toArrays(data);
+
         for (let i = 1; i < galleryInfoArray.length; i++) { // inject gallery item with sources, captions
+            // get the thumbnail filename from the web filename
+            let webFilename = galleryInfoArray[i][0].toString();
+            let thumbnailFilename = webFilename.split('.')[0].replace('_Web', '') + '_Thumb.jpg';
+
             if (galleryInfoArray[i][1].toString() === "image") {
-                galleryContainer.append(`<div data-src="test-media/${galleryInfoArray[i][0]}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="test-media/${galleryInfoArray[i][0]}" /></div>`)
+                galleryContainer.append(`<div data-src="media/gallery/${galleryIDList[index]}/${galleryInfoArray[i][0]}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="media/gallery/${galleryIDList[index]}/${thumbnailFilename}" /></div>`)
             } else { // otherwise video
                 let elementID = galleryInfoArray[i][0].toString().split(".")[0]; // give the element an ID so we can target later
-                let elementIDVideo = elementID + "-video";
 
-                galleryContainer.append(`<div id="${elementID}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><video id="${elementIDVideo}" preload="metadata" disablePictureInPicture><source src="test-media/${galleryInfoArray[i][0]}" type="video/mp4"></video></div>`)
+                galleryContainer.append(`<div id="${elementID}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="media/gallery/${galleryIDList[index]}/${thumbnailFilename}" /></div>`)
 
                 let dataVideo = { // create lightgallery formatted data for html5 video
                     source: [
@@ -83,14 +88,11 @@ function openGallery(index) {
                     attributes: { preload: false, controls: true, disableRemotePlayback: true },
                 };
                 document.getElementById(`${elementID}`).setAttribute("data-video", JSON.stringify(dataVideo)); // set data-video to element
-
-                // disable right click for thumbnail video
-                document.getElementById(`${elementIDVideo}`).addEventListener('contextmenu', (e) => { e.preventDefault(); });
             }
         }
 
         // load the lightgallery on the setup gallery container
-        window.galleryViewer = lightGallery(document.getElementById(`${galleryIDList[index]}`), {
+        window.galleryViewer = lightGallery(galleryContainer[0], {
             plugins: [lgPager, lgFullscreen, lgZoom, lgVideo],
             licenseKey: 'DBD9A382-30CC40AE-95F97998-82AE427B',
             preload: 2,
@@ -166,37 +168,12 @@ function filterSearchElements(sidebarLocationElements) {
 
         if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
             if (sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already visible
-                heightAnimReveal(sidebarLocationElements.eq(i));
+                mediaHelper.heightAnimReveal(sidebarLocationElements.eq(i));
             }
         } else {
             if (!sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already hidden
-                heightAnimHide(sidebarLocationElements.eq(i));
+                mediaHelper.heightAnimHide(sidebarLocationElements.eq(i), false);
             }
         }
     }
-}
-
-// sidebar reveal display and animation
-function heightAnimReveal(animElementJ) {
-    animElementJ.css("display", "block");
-    animElementJ.height(animElementJ[0].scrollHeight); // temp set height for animation
-    animElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
-
-    animElementJ[0].ontransitionend = () => {  // todo: CONDITION TRIGGER CHECK
-        animElementJ.height("auto"); // set back to auto to allow dropdown to expand properly
-    };
-}
-
-// sidebar hide display and animation
-function heightAnimHide(animElementJ) {
-    animElementJ.height(animElementJ[0].scrollHeight); // temp set height for animation
-
-    setTimeout(function () { // delay to allow height to be set first
-        animElementJ.addClass("sidebar-selection-hidden"); // add hidden class
-
-    }, 5);
-
-    animElementJ[0].ontransitionend = () => { // once transition is done, display hide it  // todo: CONDITION TRIGGER CHECK
-        animElementJ.css("display", "none");
-    };
 }
