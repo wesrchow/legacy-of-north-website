@@ -32,11 +32,17 @@
     aspect-ratio: 16/9;
     width: auto !important;
     height: 100% !important;
+    max-height: 1080px !important; /* web videos are scaled to a standard maximum of 1080p */
+
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    margin: auto !important;
 }
 
-    /*
-        videojs
-    */
+/*
+    videojs
+*/
 .vjs-current-time {
     display: inline-block !important;
     padding: 0 0.5em !important;

@@ -122,7 +122,7 @@ function openGallery(index) {
                 autoplay: false,
                 preload: 'auto',
             },
-            // videoMaxSize: '1920-1080', manually handled in css instead
+            videoMaxSize: '1920-1080', // simply to allow 1080p (not actually enforced? height sizing is handled by css)
             autoplayFirstVideo: false,
             gotoNextSlideOnVideoEnd: false
         });
