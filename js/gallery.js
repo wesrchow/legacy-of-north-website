@@ -12,6 +12,9 @@ window.galleryViewer = undefined; // lightgallery object
 window.sidebarClickTimeout = false; // prevent sidebar double clicks
 window.activeMedia = undefined; // handles media switching and closing
 
+// other selectors
+const mediaTransCover = $("#media-trans-cover");
+
 
 /*
 * Initialization calls
@@ -40,9 +43,11 @@ function addGalleryClicks() {
                 startSidebarClickTimeout();
 
                 if (window.activeMedia !== this) { // if not clicking same media again
+                    mediaHelper.mediaTransReveal(mediaTransCover, false);
+
                     if (window.activeMedia !== undefined) { // not first button / not only button action
                         window.activeMedia.classList.remove("active");
-                        closeGallery();
+                        closeGallery(false);
                     }
 
                     // sometimes first open
@@ -50,7 +55,7 @@ function addGalleryClicks() {
                     openGallery(i);
                 } else { // must be self, closes current media
                     window.activeMedia = undefined;
-                    closeGallery();
+                    closeGallery(true);
                 }
             }
         });
@@ -59,79 +64,109 @@ function addGalleryClicks() {
 
 // create the gallery html elements and activate the given gallery
 function openGallery(index) {
-    mediaContainer.append(`<div class="gallery-container" id="${galleryIDList[index]}"></div>`);
-    let galleryContainer = $(`#${galleryIDList[index]}`); // let the gallery container be created first
+    setTimeout(function () {
+        mediaContainer.append(`<div class="gallery-container" id="${galleryIDList[index]}"></div>`);
+        let galleryContainer = $(`#${galleryIDList[index]}`); // let the gallery container be created first
 
-    // load the gallery items list and inject elements
-    jQuery.get(`csv/gallery/${galleryIDList[index]}.csv`, function (data) {
-        let galleryInfoArray = $.csv.toArrays(data);
+        // load the gallery items list and inject elements
+        jQuery.get(`csv/gallery/${galleryIDList[index]}.csv`, function (data) {
+            let galleryInfoArray = $.csv.toArrays(data);
 
-        for (let i = 1; i < galleryInfoArray.length; i++) { // inject gallery item with sources, captions
-            // get the thumbnail filename from the web filename
-            let webFilename = galleryInfoArray[i][0].toString();
-            let thumbnailFilename = webFilename.split('.')[0].replace('_Web', '') + '_Thumb.jpg';
+            for (let i = 1; i < galleryInfoArray.length; i++) { // inject gallery item with sources, captions
+                // get the thumbnail filename from the web filename
+                let webFilename = galleryInfoArray[i][0].toString();
+                let thumbnailFilename = webFilename.split('.')[0].replace('_Web', '') + '_Thumb.jpg';
 
-            if (galleryInfoArray[i][1].toString() === "image") {
-                galleryContainer.append(`<div data-src="media/gallery/${galleryIDList[index]}/${galleryInfoArray[i][0]}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="media/gallery/${galleryIDList[index]}/${thumbnailFilename}" /></div>`)
-            } else { // otherwise video
-                let elementID = galleryInfoArray[i][0].toString().split(".")[0]; // give the element an ID so we can target later
+                if (galleryInfoArray[i][1].toString() === "image") {
+                    galleryContainer.append(`<div data-src="media/gallery/${galleryIDList[index]}/${galleryInfoArray[i][0]}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="media/gallery/${galleryIDList[index]}/${thumbnailFilename}" /></div>`)
+                } else { // otherwise video
+                    let elementID = galleryInfoArray[i][0].toString().split(".")[0]; // give the element an ID so we can target later
 
-                galleryContainer.append(`<div id="${elementID}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="media/gallery/${galleryIDList[index]}/${thumbnailFilename}" /></div>`)
+                    galleryContainer.append(`<div id="${elementID}" data-sub-html="<p>Media by </p><h4>${galleryInfoArray[i][2]}</h4>"><img alt="${galleryInfoArray[i][0]}" src="media/gallery/${galleryIDList[index]}/${thumbnailFilename}" /></div>`)
 
-                let dataVideo = { // create lightgallery formatted data for html5 video
-                    source: [
-                        {
-                            src: `test-media/${galleryInfoArray[i][0]}`,
-                            type: 'video/mp4',
-                        }
-                    ],
-                    attributes: { preload: false, controls: true, disableRemotePlayback: true },
-                };
-                document.getElementById(`${elementID}`).setAttribute("data-video", JSON.stringify(dataVideo)); // set data-video to element
+                    let dataVideo = { // create lightgallery formatted data for html5 video
+                        source: [
+                            {
+                                src: `test-media/${galleryInfoArray[i][0]}`,
+                                type: 'video/mp4',
+                            }
+                        ],
+                        attributes: {preload: false, controls: true, disableRemotePlayback: true},
+                    };
+                    document.getElementById(`${elementID}`).setAttribute("data-video", JSON.stringify(dataVideo)); // set data-video to element
+                }
             }
-        }
 
-        // load the lightgallery on the setup gallery container
-        window.galleryViewer = lightGallery(galleryContainer[0], {
-            plugins: [lgPager, lgFullscreen, lgZoom, lgVideo],
-            licenseKey: 'DBD9A382-30CC40AE-95F97998-82AE427B',
-            preload: 2,
-            loop: false,
-            // allowMediaOverlap: true,
-            zoomFromOrigin: false, // zoom from gallery position thumbnail
-            speed: 500, // transition within gallery speed
-            backdropDuration: 300, // open/close speed
-            download: false, // button
-            hideBarsDelay: 2000, // hide controls
-            hideScrollbar: true,
-            numberOfSlideItemsInDom: 5,
-            swipeToClose: false,
-            enableDrag: false,
-            actualSize: false, // zoom button
-            showZoomInOutIcons: true,
-            videojs: true,
-            videojsOptions: {
-                controls: true,
-                controlBar: {
-                    pictureInPictureToggle: false,
-                    remainingTimeDisplay: false,
-                    currentTimeDisplay: true,
-                    durationDisplay: true,
-                    timeDivider: true
+            // load the lightgallery on the setup gallery container
+            window.galleryViewer = lightGallery(galleryContainer[0], {
+                plugins: [lgPager, lgFullscreen, lgZoom, lgVideo],
+                licenseKey: 'DBD9A382-30CC40AE-95F97998-82AE427B',
+                preload: 2,
+                loop: false,
+                // allowMediaOverlap: true,
+                zoomFromOrigin: false, // zoom from gallery position thumbnail
+                speed: 500, // transition within gallery speed
+                backdropDuration: 300, // open/close speed
+                download: false, // button
+                hideBarsDelay: 2000, // hide controls
+                hideScrollbar: true,
+                numberOfSlideItemsInDom: 5,
+                swipeToClose: false,
+                enableDrag: false,
+                actualSize: false, // zoom button
+                showZoomInOutIcons: true,
+                videojs: true,
+                videojsOptions: {
+                    controls: true,
+                    controlBar: {
+                        pictureInPictureToggle: false,
+                        remainingTimeDisplay: false,
+                        currentTimeDisplay: true,
+                        durationDisplay: true,
+                        timeDivider: true
+                    },
+                    autoplay: false,
+                    preload: 'auto',
                 },
-                autoplay: false,
-                preload: 'auto',
-            },
-            videoMaxSize: '1920-1080', // simply to allow 1080p (not actually enforced? height sizing is handled by css)
-            autoplayFirstVideo: false,
-            gotoNextSlideOnVideoEnd: false
-        });
-    }, 'text');
+                videoMaxSize: '1920-1080', // simply to allow 1080p (not actually enforced? height sizing is handled by css)
+                autoplayFirstVideo: false,
+                gotoNextSlideOnVideoEnd: false
+            });
+
+            // check for all images loaded after DOM injection
+            galleryContainer.imagesLoaded(function () {
+                mediaHelper.mediaTransHide(mediaTransCover);
+            });
+        }, 'text');
+    }, 261); // relative to sidebar animation delay & media trans cover reveal (also must wait for potential prior gallery close)
 }
 
-function closeGallery() {
-    window.galleryViewer.destroy();
-    mediaContainer.empty();
+function closeGallery(selfClose) {
+    mediaHelper.mediaTransReveal(mediaTransCover, false); // media trans cover
+
+    let prevContents = mediaContainer.contents().filter(function () {
+        return this.id !== "media-trans-cover";
+    });
+
+    if (selfClose) {
+        setTimeout(function () { // allow trans cover to show first
+            // allow closes more time to process before hiding cover
+            window.galleryViewer.destroy();
+            prevContents.remove();
+        }, 300); // relative to trans cover animation delay
+
+        // back to blank gallery screen so we need to handle hiding the cover
+        setTimeout(function () { // allow trans cover to show first
+            mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
+        }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
+    } else {
+        // can't allow more time for closes to process here because we must open the new gallery immediately
+
+        setTimeout(function () { // allow trans cover to show first
+            window.galleryViewer.destroy();
+            prevContents.remove();
+        }, 260); // relative to trans cover animation delay
+    }
 }
 
 function startSidebarClickTimeout() {

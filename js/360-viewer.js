@@ -151,7 +151,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 window.viewer360.on("load", function () {
                     mediaTransHide(mediaTransCover);
                 });
-            }, 260); // relative to sidebar animation delay
+            }, 260); // relative to sidebar animation delay & media trans cover reveal
         }
     });
 }

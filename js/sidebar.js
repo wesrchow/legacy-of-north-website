@@ -241,9 +241,12 @@ function addSidebarButtonClick() {
                         }, 8);
 
                         setTimeout(function () { // allow trans cover to show first
-                            viewer360Module.close360Viewer(); // todo bonus: small concern about this not closing faster than the media cover begins hiding
+                            // allow closes more time to process before hiding cover
+                            viewer360Module.close360Viewer();
                             linearVideo.closeLinearVideo();
+                        }, 300); // relative to trans cover animation delay
 
+                        setTimeout(function () { // allow trans cover to show first
                             mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
                         }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
                     }
