@@ -352,15 +352,20 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     setTimeout(function () {
                         prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
-                    }, 75); // allow other viewer to load fully first
-                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () { // todo: add compatibility to other transitionend?  // todo: CONDITION TRIGGER CHECK
-                        // destroy previous viewer renderer, push to background
-                        prevPannellumViewer.destroy();
-                        prevContainer.css("z-index", 0);
+                    }, 150); // allow other viewer to load fully first
 
-                        // bring next viewer to foreground
-                        nextContainerSelector.css("z-index", 1);
-                    });
+                     if (!prevContainer[0].ontransitionend) { // only add event on the first time
+                         prevContainer[0].ontransitionend = (event) => {
+                             if (event.propertyName === "opacity") { // only trigger on opacity transition (the only one I adjust but added here just in case)
+                                 // destroy previous viewer renderer, push to background
+                                 prevPannellumViewer.destroy();
+                                 prevContainer.css("z-index", 0);
+
+                                 // bring next viewer to foreground
+                                 nextContainerSelector.css("z-index", 1);
+                             }
+                         };
+                     }
 
                     return nextPannellumViewer;
                 }
@@ -400,7 +405,12 @@ function destroyAll360Viewers() {
     }
     if (viewer360ContainerSecondary.children().length) {
         window.viewer360Secondary.destroy();
+        window.viewer360Secondary.off(); // todo: need for clean up? pannellum load check usage
     }
+
+    // clear transitionend events regardless (one container will be inactive when in 360 video)
+    viewer360Container[0].ontransitionend = null;
+    viewer360ContainerSecondary[0].ontransitionend = null;
 }
 
 // 360 video clean up
