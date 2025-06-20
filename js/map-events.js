@@ -86,7 +86,7 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
     // add click event to map location that triggers sidebar click
     mapIDSelector.click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && !window.mapClickTimeout && !window.sidebarClickTimeout) {
+        if (!window.lockMapSelection && !window.mapClickTimeout && !window.sidebarClickTimeout && !window.sidebarSecClickTimeout) { // prevent fast double clicks between things
             // manage click timeout
             window.mapClickTimeout = true;
             startMapClickTimeout();
@@ -99,6 +99,7 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
             if (dropdownLink !== undefined && !dropdownLink.hasClass("active")) { // open relevant dropdown once
                 dropdownLink.data("mediaActive", true); // stop the dropdown from rendering the first image event todo bonus: make sure this always fires before the click and check
                 dropdownLink[0].click(); // click the sub media's parent dropdown
+                window.sidebarClickTimeout = false; // skip sidebar timeout since we need to click sub media
             }
 
             setTimeout(() => {
@@ -109,8 +110,9 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
             sidebarIDSelector[0].click(); // click the target media button
 
             // trigger this here to prevent rapid map then sidebar click (since we skip it in the sidebar click event)
-            window.sidebarClickTimeout = true;
-            startSidebarClickTimeout();
+            // todo: remove since we removed the skip i think (keep making sure this doesnt break anything)
+            // window.sidebarClickTimeout = true;
+            // startSidebarClickTimeout();
         }
     });
 

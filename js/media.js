@@ -10,8 +10,10 @@ export function heightAnimReveal(animElementJ) {
     animElementJ.removeClass("sidebar-selection-hidden"); // remove hidden class
 
     // must keep setting transitionend behaviour because it changes depending on reveal or hide
-    animElementJ[0].ontransitionend = () => { // no need to conditionally check triggers because in all usages height is the only transitioned property
-        animElementJ.height("auto"); // set back to auto to allow dropdown to expand properly
+    animElementJ[0].ontransitionend = (event) => {
+        // if (event.propertyName === "height") { // only trigger on height transition todo: breaks scroll to sidebar selection (maybe because the scroll is a transition? or it causes some lag which stalls the scroll)
+            animElementJ.height("auto"); // set back to auto to allow dropdown to expand properly
+        // }
     };
 }
 
@@ -19,7 +21,7 @@ export function heightAnimReveal(animElementJ) {
 export function heightAnimHide(animElementJ, setup) {
     // if (animElementJ.is(":visible")) { // only set height if element is visible
         animElementJ.height(animElementJ[0].scrollHeight); // temp set height for animation
-    // } // todo: trying to fix display bug after toggling section and closing media
+    // } // todo: trying to fix display bug after active multi image media, toggling section then closing media
 
     setTimeout(function () { // delay to allow height to be set first
         if (setup) animElementJ.addClass("no-transition"); // prevent animation on first load
@@ -35,11 +37,11 @@ export function heightAnimHide(animElementJ, setup) {
 
     if (!setup) {
         // must keep setting transitionend behaviour because it changes depending on reveal or hide
-        animElementJ[0].ontransitionend = (event) => { // once transition is done, display hide it
+        animElementJ[0].ontransitionend = (event) => {
             if (event.propertyName === "height") { // only trigger on height transition
                 setTimeout(function () {
-                    animElementJ.css("display", "none");
-                }, 120); // allow dropdown to fully collapse (transitionend takes longer than exact transition time) todo: play with this timing
+                    animElementJ.css("display", "none"); // once transition is done, display hide it
+                }, 20); // allow dropdown to fully collapse (transitionend takes longer than exact transition time) todo: play with this timing
             }
         };
     }
@@ -60,7 +62,7 @@ export function mediaTransReveal(transElementJ, mapElement) {
     setTimeout(function () { // force reflow (timeout necessary because of otherwise strong layering optimizations)
         transElementJ[0].offsetHeight;
         transElementJ.removeClass("media-trans-hidden");
-    }, 1);
+    }, 0);
 }
 
 // media opacity transition hide
@@ -80,7 +82,7 @@ mediaTransCover[0].ontransitionend = () => {
     if (mediaTransCover.hasClass("media-trans-hidden")) { // only trigger on hide (no check for event because reveal & hide are both opacity)
         setTimeout(function () {
             mediaTransCover.addClass("hidden");
-        }, 120); // allow cover to fully fade (transitionend takes longer than exact transition time) todo: play with this timing
+        }, 20); // allow cover to fully fade (transitionend takes longer than exact transition time) todo: confirm this timing
     }
 };
 

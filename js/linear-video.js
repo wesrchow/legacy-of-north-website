@@ -32,7 +32,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
 
             $(this).data("mediaActive", true); // sets this elements media as active to prevent repeat clicks
 
-            setTimeout(() => { // stall video load so button can animate without lag (and sync with other media)
+            setTimeout(() => { // stall video load so button can animate without lag (and sync with other media load timings)
                 // close any prior 360 photo & video, clean linear video
                 close360Viewer();
                 destroyLinearVideo();
@@ -71,7 +71,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                 }, linearVideoLoadInit); // video js load callback // todo: do proper pathing
 
                 window.lockDrag = true; // lock map movement
-            }, 310); // relative to sidebar animation delay todo: fix timing
+            }, 305); // relative to sidebar animation delay (300)
         }
     });
 }

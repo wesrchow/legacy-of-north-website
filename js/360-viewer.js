@@ -108,7 +108,7 @@ export function initMediaControls() {
 export function create360PhotoViewerEvent(selectorIDString, content360Filename, section) {
     $(`#${selectorIDString}`).click(function (e) {
         e.preventDefault()
-        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) { // block open when intending to close & prevent double clicks
             // handle click timeout
             window.mediaClickTimeout = true;
             startMediaClickTimeout();
@@ -151,7 +151,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 window.viewer360.on("load", function () {
                     mediaTransHide(mediaTransCover);
                 });
-            }, 260); // relative to sidebar animation delay & media trans cover reveal
+            }, 305); // relative to sidebar animation delay (300)
         }
     });
 }
@@ -176,7 +176,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
     // add click event to sidebar
     sidebarSelector.click(function (e) {
         e.preventDefault()
-        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) { // block open when intending to close & prevent double clicks
             // click timeout management
             window.mediaClickTimeout = true;
             startMediaClickTimeout();
@@ -352,7 +352,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     setTimeout(function () {
                         prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
-                    }, 150); // allow other viewer to load fully first
+                    }, 200); // allow other viewer to load fully first
 
                      if (!prevContainer[0].ontransitionend) { // only add event on the first time
                          prevContainer[0].ontransitionend = (event) => {
@@ -369,7 +369,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     return nextPannellumViewer;
                 }
-            }, 310); // relative to sidebar animation delay todo: fix timing
+            }, 305); // relative to sidebar animation delay (300)
         }
     });
 }
@@ -438,5 +438,5 @@ function clean360Video() {
 export function startMediaClickTimeout() {
     setTimeout(() => {
         window.mediaClickTimeout = false;
-    }, 290); // relative to media load & sidebar animation delay
+    }, 960); // relative to sidebar animation delay / media load stall (305) + media.js css manipulation (20) + trans cover (300+300)
 }

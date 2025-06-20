@@ -6,11 +6,11 @@
 
 .sidebar-selection-hidden {
     height: 0 !important;
-    transition: height 0.3s;
+    transition: height 300ms;
 }
 
 /* media transition cover for virtual tour & gallery as well as map transition */
 .media-trans-hidden {
     opacity: 0 !important;
-    transition: opacity 0.25s;
+    transition: opacity 300ms;
 }

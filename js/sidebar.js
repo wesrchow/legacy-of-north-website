@@ -183,18 +183,12 @@ function addSidebarButtonClick() {
         sidebarButtons[i].addEventListener("click", function () {
             if (!window.sidebarClickTimeout) {
 
-                if (window.activeMediaSecondary !== this) {
-                    this.classList.toggle("active");
-                }
-
-                // active buttons handling
+                // active buttons & media handling
                 if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
-                    // manage click timeouts
-                    // todo bonus: re addition of condition breaks fast map click to click sidebar
-                    if (!window.mapClickTimeout) { // skips timeout to allow sidebar to be double-clicked fast from map events (for sub media)
-                        window.sidebarClickTimeout = true;
-                        startSidebarClickTimeout();
-                    }
+                    // manage click timeouts for sidebar buttons
+                    window.sidebarClickTimeout = true;
+                    startSidebarClickTimeout();
+                    window.sidebarSecClickTimeout = false; // skip section timeout if media is being clicked (fast section -> media click; aka map click behaviour)
 
                     if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 
@@ -238,13 +232,13 @@ function addSidebarButtonClick() {
                         setTimeout(function () { // delay to allow media opener click block to check first
                             $(window.activeMedia).data("mediaActive", false);
                             window.activeMedia = undefined;
-                        }, 8);
+                        }, 10);
 
                         setTimeout(function () { // allow trans cover to show first
-                            // allow closes more time to process before hiding cover
+                            // allow closes time to process before hiding cover (below)
                             viewer360Module.close360Viewer();
                             linearVideo.closeLinearVideo();
-                        }, 300); // relative to trans cover animation delay
+                        }, 320); // relative to trans cover animation delay (300)
 
                         setTimeout(function () { // allow trans cover to show first
                             mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
@@ -252,38 +246,49 @@ function addSidebarButtonClick() {
                     }
                 }
 
-                // only for dropdowns toggle display and deal with active sub buttons
-                if (sidebarButtons[i].classList.contains("dropdown-btn")) {
-                    let dropdownContent = this.parentElement.nextElementSibling;
-                    let dropdownContentJ = $(this).parent().next();
-                    let dropdownArrow = $(this).next();
+                // general sidebar button click behaviour (sections only execute this)
+                if (!window.sidebarSecClickTimeout) {
+                    if (window.activeMediaSecondary !== this) {
+                        this.classList.toggle("active");
+                    }
 
-                    dropdownArrow.toggleClass("dropdown-flip"); // flip dropdown arrow
+                    // only for dropdowns toggle display and deal with active sub buttons
+                    if (sidebarButtons[i].classList.contains("dropdown-btn")) {
+                        let dropdownContent = this.parentElement.nextElementSibling;
+                        let dropdownContentJ = $(this).parent().next();
+                        let dropdownArrow = $(this).next();
 
-                    // dropdown active status toggling
-                    if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
-                        if (window.activeMediaSecondary === undefined) { // switched from elsewhere or opening new
-                            // active first image when opening a media dropdown
-                            let firstImage = dropdownContent.firstChild.firstChild;
-                            firstImage.classList.toggle("active");
-                            $(firstImage).data("mediaActive", true);
-                            window.activeMediaSecondary = firstImage;
-                        } else { // closing current dropdown
-                            window.activeMediaSecondary.classList.remove("active");
-                            $(window.activeMediaSecondary).data("mediaActive", false);
-                            window.activeMediaSecondary = undefined;
+                        dropdownArrow.toggleClass("dropdown-flip"); // flip dropdown arrow
+
+                        // dropdown active status toggling
+                        if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
+                            if (window.activeMediaSecondary === undefined) { // switched from elsewhere or opening new
+                                // active first image when opening a media dropdown
+                                let firstImage = dropdownContent.firstChild.firstChild;
+                                firstImage.classList.toggle("active");
+                                $(firstImage).data("mediaActive", true);
+                                window.activeMediaSecondary = firstImage;
+                            } else { // closing current dropdown
+                                window.activeMediaSecondary.classList.remove("active");
+                                $(window.activeMediaSecondary).data("mediaActive", false);
+                                window.activeMediaSecondary = undefined;
+                            }
                         }
 
+                        // hiding and revealing dropdown content
+                        if (dropdownContent.style.display === "none") {
+                            mediaHelper.heightAnimReveal(dropdownContentJ);
+                        } else {
+                            mediaHelper.heightAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably reading 0 because of the display none)
+                        }
                     }
 
-                    // hiding and revealing dropdown content
-                    if (dropdownContent.style.display === "none") {
-                        mediaHelper.heightAnimReveal(dropdownContentJ);
-                    } else {
-                        mediaHelper.heightAnimHide(dropdownContentJ, false); // todo: fix dropdown not reopening. when closing section, then closing media that has dropdown (height probably reading 0 because of the display none)
+                    // section sidebar timeout at end of function to allow media click to skip it (fast section -> media click; aka map click behaviour)
+                    if (sectionSidebarButtons.includes(this.id)) {
+                        window.sidebarSecClickTimeout = true;
+                        startSecSidebarClickTimeout();
                     }
                 }
-
             }
         });
     }
@@ -379,8 +384,14 @@ function initSidebarSticky() {
 }
 
 
-export function startSidebarClickTimeout() {
+export function startSidebarClickTimeout() { // todo: remove export if not used
     setTimeout(function () {
         window.sidebarClickTimeout = false;
-    }, 310); // relative to media load & sidebar animation delay todo: fix timing
+    }, 960); // relative to sidebar animation delay / media load stall (305) + media.js css manipulation (20) + trans cover (300+300)
+}
+
+function startSecSidebarClickTimeout() {
+    setTimeout(function () {
+        window.sidebarSecClickTimeout = false;
+    }, 960); // relative to other sidebar click timeout (950)
 }

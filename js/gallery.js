@@ -150,14 +150,14 @@ function closeGallery(selfClose) {
 
     if (selfClose) {
         setTimeout(function () { // allow trans cover to show first
-            // allow closes more time to process before hiding cover
+            // allow closes time to process before hiding cover (below)
             window.galleryViewer.destroy();
             prevContents.remove();
         }, 300); // relative to trans cover animation delay
 
         // back to blank gallery screen so we need to handle hiding the cover
         setTimeout(function () { // allow trans cover to show first
-            mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
+            mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover
         }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
     } else {
         // can't allow more time for closes to process here because we must open the new gallery immediately
