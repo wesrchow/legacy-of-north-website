@@ -4,6 +4,7 @@ import * as sidebar from "./sidebar.js";
 import * as mapEvents from "./map-events.js";
 import * as mapMovement from "./map-movement.js";
 import * as viewer360Module from "./360-viewer.js";
+import * as mediaHelper from "./media.js";
 
 /*
 *
@@ -19,6 +20,7 @@ window.activeMedia = undefined; // handles media switching and closing
 window.activeMediaSecondary = undefined; // handles media switching and closing for sub media
 window.mediaClickTimeout = false; // prevent media double clicks
 window.sidebarClickTimeout = false; // prevent sidebar double clicks
+window.sidebarSecClickTimeout = false; // prevent sidebar section double clicks
 window.mapClickTimeout = false; // prevent map double clicks
 window.resizedWhileMedia = false; // check resized when media is active (not fullscreens)
 window.mediaActiveFullscreen = false; //track media fullscreen toggle (specific window resize type)
@@ -33,6 +35,7 @@ window.mediaActiveFullscreen = false; //track media fullscreen toggle (specific 
 Promise.all([sidebar.initSidebar(), mapEvents.initMap()]).then(() => {
     jQuery.get("./csv/virtual-tour/map-id-list.csv", function (data) {
         mapEvents.addMapLinksNew($.csv.toArrays(data)); // wait until both sidebar and map are loaded before adding map links
+        mediaHelper.initMapLayerAnim(); // wait until map is loaded before handling map layer animations
     }, 'text');
 }).catch((error) => {
     console.error(error);
@@ -40,6 +43,6 @@ Promise.all([sidebar.initSidebar(), mapEvents.initMap()]).then(() => {
 
 mapMovement.initMapMovementEvents(); // Add map events to facilitate map movement
 
-viewer360Module.initMediaControls(); // Add all 360 viewer controls (photo and video)
+viewer360Module.initMediaControls(); // Add 360 viewer & general media controls
 
 // note: init 360 videos moved to sidebar since it must be deferred until sidebar is loaded

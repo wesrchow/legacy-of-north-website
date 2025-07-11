@@ -2,20 +2,21 @@
 
 import {startMediaClickTimeout, close360Viewer} from "./360-viewer.js";
 import * as mapMovement from "./map-movement.js";
-import {sidebarAnimHide} from "./media.js";
+import {heightAnimHide, mediaTransHide} from "./media.js";
 
 // map jquery selectors
-const mapLayerMenu = $("#map-layer-menu");
-const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
-const mapLayerMenuArrow = $("#map-dropdown-arrow");
+const mapLayerMenu = $("#map-menu");
+const mapMenuDropdownBtn = $("#map-menu-dropdown-btn");
+const mapMenuDropdownArrow = $("#map-menu-dropdown-arrow");
 const mapContainer = $("#map-container");
 
 // linear video jquery selectors
 let videoContainer = $("#video-container"); // duplicated later because video js destroys it
-const exitMediaButton = $("#exit-media-button");
+const exitMediaButton = $("#exit-media-btn");
 
-// other jquery selectors
+// other selectors
 const mediaContainer = $("#media-container");
+const mediaTransCover = $("#media-trans-cover");
 
 // buffered so section 1 = north, 2 = south, 3 = outside
 const sectionFilepath = ["", "north", "south", "outside"];
@@ -31,19 +32,19 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
 
             $(this).data("mediaActive", true); // sets this elements media as active to prevent repeat clicks
 
-            setTimeout(() => { // stall video load so button can animate without lag (and sync with other media)
+            setTimeout(() => { // stall video load so button can animate without lag (and sync with other media load timings)
                 // close any prior 360 photo & video, clean linear video
                 close360Viewer();
                 destroyLinearVideo();
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
-                    sidebarAnimHide(mapLayerMenu, true);
-                    mapLayerMenuArrow.toggleClass("dropdown-rotate");
+                    heightAnimHide(mapLayerMenu, true);
+                    mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
-                mapLayerMenuDropdown.addClass("hidden");
+                mapMenuDropdownBtn.addClass("hidden");
                 mapContainer.addClass("hidden");
-                mapLayerMenuArrow.addClass("hidden");
+                mapMenuDropdownArrow.addClass("hidden");
 
                 // linear video style
                 mediaContainer.css("cursor", "auto"); // override out of map cursor
@@ -67,10 +68,10 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                     autoplay: false,
                     preload: 'auto',
                     restoreEl: true
-                }, linearVideoFullscreenCheck); // apply fullscreen check on load callback // todo: do proper pathing, use for load cover anim?
+                }, linearVideoLoadInit); // video js load callback // todo: do proper pathing
 
                 window.lockDrag = true; // lock map movement
-            }, 260);
+            }, 305); // relative to sidebar animation delay (300)
         }
     });
 }
@@ -78,9 +79,9 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
 // closes and cleans up the linear video
 export function closeLinearVideo() {
     // reveal and unlock map
-    mapLayerMenuDropdown.removeClass("hidden");
+    mapMenuDropdownBtn.removeClass("hidden");
     mapContainer.removeClass("hidden");
-    mapLayerMenuArrow.removeClass("hidden");
+    mapMenuDropdownArrow.removeClass("hidden");
     window.lockDrag = false;
 
     // clean up video js renderer
@@ -96,7 +97,7 @@ export function closeLinearVideo() {
         mapMovement.centerResetMap();
         window.resizedWhileMedia = false;
     }
-    mediaContainer.css("cursor", "grab"); // reset cursor
+    mediaContainer.css("cursor", "default"); // reset cursor (for 360 media close as well)
 }
 
 // clean up linear video renderer
@@ -108,8 +109,11 @@ function destroyLinearVideo() {
     }
 }
 
+// video js load callback trigger
 // fullscreenchange event for linear video (works in tandem with 360 viewer module init media controls)
-function linearVideoFullscreenCheck() {
+function linearVideoLoadInit() {
+    mediaTransHide(mediaTransCover); // once loaded, fade out the media trans
+
     videoContainer = $("#video-container"); // need to set this again since it gets thrashed by video js
 
     videoContainer.on("fullscreenchange", function () {

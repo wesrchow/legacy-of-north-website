@@ -1,22 +1,25 @@
 /* 360 viewer related function */
 
 import {closeLinearVideo} from "./linear-video.js";
-import {sidebarAnimHide} from "./media.js";
+import {heightAnimHide, mediaTransHide} from "./media.js";
 import {centerResetMap} from "./map-movement.js";
 
 // map jquery selectors
-const mapLayerMenu = $("#map-layer-menu");
-const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
-const mapLayerMenuArrow = $("#map-dropdown-arrow");
+const mapLayerMenu = $("#map-menu");
+const mapMenuDropdownBtn = $("#map-menu-dropdown-btn");
+const mapMenuDropdownArrow = $("#map-menu-dropdown-arrow");
 const mapContainer = $("#map-container");
 
 // 360 viewer jquery selectors
 const viewer360Container = $("#viewer-360-container");
 const viewer360ContainerSecondary = $("#viewer-360-container-secondary");
-const exitMediaButton = $("#exit-media-button");
+const exitMediaButton = $("#exit-media-btn");
 const video360Range = $("#video-360-range");
 const video360ButtonPrev = $("#video-360-button-prev");
 const video360ButtonNext = $("#video-360-button-next");
+
+// other selectors
+const mediaTransCover = $("#media-trans-cover");
 
 // buffered so section 1 = north, 2 = south, 3 = outside
 const sectionFilepath = ["", "north", "south", "outside"];
@@ -61,7 +64,7 @@ export function init360Videos() {
     }, 'text');
 }
 
-// Sets up 360 viewer controls
+// Sets up 360 viewer & general media controls
 export function initMediaControls() {
     // reset map media active handling
     $(window).resize(function () {
@@ -105,7 +108,7 @@ export function initMediaControls() {
 export function create360PhotoViewerEvent(selectorIDString, content360Filename, section) {
     $(`#${selectorIDString}`).click(function (e) {
         e.preventDefault()
-        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) { // block open when intending to close & prevent double clicks
             // handle click timeout
             window.mediaClickTimeout = true;
             startMediaClickTimeout();
@@ -120,12 +123,12 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
-                    sidebarAnimHide(mapLayerMenu, true);
-                    mapLayerMenuArrow.toggleClass("dropdown-rotate");
+                    heightAnimHide(mapLayerMenu, true);
+                    mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
-                mapLayerMenuDropdown.addClass("hidden");
+                mapMenuDropdownBtn.addClass("hidden");
                 mapContainer.addClass("hidden");
-                mapLayerMenuArrow.addClass("hidden");
+                mapMenuDropdownArrow.addClass("hidden");
 
                 // reveal 360 viewer things
                 viewer360Container.removeClass("hidden");
@@ -144,10 +147,11 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                     "disableKeyboardCtrl": true
                 }); // todo: finalize these options and do proper pathing
 
+                // once viewer loaded, fade out the media trans
                 window.viewer360.on("load", function () {
-                    // todo: use for load cover anim?
+                    mediaTransHide(mediaTransCover);
                 });
-            }, 260);
+            }, 305); // relative to sidebar animation delay (300)
         }
     });
 }
@@ -168,12 +172,11 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
     let videoPos = 1;
     let tempPrevViewer; // holds current viewer until we transition where it's treated as the previous viewer and altered accordingly
     let content360Filename;
-    let moveTimeout = false; // used to timeout 360 video clicks (not actually necessary after we added element disabling)
 
     // add click event to sidebar
     sidebarSelector.click(function (e) {
         e.preventDefault()
-        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) {
+        if ($(this).data("mediaActive") !== true && !window.mediaClickTimeout) { // block open when intending to close & prevent double clicks
             // click timeout management
             window.mediaClickTimeout = true;
             startMediaClickTimeout();
@@ -188,12 +191,12 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                 // (re)hide necessary elements
                 if (!mapLayerMenu.hasClass("sidebar-selection-hidden")) {
-                    sidebarAnimHide(mapLayerMenu, true);
-                    mapLayerMenuArrow.toggleClass("dropdown-rotate");
+                    heightAnimHide(mapLayerMenu, true);
+                    mapMenuDropdownArrow.toggleClass("dropdown-flip");
                 }
-                mapLayerMenuDropdown.addClass("hidden");
+                mapMenuDropdownBtn.addClass("hidden");
                 mapContainer.addClass("hidden");
-                mapLayerMenuArrow.addClass("hidden");
+                mapMenuDropdownArrow.addClass("hidden");
 
                 // reveal and bring to foreground main 360 viewer
                 viewer360Container.removeClass("hidden");
@@ -225,6 +228,11 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     "yaw": initialYaw
                 });
 
+                // once viewer loaded, fade out the media trans
+                window.viewer360.on("load", function () {
+                    mediaTransHide(mediaTransCover);
+                });
+
                 $(this).data("mediaActive", true);
 
                 // set up view switching
@@ -234,39 +242,37 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                 // 360 video next button event
                 video360ButtonNext.click(function () {
-                    if (!moveTimeout) {
-                        timeoutCountdown();
+                    timeoutCountdown();
 
-                        videoPos++
+                    videoPos++
 
-                        if (videoPos > fileCount) { // if we're past the range, hold position
-                            videoPos--;
-                        } else {
-                            video360Range.val(videoPos);
-                            triggerVideo360Transition();
-                        }
+                    if (videoPos > fileCount) { // if we're past the range, hold position
+                        videoPos--;
+                    } else {
+                        video360Range.val(videoPos);
+                        triggerVideo360Transition();
                     }
 
                     timeoutLock(); // always lock after a move
                 });
 
-                // disable previous button initially
+                // disable previous button initially, enable next button
                 video360ButtonPrev.prop("disabled", true);
                 video360ButtonPrev.css("cursor", "default");
+                video360ButtonNext.prop("disabled", false);
+                video360ButtonNext.css("cursor", "pointer");
 
                 // 360 video previous button event
                 video360ButtonPrev.click(function () {
-                    if (!moveTimeout) {
-                        timeoutCountdown();
+                    timeoutCountdown();
 
-                        videoPos--
+                    videoPos--
 
-                        if (videoPos < 1) { // if we're past the range, hold position
-                            videoPos++;
-                        } else {
-                            video360Range.val(videoPos);
-                            triggerVideo360Transition();
-                        }
+                    if (videoPos < 1) { // if we're past the range, hold position
+                        videoPos++;
+                    } else {
+                        video360Range.val(videoPos);
+                        triggerVideo360Transition();
                     }
 
                     timeoutLock(); // always lock after a move
@@ -275,12 +281,10 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 // set up range slider
                 video360Range.attr("max", fileCount);
                 video360Range.change(function () {
-                    if (!moveTimeout) {
-                        timeoutCountdown();
+                    timeoutCountdown();
 
-                        videoPos = parseInt(video360Range.val());
-                        triggerVideo360Transition();
-                    }
+                    videoPos = parseInt(video360Range.val());
+                    triggerVideo360Transition();
 
                     timeoutLock(); // always lock after a move
                 })
@@ -293,7 +297,6 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     video360ButtonPrev.css("cursor", "default");
                     video360Range.prop("disabled", true);
                     video360Range.css("cursor", "default");
-                    moveTimeout = true;
                 }
 
                 // timeout countdown helper
@@ -312,8 +315,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                         video360Range.prop("disabled", false);
                         video360Range.css("cursor", "pointer");
-                        moveTimeout = false;
-                    }, 1400);
+                    }, 1050); // relative to fade delay & transition time (transitionend takes longer than exact transition time, extra 110ms absolute min)
                 }
 
                 // trigger for 360 video transition
@@ -348,19 +350,26 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                     // show next viewer immediately underneath while fading out previous viewer
                     nextContainerSelector.removeClass("hidden-opacity-360video");
 
-                    prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
-                    prevContainer.on('transitionend webkitTransitionEnd oTransitionEnd', function () {
-                        // destroy previous viewer renderer, push to background
-                        prevPannellumViewer.destroy();
-                        prevContainer.css("z-index", 0);
+                    setTimeout(function () {
+                        prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
+                    }, 200); // allow other viewer to load fully first
 
-                        // bring next viewer to foreground
-                        nextContainerSelector.css("z-index", 1);
-                    });
+                     if (!prevContainer[0].ontransitionend) { // only add event on the first time
+                         prevContainer[0].ontransitionend = (event) => {
+                             if (event.propertyName === "opacity") { // only trigger on opacity transition (the only one I adjust but added here just in case)
+                                 // destroy previous viewer renderer, push to background
+                                 prevPannellumViewer.destroy();
+                                 prevContainer.css("z-index", 0);
+
+                                 // bring next viewer to foreground
+                                 nextContainerSelector.css("z-index", 1);
+                             }
+                         };
+                     }
 
                     return nextPannellumViewer;
                 }
-            }, 260);
+            }, 305); // relative to sidebar animation delay (300)
         }
     });
 }
@@ -368,9 +377,9 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 // closes and cleans up the 360 viewer
 export function close360Viewer() {
     // reveal and unlock map
-    mapLayerMenuDropdown.removeClass("hidden");
+    mapMenuDropdownBtn.removeClass("hidden");
     mapContainer.removeClass("hidden");
-    mapLayerMenuArrow.removeClass("hidden");
+    mapMenuDropdownArrow.removeClass("hidden");
     window.lockDrag = false;
 
     // hide 360 viewer elements
@@ -396,7 +405,12 @@ function destroyAll360Viewers() {
     }
     if (viewer360ContainerSecondary.children().length) {
         window.viewer360Secondary.destroy();
+        window.viewer360Secondary.off(); // todo: need for clean up? pannellum load check usage
     }
+
+    // clear transitionend events regardless (one container will be inactive when in 360 video)
+    viewer360Container[0].ontransitionend = null;
+    viewer360ContainerSecondary[0].ontransitionend = null;
 }
 
 // 360 video clean up
@@ -420,8 +434,9 @@ function clean360Video() {
     viewer360Container.removeClass("hidden-opacity-360video");
 }
 
+// delays opening and closing of media
 export function startMediaClickTimeout() {
     setTimeout(() => {
         window.mediaClickTimeout = false;
-    }, 290);
+    }, 960); // relative to sidebar animation delay / media load stall (305) + media.js css manipulation (20) + trans cover (300+300)
 }

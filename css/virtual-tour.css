@@ -18,18 +18,23 @@
     transform-origin: 0 0;
 }
 
-/*.map-container img + .locations-container { todo: unused
-    position: absolute;
+.absolute-map {
+    position: absolute !important;
     top: 0;
     left: 0;
-}*/
+    right: 0;
+    bottom: 0;
+    padding: inherit;
+}
 
 .map-container svg {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     height: 100%;
     width: auto;
-    /*padding: 15px 15px;*/
+    opacity: 1;
+
+    transition: opacity 0.25s;
 }
 
 /*.locations-container { todo: unused
@@ -45,29 +50,148 @@
 
 .location {
     /*fill: #c8c8c8 !important;*/
+    transition: fill 0.2s;
 }
 
 .location:hover {
     fill: #5a5a5a !important; /* necessary to override because svg style is inlined */
     cursor: pointer;
+
+    transition: fill 0.2s;
 }
 
 
 
 /*
-    ==================
-    Interface Controls
-    ==================
+    =======
+    Sidebar
+    =======
 */
-#north-sidebar-button, #south-sidebar-button, #outside-sidebar-button {
+#north-sidebar-header, #south-sidebar-header, #outside-sidebar-header {
     position: sticky;
     top: 0;
-    z-index: 1;
+    z-index: 2;
+}
+
+#north-location-menu, #south-location-menu, #outside-location-menu {
+    transition: height 0.4s; /* longer transition for big menu */
+}
+
+.dropdown-header-container {
+    position: relative;
+    display: flex;
+    align-items: center; /* just to center dropdown arrow */
+}
+
+.sidebar-dropdown-arrow {
+    height: 12px;
+
+    position: absolute;
+    right: 0.85em;
+    /*z-index: 1;*/
+
+    pointer-events: none;
+    transform: none;
+    transition: transform 0.3s;
 }
 
 
 
-.exit-media-button-container {
+/*
+    ============
+    Map Controls
+    ============
+*/
+.map-menu-container {
+    width: 11.5em;
+
+    position: absolute;
+    z-index: 5;
+    inset: 14px 14px auto auto;
+}
+
+.map-menu-header-container {
+    position: relative;
+    display: flex;
+    align-items: center; /* just to center dropdown arrow */
+}
+
+.map-menu-container button {
+    /*display: block;*/
+    width: 100%;
+    height: 1.7em;
+    padding: 0 1.2em 0 0;
+    text-align: center;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: #ececec;
+    background-color: #730101;
+    border: none;
+
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+}
+
+.map-menu-container button:hover {
+    text-decoration: none;
+    background-color: #961a1a;
+
+    transition: background-color 0.2s;
+}
+
+.map-menu-container button:focus {
+    /*outline: none;*/ /* todo bonus: make it not rounded or get rid of outline and use a background highlight instead. make consistent across other buttons */
+}
+
+#map-menu-dropdown-arrow {
+    filter: invert(100%);
+    height: 8px;
+
+    position: absolute;
+    right: 0.57em;
+
+    pointer-events: none;
+    transform: none;
+    transition: transform 0.3s;
+}
+
+.map-menu {
+    width: 100%;
+    list-style: none;
+    padding-inline-start: 0;
+    cursor: default;
+    background-color: #bebebe;
+
+    overflow: hidden;
+    margin: 0;
+    transition: height 0.3s;
+}
+
+.map-layer-title {
+    font-size: 1em;
+    display: block;
+    text-align: center;
+}
+
+.map-menu-sub {
+    list-style: none;
+    padding-inline-start: 0;
+}
+
+.map-menu-sub li button {
+    background-color: #131313;
+    padding: 0;
+}
+
+
+
+/*
+    ==============
+    Media Controls
+    ==============
+*/
+.exit-media-btn-container {
     position: absolute;
     z-index: 5;
     display: flex;
@@ -78,10 +202,9 @@
     margin: 0;
 }
 
-.exit-media-button {
+.exit-media-btn {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.4);
-    border-radius: 3px;
     height: 35px;
     width: 35px;
     cursor: pointer;
@@ -93,17 +216,28 @@
 
     padding: 0;
     opacity: 70%;
+
+    transition: background-color 0.2s;
 }
 
-.exit-media-button:hover {
+.exit-media-btn:hover {
     background-color: #c9c9c9;
+
+    transition: background-color 0.2s;
 }
 
-.exit-media-button img {
-    height: 15px;
-    width: 15px;
+.exit-media-btn img {
+    height: 14px;
+    width: 14px;
 }
 
+
+
+/*
+    ============
+    360 Controls
+    ============
+*/
 .video-360-controls-container {
     width: 100%;
     position: absolute;
@@ -133,9 +267,8 @@
     line-height: 2.4em;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.4);
-    border-radius: 3px;
     cursor: pointer;
-    opacity: 85%;
+    opacity: 80%;
 
     white-space: pre;
     text-align: center;
@@ -143,97 +276,28 @@
     margin: 0 25px;
 
     pointer-events: auto;
+
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .video-360-button:hover:enabled {
     background-color: #c9c9c9;
+
+    transition: background-color 0.2s;
+}
+
+.video-360-button:disabled {
+    transition: color 0.2s;
 }
 
 .video-360-range {
     width: 80%;
     cursor: pointer;
-    opacity: 85%;
+    opacity: 80%;
 
     margin: 16px 0;
 
     pointer-events: auto;
-}
-
-.map-layer-menu-container {
-    width: 11.5em;
-
-    position: absolute;
-    z-index: 5;
-    inset: 14px 14px auto auto;
-}
-
-.map-layer-menu-container button {
-    /*display: block;*/
-    width: 100%;
-    height: 1.7em;
-    padding: 0 1.2em 0 0;
-    text-align: center;
-    font-size: 1.2em;
-    text-decoration: none;
-    color: #ececec;
-    background-color: #730101;
-    border: none;
-
-    cursor: pointer;
-
-    transition: 0.3s;
-}
-
-.map-layer-menu-container button:hover {
-    text-decoration: none;
-    background-color: #961a1a;
-
-    transition: 0.3s;
-}
-
-#map-dropdown-arrow {
-    filter: invert(100%);
-    display: inline-block;
-    font-size: 1.1em;
-    color: white;
-    line-height: 1.7em;
-    height: 17px;
-
-    position: absolute; /* TODO: align this centered properly */
-    top: 0.45em;
-    right: 0.55em;
-
-    pointer-events: none;
-    transform: none;
-    transition: 0.3s;
-}
-
-.map-layer-menu {
-    width: 100%;
-    list-style: none;
-    padding-inline-start: 0;
-    cursor: default;
-    background-color: #bebebe;
-
-    overflow: hidden;
-    margin: 0;
-    transition: 0.25s;
-}
-
-.map-layer-titles {
-    font-size: 1em;
-    display: block;
-    text-align: center;
-}
-
-.map-layer-menu-sub {
-    list-style: none;
-    padding-inline-start: 0;
-}
-
-.map-layer-menu-sub li button {
-    background-color: #131313;
-    padding: 0;
 }
 
 
@@ -282,7 +346,83 @@
 
 
 /*
-    =======
-    General
-    =======
+    ===================
+    Range Cross-Browser
+    ===================
 */
+input[type=range] {
+    /*width: 100%;*/
+    /*margin: -0.5px 0;*/
+    background-color: transparent;
+    -webkit-appearance: none;
+}
+input[type=range]::-webkit-slider-runnable-track { /* webkit also applies for chrome & edge */
+    background: #ebebeb; /* sync */
+    border: 1px solid rgba(0, 0, 0, 0.4); /* sync */
+    width: 100%;
+    /*height: 18px;*/ /* don't define the height, let the thumb do it so it's centered automatically */
+    /*cursor: pointer;*/
+
+    transition: background 0.2s;
+}
+input[type=range]::-webkit-slider-runnable-track:hover {
+    background: #b9b9b9; /* sync */
+
+    transition: background 0.2s;
+}
+input[type=range]::-webkit-slider-thumb {
+    /*margin-top: -0.5px;*/
+    width: 12px;
+    height: 16px;
+    background: #171717; /* sync */
+    /*border: 0px solid rgba(0, 0, 0, 0);*/
+    /*border: 0;*/
+    /*cursor: pointer;*/
+    -webkit-appearance: none;
+}
+
+input[type=range]::-moz-range-track { /* firefox */
+    background: #ebebeb; /* sync */
+    border: 1px solid rgba(0, 0, 0, 0.4); /* sync */
+    width: 100%;
+    height: 17px;
+    /*cursor: pointer;*/
+
+    transition: background 0.2s;
+}
+input[type=range]::-moz-range-track:hover {
+    background: #b9b9b9; /* sync */
+
+    transition: background 0.2s;
+}
+input[type=range]::-moz-range-thumb {
+    width: 12px;
+    height: 17px;
+    background: #171717; /* sync */
+    /*border: 0px solid rgba(0, 0, 0, 0);*/
+    border: none;
+    border-radius: 0;
+    /*cursor: pointer;*/
+}
+
+
+input[type=range]:disabled {
+    /* Disabled Element */
+}
+input[type=range]:disabled::-webkit-slider-runnable-track {
+    background: rgba(173, 173, 173, 0.8); /* sync */
+
+    transition: background 0.2s;
+}
+input[type=range]:disabled::-webkit-slider-thumb {
+    background: rgba(23, 23, 23, 0.8); /* sync */
+}
+
+input[type=range]:disabled::-moz-range-track {
+    background: rgba(173, 173, 173, 0.8); /* sync */
+
+    transition: background 0.2s;
+}
+input[type=range]:disabled::-moz-range-thumb {
+    background: rgba(23, 23, 23, 0.8); /* sync */
+}

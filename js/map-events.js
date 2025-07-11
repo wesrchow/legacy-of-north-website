@@ -2,6 +2,7 @@
 
 import {centerResetMap} from "./map-movement.js";
 import {initMapLayerMenu} from "./map-menu.js";
+import {startSidebarClickTimeout} from "./sidebar.js";
 
 // repeated locations helper
 const repeatedMapLocations = ["north-stairway-1-map", "north-stairway-12-map", "north-stairway-2-map", "north-stairway-22-map", "north-stairway-3-map",
@@ -63,10 +64,12 @@ export function addMapLinksNew(idArray) {
         let dropdownLink = undefined; // dropdown link of the location if it exists
 
         if (sidebarIDSelector.parent().hasClass("sidebar-list-3")) {
-            sectionLink = sidebarIDSelector.parent().parent().parent().parent().prev(); // get the section of the location
-            dropdownLink = sidebarIDSelector.parent().parent().prev(); // get the dropdown of the location
+            sectionLink = sidebarIDSelector.parent().parent().parent().parent().prev().children().eq(0); // get the section of the location
+            dropdownLink = sidebarIDSelector.parent().parent().prev().children().eq(0); // get the dropdown of the location
+        } else if (sidebarIDSelector.parent().hasClass("dropdown-header-container")) {
+            sectionLink = sidebarIDSelector.parent().parent().parent().prev().children().eq(0); // get the section of the location
         } else {
-            sectionLink = sidebarIDSelector.parent().parent().prev(); // get the section of the location
+            sectionLink = sidebarIDSelector.parent().parent().prev().children().eq(0); // get the section of the location
         }
 
         addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink); // add the actual click event
@@ -83,7 +86,7 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
     // add click event to map location that triggers sidebar click
     mapIDSelector.click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && !window.mapClickTimeout && !window.sidebarClickTimeout) {
+        if (!window.lockMapSelection && !window.mapClickTimeout && !window.sidebarClickTimeout && !window.sidebarSecClickTimeout) { // prevent fast double clicks between things
             // manage click timeout
             window.mapClickTimeout = true;
             startMapClickTimeout();
@@ -92,12 +95,24 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
                 sectionLink[0].click();
             }
 
+            // selecting sub media
+            if (dropdownLink !== undefined && !dropdownLink.hasClass("active")) { // open relevant dropdown once
+                dropdownLink.data("mediaActive", true); // stop the dropdown from rendering the first image event todo bonus: make sure this always fires before the click and check
+                dropdownLink[0].click(); // click the sub media's parent dropdown
+                window.sidebarClickTimeout = false; // skip sidebar timeout since we need to click sub media
+            }
+
             setTimeout(() => {
                 sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); // todo: double check theres no shifting from these settings,
                 // todo bonus: fix sections pixel gap when animating an element close to the end
             }, 250); // must match element height animation time (defined in css)
 
-            sidebarIDSelector[0].click();
+            sidebarIDSelector[0].click(); // click the target media button
+
+            // trigger this here to prevent rapid map then sidebar click (since we skip it in the sidebar click event)
+            // todo: remove since we removed the skip i think (keep making sure this doesnt break anything)
+            // window.sidebarClickTimeout = true;
+            // startSidebarClickTimeout();
         }
     });
 

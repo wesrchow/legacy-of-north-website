@@ -5,20 +5,37 @@
 /*
     Pannellum
 */
+.hidden-opacity-360video {
+    opacity: 0 !important;
+    transition: opacity 0.8s;
+}
+
 .pnlm-controls-container {
     opacity: 70%;
+
     inset: auto 16px 16px auto;
     z-index: 6;
 }
 
+.pnlm-controls {
+    border-radius: 0;
+}
+
+.pnlm-control {
+    border-radius: 0;
+    /*transition: background-color 0.2s;*/ /* TODO: pannellum not happy when: transition away from current viewer (destroy?), go back to that viewer in any way, touch the controls with mouse */
+}
+
 .pnlm-control:hover {
     background-color: #c9c9c9;
+
+    /*transition: background-color 0.2s;*/ /* TODO: pannellum not happy when: transition away from current viewer (destroy?), go back to that viewer in any way, touch the controls with mouse */
 }
 
 /*
     Other
 */
-.dropdown-rotate {
+.dropdown-flip {
     transform: rotateX(180deg) !important;
-    transition: 0.3s;
+    transition: transform 0.3s;
 }

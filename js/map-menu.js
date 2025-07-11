@@ -1,7 +1,7 @@
 /* Map menu events */
 
 import {centerResetMap} from "./map-movement.js";
-import {sidebarAnimReveal, sidebarAnimHide} from "./media.js";
+import * as mediaHelper from "./media.js";
 
 
 // add the events for the map layer menu
@@ -15,38 +15,42 @@ export function initMapLayerMenu() {
     const mapLayerOutside = $("#map-layer-outside");
 
     // Map layer menu selectors
-    const mapLayerMenuDropdown = $("#map-layer-menu-dropdown");
-    const mapLayerMenuArrow = $("#map-dropdown-arrow");
-    const mapLayerMenu = $("#map-layer-menu");
-    const mapLayerMenuNorth1st = $("#map-layer-menu-north-1st");
-    const mapLayerMenuNorth2nd = $("#map-layer-menu-north-2nd");
-    const mapLayerMenuNorth3rd = $("#map-layer-menu-north-3rd");
-    const mapLayerMenuSouth1st = $("#map-layer-menu-south-1st");
-    const mapLayerMenuSouth2nd = $("#map-layer-menu-south-2nd");
-    const mapLayerMenuOutside = $("#map-layer-menu-outside");
+    const mapMenuContainer = $("#map-menu-container");
+    const mapMenuDropdownBtn = $("#map-menu-dropdown-btn");
+    const mapMenuDropdownArrow = $("#map-menu-dropdown-arrow");
+    const mapLayerMenu = $("#map-menu");
+    const mapLayerMenuNorth1st = $("#map-menu-north-1st");
+    const mapLayerMenuNorth2nd = $("#map-menu-north-2nd");
+    const mapLayerMenuNorth3rd = $("#map-menu-north-3rd");
+    const mapLayerMenuSouth1st = $("#map-menu-south-1st");
+    const mapLayerMenuSouth2nd = $("#map-menu-south-2nd");
+    const mapLayerMenuOutside = $("#map-menu-outside");
+
+    // other selectors
+    const mediaTransCover = $("#media-trans-cover");
 
     // Helper variables
     const mapLayerMenuTitles = ["North 1st Floor", "North 2nd Floor", "North 3rd Floor", "South 1st Floor", "South 2nd Floor", "Outside"];
     // default start state
     let currentMapLayer = mapLayerNorth2nd; // initial map layer
-    mapLayerMenuDropdown.text(mapLayerMenuTitles[1]); // initial menu title
+    mapMenuDropdownBtn.text(mapLayerMenuTitles[1]); // initial menu title
     let currentBuilding = 1; // 1 = north, 2 = south, 3 = outside
 
     // events for locking map when mouse is hovering the menu
-    mapMenuLockPanning(mapLayerMenuDropdown);
+    mapMenuLockPanning(mapMenuDropdownBtn);
     mapMenuLockPanning(mapLayerMenu);
 
     // map menu dropdown toggle
-    sidebarAnimHide(mapLayerMenu, true); // hide initially
-    mapLayerMenuDropdown.click(function () {
+    mediaHelper.heightAnimHide(mapLayerMenu, true); // hide initially
+    mapMenuDropdownBtn.click(function () {
         // mapLayerMenu.toggleClass("hidden");
         if (mapLayerMenu.css("display") === "none") {
-            sidebarAnimReveal(mapLayerMenu);
+            mediaHelper.heightAnimReveal(mapLayerMenu);
         } else {
-            sidebarAnimHide(mapLayerMenu, false);
+            mediaHelper.heightAnimHide(mapLayerMenu, false);
         }
 
-        mapLayerMenuArrow.toggleClass("dropdown-rotate");
+        mapMenuDropdownArrow.toggleClass("dropdown-flip");
     });
 
     //
@@ -77,20 +81,39 @@ export function initMapLayerMenu() {
     });
 
     // helper function to switch map layers by toggling "hidden" class
-    function switchMapLayers(targetMapLayer, targetBuilding, title) {
+    function switchMapLayers(targetMapLayer, targetBuilding, title) { // todo: add click timeout to prevent rapid clicking
         if (currentMapLayer !== targetMapLayer) {
-            mapLayerMenuDropdown.text(mapLayerMenuTitles[title]); // change menu title (active layer)
+            mapMenuDropdownBtn.text(mapLayerMenuTitles[title]); // change menu title (active layer)
 
-            // hide the current layer and show the target layer
-            currentMapLayer.toggleClass("hidden");
-            targetMapLayer.toggleClass("hidden");
-
+            // swap map layers accordingly
             if (targetBuilding !== currentBuilding) { // if the buildings are different, reset the map
-                centerResetMap(targetBuilding);
-                currentBuilding = targetBuilding;
+                mapMenuContainer.css('z-index', '7'); // temp set z-index to be above trans cover
+                mediaHelper.mediaTransReveal(mediaTransCover, false); // media trans cover
+
+                setTimeout(function () { // allow trans cover to show first
+                    currentMapLayer.addClass("hidden"); // todo bonus: small concern about this not switching faster than the media cover begins hiding
+                    currentMapLayer.addClass("media-trans-hidden");
+
+                    targetMapLayer.removeClass("hidden");
+                    targetMapLayer.removeClass("media-trans-hidden");
+
+                    centerResetMap();
+                    currentBuilding = targetBuilding;
+
+                    mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
+                }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
+            } else { // within building transition
+                mediaHelper.mediaTransHide(currentMapLayer);
+                mediaHelper.mediaTransReveal(targetMapLayer, true);
             }
 
-            currentMapLayer = targetMapLayer;
+            setTimeout(function () {
+                currentMapLayer = targetMapLayer;
+            }, 355); // relative to letting maps transition first
+
+            setTimeout(function () {
+                mapMenuContainer.css('z-index', '5'); // reset z-index
+            }, 700); // relative to above trans hide cover finishing
         }
     }
 }
