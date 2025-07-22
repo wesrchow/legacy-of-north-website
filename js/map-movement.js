@@ -46,7 +46,7 @@ export function initMapMovementEvents() {
     mediaContainer.mousedown(function (event) {
         if (!window.lockDrag) { // check if allowed to pan
             window.mouseDragging = true;
-            mediaContainer.css("cursor", "move"); // todo bonus: move cursor when dragging on locations (mouse over, stylesheet editing, idk)
+
 
             startMouse.x = event.clientX;
             startMouse.y = event.clientY;
@@ -60,7 +60,7 @@ export function initMapMovementEvents() {
     $(document).mouseup(function () {
         if (!window.lockDrag) {
             window.mouseDragging = false;
-            mediaContainer.css("cursor", "default");
+            mediaContainer.removeClass("map-dragging"); // remove cursor change
 
             previousMap.x = position.x;
             previousMap.y = position.y;
@@ -83,6 +83,8 @@ export function initMapMovementEvents() {
                 setTimeout(function () {
                     window.lockMapSelection = true;
                 }, 70);
+
+                mediaContainer.addClass("map-dragging"); // for cursor change
 
                 // calculate new position
                 currentMouse.x = event.clientX;

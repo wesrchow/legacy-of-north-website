@@ -185,10 +185,11 @@ function addSidebarButtonClick() {
 
                 // active buttons & media handling
                 if (!sectionSidebarButtons.includes(this.id)) { // ignore section dropdowns
-                    // manage click timeouts for sidebar buttons
+                    // manage click timeouts for sidebar buttons & map
                     window.sidebarClickTimeout = true;
                     startSidebarClickTimeout();
                     window.sidebarSecClickTimeout = false; // skip section timeout if media is being clicked (fast section -> media click; aka map click behaviour)
+                    window.lockDrag = true; // lock map movement (where all media opens trigger immediately here)
 
                     if (this.parentElement.classList.contains("sidebar-list-3")) { // if clicking sub media
 

@@ -134,8 +134,6 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 viewer360Container.removeClass("hidden");
                 exitMediaButton.removeClass("hidden");
 
-                window.lockDrag = true; // lock map movement
-
                 // create a new pannellum viewer
                 window.viewer360 = pannellum.viewer('viewer-360-container', {
                     "type": "equirectangular",
@@ -209,8 +207,6 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
                 video360ButtonNext.removeClass("hidden");
                 video360ButtonPrev.removeClass("hidden");
                 video360Range.removeClass("hidden");
-
-                window.lockDrag = true; // lock map movement
 
                 // always start at the one end of the hallway
                 content360Filename = filename360VideoArray[1].toString();
@@ -315,7 +311,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                         video360Range.prop("disabled", false);
                         video360Range.css("cursor", "pointer");
-                    }, 1050); // relative to fade delay & transition time (transitionend takes longer than exact transition time, extra 110ms absolute min)
+                    }, 1150); // relative to load delay (220) + transition time (800) + transitionend buffer (20) todo: confirm this timing + extra (110)
                 }
 
                 // trigger for 360 video transition
@@ -352,7 +348,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     setTimeout(function () {
                         prevContainer.addClass("hidden-opacity-360video"); // fade out previous viewer
-                    }, 200); // allow other viewer to load fully first
+                    }, 220); // allow other viewer to load fully first (load delay hiding)
 
                      if (!prevContainer[0].ontransitionend) { // only add event on the first time
                          prevContainer[0].ontransitionend = (event) => {

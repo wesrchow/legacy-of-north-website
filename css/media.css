@@ -197,7 +197,7 @@ body, html {
     position: absolute;
     z-index: 6;
     
-    transition: opacity 250ms;
+    transition: opacity 300ms;
 }
 
 .media-trans-loader { /* todo: dimensions, colour, position */
@@ -208,6 +208,10 @@ body, html {
 
     position: absolute;
     inset: auto auto 50px auto;
+
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-drag: none;
 
     animation: loader-pulse 0.85s infinite alternate;
     animation-delay: 1.5s; /* wait longer than typical load time before showing */

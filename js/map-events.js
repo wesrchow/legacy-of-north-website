@@ -87,9 +87,9 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
     mapIDSelector.click(function (e) {
         e.preventDefault()
         if (!window.lockMapSelection && !window.mapClickTimeout && !window.sidebarClickTimeout && !window.sidebarSecClickTimeout) { // prevent fast double clicks between things
-            // manage click timeout
-            window.mapClickTimeout = true;
-            startMapClickTimeout();
+            // no click timeout management (trans cover blocks immediately, sidebar clicks timeout)
+            // window.mapClickTimeout = true; // todo: remove since media trans cover blocks immediately and sidebarclicks immediately and times out
+            // startMapClickTimeout(); // todo: remove
 
             if (!sectionLink.hasClass("active")) { // open relevant section once
                 sectionLink[0].click();
@@ -103,7 +103,7 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
             }
 
             setTimeout(() => {
-                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); // todo: double check theres no shifting from these settings,
+                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); // todo: double check theres no visual shifting from these settings,
                 // todo bonus: fix sections pixel gap when animating an element close to the end
             }, 250); // must match element height animation time (defined in css)
 
@@ -118,8 +118,8 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
 
 }
 
-function startMapClickTimeout() {
-    setTimeout(() => {
-        window.mapClickTimeout = false;
-    }, 380);
-}
+// function startMapClickTimeout() { // todo: remove
+//     setTimeout(() => {
+//         window.mapClickTimeout = false;
+//     }, 380); //
+// }

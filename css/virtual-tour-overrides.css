@@ -1,5 +1,12 @@
-.no-transition {
-    transition: none !important;
+/*
+    Map
+*/
+.map-dragging {
+    cursor: move !important;
+}
+
+.map-dragging .location:hover {
+    cursor: move !important;
 }
 
 /*
@@ -7,7 +14,7 @@
 */
 .hidden-opacity-360video {
     opacity: 0 !important;
-    transition: opacity 0.8s;
+    transition: opacity 800ms;
 }
 
 .pnlm-controls-container {
@@ -35,6 +42,10 @@
 /*
     Other
 */
+.no-transition {
+    transition: none !important;
+}
+
 .dropdown-flip {
     transform: rotateX(180deg) !important;
     transition: transform 0.3s;

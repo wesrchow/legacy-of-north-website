@@ -69,8 +69,6 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                     preload: 'auto',
                     restoreEl: true
                 }, linearVideoLoadInit); // video js load callback // todo: do proper pathing
-
-                window.lockDrag = true; // lock map movement
             }, 305); // relative to sidebar animation delay (300)
         }
     });
