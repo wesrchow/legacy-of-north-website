@@ -69,7 +69,7 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                     preload: 'auto',
                     restoreEl: true
                 }, linearVideoLoadInit); // video js load callback // todo: do proper pathing
-            }, 305); // relative to sidebar animation delay (300)
+            }, 305); // relative to sidebar dropdown animation (300)
         }
     });
 }

@@ -149,7 +149,7 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 window.viewer360.on("load", function () {
                     mediaTransHide(mediaTransCover);
                 });
-            }, 305); // relative to sidebar animation delay (300)
+            }, 305); // relative to sidebar dropdown animation (300)
         }
     });
 }
@@ -365,7 +365,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     return nextPannellumViewer;
                 }
-            }, 305); // relative to sidebar animation delay (300)
+            }, 305); // relative to sidebar dropdown animation (300)
         }
     });
 }

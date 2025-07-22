@@ -394,5 +394,5 @@ export function startSidebarClickTimeout() { // todo: remove export if not used
 function startSecSidebarClickTimeout() {
     setTimeout(function () {
         window.sidebarSecClickTimeout = false;
-    }, 960); // relative to other sidebar click timeout (960)
+    }, 500); // relative to section sidebar animation delay (450)
 }

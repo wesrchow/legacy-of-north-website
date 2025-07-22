@@ -72,24 +72,22 @@ export function addMapLinksNew(idArray) {
             sectionLink = sidebarIDSelector.parent().parent().prev().children().eq(0); // get the section of the location
         }
 
-        addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink); // add the actual click event
+        addMapLinkClick(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink); // add the actual click event
 
         if (repeatedMapLocations.includes(mapIDString)) { // for repeated locations add it again to the repeated map location
-            addMapLinkClickNew($(`#${mapIDString + "-repeat"}`), sidebarIDSelector, sectionLink, dropdownLink);
+            addMapLinkClick($(`#${mapIDString + "-repeat"}`), sidebarIDSelector, sectionLink, dropdownLink);
         }
     }
 }
 
-function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink) {
+function addMapLinkClick(mapIDSelector, sidebarIDSelector, sectionLink, dropdownLink) {
     mapIDSelector.addClass("location"); // give location link custom css
 
     // add click event to map location that triggers sidebar click
     mapIDSelector.click(function (e) {
         e.preventDefault()
-        if (!window.lockMapSelection && !window.mapClickTimeout && !window.sidebarClickTimeout && !window.sidebarSecClickTimeout) { // prevent fast double clicks between things
+        if (!window.lockMapSelection && !window.sidebarClickTimeout && !window.sidebarSecClickTimeout) { // prevent fast double clicks between things
             // no click timeout management (trans cover blocks immediately, sidebar clicks timeout)
-            // window.mapClickTimeout = true; // todo: remove since media trans cover blocks immediately and sidebarclicks immediately and times out
-            // startMapClickTimeout(); // todo: remove
 
             if (!sectionLink.hasClass("active")) { // open relevant section once
                 sectionLink[0].click();
@@ -103,23 +101,12 @@ function addMapLinkClickNew(mapIDSelector, sidebarIDSelector, sectionLink, dropd
             }
 
             setTimeout(() => {
-                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); // todo: double check theres no visual shifting from these settings,
+                sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: fix center for safari?
                 // todo bonus: fix sections pixel gap when animating an element close to the end
-            }, 250); // must match element height animation time (defined in css)
+            }, 370); // relative to element height animation time (450ms, centers properly when less than time), allow media to load (delay ~305ms)
 
             sidebarIDSelector[0].click(); // click the target media button
-
-            // trigger this here to prevent rapid map then sidebar click (since we skip it in the sidebar click event)
-            // todo: remove since we removed the skip i think (keep making sure this doesnt break anything)
-            // window.sidebarClickTimeout = true;
-            // startSidebarClickTimeout();
         }
     });
 
 }
-
-// function startMapClickTimeout() { // todo: remove
-//     setTimeout(() => {
-//         window.mapClickTimeout = false;
-//     }, 380); //
-// }
