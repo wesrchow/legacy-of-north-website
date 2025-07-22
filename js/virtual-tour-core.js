@@ -21,7 +21,7 @@ window.activeMediaSecondary = undefined; // handles media switching and closing 
 window.mediaClickTimeout = false; // prevent media double clicks
 window.sidebarClickTimeout = false; // prevent sidebar double clicks
 window.sidebarSecClickTimeout = false; // prevent sidebar section double clicks
-window.mapClickTimeout = false; // prevent map double clicks
+// window.mapClickTimeout = false; // prevent map double clicks todo: remove
 window.resizedWhileMedia = false; // check resized when media is active (not fullscreens)
 window.mediaActiveFullscreen = false; //track media fullscreen toggle (specific window resize type)
 

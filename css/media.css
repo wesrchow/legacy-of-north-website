@@ -162,7 +162,7 @@ body, html {
     opacity: 1;
     overflow: hidden;
 
-    transition: height 0.3s;
+    transition: height 300ms;
 }
 
 

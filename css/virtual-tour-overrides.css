@@ -9,6 +9,7 @@
     cursor: move !important;
 }
 
+
 /*
     Pannellum
 */
@@ -38,6 +39,7 @@
 
     /*transition: background-color 0.2s;*/ /* TODO: pannellum not happy when: transition away from current viewer (destroy?), go back to that viewer in any way, touch the controls with mouse */
 }
+
 
 /*
     Other

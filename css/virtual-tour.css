@@ -74,7 +74,7 @@
 }
 
 #north-location-menu, #south-location-menu, #outside-location-menu {
-    transition: height 0.4s; /* longer transition for big menu */
+    transition: height 450ms; /* longer transition for big menus */
 }
 
 .dropdown-header-container {
@@ -92,7 +92,11 @@
 
     pointer-events: none;
     transform: none;
-    transition: transform 0.3s;
+    transition: transform 300ms;
+}
+
+#north-sidebar-header .sidebar-dropdown-arrow, #south-sidebar-header .sidebar-dropdown-arrow, #outside-sidebar-header .sidebar-dropdown-arrow {
+    transition: transform 450ms; /* longer transition for big menus */
 }
 
 
@@ -153,7 +157,7 @@
 
     pointer-events: none;
     transform: none;
-    transition: transform 0.3s;
+    transition: transform 300ms;
 }
 
 .map-menu {
@@ -165,7 +169,7 @@
 
     overflow: hidden;
     margin: 0;
-    transition: height 0.3s;
+    transition: height 300ms;
 }
 
 .map-layer-title {

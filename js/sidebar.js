@@ -388,11 +388,11 @@ function initSidebarSticky() {
 export function startSidebarClickTimeout() { // todo: remove export if not used
     setTimeout(function () {
         window.sidebarClickTimeout = false;
-    }, 960); // relative to sidebar animation delay / media load stall (305) + media.js css manipulation (20) + trans cover (300+300)
+    }, 960); // relative to sidebar animation delay / media load stall (305) + trans cover (300+300) + extra (55)
 }
 
 function startSecSidebarClickTimeout() {
     setTimeout(function () {
         window.sidebarSecClickTimeout = false;
-    }, 960); // relative to other sidebar click timeout (950)
+    }, 960); // relative to other sidebar click timeout (960)
 }
