@@ -434,5 +434,5 @@ function clean360Video() {
 export function startMediaClickTimeout() {
     setTimeout(() => {
         window.mediaClickTimeout = false;
-    }, 960); // relative to sidebar animation delay / media load stall (305) + trans cover (300+300) + extra (55)
+    }, 970); // relative to sidebar animation delay / media load stall (305) + trans cover fade out (300) + extra (365)
 }

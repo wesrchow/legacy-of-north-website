@@ -1,7 +1,7 @@
 /* Custom Styles Within Gallery */
 .sidebar-list-1 {
     overflow: hidden;
-    transition: height 0.3s;
+    transition: height 300ms;
 }
 
 /*

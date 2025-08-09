@@ -105,7 +105,7 @@ export function initMapLayerAnim() {
                 setTimeout(function () {
                     mapLayer.addClass("hidden");
                     targetMapLayer.removeClass("absolute-map");
-                }, 120); // allow cover to fully fade
+                }, 20); // allow cover to fully fade
             }
         };
     });

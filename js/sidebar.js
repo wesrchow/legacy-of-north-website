@@ -243,7 +243,7 @@ function addSidebarButtonClick() {
 
                         setTimeout(function () { // allow trans cover to show first
                             mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
-                        }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
+                        }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time, map trans cover sync)
                     }
                 }
 
@@ -303,8 +303,8 @@ function searchTypeEvent() {
         clearTimeout(typingTimer);
 
         typingTimer = setTimeout(function () {
-            filterSearchElements(sidebarLocationElements);
-        }, 150);
+            filterSearchElements(sidebarLocationElements); // todo: fix to allow quick multi section opening timeouts
+        }, 150); // todo: tweak timing (50 wpm = 250 cpm = 240 ms)
 
     });
 }
@@ -385,10 +385,10 @@ function initSidebarSticky() {
 }
 
 
-export function startSidebarClickTimeout() { // todo: remove export if not used
+function startSidebarClickTimeout() {
     setTimeout(function () {
         window.sidebarClickTimeout = false;
-    }, 960); // relative to sidebar animation delay / media load stall (305) + trans cover (300+300) + extra (55)
+    }, 970); // relative to sidebar animation delay / media load stall (305) + trans cover fade out (300) + extra (365)
 }
 
 function startSecSidebarClickTimeout() {

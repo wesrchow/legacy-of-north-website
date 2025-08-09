@@ -112,7 +112,7 @@ export function initMapLayerMenu() {
                         currentBuilding = targetBuilding;
 
                         mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover & reveal map
-                    }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
+                    }, 350); // relative to trans cover animation delay (300) (held a bit longer so it's natural compared to media load time, media close sync)
                 } else { // within building transition
                     mediaHelper.mediaTransHide(currentMapLayer);
                     mediaHelper.mediaTransReveal(targetMapLayer, true);

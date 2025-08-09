@@ -98,7 +98,7 @@ body, html {
     padding-left: 30px;
     /*max-height: 5em;*/
 
-    transition: height 0.3s;
+    transition: height 300ms;
 }
 
 .sidebar-list-3 {
@@ -119,7 +119,7 @@ body, html {
     -webkit-user-drag: none; /* todo: still necessary now that it's button? */
     cursor: pointer;
 
-    transition: background-color 0.2s;
+    transition: background-color 300ms;
 }
 
 .sidebar-list-1 button {
@@ -144,7 +144,7 @@ body, html {
 
     /*transform: scale(1.03);*/
 
-    transition: background-color 0.2s;
+    transition: background-color 300ms;
 }
 
 .sidebar button.active {
@@ -155,7 +155,7 @@ body, html {
 
     /*transform: scale(1.03);*/
 
-    transition: background-color 0.2s;
+    transition: background-color 300ms;
 }
 
 .dropdown-container {

@@ -34,13 +34,12 @@ function addGalleryClicks() {
     for (let i = 0; i < galleryMenu.length; i++) {
         galleryMenu[i].addEventListener("click", function () {
             if (!window.sidebarClickTimeout) {
-
-                // active class toggle
-                this.classList.toggle("active");
-
                 // manage click timeouts
                 window.sidebarClickTimeout = true;
                 startSidebarClickTimeout();
+
+                // active class toggle
+                this.classList.toggle("active");
 
                 if (window.activeMedia !== this) { // if not clicking same media again
                     mediaHelper.mediaTransReveal(mediaTransCover, false);
@@ -138,9 +137,10 @@ function openGallery(index) {
                 mediaHelper.mediaTransHide(mediaTransCover);
             });
         }, 'text');
-    }, 261); // relative to sidebar animation delay & media trans cover reveal (also must wait for potential prior gallery close)
+    }, 305); // relative to trans cover animation delay (300)
 }
 
+// properly close and clean up gallery where necessary
 function closeGallery(selfClose) {
     mediaHelper.mediaTransReveal(mediaTransCover, false); // media trans cover
 
@@ -153,27 +153,19 @@ function closeGallery(selfClose) {
             // allow closes time to process before hiding cover (below)
             window.galleryViewer.destroy();
             prevContents.remove();
-        }, 300); // relative to trans cover animation delay
+        }, 320); // relative to trans cover animation delay (300)
 
-        // back to blank gallery screen so we need to handle hiding the cover
         setTimeout(function () { // allow trans cover to show first
             mediaHelper.mediaTransHide(mediaTransCover); // hide trans cover
-        }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time)
+        }, 350); // relative to trans cover animation delay (held a bit longer so it's natural compared to media load time, map trans cover sync)
     } else {
-        // can't allow more time for closes to process here because we must open the new gallery immediately
-
         setTimeout(function () { // allow trans cover to show first
             window.galleryViewer.destroy();
             prevContents.remove();
-        }, 260); // relative to trans cover animation delay
+        }, 305); // relative to trans cover animation delay
     }
 }
 
-function startSidebarClickTimeout() {
-    setTimeout(function () {
-        window.sidebarClickTimeout = false;
-    }, 290);
-}
 
 
 /*
@@ -188,7 +180,7 @@ function searchTypeEvent() {
 
         typingTimer = setTimeout(function () {
             filterSearchElements(sidebarLocationElements);
-        }, 150);
+        }, 150);  // todo: tweak timing (50 wpm = 250 cpm = 240 ms)
 
     });
 }
@@ -211,4 +203,11 @@ function filterSearchElements(sidebarLocationElements) {
             }
         }
     }
+}
+
+
+function startSidebarClickTimeout() {
+    setTimeout(function () {
+        window.sidebarClickTimeout = false;
+    }, 970); // relative to virtual tour timeout (970)
 }

@@ -2,7 +2,6 @@
 
 import {centerResetMap} from "./map-movement.js";
 import {initMapLayerMenu} from "./map-menu.js";
-import {startSidebarClickTimeout} from "./sidebar.js";
 
 // repeated locations helper
 const repeatedMapLocations = ["north-stairway-1-map", "north-stairway-12-map", "north-stairway-2-map", "north-stairway-22-map", "north-stairway-3-map",
