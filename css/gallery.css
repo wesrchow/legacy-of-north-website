@@ -16,15 +16,18 @@
 }
 
 .gallery-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 14em);
+    column-gap: 0.3em;
+    row-gap: 0.3em;
+    justify-content: center;
+    align-content: start;
+
     position: relative;
     height: 100%;
     width: 100%;
-    flex-flow: row wrap;
-    justify-content: center;
-    align-content: flex-start;
 
-    padding: 2em 0;
+    padding: 2em;
     overflow-y: scroll;
 
     -webkit-user-drag: none;
@@ -32,31 +35,32 @@
 }
 
 .gallery-container div {
-    height: 12em;
-    width: 12em;
+    height: 14em;
+    width: 14em;
 
     overflow: hidden;
-    margin: 0.2em;
+    /*margin: 0.2em;*/
 
     cursor: pointer;
 }
 
 .gallery-container img {
-    height: 12em;
-    width: 12em;
+    height: 14em;
+    width: 14em;
     object-fit: cover;
+
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -khtml-user-drag: none; /* todo: match up with other non drag and cross browser? */
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-select: none;
+
+    transition: opacity 300ms;
 }
 
-/*.gallery-container video {*/
-/*    height: 12em;*/
-/*    width: auto;*/
+.gallery-container img:hover {
+    opacity: 75%; /* todo: finalize exact value */
 
-/*    position: relative;*/
-/*    left: 50%;*/
-/*    transform: translateX(-50%);*/
-
-/*    !* calculate the width by taking height and multiplying by the aspect ratio, subtract the thumbnail width size, divide by 2 for each side that goes out side the bounds *!*/
-/*    !*clip-path: inset(0 calc(((12em*(16/9)) - 12em)/2));*!*/
-
-/*    cursor: pointer;*/
-/*}*/
+    transition: opacity 300ms;
+}
