@@ -306,14 +306,14 @@ function searchTypeEvent() {
         clearTimeout(typingTimer);
 
         typingTimer = setTimeout(function () {
-            filterSearchElements(sidebarLocationElements);
+            filterSearchElements(sidebarLocationElements, undefined);
         }, 400); // todo: finalize timing (50 wpm = 250 cpm = 240 ms), but also section sidebar animation delay is (450), even 300 seems to work okay?
 
     });
 }
 
 // location search filtering
-export function filterSearchElements(sidebarLocationElements) {
+export function filterSearchElements(sidebarLocationElements, mapClickSection) {
     let filter = searchBarReg.value.toUpperCase(); // comparison search string
     let sectionCheck = ["", false, false, false]; // check if the section should be active
     let revealList = [];
@@ -335,6 +335,7 @@ export function filterSearchElements(sidebarLocationElements) {
     }
 
     if (filter === "") sectionCheck = ["", false, false, false]; // shut all sections if search bar is empty
+    if (mapClickSection) sectionCheck[sectionCheckFilter(mapClickSection)] = true; // keep relevant section open if click from map
 
     // loop through reveal and hide lists
     for (let i = 0; i < revealList.length; i++) {

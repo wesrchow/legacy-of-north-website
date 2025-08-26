@@ -2,6 +2,7 @@
 
 import {centerResetMap} from "./map-movement.js";
 import {initMapLayerMenu} from "./map-menu.js";
+import {filterSearchElements} from "./sidebar.js";
 
 // repeated locations helper
 const repeatedMapLocations = ["north-stairway-1-map", "north-stairway-12-map", "north-stairway-2-map", "north-stairway-22-map", "north-stairway-3-map",
@@ -88,6 +89,13 @@ function addMapLinkClick(mapIDSelector, sidebarIDSelector, sectionLink, dropdown
         if (!window.lockMapSelection && !window.sidebarClickTimeout && !window.sidebarSecClickTimeout) { // prevent fast double clicks between things
             // no click timeout management (trans cover blocks immediately, sidebar clicks timeout)
 
+            const searchBarReg = document.getElementById("search-bar");
+            if (searchBarReg.value !== "") { // clear search bar
+                searchBarReg.value = "";
+                const sidebarLocationElements = $(".sidebar-list-2"); // get all the li location elements
+                filterSearchElements(sidebarLocationElements, sectionLink); // clear search filter, keep relevant section open if click from map
+            }
+
             if (!sectionLink.hasClass("active")) { // open relevant section once
                 sectionLink[0].click();
             }
@@ -99,12 +107,12 @@ function addMapLinkClick(mapIDSelector, sidebarIDSelector, sectionLink, dropdown
                 window.sidebarClickTimeout = false; // skip sidebar timeout since we need to click sub media
             }
 
+            sidebarIDSelector[0].click(); // click the target media button
+
             setTimeout(() => {
                 sidebarIDSelector[0].scrollIntoView({behavior: "smooth", block: "center"}); // todo: fix center for safari?
                 // todo bonus: fix sections pixel gap when animating an element close to the end
             }, 370); // relative to element height animation time (450ms, centers properly when less than time), allow media to load (delay ~305ms)
-
-            sidebarIDSelector[0].click(); // click the target media button
         }
     });
 
