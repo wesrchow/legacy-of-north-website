@@ -295,53 +295,64 @@ function addSidebarButtonClick() {
     }
 }
 
+
+// main search event listener
 function searchTypeEvent() {
     const sidebarLocationElements = $(".sidebar-list-2"); // get all the li location elements
     let typingTimer;
+
     // filter the search results on key up events
     searchBarReg.addEventListener("keyup", function () {
         clearTimeout(typingTimer);
 
         typingTimer = setTimeout(function () {
-            filterSearchElements(sidebarLocationElements); // todo: fix to allow quick multi section opening timeouts
-        }, 150); // todo: tweak timing (50 wpm = 250 cpm = 240 ms)
+            filterSearchElements(sidebarLocationElements);
+        }, 400); // todo: finalize timing (50 wpm = 250 cpm = 240 ms), but also section sidebar animation delay is (450), even 300 seems to work okay?
 
     });
 }
 
 // location search filtering
-// TODO bonus: merge with gallery searching (but theres no dropdowns there)
-function filterSearchElements(sidebarLocationElements) {
+export function filterSearchElements(sidebarLocationElements) {
     let filter = searchBarReg.value.toUpperCase(); // comparison search string
     let sectionCheck = ["", false, false, false]; // check if the section should be active
+    let revealList = [];
+    let hideList = [];
 
     // loop through all list items, do the filtering
     for (let i = 0; i < sidebarLocationElements.length; i++) {
         let locationName = sidebarLocationElements.eq(i).find("button").eq(0).text().toUpperCase(); // get formatted location name
         let sectionLink = sidebarLocationElements.eq(i).parent().prev().children().eq(0); // get the section of the location
 
+        // organize reveal and hide lists first so we can know section actions ahead of time
         if (locationName.indexOf(filter) > -1) { // exact match somewhere in the name
-            sectionCheck[sectionCheckFilter(sectionLink)] = true; // set section to active
-
-            if (!sectionLink.hasClass("active")) { // open relevant section once
-                sectionLink[0].click();
-            }
-
-            if (sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already visible
-                mediaHelper.heightAnimReveal(sidebarLocationElements.eq(i));
-            }
+            // ignore empty search bar that would match everything
+            if (filter !== "") sectionCheck[sectionCheckFilter(sectionLink)] = true; // set section to active
+            revealList.push(sidebarLocationElements.eq(i));
         } else {
-            if (!sidebarLocationElements.eq(i).hasClass("sidebar-selection-hidden")) { // don't do anything if already hidden
-                mediaHelper.heightAnimHide(sidebarLocationElements.eq(i), false);
-            }
+            hideList.push(sidebarLocationElements.eq(i));
         }
     }
 
-    if (filter === "") { // shut all sections if search bar is empty
-        sectionCheck = ["", false, false, false];
+    if (filter === "") sectionCheck = ["", false, false, false]; // shut all sections if search bar is empty
+
+    // loop through reveal and hide lists
+    for (let i = 0; i < revealList.length; i++) {
+        if (revealList[i].hasClass("sidebar-selection-hidden")) { // don't do anything if already visible
+            mediaHelper.heightAnimReveal(revealList[i]);
+        }
     }
 
-    verifySectionCheck(sectionCheck); // shuts sections if no elements are searched from them
+    for (let i = 0; i < hideList.length; i++) {
+        let sectionLink = sidebarLocationElements.eq(i).parent().prev().children().eq(0); // get the section of the location
+
+        if (!hideList[i].hasClass("sidebar-selection-hidden") && sectionCheck[sectionCheckFilter(sectionLink)] === true) {
+            // don't do anything if already hidden, only hide if section is active
+            mediaHelper.heightAnimHide(hideList[i], false);
+        }
+    }
+
+    searchSectionCheck(sectionCheck);
 }
 
 // section search filtering for indexing
@@ -356,21 +367,24 @@ function sectionCheckFilter(sectionLink) {
     }
 }
 
-// verify if sections should be closed
-function verifySectionCheck(sectionCheck) {
-    // give the section a click if its active but should be closed
-    if (sectionCheck[1] === false && northSidebarButton.hasClass("active")) {
+function searchSectionCheck(sectionCheck) {
+    // handles both active click and close click
+    if (sectionCheck[1] !== northSidebarButton.hasClass("active")) {
         northSidebarButton[0].click();
+        window.sidebarSecClickTimeout = false;
     }
 
-    if (sectionCheck[2] === false && southSidebarButton.hasClass("active")) {
+    if (sectionCheck[2] !== southSidebarButton.hasClass("active")) {
         southSidebarButton[0].click();
+        window.sidebarSecClickTimeout = false;
     }
 
-    if (sectionCheck[3] === false && outsideSidebarButton.hasClass("active")) {
+    if (sectionCheck[3] !== outsideSidebarButton.hasClass("active")) {
         outsideSidebarButton[0].click();
+        window.sidebarSecClickTimeout = false;
     }
 }
+
 
 // Setup sidebar stick headers for search and sections
 function initSidebarSticky() {

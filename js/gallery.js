@@ -174,13 +174,14 @@ function closeGallery(selfClose) {
 function searchTypeEvent() {
     const sidebarLocationElements = $(".sidebar-list-1"); // get all the li location elements
     let typingTimer;
+
     // filter the search results on key up events
     searchBarReg.addEventListener("keyup", function () {
         clearTimeout(typingTimer);
 
         typingTimer = setTimeout(function () {
             filterSearchElements(sidebarLocationElements);
-        }, 150);  // todo: tweak timing (50 wpm = 250 cpm = 240 ms)
+        }, 400);  // todo: match timing with virtual tour
 
     });
 }
