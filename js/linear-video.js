@@ -68,8 +68,8 @@ export function createLinearVideoEvent(selectorIDString, contentVideoFilename, s
                     autoplay: false,
                     preload: 'auto',
                     restoreEl: true
-                }, linearVideoLoadInit); // video js load callback // todo: do proper pathing
-            }, 305); // relative to sidebar dropdown animation (300)
+                }, linearVideoLoadInit); // video js load callback
+            }, 305); // relative to sidebar dropdown animation & trans cover show (300)
         }
     });
 }

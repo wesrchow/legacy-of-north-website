@@ -44,23 +44,23 @@ export function init360Videos() {
     }, 'text');
 
     jQuery.get("./csv/360-video/south-1st-floor-filenames.csv", function (data) {
-        add360VideoLinks($.csv.toArrays(data), 230, 32, 2);
+        add360VideoLinks($.csv.toArrays(data), 240, 32, 2);
     }, 'text');
 
     jQuery.get("./csv/360-video/south-2nd-floor-filenames.csv", function (data) {
-        add360VideoLinks($.csv.toArrays(data), 230, 31, 2);
+        add360VideoLinks($.csv.toArrays(data), 240, 31, 2);
     }, 'text');
 
     jQuery.get("./csv/360-video/south-foyer-filenames.csv", function (data) {
-        add360VideoLinks($.csv.toArrays(data), 65, 18, 2);
+        add360VideoLinks($.csv.toArrays(data), 58, 18, 2);
     }, 'text');
 
     jQuery.get("./csv/360-video/south-tech-ed-filenames.csv", function (data) {
-        add360VideoLinks($.csv.toArrays(data), 230, 8, 2);
+        add360VideoLinks($.csv.toArrays(data), 232, 8, 2);
     }, 'text');
 
     jQuery.get("./csv/360-video/sports-centre-filenames.csv", function (data) {
-        add360VideoLinks($.csv.toArrays(data), 230, 8, 2);
+        add360VideoLinks($.csv.toArrays(data), 232, 8, 2);
     }, 'text');
 }
 
@@ -137,19 +137,18 @@ export function create360PhotoViewerEvent(selectorIDString, content360Filename, 
                 // create a new pannellum viewer
                 window.viewer360 = pannellum.viewer('viewer-360-container', {
                     "type": "equirectangular",
-                    "panorama": `media/virtual-tour/${sectionFilepath[section]}/${content360Filename}`,
-                    "friction": 0.08,
+                    "basePath": "media/virtual-tour/",
+                    "panorama": `${sectionFilepath[section]}/${content360Filename}`,
                     "autoLoad": true,
-                    "compass": false,
-                    "keyboardZoom": false,
-                    "disableKeyboardCtrl": true
-                }); // todo: finalize these options and do proper pathing
+                    "friction": 0.07,
+                    "compass": false
+                }); // todo deploy: pathing
 
                 // once viewer loaded, fade out the media trans
                 window.viewer360.on("load", function () {
                     mediaTransHide(mediaTransCover);
                 });
-            }, 305); // relative to sidebar dropdown animation (300)
+            }, 305); // relative to sidebar dropdown animation & trans cover show (300)
         }
     });
 }
@@ -215,14 +214,13 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                 window.viewer360 = pannellum.viewer("viewer-360-container", {
                     "type": "equirectangular",
-                    "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
-                    "friction": 0.08,
+                    "basePath": "media/virtual-tour/",
+                    "panorama": `${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
                     "autoLoad": true,
-                    "compass": false,
-                    "keyboardZoom": false,
-                    "disableKeyboardCtrl": true,
-                    "yaw": initialYaw
-                });
+                    "friction": 0.07,
+                    "yaw": initialYaw,
+                    "compass": false
+                }); // todo deploy: pathing
 
                 // once viewer loaded, fade out the media trans
                 window.viewer360.on("load", function () {
@@ -311,7 +309,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                         video360Range.prop("disabled", false);
                         video360Range.css("cursor", "pointer");
-                    }, 1150); // relative to load delay (220) + transition time (800) + transitionend buffer (20) todo: confirm this timing + extra (110)
+                    }, 1150); // relative to load delay (220) + transition time (800) + transitionend buffer (20) todo bonus: confirm this timing + extra (110)
                 }
 
                 // trigger for 360 video transition
@@ -333,15 +331,14 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     nextPannellumViewer = pannellum.viewer(nextContainerString, {
                         "type": "equirectangular",
-                        "panorama": `media/virtual-tour/${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
-                        "friction": 0.08,
+                        "basePath": "media/virtual-tour/",
+                        "panorama": `${sectionFilepath[section]}/${filename360VideoArray[0][0].toString()}/${content360Filename}`,
                         "autoLoad": true,
-                        "compass": false,
-                        "keyboardZoom": false,
-                        "disableKeyboardCtrl": true,
+                        "friction": 0.07,
                         "yaw": 360 + prevPannellumViewer.getYaw(),
-                        "pitch": prevPannellumViewer.getPitch()
-                    });
+                        "pitch": prevPannellumViewer.getPitch(),
+                        "compass": false
+                    }); // todo deploy: pathing
 
                     // show next viewer immediately underneath while fading out previous viewer
                     nextContainerSelector.removeClass("hidden-opacity-360video");
@@ -365,7 +362,7 @@ function add360VideoLinks(filename360VideoArray, initialYaw, fileCount, section)
 
                     return nextPannellumViewer;
                 }
-            }, 305); // relative to sidebar dropdown animation (300)
+            }, 305); // relative to sidebar dropdown animation & trans cover show (300)
         }
     });
 }
